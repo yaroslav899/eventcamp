@@ -1,0 +1,389 @@
+body{
+    font-family: 'Montserrat', arial;
+}
+h1{
+    font-family: 'Montserrat Light', arial;
+    font-size: 1.4em;
+    color:#0367b7;
+    padding: 1% 0;
+}
+li.event_list{
+    list-style-type: none;
+    background-color:#f5f5f5;
+    margin-bottom:12px;
+    border-radius: 0 10px 10px 0;
+    border: 1px solid #dbdbdb;
+}
+li.event_list a{
+    color:#000000;
+    text-decoration: none;
+}
+li.event_list img.event_list-img{
+    border:0;
+    width:100%;
+    height: 140px;
+}
+li.event_list div.event_list-title{
+    font-weight:bold;
+    padding: 1.2% 0;
+}
+li.event_list div.event_list-price{
+    background: #ffffff;
+    border-radius: 0 10px 0 0;
+    color: #004f8f;
+    margin: 0 0 5% 0;
+    padding: 1% 0 1% 5%;
+    float: right;
+    width: 80%;
+    font-weight: bold;
+
+}
+li.event_list div.event_list-location{
+    clear:both;
+    padding: 1% 0 1% 15%;
+    color: #000000;
+    background: url(http://board.it-mir.net.ua/wp-content/uploads/2018/05/locator.png) no-repeat left center;
+    font-size: 0.75em;
+}
+li.event_list div.event_list-date{
+    clear:both;
+    padding: 1% 0 1% 15%;
+    color: #000000;
+    background: url(http://board.it-mir.net.ua/wp-content/uploads/2018/05/date.png) no-repeat left center;
+    font-size: 0.75em;
+    height: 20px;
+    overflow: hidden;
+}
+li.event_list div.event_list-description{
+    height: 40px;
+    overflow: hidden;
+    color: #4c4c4c;
+    font-size: 0.8em;
+}
+li.event_list div.event_list-tags{
+    position:absolute;
+    bottom:10px;
+    font-size:0.8em;
+}
+li.event_list div.event_list-tags span.tagOpt{
+    color:#0367b7;
+    background:#ffffff;
+    margin-right:5px;
+    padding:4px 14px;
+    border-radius:5px;
+}
+li.event_list div.event_list-action{
+    position: absolute;
+    bottom: 3px;
+}
+li.event_list div.event_list-action button{
+    border: 0;
+    border-radius: 5px;
+    font-size: 0.9em;
+    padding: 0 45px;
+    cursor:pointer;
+}
+li.event_list div.event_list-action button.event_list-actionGo{
+    background: #ffffff;
+    margin-right: 5px;
+}
+li.event_list div.event_list-action button.event_list-actionMore{
+    background: #0367b7;
+    color:#ffffff;
+}
+div.event_list-pagination ul{
+    list-style-type:none;
+    margin: 0;
+    padding: 0;
+}
+div.event_list-pagination ul li{
+    float: left;
+}
+div.event_list-pagination ul li a{
+    color:#8c8c8c;
+    margin-right:10px;
+    font-size: 0.8em;
+}
+div.event_list-pagination ul li.active a{
+    background: #0367b7;
+    color: #ffffff;
+    padding: 3px 8px;
+    border-radius: 15px;
+}
+.event-filter-option{
+    padding: 0 7% 7% 7%;
+    background-color:#f5f5f5;
+    font-size:0.9em;
+    border: 1px solid #dbdbdb;
+    border-radius: 5px;
+}
+.event-filter-option p{
+    margin:0;
+    padding:0;
+    font-size:0.9em;
+    padding: 6% 0 1% 0;
+    color:#0367b7;
+    font-weight:bold;
+}
+.last-post-list{
+    margin: 25px 0;
+}
+.last-post-list h4{
+    font-size:1em;
+    color: #0367b7;
+}
+.last-post-list ul {
+    margin:0;
+    padding:0;
+}
+.last-post-list li.last-post-rightside{
+    list-style-type:none;
+    margin: 0 0 20px 0;
+}
+.last-post-list li.last-post-rightside a:hover{
+    text-decoration:none;
+}
+.last-post-list .last-post-title{
+    font-size: 0.8em;
+    font-weight:bold;
+    margin: 0 0 4px 0;
+}
+.last-post-list .last-post-price{
+    background-color: #0367b7;
+    color: #ffffff;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 0.8em;
+}
+.last-post-list .last-post-location{
+    color: #565656;
+    font-size: 0.7em;
+    background: url(http://board.it-mir.net.ua/wp-content/uploads/2018/05/locator.png) no-repeat left center;
+    padding: 0 0 0 20%;
+    margin: 0 0 3px 0;
+}
+.last-post-list .last-post-date{
+    color: #565656;
+    font-size: 0.7em;
+    background: url(http://board.it-mir.net.ua/wp-content/uploads/2018/05/date.png) no-repeat left center;
+    padding: 0 0 0 20%;
+}
+.last-post-list .last-post-tags{
+    margin: 4px 0 0 0;
+}
+.last-post-list .last-post-tags .tagOpt{
+    font-size: 0.7em;
+    border: 1px solid #8f8f8f;
+    padding: 2px 8px;
+    border-radius: 5px;
+    margin: 0 5px 0 0;
+}
+div.date-range{
+    font-size: 0.9em;
+    background-color: #f5f5f5;
+    margin: 20px 0;
+    border-radius: 5px;
+    border: 1px solid #dbdbdb;
+}
+div.date-range p{
+    font-size: 0.9em;
+    text-align: center;
+    padding: 3%;
+    border-radius: 5px;
+    background-color: #f5f5f5;
+}
+div.date-range p button{
+    background: #0367b7;
+    color: #ffffff;
+    border: 0;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline;
+    padding: 3% 8%;
+    width: 160px;
+}
+/*Detail page*/
+div.area-1 {
+    color:#565656;
+}
+div.area-1 div.area-1_image{
+    padding:0 0 0 15px;
+    height: 229px;
+    overflow: hidden;
+}
+div.area-1 div.area-1_text{
+    padding:0;
+}
+div.area-1 div.area-1_info{
+    background-color: #f5f5f5;
+    padding:24px;
+    height: 85%;
+}
+div.area-1 div.area-1_info span.day{
+    font-size:2em;
+    font-weight:bold;
+}
+div.area-1 div.area-1_info span.month{
+    font-size:1em;
+    font-weight:bold;
+    position: absolute;
+    padding-left: 5px;
+}
+div.area-1 div.area-1_info span.time{
+    font-size: 0.9em;
+    margin-left: 1%;
+}
+div.area-1 div.area-1_info p.area-1_location{
+    background: url(http://board.it-mir.net.ua/wp-content/uploads/2018/05/locator.png) no-repeat left center;
+    padding-left: 20px;
+    margin-top: 5%;
+}
+div.area-1 div.area-1_info p.area-1_tags{
+    margin:10px 0;
+}
+div.area-1 div.area-1_info p.area-1_tags span.tagOpt{
+    background: #ffffff;
+    color: #0367b7;
+    font-size: 0.8em;
+    padding: 3px 14px;
+    border-radius: 5px;
+    margin-right: 2%;
+}
+div.area-1 div.area-1_price{
+    background-color: #ffffff;
+    border-right:1px solid #f5f5f5;
+    border-top:1px solid #f5f5f5;
+    border-radius: 0 20px 0 0;
+    color: #0367b7;
+    font-size: 1.2em;
+    font-weight:bold;
+    padding:2px 15px 2px 0;
+}
+div.area-2{
+    color:#565656;
+}
+div.area-2 div.area-2_address{
+    padding-left:40px;
+}
+div.right-side div.socialButton{
+    float:left;
+    margin:10px 0 10px 10px
+}
+ul.react-tabs__tab-list{
+    list-style-type:none;
+    padding: 0;
+    margin: 25px 0 0 0;
+    border-top:1px solid #dbdbdb;
+}
+ul.react-tabs__tab-list li{
+    cursor:pointer;
+    float:left;
+    font-weight:bold;
+    margin: 15px 0;
+    padding:3px 11px;
+    border-radius:10px;
+    margin-right:17px;
+}
+ul.react-tabs__tab-list li.react-tabs__tab--selected{
+    color:#ffffff;
+    background-color:#0367b7;
+}
+div.react-tabs__tab-panel{
+    clear:both;
+}
+div.react-tabs__tab-panel div.event_text img{
+    max-width:100%;
+}
+div.react-tabs__tab-panel div.event_text p.rcl-custom-fields {
+    display:none;
+}
+div.loader{
+    background: url('http://board.it-mir.net.ua/wp-content/uploads/2018/06/Loading_icon.gif') no-repeat center center;
+    height:100%;
+    width:100%;
+    position:absolute;
+    z-index:999;
+}
+div.calendar-link{
+    text-align:center;
+    margin: 30px 0 20px 0;
+}
+div.calendar-link p{
+    font-weight:bold;
+    font-size:0.7em;
+    color: #0367b7;
+    padding: 0;
+    margin: 0 0 10px 0;
+}
+div.feedback-detail-right{
+    text-align:center;
+    margin: 25px 0 45px 0;
+}
+div.feedback-detail-right a.write-organisator{
+    display: inline-block;
+    margin-top: 15px;
+     background-color: #0367b7;
+     color: #ffffff;
+     font-weight: bold;
+     font-size: 0.8em;
+     padding: 5px 20px;
+     border-radius: 5px;
+ }
+div.feedback-detail-right a.feedback-registration{
+    display: inline-block;
+    margin-top: 15px;
+    background-color: #f5f5f5;
+    color: #0367b7;
+    font-weight: bold;
+    font-size: 0.8em;
+    padding: 5px 30px;
+    border:1px solid #dbdbdb;
+    border-radius: 5px;
+}
+div.right-side div.detail-interesting{
+    margin-top:25px;
+}
+div.right-side div.detail-interesting h4{
+    color: #0367b7;
+    font-size: 1.1em;
+    text-align: center;
+}
+div.right-side li.same-post-rightside{
+    list-style-type:none;
+    margin-bottom: 25px;
+}
+div.right-side li.same-post-rightside img{
+    width:100%;
+}
+div.right-side li.same-post-rightside div.samePost-info-rightside{
+    background-color: rgba(18,100,165,0.9);
+    border-bottom: 1px solid #f5f5f5;
+    color: #ffffff;
+    font-size: 0.7em;
+    margin: 0;
+}
+
+div.socialShare{
+    text-align:center;
+}
+div.samePost-title{
+    font-weight: bold;
+    margin: 10px 0;
+}
+div.samePost-price{
+    margin: 10px 0;
+}
+div.samePost-location{
+}
+div.samePost-date{
+}
+img.detail-picture{
+    height: 235px;
+    width: 415px;
+}
+div.clear{
+    clear:both;
+}
+img.googleCal{
+    width:40%;
+}
