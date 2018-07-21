@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom';
 import moment from 'moment';
 import {request} from '../../api';
 
-class DetailInteresting extends React.Component {
+class DetailInteresting extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -13,16 +13,15 @@ class DetailInteresting extends React.Component {
 
     componentDidMount(){
         let data = this.props.data;
-        return getInterestingList(data).then(posts => {
+        return request.getInterestingData(data).then(posts => {
             this.setState({
-                posts: posts.filter(post => post.id!=data.id)
+                posts: posts.filter(post => post.id != data.id)
             });
         });
     }
 
     render(){
         if (!this.state.posts) return <div></div>;
-        console.log(this.state.posts.length)
         const samePosts = this.state.posts.map(samePost => <li key={samePost.id} className='same-post-rightside'>
                 <div className="row">
                     <div className="col-12">
@@ -51,10 +50,5 @@ class DetailInteresting extends React.Component {
         )
     }
 }
-
-const getInterestingList = function(data){
-    return request.getInterestingData(data);
-};
-
 
 export default DetailInteresting;

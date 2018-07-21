@@ -19,9 +19,9 @@ class App extends React.Component {
             <Router history={createBrowserHistory()}>
                 <Switch>
                     <Route path='/' component={EventList} exact/>
-                    <Route path='/:city' component={EventList} exact/>
-                    <Route path='/:city/:categories' component={EventList} exact/>
-                    <Route path='/:city/:categories/:id' component={EventDetail} />
+                    <Route path='/:cities' component={EventList} exact/>
+                        <Route path='/:cities/:categories' component={EventList} exact/>
+                    <Route path='/:cities/:categories/:id' component={EventDetail} />
                 </Switch>
             </Router>
         </Provider>

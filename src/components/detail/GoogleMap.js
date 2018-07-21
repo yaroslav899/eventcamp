@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {request} from '../../api';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';

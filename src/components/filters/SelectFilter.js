@@ -1,6 +1,6 @@
-import React, { Component, PropTypes } from 'react'
-import Select from 'react-select'
-import 'react-select/dist/react-select.css'
+import React, { Component, PropTypes } from 'react';
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
 import {categories, cities} from '../../fixtures';
 import store from '../../store'
 import {request} from '../../api';
@@ -10,8 +10,6 @@ import { connect } from 'react-redux';
 class SelectFilter extends Component {
     constructor(props) {
         super(props);
-        //this.changeSelection = this.changeSelection.bind(this);
-        //this.changeTheme = this.changeTheme.bind(this);
         this.state = {
             themes: [{
                 "id": "999",
@@ -20,6 +18,11 @@ class SelectFilter extends Component {
             }],
             currentTheme : ''
         };
+    }
+
+    componentDidMount() {
+        const initialParams = this.props;
+        var g = 0;
     }
 
     render() {
@@ -151,26 +154,16 @@ class SelectFilter extends Component {
                 return;
         }
         //adding history
-        let category = this.props.categories;
-        let city = this.props.cities;
         let name = data.name;
-        console.log(category);
-        console.log(city);
 
+        let state = {
+            'categories': this.props.categories ? getParamsValue(categories, this.props.categories) : '',
+            'cities': this.props.cities ? getParamsValue(cities, this.props.cities) : ''
+        };
 
-
-        let value = getParamsValue(data.values, selection ? selection.value : '');
-        let state = { name : value};
-        let title = document.title + value;
-        let url;
-        if (city) {
-            url = getParamsValue('cities', city) + '/' + value;
-        } else {
-            url = 'any/' + value;
-        }
-
-        document.title = title;
-        history.pushState(state, title, url);
+        state[name] = getParamsValue(data.values, selection ? selection.value : '');
+        let url = '/' + (state.cities.length ? state.cities : 'any') + '/' + state.categories;
+        history.pushState(window.location.origin, '', url);
     }
 }
 const mapStateToProps = function(store) {

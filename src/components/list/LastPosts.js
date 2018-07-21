@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import store from '../../store';
@@ -7,7 +7,7 @@ import {request} from '../../api';
 import {NavLink} from 'react-router-dom';
 import {categories, cities, free} from '../../fixtures';
 
-class LastPosts extends React.Component {
+class LastPosts extends Component {
     constructor(props) {
         super(props);
     }
@@ -46,7 +46,7 @@ class LastPosts extends React.Component {
                     <div className="col-12">
                         <div className="last-post-tags">{post.acf.tags ?
                             post.acf.tags.split(',').map(tag =>
-                                <span className="tagOpt">{tag}</span>
+                                <span className="tagOpt" key={tag}>{tag}</span>
                             ) : ''}</div>
                     </div>
 

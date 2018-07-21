@@ -1,11 +1,10 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import store from '../store';
 import {request} from '../api';
 import moment from 'moment';
 import Filters from './filters';
-import Exchange from './exchange';
 import Pagination from './Pagination';
 import LastPosts from './list/LastPosts';
 import {NavLink} from 'react-router-dom';
@@ -19,11 +18,35 @@ class EventList extends Component {
         };
     }
 
-    componentWillMount(){
+    shouldComponentUpdate(nextProps, nextState) {
+        if (JSON.stringify(this.props.posts) == JSON.stringify(nextProps.posts)) {
+            return false;
+        }
+        return true;
     }
 
     componentDidMount(){
         const initialParams = this.props.match.params;
+        if ('cities' in initialParams) {
+            if (initialParams.cities === 'any') {
+                initialParams.cities = '';
+            } else {
+                let values = cities.filter(item => item.url == initialParams.cities);
+                initialParams.cities = values.length ? values[0].id : '';
+                store.dispatch({
+                    type: 'UPDATE_FILTER_CITY',
+                    cities: initialParams.cities
+                });
+            }
+        }
+        if ('categories' in initialParams) {
+            let values = categories.filter(item => item.url == initialParams.categories);
+            initialParams.categories = values.length ? values[0].id : '';
+            store.dispatch({
+                type: 'UPDATE_FILTER_CATEGORY',
+                categories: initialParams.categories
+            });
+        }
         return request.getListPosts(initialParams).then(posts => {
                 store.dispatch({
                     type: 'EVENT_LIST_UPDATE',
@@ -32,10 +55,11 @@ class EventList extends Component {
         })
     }
 
-    render(){
-        if (!this.props.posts.length) return <div className="loader"></div>;
-        const articleElements = this.props.posts.map(article => <li key={article.id} className='event_list'>
-            <NavLink to = {`${'kiev'}/${getParamValue(categories, article.categories[0], 'url')}/${article.id}`}>
+    render() {
+        let articleElements;
+        if (!this.props.posts.length) return articleElements = 'записи отсутствуют';
+        articleElements = this.props.posts.map(article => <li key={article.id} className='event_list'>
+            <NavLink to = {`/${'kiev'}/${getParamValue(categories, article.categories[0], 'url')}/${article.id}`}>
                 <div className="row">
                     <div className="col-3">
                         <img src={article.acf.picture || 'http://board.it-mir.net.ua/wp-content/uploads/2018/05/nophoto.jpg'} className="event_list-img"/>
@@ -44,8 +68,8 @@ class EventList extends Component {
                         <div className="event_list-title"  dangerouslySetInnerHTML={{__html: article.title.rendered}}></div>
                         <div className="event_list-description" dangerouslySetInnerHTML={{__html: article.excerpt.rendered}}></div>
                         <div className="event_list-tags">{article.acf.tags ?
-                                                        article.acf.tags.split(',').map(tag =>
-                                                            <span className="tagOpt">{tag}</span>
+                            article.acf.tags.split(',').map(tag =>
+                                <span className="tagOpt" key={tag}>{tag}</span>
                                                         ) : ''}</div>
                     </div>
                     <div className="col-3">
@@ -98,11 +122,17 @@ const mapStateToProps = function(store) {
     }
 };
 
-const getParamValue = function(categories, id, param){
+const setTitlePage = (categories, cities) => {
+    let categoryTitle = this.props.categories ? getParamValue(categories, this.props.categories, 'name') + '. ' : '',
+        cityTitle = this.props.cities ? ' в городе ' + getParamValue(cities, this.props.cities, 'name') : '';
+    document.title = categoryTitle + this.state.title + cityTitle;
+}
+
+const getParamValue = (categories, id, param) => {
     var currentCategory = categories.filter(function(item){
-        return (item.id == id)
+        return (item.id == id);
     });
-    return currentCategory[0][param]
+    return currentCategory[0][param];
 };
 
 export default connect(mapStateToProps)(EventList);

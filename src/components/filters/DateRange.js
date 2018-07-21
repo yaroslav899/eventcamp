@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import DayPicker, { DateUtils } from 'react-day-picker'
+import React, { Component } from 'react';
+import DayPicker, { DateUtils } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import {request} from '../../api';
 // Include the locale utils designed for moment

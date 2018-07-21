@@ -1,10 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom';
-import { connect } from 'react-redux';
-import store from '../store';
 import {request} from '../api';
 import moment from 'moment';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import {categories, cities, free} from '../fixtures';
 import DetailTabs from './detail/DetailTabs';
 import SocialShare from './detail/SocialShare';
@@ -12,7 +9,7 @@ import Calendar from './detail/Calendar';
 import FeedBack from './detail/FeedBack';
 import DetailInteresting from './detail/DetailInteresting';
 
-class EventDetail extends React.Component {
+class EventDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -26,7 +23,7 @@ class EventDetail extends React.Component {
                 this.setState({
                     post: post
                 });
-            return post
+                return post;
             }).then(data => {
                 document.title = data.title.rendered;
             })

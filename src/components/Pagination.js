@@ -1,10 +1,8 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import store from '../store';
 import {request} from '../api';
-import {NavLink} from 'react-router-dom';
-import {categories} from '../fixtures';
 
 class Pagination extends Component {
     constructor(props) {
