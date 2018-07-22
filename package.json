@@ -17,9 +17,9 @@
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/romabelka/js_ru_08_06_17"
+    "url": "https://github.com/yaroslav899/eventcamp"
   },
-  "homepage": "https://github.com/romabelka/js_ru_08_06_17",
+  "homepage": "https://github.com/yaroslav899/eventcamp",
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
