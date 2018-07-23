@@ -20,8 +20,8 @@ class App extends React.Component {
                 <Switch>
                     <Route path='/' component={EventList} exact/>
                     <Route path='/:cities' component={EventList} exact/>
-                        <Route path='/:cities/:categories' component={EventList} exact/>
-                    <Route path='/:cities/:categories/:id' component={EventDetail} />
+                    <Route path='/:cities/:categories' component={EventList} exact/>
+                    <Route path='/events/:cities/:categories/:id' component={EventDetail} />
                 </Switch>
             </Router>
         </Provider>

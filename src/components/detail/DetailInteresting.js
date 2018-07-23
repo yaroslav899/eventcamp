@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom';
 import moment from 'moment';
-import {request} from '../../api';
+import { NavLink } from 'react-router-dom';
+import { request } from '../../api';
+import { categories, cities, free } from '../../fixtures';
 
 class DetailInteresting extends Component {
     constructor(props) {
@@ -23,6 +25,7 @@ class DetailInteresting extends Component {
     render(){
         if (!this.state.posts) return <div></div>;
         const samePosts = this.state.posts.map(samePost => <li key={samePost.id} className='same-post-rightside'>
+            <NavLink to={`/${'events'}/${'kiev'}/`}>
                 <div className="row">
                     <div className="col-12">
                         <img src={samePost.acf.picture || 'http://board.it-mir.net.ua/wp-content/uploads/2018/05/nophoto.jpg'} className=""/>
@@ -41,6 +44,7 @@ class DetailInteresting extends Component {
                         </div>
                     </div>
                 </div>
+            </NavLink>
         </li>);
         return (
             <div className="detail-interesting">
@@ -50,5 +54,19 @@ class DetailInteresting extends Component {
         )
     }
 }
+
+const getParamValue = (categories, id, param) => {
+    var currentCategory = categories.filter(function (item) {
+        return (item.id == id);
+    });
+    return currentCategory[0][param];
+};
+
+const getParamValueCity = (cities, id, param) => {
+    var currentCity = cities.filter(function (item) {
+        return item.name == id;
+    })
+    return currentCity[0].url;
+};
 
 export default DetailInteresting;
