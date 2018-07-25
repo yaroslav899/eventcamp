@@ -1,11 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import Select from 'react-select';
-import 'react-select/dist/react-select.css';
-import {categories, cities} from '../../fixtures';
 import store from '../../store'
-import {request} from '../../api';
-import {NavLink} from 'react-router-dom';
+import { request } from '../../api';
+import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { categories, cities } from '../../fixtures';
+import { filterRecources } from '../../recources';
+import { getValueFromParams } from '../../helper';
 
 class SelectFilter extends Component {
     constructor(props) {
@@ -20,29 +21,22 @@ class SelectFilter extends Component {
         };
     }
 
-    componentDidMount() {
-        const initialParams = this.props;
-        var g = 0;
-    }
-
     render() {
         return (
             <div className="event-filter-option">
-                <p>Город</p>
-                <Select
-                    name="form-field-cities"
-                    label="cities"
-                    options={cities.map(city =>({
+                <p>{filterRecources.city}</p>
+                <Select name="form-field-cities"
+                        label="cities"
+                        options={cities.map(city =>({
                                 label : city.name,
                                 value : city.id,
                                 type : 'cities'
                             }))}
-                    value={this.props.cities}
-                    onChange={this.changeCity}
+                        value={this.props.cities}
+                        onChange={this.changeCity}
                 />
-                <p>Категория</p>
-                <Select
-                        name="form-field-category"
+                <p>{filterRecources.category}</p>
+                <Select name="form-field-category"
                         label="categories"
                         options={categories.map(category =>({
                                     label : category.name,
@@ -52,17 +46,16 @@ class SelectFilter extends Component {
                         value={this.props.categories}
                         onChange={this.changeCategory}
                 />
-                <p>Тема</p>
-                <Select
-                    name="form-field-themes"
-                    label="themes"
-                    options={this.state.themes.map(theme =>({
+                <p>{filterRecources.topic}</p>
+                <Select name="form-field-themes"
+                        label="themes"
+                        options={this.state.themes.map(theme =>({
                                 label : theme.name,
                                 value : theme.id,
                                 type : 'themes'
                             }))}
-                    value={this.state.currentTheme}
-                    onChange={this.changeTheme}
+                        value={this.state.currentTheme}
+                        onChange={this.changeTheme}
                 />
             </div>
         )
@@ -83,15 +76,9 @@ class SelectFilter extends Component {
         var param = this.state.themes.filter(function(theme){
             return theme.name === selection.label;
         });
-        if (selection) {
-            this.setState({
-                currentTheme: selection
-            });
-        } else {
-            this.setState({
-                currentTheme: ''
-            });
-        }
+        this.setState({
+            currentTheme: selection || ''
+        });
     };
 
     changeSelection = (type, selection)=> {
@@ -154,15 +141,12 @@ class SelectFilter extends Component {
                 return;
         }
         //adding history
-        let name = data.name;
-
-        let state = {
-            'categories': this.props.categories ? getParamsValue(categories, this.props.categories) : '',
-            'cities': this.props.cities ? getParamsValue(cities, this.props.cities) : ''
+        let status = {
+            'categories': this.props.categories ? getValueFromParams(categories, this.props.categories[0], 'id', 'url') : '',            
+            'cities': this.props.cities ? getValueFromParams(cities, this.props.cities[0], 'id', 'url') : ''
         };
-
-        state[name] = getParamsValue(data.values, selection ? selection.value : '');
-        let url = '/' + (state.cities.length ? state.cities : 'any') + '/' + state.categories;
+        status[data.name] = getValueFromParams(data.values, selection ? selection.value : '', 'id', 'url');        
+        let url = '/' + (status.cities.length ? status.cities : 'any') + '/' + status.categories;
         history.pushState(window.location.origin, '', url);
     }
 }
@@ -172,13 +156,6 @@ const mapStateToProps = function(store) {
         categories : store.filterState.categories,
         cities : store.filterState.cities
     }
-};
-
-const getParamsValue = function(data, id){
-    var currentCategory = data.filter(function(item){
-        return (item.id == id[0])
-    });
-    return currentCategory[0].url
 };
 
 export default connect(mapStateToProps)(SelectFilter);

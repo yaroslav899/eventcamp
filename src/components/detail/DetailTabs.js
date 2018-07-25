@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import moment from 'moment';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import GoogleMap from './GoogleMap';
+import { detailRecources } from '../../recources';
 
 class DetailTabs extends Component {
     constructor(props) {
@@ -27,8 +27,8 @@ class DetailTabs extends Component {
         return(
             <Tabs>
                 <TabList>
-                    <Tab>Описание</Tab>
-                    <Tab>Как добраться</Tab>
+                    <Tab>{detailRecources.description}</Tab>
+                    <Tab>{detailRecources.howToGet}</Tab>
                 </TabList>
 
                 <TabPanel>
@@ -47,7 +47,6 @@ class DetailTabs extends Component {
             </Tabs>
         )
     }
-
 }
 
 export default DetailTabs;

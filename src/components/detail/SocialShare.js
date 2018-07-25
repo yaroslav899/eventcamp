@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import { globalRecources } from '../../recources';
 
-class SocialShare extends React.Component {
+class SocialShare extends Component {
     render(){
-        if (!this.props.data) return <div>Загрузка...</div>;
+        if (!this.props.data) return <div>{globalRecources.loading}</div>;
         let data = this.props.data;
 
         return (

@@ -1,8 +1,7 @@
-import React, { Component } from 'react'
-import ReactDOM from 'react-dom';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import store from '../store';
-import {request} from '../api';
+import { request } from '../api';
 
 class Pagination extends Component {
     constructor(props) {

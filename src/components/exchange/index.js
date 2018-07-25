@@ -1,5 +1,4 @@
-import React, { Component, PropTypes } from 'react'
-import ReactDOM from 'react-dom';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import store from '../../store'
 import {request} from '../../api';
@@ -17,8 +16,6 @@ class Exhange extends Component {
     }
 
     render(){
-        //if (!this.props.posts.length) return <div>Загрузка...</div>;
-
         return (
             <div className="container">
                 <div className="row">

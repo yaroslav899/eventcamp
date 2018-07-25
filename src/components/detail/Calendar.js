@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import {calGoggle} from '../../urls';
+import { calGoggle } from '../../urls';
+import { detailRecources, globalRecources } from '../../recources';
 
 class Calendar extends Component {
     render(){
-        if (!this.props.data) return <div>Загрузка...</div>;
+        if (!this.props.data) return <div>{globalRecources.loading}</div>;
         let data = this.props.data,
             date = data.acf.dateOf.replace(/-/ig, ''),
             location = data.acf.cities + ',' + data.acf.location,
@@ -12,7 +12,7 @@ class Calendar extends Component {
 
         return (
             <div className="calendar-link">
-                <p>Добавьте в календарь</p>
+                <p>{detailRecources.addToCalendar}</p>
                 <a href={calGoggles}>
                     <img src="http://board.it-mir.net.ua/wp-content/uploads/2018/06/google.png" className="googleCal" />
                 </a>

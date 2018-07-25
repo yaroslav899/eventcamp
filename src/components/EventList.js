@@ -1,22 +1,20 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import store from '../store';
-import {request} from '../api';
+import { request } from '../api';
 import moment from 'moment';
+import Title from './list/Title';
 import Filters from './filters';
 import Pagination from './Pagination';
 import LastPosts from './list/LastPosts';
-import {NavLink} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { categories, cities, free } from '../fixtures';
+import { listRecources, imageUrlRecources, globalRecources } from '../recources';
 import { getValueFromParams } from '../helper';
 
 class EventList extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            title : 'События и конференции'
-        };
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -26,7 +24,7 @@ class EventList extends Component {
         return true;
     }
 
-    componentDidMount(){
+    componentDidMount() {
         const initialParams = this.props.match.params;
         if ('cities' in initialParams) {
             if (initialParams.cities === 'any') {
@@ -57,15 +55,12 @@ class EventList extends Component {
     }
 
     render() {
-        let articleElements;
-        if (!this.props.posts.length) {
-            articleElements = 'записи отсутствуют';
-        } else {
-            articleElements = this.props.posts.map(article => <li key={article.id} className='event_list'>
+        const posts = this.props.posts;
+        let articleElements = !posts.length ? listRecources.emptyList : posts.map(article => <li key={article.id} className='event_list'>
                 <NavLink to={`/${'events'}/${getValueFromParams(cities, article.acf.cities, 'name', 'url')}/${getValueFromParams(categories, article.categories[0], 'id', 'url')}/${article.id}`}>
                     <div className="row">
                         <div className="col-3">
-                            <img src={article.acf.picture || 'http://board.it-mir.net.ua/wp-content/uploads/2018/05/nophoto.jpg'}
+                            <img src={article.acf.picture || imageUrlRecources.noPhoto}
                                 className="event_list-img" />
                         </div>
                         <div className="col-6">
@@ -78,7 +73,7 @@ class EventList extends Component {
                         </div>
                         <div className="col-3">
                             <div className="event_list-price">
-                                {free.indexOf(article.acf.price) === -1 ? (article.acf.price + '' + article.acf.currency || '') : 'бесплатно'}
+                                {free.indexOf(article.acf.price) === -1 ? (article.acf.price + '' + article.acf.currency || '') : globalRecources.free}
                             </div>
                             <div className="event_list-location">
                                 {article.acf.cities} {article.acf.location}
@@ -87,22 +82,17 @@ class EventList extends Component {
                                 {article.acf.dateOf ? moment(article.acf.dateOf, "YYYY-MM-DD").format("Do MMM YYYY") : ''}
                             </div>
                             <div className="event_list-action">
-                                <button className="event_list-actionMore">Подробнее</button>
+                                <button className="event_list-actionMore">{globalRecources.moreInfo}</button>
                             </div>
                         </div>
                     </div>
                 </NavLink>
             </li>);
-        }
-        let categoryTitle = this.props.categories ? getValueFromParams(categories, this.props.categories, 'id', 'name')  + '. ' : '',
-            cityTitle = this.props.cities ? ' в городе ' + getValueFromParams(cities, this.props.cities, 'id', 'name') : '';
-        document.title = categoryTitle + this.state.title + cityTitle;
-
         return (
             <div className="container">
                 <div className="row">
                     <div className="col-9">
-                        <h1>{categoryTitle + this.state.title + cityTitle}</h1>
+                        <Title/>
                         {articleElements}
                     </div>
                     <div className="col-3">
@@ -122,9 +112,7 @@ class EventList extends Component {
 
 const mapStateToProps = function(store) {
     return {
-        posts: store.filterState.list,
-        categories : store.filterState.categories,
-        cities : store.filterState.cities
+        posts: store.filterState.list
     }
 };
 

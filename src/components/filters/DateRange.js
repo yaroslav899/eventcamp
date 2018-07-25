@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import DayPicker, { DateUtils } from 'react-day-picker';
-import 'react-day-picker/lib/style.css';
-import {request} from '../../api';
-// Include the locale utils designed for moment
 import MomentLocaleUtils from 'react-day-picker/moment';
 import 'moment/locale/ru';
-
 import store from '../../store'
 import { connect } from 'react-redux';
+import {request} from '../../api';
+
 
 class DateRange extends Component {
     constructor(props) {

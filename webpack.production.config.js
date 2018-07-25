@@ -1,5 +1,6 @@
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   module: {
@@ -24,7 +25,7 @@ module.exports = {
     }]
   },
 
-  plugins: [new UglifyJSPlugin()],
+  plugins: [new UglifyJSPlugin(), new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /ru|en/)],
   entry: './src/index.js',
 
   output: {

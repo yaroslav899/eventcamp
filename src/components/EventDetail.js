@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
-import ReactDOM from 'react-dom';
-import {request} from '../api';
+import { request } from '../api';
 import moment from 'moment';
-import {categories, cities, free} from '../fixtures';
 import DetailTabs from './detail/DetailTabs';
 import SocialShare from './detail/SocialShare';
 import Calendar from './detail/Calendar';
 import FeedBack from './detail/FeedBack';
 import DetailInteresting from './detail/DetailInteresting';
+import { categories, cities, free } from '../fixtures';
+import { detailRecources, globalRecources, imageUrlRecources } from '../recources';
 
 class EventDetail extends Component {
     constructor(props) {
@@ -30,7 +30,7 @@ class EventDetail extends Component {
     }
 
     render(){
-        if (!this.state.post) return <div>Загрузка...</div>;
+        if (!this.state.post) return <div>{globalRecources.loading}</div>;
         let data = this.state.post;
         let date = moment(data.acf.dateOf, "YYYY-MM-DD").format("Do MMM").split(' '),
             dateMonth = date[1],
@@ -42,11 +42,11 @@ class EventDetail extends Component {
                         <h1 dangerouslySetInnerHTML={{__html: data.title.rendered}}></h1>
                         <div className="row area-1">
                             <div className="col-6 area-1_image">
-                                <img src={data.acf.picture || 'http://board.it-mir.net.ua/wp-content/uploads/2018/05/nophoto.jpg'} className="detail-picture"/>
+                                <img src={data.acf.picture || imageUrlRecources.noPhoto} className="detail-picture"/>
                             </div>
                             <div className="col-6 area-1_text">
                                 <div className="text-right area-1_price">
-                                    {free.indexOf(data.acf.price)===-1 ? (data.acf.price + '' + data.acf.currency || '') : 'бесплатно'}
+                                    {free.indexOf(data.acf.price) === -1 ? (data.acf.price + '' + data.acf.currency || '') : globalRecources.free}
                                 </div>
                                 <div className="area-1_info">
                                     <span className="day">{dateDay}</span>

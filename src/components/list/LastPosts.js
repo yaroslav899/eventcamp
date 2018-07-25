@@ -1,15 +1,23 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import store from '../../store';
 import moment from 'moment';
-import {request} from '../../api';
-import {NavLink} from 'react-router-dom';
-import {categories, cities, free} from '../../fixtures';
+import { request } from '../../api';
+import { NavLink } from 'react-router-dom';
+import { getValueFromParams } from '../../helper';
+import { categories, cities, free } from '../../fixtures';
+import { listRecources, globalRecources } from '../../recources';
 
 class LastPosts extends Component {
     constructor(props) {
         super(props);
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        if (JSON.stringify(this.props.lastPosts) == JSON.stringify(nextProps.lastPosts)) {
+            return false;
+        }
+        return true;
     }
 
     componentDidMount(){
@@ -24,8 +32,8 @@ class LastPosts extends Component {
 
     render(){
         if (!this.props.lastPosts.list) return <div></div>;
-        const lastPosts = this.props.lastPosts.list.map(post => <li key={post.id} className='last-post-rightside'>
-            <NavLink to = {`${'kiev'}/${getParamValue(categories, post.categories[0], 'url')}/${post.id}`}>
+        const lastPosts = this.props.lastPosts.list.map(post => <li key={post.id} className='last-post-rightside'>           
+            <NavLink to={`/${'events'}/${getValueFromParams(cities, post.acf.cities, 'name', 'url')}/${getValueFromParams(categories, post.categories[0], 'id', 'url')}/${post.id}`}>
                 <div className="row">
                     <div className="col-12">
                         <div className="last-post-title"  dangerouslySetInnerHTML={{__html: post.title.rendered}}></div>
@@ -40,7 +48,7 @@ class LastPosts extends Component {
                     </div>
                     <div className="col-6">
                         <div className="last-post-price">
-                            {free.indexOf(post.acf.price)===-1 ? (post.acf.price + '' + post.acf.currency || '') : 'бесплатно'}
+                            {free.indexOf(post.acf.price) === -1 ? (post.acf.price + '' + post.acf.currency || '') : globalRecources.free}
                         </div>
                     </div>
                     <div className="col-12">
@@ -56,7 +64,7 @@ class LastPosts extends Component {
 
         return (
             <div className="last-post-list">
-                <h4>Последние события</h4>
+                <h4>{listRecources.lastEvent}</h4>
                 <ul>
                     {lastPosts}
                 </ul>
@@ -69,13 +77,6 @@ const mapStateToProps = function(store) {
     return {
         lastPosts: store.lastPosts
     }
-};
-
-const getParamValue = function(categories, id, param){
-    var currentCategory = categories.filter(function(item){
-        return (item.id == id)
-    });
-    return currentCategory[0][param]
 };
 
 export default connect(mapStateToProps)(LastPosts);
