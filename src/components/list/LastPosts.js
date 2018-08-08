@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import store from '../../store';
 import moment from 'moment';
@@ -8,16 +8,9 @@ import { getValueFromParams } from '../../helper';
 import { categories, cities, free } from '../../fixtures';
 import { listRecources, globalRecources } from '../../recources';
 
-class LastPosts extends Component {
+class LastPosts extends PureComponent {
     constructor(props) {
         super(props);
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        if (JSON.stringify(this.props.lastPosts) == JSON.stringify(nextProps.lastPosts)) {
-            return false;
-        }
-        return true;
     }
 
     componentDidMount(){
@@ -30,10 +23,10 @@ class LastPosts extends Component {
         })
     }
 
-    render(){
+    render() {
         if (!this.props.lastPosts.list) return <div></div>;
         const lastPosts = this.props.lastPosts.list.map(post => <li key={post.id} className='last-post-rightside'>           
-            <NavLink to={`/${'events'}/${getValueFromParams(cities, post.acf.cities, 'name', 'url')}/${getValueFromParams(categories, post.categories[0], 'id', 'url')}/${post.id}`}>
+            <NavLink to={`/events/${getValueFromParams(cities, post.acf.cities, 'name', 'url')}/${getValueFromParams(categories, post.categories[0], 'id', 'url')}/${post.id}`}>
                 <div className="row">
                     <div className="col-12">
                         <div className="last-post-title"  dangerouslySetInnerHTML={{__html: post.title.rendered}}></div>

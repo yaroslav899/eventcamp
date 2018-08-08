@@ -6,7 +6,7 @@ import { categories, cities, free } from '../../fixtures';
 import { getValueFromParams } from '../../helper';
 import { imageUrlRecources, detailRecources } from '../../recources';
 
-class DetailInteresting extends Component {
+export default class DetailInteresting extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -26,7 +26,7 @@ class DetailInteresting extends Component {
     render(){
         if (!this.state.posts) return <div></div>;
         const samePosts = this.state.posts.map(samePost => <li key={samePost.id} className='same-post-rightside'>
-            <NavLink to={`/${'events'}/${getValueFromParams(cities, samePost.acf.cities, 'name', 'url')}/${getValueFromParams(categories, samePost.categories[0], 'id', 'url')}/${samePost.id}`}>
+            <NavLink to={`/events/${getValueFromParams(cities, samePost.acf.cities, 'name', 'url')}/${getValueFromParams(categories, samePost.categories[0], 'id', 'url')}/${samePost.id}`}>
                 <div className="row">
                     <div className="col-12">
                         <img src={samePost.acf.picture || imageUrlRecources.noPhoto } className=""/>
@@ -55,5 +55,3 @@ class DetailInteresting extends Component {
         )
     }
 }
-
-export default DetailInteresting;

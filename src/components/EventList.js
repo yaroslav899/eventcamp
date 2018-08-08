@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import store from '../store';
 import { request } from '../api';
@@ -7,21 +7,15 @@ import Title from './list/Title';
 import Filters from './filters';
 import Pagination from './Pagination';
 import LastPosts from './list/LastPosts';
+import Adventages from './global/Adventages';
 import { NavLink } from 'react-router-dom';
 import { categories, cities, free } from '../fixtures';
 import { listRecources, imageUrlRecources, globalRecources } from '../recources';
 import { getValueFromParams } from '../helper';
 
-class EventList extends Component {
+class EventList extends PureComponent {
     constructor(props) {
         super(props);
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        if (JSON.stringify(this.props.posts) == JSON.stringify(nextProps.posts)) {
-            return false;
-        }
-        return true;
     }
 
     componentDidMount() {
@@ -57,7 +51,7 @@ class EventList extends Component {
     render() {
         const posts = this.props.posts;
         let articleElements = !posts.length ? listRecources.emptyList : posts.map(article => <li key={article.id} className='event_list'>
-                <NavLink to={`/${'events'}/${getValueFromParams(cities, article.acf.cities, 'name', 'url')}/${getValueFromParams(categories, article.categories[0], 'id', 'url')}/${article.id}`}>
+                <NavLink to={`/events/${getValueFromParams(cities, article.acf.cities, 'name', 'url')}/${getValueFromParams(categories, article.categories[0], 'id', 'url')}/${article.id}`}>
                     <div className="row">
                         <div className="col-3">
                             <img src={article.acf.picture || imageUrlRecources.noPhoto}
@@ -90,19 +84,20 @@ class EventList extends Component {
             </li>);
         return (
             <div className="container">
+                <Adventages />
                 <div className="row">
                     <div className="col-9">
-                        <Title/>
+                        <Title />
                         {articleElements}
                     </div>
                     <div className="col-3">
-                        <Filters/>
-                        <LastPosts/>
+                        <Filters />
+                        <LastPosts />
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-12">
-                        <Pagination/>
+                        <Pagination />
                     </div>
                 </div>
             </div>

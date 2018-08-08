@@ -5,6 +5,7 @@ import DetailTabs from './detail/DetailTabs';
 import SocialShare from './detail/SocialShare';
 import Calendar from './detail/Calendar';
 import FeedBack from './detail/FeedBack';
+import Adventages from './global/Adventages';
 import DetailInteresting from './detail/DetailInteresting';
 import { categories, cities, free } from '../fixtures';
 import { detailRecources, globalRecources, imageUrlRecources } from '../recources';
@@ -37,6 +38,7 @@ class EventDetail extends Component {
             dateDay = date[0];
         return(
             <div className="container">
+                <Adventages/>
                 <div className="row">
                     <div className="col-9">
                         <h1 dangerouslySetInnerHTML={{__html: data.title.rendered}}></h1>

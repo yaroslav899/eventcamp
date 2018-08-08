@@ -5,6 +5,7 @@ export const categories = [
         "id": "10",
         "url": "sport",
         "name": "Спорт",
+        "img": "/img/sport.png",
         "subcat": [
             {
                 "id": "8_1",
@@ -21,6 +22,7 @@ export const categories = [
         "id": "7",
         "url": "robots",
         "name": "Робототехника",
+        "img": "/img/robot.png",
         "subcat": [
             {
                 "id": "8_1",
@@ -37,6 +39,7 @@ export const categories = [
         "id": "15",
         "url": "nature",
         "name": "Природа",
+        "img": "/img/nature.png",
         "subcat": [
             {
                 "id": "8_1",
@@ -53,6 +56,7 @@ export const categories = [
         "id": "11",
         "url": "learning",
         "name": "Обучение",
+        "img": "/img/learning.png",
         "subcat": [
             {
                 "id": "8_1",
@@ -69,6 +73,7 @@ export const categories = [
         "id": "12",
         "url": "science",
         "name": "Наука",
+        "img": "/img/science.png",
         "subcat": [
             {
                 "id": "8_1",
@@ -85,6 +90,7 @@ export const categories = [
         "id": "16",
         "url": "fashion",
         "name": "Мода",
+        "img": "/img/fashion.png",
         "subcat": [
             {
                 "id": "8_1",
@@ -101,6 +107,7 @@ export const categories = [
         "id": "9",
         "url": "family",
         "name": "Семья",
+        "img": "/img/family.png",
         "subcat": [
             {
                 "id": "8_1",
@@ -117,6 +124,7 @@ export const categories = [
         "id": "13",
         "url": "lingvo",
         "name": "Лингво",
+        "img": "/img/lingvo.png",
         "subcat": [
             {
                 "id": "13_1",
@@ -178,6 +186,7 @@ export const categories = [
         "id": "8",
         "url": "health",
         "name": "Здоровье",
+        "img": "/img/health.png",
         "subcat": [
             {
                 "id": "8_1",
@@ -194,6 +203,7 @@ export const categories = [
         "id": "2",
         "url": "tourizm",
         "name": "Туризм",
+        "img": "/img/turizm.png",
         "subcat": [
             {
                 "id": "8_1",
@@ -210,6 +220,7 @@ export const categories = [
         "id": "1",
         "url": "it",
         "name": "It",
+        "img": "/img/it.png",
         "subcat": [{
                 "id": "1_1",
                 "url": "agile",
@@ -293,8 +304,9 @@ export const categories = [
 	},
     {
         "id": "14",
-        "url": "blockchain",
-        "name": "Блокчейн",
+        "url": "action",
+        "name": "Движение",
+        "img": "/img/action.png",
         "subcat": [
             {
                 "id": "8_1",

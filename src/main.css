@@ -7,6 +7,130 @@ h1{
     color:#0367b7;
     padding: 1% 0;
 }
+/* Header
+-----------------------------------------------------------------------------*/
+.header {
+    height: 80px;
+    background: #0367b7;
+}
+
+div#logo {
+    margin-top: 18px;
+}
+
+.header .auth {
+    color: #ffffff;
+    font-size: 0.8em;
+    text-align: right;
+    line-height: 1;
+    padding: 8px;
+    margin: 0 0 10px 0;
+}
+
+    .header .auth a.enter {
+        color: #f6c806;
+        text-decoration: underline;
+    }
+
+    .header .auth .form-group {
+        float: left;
+        border-radius: 0;
+        margin-bottom: 0;
+    }
+
+        .header .auth .form-group .form-control {
+            background-color: transparent;
+            border: 0;
+            font-size: 1em;
+        }
+
+    .header .auth .login {
+        float: left;
+    }
+/* nav
+-----------------------------------------------------------------------------*/
+.header nav.navbar {
+    margin: 5px 0 0 0;
+    padding: 0;
+    float: right;
+}
+
+    .header nav.navbar ul.navbar-nav li.menu-item a {
+        font-size: 0.8em;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: #ffffff;
+        border-radius: 5px;
+        padding: 7px 14px;
+    }
+        .header nav.navbar ul.navbar-nav li.menu-item a.active {
+            background-color: #f6c806;
+            color: #004f8f;
+        }
+
+        .header nav.navbar ul.navbar-nav li.menu-item a:hover {
+            text-decoration: none;
+            background-color: #035ca4;
+        }
+
+    .header nav.navbar ul.navbar-nav li.menu-item.current-menu-item a {
+        background-color: #f6c806;
+        color: #004f8f;
+    }
+
+.banner-main {
+    margin-top: 10px;
+}
+/* Middle
+-----------------------------------------------------------------------------*/
+@media (max-width: 767.98px) {
+    .advant {
+        display: none;
+    }
+}
+
+.advant {
+    margin: 7px 0;
+    border-bottom: 1px solid #b3d1e9;
+}
+
+    .advant span.adv-text {
+        width: 60%;
+        display: inline-block;
+        text-align: left;
+        color: #0367b7;
+        font-weight: bold;
+        font-size: 0.7em;
+        vertical-align: top;
+        margin-top: 10px;
+        text-transform: uppercase;
+        border-right: 1px solid #b3d1e9;
+    }
+
+        .advant span.adv-text.last {
+            border-right: 0;
+        }
+
+    .advant img.adv-img {
+        margin-right: 24px;
+        height: 75%;
+    }
+
+        .advant img.adv-img.img-add {
+            height: 63%;
+            margin-top: 2%;
+        }
+
+.line-top {
+    padding-top: 15px;
+}
+.category-main {
+    margin-top: 15px;
+}
+.category-main img {
+    margin-bottom: 10px;
+}
+
 li.event_list{
     list-style-type: none;
     background-color:#f5f5f5;
@@ -386,4 +510,91 @@ div.clear{
 }
 img.googleCal{
     width:40%;
+}
+.additional-area {
+    height: 490px;
+    background-image: url(/img/ftrbanner.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    color: #ffffff;
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 1);
+    padding-top: 30px;
+    font-size: 0.9em;
+    line-height: 1.4em;
+}
+.footer {
+    width: 100%;
+    height: 100px;
+    padding: 25px 0 0 0;
+    background: #0367b7;
+    position: relative;
+}
+
+    .footer div.footer-menu {
+    }
+
+        .footer div.footer-menu ul {
+        }
+
+            .footer div.footer-menu ul li {
+                float: left;
+                margin: 0 15px 0 0;
+                padding: 0;
+            }
+
+                .footer div.footer-menu ul li:last-child {
+                    margin: 0;
+                    padding: 0;
+                }
+
+                .footer div.footer-menu ul li a {
+                    color: #ffffff;
+                    text-transform: uppercase;
+                    font-size: 0.8em !important;
+                }
+
+    .footer div.copyright {
+        margin: 15px 0 0 0;
+        font-size: 0.7em;
+        color: #ffffff;
+    }
+
+.clear {
+    clear: both;
+    width: 0;
+    height: 0;
+    border: 0;
+}
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1170px;
+        padding-right: 0;
+        padding-left: 0;
+    }
+}
+
+@media (max-width: 576px) {
+    .header {
+        height: 55px;
+    }
+
+        .header nav.navbar {
+            margin-top: 0;
+            float: none;
+        }
+
+    #navbarSupportedContent {
+        z-index: 999;
+        background-color: #0367b7;
+        padding: 10px 0 0 0;
+    }
+
+    .header nav.navbar ul.navbar-nav li {
+        padding: 5px 0;
+    }
+
+        .header nav.navbar ul.navbar-nav li.menu-item.current-menu-item a {
+            background-color: transparent;
+            color: #f6c806;
+        }
 }

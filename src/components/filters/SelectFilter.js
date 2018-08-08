@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Select from 'react-select';
+import 'react-select/dist/react-select.css'
 import store from '../../store'
 import { request } from '../../api';
 import { NavLink } from 'react-router-dom';
@@ -146,7 +147,7 @@ class SelectFilter extends Component {
             'cities': this.props.cities ? getValueFromParams(cities, this.props.cities[0], 'id', 'url') : ''
         };
         status[data.name] = getValueFromParams(data.values, selection ? selection.value : '', 'id', 'url');        
-        let url = '/' + (status.cities.length ? status.cities : 'any') + '/' + status.categories;
+        let url = '/events/' + (status.cities.length ? status.cities : 'any') + '/' + status.categories;
         history.pushState(window.location.origin, '', url);
     }
 }

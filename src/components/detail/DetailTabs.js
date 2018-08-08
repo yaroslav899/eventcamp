@@ -4,21 +4,9 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import GoogleMap from './GoogleMap';
 import { detailRecources } from '../../recources';
 
-class DetailTabs extends Component {
+export default class DetailTabs extends Component {
     constructor(props) {
         super(props);
-        this.state = {value: ''};
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    handleChange(event) {
-        this.setState({value: event.target.value});
-    }
-
-    handleSubmit(event) {
-        alert('A name was submitted: ' + this.state.value);
-        event.preventDefault();
     }
 
     render(){
@@ -30,7 +18,6 @@ class DetailTabs extends Component {
                     <Tab>{detailRecources.description}</Tab>
                     <Tab>{detailRecources.howToGet}</Tab>
                 </TabList>
-
                 <TabPanel>
                     <div className="event_text" dangerouslySetInnerHTML={{__html: data.content.rendered}}></div>
                 </TabPanel>
@@ -48,5 +35,3 @@ class DetailTabs extends Component {
         )
     }
 }
-
-export default DetailTabs;

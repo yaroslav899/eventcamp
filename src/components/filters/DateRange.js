@@ -1,20 +1,18 @@
 import React, { Component } from 'react';
 import DayPicker, { DateUtils } from 'react-day-picker';
+import 'react-day-picker/lib/style.css';
 import MomentLocaleUtils from 'react-day-picker/moment';
 import 'moment/locale/ru';
 import store from '../../store'
 import { connect } from 'react-redux';
-import {request} from '../../api';
-
+import { request } from '../../api';
+import { filterRecources } from '../../recources';
 
 class DateRange extends Component {
     constructor(props) {
         super(props);
         this.handleDayClick = this.handleDayClick.bind(this);
         this.handleResetClick = this.handleResetClick.bind(this);
-        this.state = {
-            locale: 'ru'
-        };
     }
 
     handleDayClick(day) {
@@ -53,7 +51,7 @@ class DateRange extends Component {
             <div className='date-range'>
                 <DayPicker
                     localeUtils={MomentLocaleUtils}
-                    locale={this.state.locale}
+                    locale='ru'
                     selectedDays={[from, { from, to }]}
                     disabledDays={[
                     {
@@ -68,7 +66,7 @@ class DateRange extends Component {
                     <p>
                         {from.toLocaleDateString()} по {to.toLocaleDateString()}
                         <br/><button className="link" onClick={this.handleResetClick}>
-                            сбросить
+                            {filterRecources.reset}
                         </button>
                     </p>
                 )}

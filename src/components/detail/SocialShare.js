@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { globalRecources } from '../../recources';
 
-class SocialShare extends Component {
+export default class SocialShare extends Component {
     render(){
         if (!this.props.data) return <div>{globalRecources.loading}</div>;
         let data = this.props.data;
@@ -14,5 +14,3 @@ class SocialShare extends Component {
         )
     }
 }
-
-export default SocialShare;

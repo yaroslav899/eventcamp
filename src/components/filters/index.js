@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import DateRange from './DateRange';
 import SelectFilter from './SelectFilter';
 
-class Filters extends Component {
+export default class Filters extends Component {
     render() {
         return (
             <div>
@@ -12,5 +12,3 @@ class Filters extends Component {
         )
     }
 }
-
-export default Filters

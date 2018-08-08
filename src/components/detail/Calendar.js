@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { calGoggle } from '../../urls';
-import { detailRecources, globalRecources } from '../../recources';
+import { detailRecources, globalRecources, imageUrlRecources } from '../../recources';
 
-class Calendar extends Component {
+export default class Calendar extends Component {
     render(){
         if (!this.props.data) return <div>{globalRecources.loading}</div>;
         let data = this.props.data,
@@ -14,11 +14,9 @@ class Calendar extends Component {
             <div className="calendar-link">
                 <p>{detailRecources.addToCalendar}</p>
                 <a href={calGoggles}>
-                    <img src="http://board.it-mir.net.ua/wp-content/uploads/2018/06/google.png" className="googleCal" />
+                    <img src={imageUrlRecources.googleLogo} className="googleCal" />
                 </a>
             </div>
         )
     }
 }
-
-export default Calendar;
