@@ -1,13 +1,12 @@
 ﻿import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import ActiveLink from '../hoc/ActiveLink';
 import { mainMenu } from '../../recources';
 
 export default class Menu extends Component {
     render() {
         let menuLinks = mainMenu.map(menu => <li key={menu.id} className="menu-item">
-            <NavLink to={menu.url} exact activeClassName="active">
-                {menu.name}
-            </NavLink>
+                <ActiveLink to={menu.url} >{menu.name}</ActiveLink>
             </li>
         );
         return (

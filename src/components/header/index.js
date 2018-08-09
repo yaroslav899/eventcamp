@@ -1,33 +1,31 @@
-﻿import React, { Component } from 'react';
+﻿import React from 'react';
 import { NavLink } from 'react-router-dom';
 import Menu from '../global/Menu';
-import { globalRecources } from '../../recources';
+import ActiveLink from '../hoc/ActiveLink';
+import { globalRecources, imageUrlRecources } from '../../recources';
 
-export default class Header extends Component {
-    render() {
-        return (
-            <header className="header">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-2 d-none d-sm-block">
-                            <div id="logo" className="main-logo">
-                                <NavLink to="/" exact>
-                                    <img src="/img/logo.png" alt="" title="" />
-                                </NavLink>
-                            </div>
-                        </div>
-                        <div className="col-sm-10 col-12">
-                            <div className="registration">
-                                <div className="auth">
-                                    <NavLink to="/" activeClassName="active">{globalRecources.enter}</NavLink>
-                                    <NavLink to="/register" activeClassName="active">{globalRecources.registr}</NavLink>    
-                                </div>
-                            </div>  
-                            <Menu/>  
-                        </div>
+const Header = () => (
+    <header className="header">
+        <div className="container">
+            <div className="row">
+                <div className="col-2 d-none d-sm-block">
+                    <div id="logo" className="main-logo">
+                        <NavLink to="/" exact>
+                            <img src={imageUrlRecources.logo} alt="" title="" />
+                        </NavLink>
                     </div>
                 </div>
-            </header>
-        )
-    }
-}
+                <div className="col-sm-10 col-12">
+                    <div className="registration">
+                        <div className="auth">
+                            <ActiveLink to="/" >{globalRecources.enter}</ActiveLink>
+                            <ActiveLink to="/register" >{globalRecources.registr}</ActiveLink>
+                        </div>
+                    </div>
+                    <Menu />
+                </div>
+            </div>
+        </div>
+    </header>
+);
+export default Header;

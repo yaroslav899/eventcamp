@@ -65,6 +65,7 @@ export const globalRecources = {
 export const imageUrlRecources = {
     noPhoto: 'http://board.it-mir.net.ua/wp-content/uploads/2018/05/nophoto.jpg',
     googleLogo: 'http://board.it-mir.net.ua/wp-content/uploads/2018/06/google.png',
+    logo: '/img/logo.png',
 }
 export const urlRecources = {
     mainUrl: 'http://board.it-mir.net.ua/',
