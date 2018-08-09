@@ -14,7 +14,7 @@ export let request = {
             },
             body: JSON.stringify({
                 username: 'admin',
-                password: 'boz792ik',
+                password: '123456',
                 jwt_auth_expire : '10'  
             })
         }).then(function (response) {
