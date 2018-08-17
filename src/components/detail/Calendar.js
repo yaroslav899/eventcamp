@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { calGoggle } from '../../urls';
+import { urlRecources } from '../../recources';
 import { detailRecources, globalRecources, imageUrlRecources } from '../../recources';
 
 export default class Calendar extends Component {
@@ -8,7 +8,7 @@ export default class Calendar extends Component {
         let data = this.props.data,
             date = data.acf.dateOf.replace(/-/ig, ''),
             location = data.acf.cities + ',' + data.acf.location,
-            calGoggles = calGoggle + encodeURI(data.title.rendered) + '&dates=' + date + 'T000000/' + date + 'T235959&location=' + encodeURI(location) + '&details=' + window.location.href + ' +&trp=false&sprop=' + encodeURI(location.href) + 'sprop=name:Event-camp';
+            calGoggles = urlRecources.calGoggle + encodeURI(data.title.rendered) + '&dates=' + date + 'T000000/' + date + 'T235959&location=' + encodeURI(location) + '&details=' + window.location.href + ' +&trp=false&sprop=' + encodeURI(location.href) + 'sprop=name:Event-camp';
 
         return (
             <div className="calendar-link">

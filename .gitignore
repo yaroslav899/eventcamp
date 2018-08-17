@@ -6,3 +6,4 @@ bin
 src/simple_api/
 .vs/
 img/
+src/credentials.js

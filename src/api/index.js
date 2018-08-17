@@ -1,26 +1,26 @@
-import { endpointUrl, geoLookUpUrl, exchangeUrl } from '../urls';
-import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import { urlRecources } from '../recources';
 import store from '../store';
-import {getRequestUrl, getInterestingUrl, getLastPosts} from './helpers';
+import { setCookie } from '../cookie';
+import { adminAccess } from '../credentials';
+import { getRequestUrl, getInterestingUrl, getLastPosts } from './helpers';
 
 export let request = {
-    createNewUser: function (param) {
-        fetch('http://board.it-mir.net.ua/wp-json/jwt-auth/v1/token', {
+    createNewUser: function (param) {        
+        return fetch(urlRecources.jwtRegister, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
                 'accept': 'application/json',
             },
             body: JSON.stringify({
-                username: 'admin',
-                password: 'boz792ik',
+                username: adminAccess.login,
+                password: adminAccess.password,
                 jwt_auth_expire : '10'  
             })
         }).then(function (response) {
             return response.json();
-        }).then(function (user) {
-            fetch('http://board.it-mir.net.ua/wp-json/wp/v2/users', {
+        }).then(function (user) {                
+            return fetch(urlRecources.getUsersUrl, {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
@@ -34,13 +34,11 @@ export let request = {
                 })
             }).then(function (response) {
                 return response.json();
-                console.log('1')
             });
-            }).then(function () {
-                //create a note in store
-            });
+
+        });
     },
-    getListPosts        :   function(param){
+    getListPosts: function (param) {
         let url = getRequestUrl(param);
         return fetch(url).then(function(response) {
                     store.dispatch({
@@ -50,16 +48,16 @@ export let request = {
                     return response.json()
                 });
     },
-    getPostDetail       :   function(eventID){
-        let url = endpointUrl + 'posts/' + eventID + '?_embed';
+    getPostDetail: function (eventID) {            
+        let url = urlRecources.endpointUrl + 'posts/' + eventID + '?_embed';
         return fetch(url).then((response) => response.json());
     },
-    getAddress          :   function(address){
-        let url = geoLookUpUrl + 'address=' + address + '&key=AIzaSyCM7IwnppmyEPSZPDZIoTW8VKOMlS5peN4';
+    getAddress: function (address) {         
+        let url = urlRecources.geoLookUpUrl + 'address=' + address + '&key=AIzaSyCM7IwnppmyEPSZPDZIoTW8VKOMlS5peN4';
         return fetch(url).then((response) => response.json());
     },
-    getExchangeData     :   function(){
-        return fetch(exchangeUrl).then((response) => response.json());
+    getExchangeData: function () {        
+        return fetch(urlRecources.exchangeUrl).then((response) => response.json());
     },
     getInterestingData  : function(param){
         let url = getInterestingUrl(param);

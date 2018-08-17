@@ -11,18 +11,16 @@ import { filterRecources } from '../../recources';
 class DateRange extends Component {
     constructor(props) {
         super(props);
-        this.handleDayClick = this.handleDayClick.bind(this);
-        this.handleResetClick = this.handleResetClick.bind(this);
     }
 
-    handleDayClick(day) {
+    handleDayClick = day => {
         if (new Date(day).toLocaleDateString() < new Date().toLocaleDateString()) {
             return;
         }
         const range = DateUtils.addDayToRange(day, this.props.dateRange);
         store.dispatch({
             type: 'UPDATE_FILTER_DATERANGE',
-            dateRange     :   range
+            dateRange: range
         });
         request.getListPosts(range)
             .then(posts => {
@@ -31,13 +29,13 @@ class DateRange extends Component {
                     list: posts
                 });
                 return range;
-            })
-
+        })
     }
-    handleResetClick() {
+
+    handleResetClick = () => {
         store.dispatch({
             type: 'UPDATE_FILTER_DATERANGE',
-            dateRange     :   {
+            dateRange: {
                 from: undefined,
                 to: undefined
             }

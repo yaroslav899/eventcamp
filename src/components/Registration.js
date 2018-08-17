@@ -1,9 +1,10 @@
-﻿import React, { Component } from 'react';
+﻿import React, { PureComponent } from 'react';
+import ReCAPTCHA from 'react-google-recaptcha';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom'
 import { request } from '../api';
 
-class Registration extends Component {
+class Registration extends PureComponent {
     constructor(props) {
         super(props);
         this.state = { 
@@ -12,54 +13,63 @@ class Registration extends Component {
             email: '',
             login: '',
             password: '',
-            name: '',
+            isSuccessRegister: false,
+            captcha : false,
         };
-
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChange(event) {
+    handleChange = event => {
         this.setState({ [event.target.name]: event.target.value });
     }
 
-    handleSubmit(event) {
+    handleSubmit = event => {
         event.preventDefault();
-        request.createNewUser(this.state);
+        if (!this.state.captcha) {
+            return false;
+        }
+        var isSuccessRegister = request.createNewUser(this.state).then(function (data) {
+            return true;
+        });
+        this.setState({ 'isSuccessRegister': isSuccessRegister });
+    }
+
+    onChanges = (value) => {
+        this.setState({ captcha: value })
     }
 
     render() {
-        //if return <Redirect to='/login' />;
-        return (
-            <form onSubmit={this.handleSubmit}>
-                <label>
-                    Имя:
+        let { isSuccessRegister } = this.state;    
+        let registerForm = isSuccessRegister ? <div> Вы успешно зарегистрировались<br />
+            Попробуйте зайдти в свой аккаунт</div > : <div><form onSubmit={this.handleSubmit}>
+                <label><span>Имя:</span>
                     <input type="text" name="firstname" value={this.state.firstname} onChange={this.handleChange} />
-                </label>
-                <br />
-                <label>
-                    Фамилия:
+                </label><br />
+                <label><span>Фамилия:</span>
                     <input type="text" name="secondname" value={this.state.secondname} onChange={this.handleChange} />
-                </label>
-                <br />
-                <label>
-                    Email:
+                </label><br />
+                <label><span>Email:</span>
                     <input type="email" name="email" value={this.state.email} onChange={this.handleChange} />
-                </label>
-                <br />
-                <label>
-                    Login:
+                </label><br />
+                <label><span>Login:</span>
                     <input type="text" name="login" value={this.state.login} onChange={this.handleChange} />
-                </label>
-                <br />
-                <label>
-                    Password:
+                </label><br />
+                <label><span>Password:</span>
                     <input type="text" name="password" value={this.state.password} onChange={this.handleChange} />
-                </label>
-                <br />
+                </label><br />
+                <ReCAPTCHA
+                    ref="recaptcha"
+                    sitekey="6LeY82kUAAAAANR8Eflisz-Ptp1FtnHYTx5MJ6VJ"
+                    onChange={this.onChanges}
+                /><br/>
                 <input type="submit" value="Submit" />
-            </form>
-        )
+            </form></div>;
+        return (
+                <div className="container">
+                    <div className="row">
+                            {registerForm}              
+                    </div>
+                </div>
+            )        
     }
 }
 
