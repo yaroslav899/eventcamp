@@ -1,6 +1,7 @@
 About Project:
 1. Backend - WordPress + WordPress API
 2. Frontend - React: 16.2.0
+Token is saved in cookie after auth.
 
 How to run:
 1. Create 'credentials.js' file in '/src/'
