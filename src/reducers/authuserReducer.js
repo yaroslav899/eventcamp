@@ -1,15 +1,12 @@
-const initialState = {
-    isSuccessRegister: '',
-    isSuccessAuth: '',
-    token: '',
-    login: '',
-    pass: ''
-};
-
-export default function (authuserReducer = initialState, action) {
+export default function (authuserReducer = { state: {} }, action) {
     switch (action.type) {
-        case 'UPDATE_AUTHTOKEN':
-            return { ...authuserReducer, token: action.token };
+        case 'UPDATE_USERAUTH':
+            let state = {
+                name: action.state.name,
+                email: action.state.email,
+                token: action.state.token
+            }
+            return { ...authuserReducer, state };
     }
     return authuserReducer;
 };

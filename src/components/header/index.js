@@ -1,8 +1,9 @@
 ﻿import React from 'react';
 import { NavLink } from 'react-router-dom';
 import Menu from '../global/Menu';
+import AuthHeaderLink from '../global/AuthHeaderLink';
 import ActiveLink from '../hoc/ActiveLink';
-import { globalRecources, imageUrlRecources } from '../../recources';
+import { imageUrlRecources } from '../../recources';
 
 const Header = () => (
     <header className="header">
@@ -17,10 +18,7 @@ const Header = () => (
                 </div>
                 <div className="col-sm-10 col-12">
                     <div className="registration">
-                        <div className="auth">
-                            <ActiveLink to="/" >{globalRecources.enter}</ActiveLink>
-                            <ActiveLink to="/register" >{globalRecources.registr}</ActiveLink>
-                        </div>
+                        <AuthHeaderLink />
                     </div>
                     <Menu />
                 </div>
@@ -28,4 +26,5 @@ const Header = () => (
         </div>
     </header>
 );
+
 export default Header;

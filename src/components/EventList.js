@@ -24,8 +24,8 @@ class EventList extends PureComponent {
             if (initialParams.cities === 'any') {
                 initialParams.cities = '';
             } else {
-                let values = cities.filter(item => item.url == initialParams.cities);
-                initialParams.cities = values.length ? values[0].id : '';
+                let value = cities.find(item => item.url == initialParams.cities);
+                initialParams.cities = value && value.id || '';
                 store.dispatch({
                     type: 'UPDATE_FILTER_CITY',
                     cities: initialParams.cities
@@ -33,8 +33,8 @@ class EventList extends PureComponent {
             }
         }
         if ('categories' in initialParams) {
-            let values = categories.filter(item => item.url == initialParams.categories);
-            initialParams.categories = values.length ? values[0].id : '';
+            let value = categories.find(item => item.url == initialParams.categories);
+            initialParams.categories = value && value.id || '';
             store.dispatch({
                 type: 'UPDATE_FILTER_CATEGORY',
                 categories: initialParams.categories

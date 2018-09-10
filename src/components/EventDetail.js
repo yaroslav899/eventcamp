@@ -10,7 +10,7 @@ import DetailInteresting from './detail/DetailInteresting';
 import { categories, cities, free } from '../fixtures';
 import { detailRecources, globalRecources, imageUrlRecources } from '../recources';
 
-class EventDetail extends Component {
+export default class EventDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -83,5 +83,3 @@ class EventDetail extends Component {
         )
     }
 }
-
-export default EventDetail;

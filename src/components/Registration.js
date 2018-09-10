@@ -1,4 +1,5 @@
 ﻿import React, { PureComponent } from 'react';
+import AuthForm from './global/AuthForm';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom'
@@ -39,8 +40,10 @@ class Registration extends PureComponent {
 
     render() {
         let { isSuccessRegister } = this.state;    
-        let registerForm = isSuccessRegister ? <div> Вы успешно зарегистрировались<br />
-            Попробуйте зайдти в свой аккаунт</div > : <div><form onSubmit={this.handleSubmit}>
+        let registerForm = isSuccessRegister ? <div>
+            Вы успешно зарегистрировались<br />
+            Попробуйте зайдти в свой аккаунт<br />
+            <AuthForm /></div > : <div><form onSubmit={this.handleSubmit}>
                 <label><span>Имя:</span>
                     <input type="text" name="firstname" value={this.state.firstname} onChange={this.handleChange} />
                 </label><br />
@@ -73,10 +76,4 @@ class Registration extends PureComponent {
     }
 }
 
-const mapStateToProps = function (store) {
-    return {
-        posts: store.filterState.list
-    }
-};
-
-export default connect(mapStateToProps)(Registration);
+export default Registration;

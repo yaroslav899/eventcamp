@@ -18,9 +18,9 @@ export const getRequestUrl = param => {
         page : (filterOption === 'page') ? param.page : '1'
     };
     let url = urlRecources.endpointUrl + 'posts?';
-    let city = cities.filter(city => city.id === query.cities);
+    let city = cities.find(city => city.id === query.cities);
     if (query.categories) url = url + '&categories=' + query.categories;
-    if (query.cities) url = url + '&filter[meta_query][0][key]=cities&filter[meta_query][0][value]=' + city[0].name;
+    if (query.cities) url = url + '&filter[meta_query][0][key]=cities&filter[meta_query][0][value]=' + city.name;
     if (query.from) url = url + '&filter[meta_query][1][key]=dateOf&filter[meta_query][1][value]=' + query.from + '&filter[meta_query][1][compare]=>';
     if (query.to) url = url + '&filter[meta_query][2][key]=dateOf&filter[meta_query][2][value]=' + query.to + '&filter[meta_query][2][compare]=<';
     if (query.page) url = url + '&page=' + query.page;
@@ -44,4 +44,21 @@ export const getLastPosts = param => {
     url = url + '&filter[meta_query][1][key]=dateOf&filter[meta_query][1][value]=' + dateFrom + '&filter[meta_query][1][compare]=>';
     url = url + "&per_page=" + 5;
     return url;
+};
+
+export const authFetch = (param) => {
+    return fetch(urlRecources.jwtRegister, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            'accept': 'application/json',
+        },
+        body: JSON.stringify({
+            username: param.login,
+            password: param.password,
+            jwt_auth_expire: '10',
+        })
+    }).then(function (response) {
+        return response.json();
+    })
 };

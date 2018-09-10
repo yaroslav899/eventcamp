@@ -1,22 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, IndexRoute, Link, hashHistory, browserHistory } from 'react-router';
-import {Switch, Route, Redirect, NavLink} from 'react-router-dom'
-import {ConnectedRouter} from 'react-router-redux';
-import {composeWithDevTools} from 'redux-devtools-extension';
+import { Router, IndexRoute } from 'react-router';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { createBrowserHistory } from 'history';
-import store from './store'
-import {Provider} from 'react-redux'
-import './main.css'
+import { Provider } from 'react-redux';
+import './main.css';
 
 import Main from './components/Main';
 import EventList from './components/EventList';
 import EventDetail from './components/EventDetail';
 import Layout from './components/Layout';
 import Registration from './components/Registration';
+import Authorization from './components/Authorization';
+import Profile from './components/profile/';
+import NoMatch404 from './components/NoMatch404';
+import PrivateRoute from './components/hoc/PrivateRoute';
 
 class App extends React.Component {
-    render(){
+    render() {
         return(
             <Provider store={store}>                
                 <Router history={createBrowserHistory()}>
@@ -27,7 +29,10 @@ class App extends React.Component {
                             <Route path='/events/:cities' component={EventList} exact />
                             <Route path='/events/:cities/:categories' component={EventList} exact />
                             <Route path='/events/:cities/:categories/:id' component={EventDetail} />
+                            <PrivateRoute path="/profile" redirectTo="/enter" component={Profile} />
+                            <Route path='/enter' component={Authorization} />
                             <Route path='/register' component={Registration} />
+                            <Route component={NoMatch404} />
                         </Switch>
                     </Layout>
                 </Router>                 

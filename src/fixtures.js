@@ -8,14 +8,39 @@ export const categories = [
         "img": "/img/sport.png",
         "subcat": [
             {
-                "id": "8_1",
-                "url": "chinese",
-                "name": "Chinese, Mandarin"
+                "id": "10_1",
+                "url": "footboll",
+                "name": "Футбол"
             },
             {
-                "id": "8_2",
-                "url": "english",
-                "name": "English"
+                "id": "10_2",
+                "url": "basketboll",
+                "name": "Баскетбол"
+            },
+            {
+                "id": "810_3",
+                "url": "boxing",
+                "name": "Бокс"
+            },
+            {
+                "id": "10_4",
+                "url": "mma",
+                "name": "ММА"
+            },
+            {
+                "id": "10_5",
+                "url": "exhibitions",
+                "name": "Выставки"
+            },
+            {
+                "id": "10_6",
+                "url": "conference",
+                "name": "Конференция"
+            },
+            {
+                "id": "10_7",
+                "url": "excursions",
+                "name": "Экскурсии"
             }]
     },
     {

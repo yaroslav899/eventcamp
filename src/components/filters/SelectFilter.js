@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css'
 import store from '../../store'
@@ -8,16 +8,17 @@ import { connect } from 'react-redux';
 import { categories, cities } from '../../fixtures';
 import { filterRecources } from '../../recources';
 import { getValueFromParams } from '../../helper';
+const defaultTopic = [{
+    "id": "999",
+    "url": "no_choice",
+    "name": "Выберите категорию"
+}];
 
 class SelectFilter extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            themes: [{
-                "id": "999",
-                "url": "no_choice",
-                "name": "Выберите категорию"
-            }],
+            themes: defaultTopic,
             currentTheme : ''
         };
     }
@@ -69,23 +70,30 @@ class SelectFilter extends Component {
 
     changeCategory = selection => {
         this.changeSelection('categories', selection);
+        if (!selection) {
+            this.setState({
+                themes: defaultTopic
+            });
+        }
         this.addToHistory('categories', selection);
     };
 
     changeTheme = selection => {
-        let params = {};
-        var param = this.state.themes.filter(function(theme){
-            return theme.name === selection.label;
-        });
+        if (selection) {
+                let param = this.state.themes.filter(function(theme){
+                return theme.name === selection.label;
+            });
+        }
+        
         this.setState({
-            currentTheme: selection || ''
+            currentTheme: selection || defaultTopic
         });
     };
 
     changeSelection = (type, selection)=> {
         let params = {};
         if (!selection) {
-            params = {type : ''};
+            params = {[type] : ''};
         } else {
             params = {[selection.type] : selection ? selection.value : ''};
         }
@@ -105,13 +113,9 @@ class SelectFilter extends Component {
                             type: 'UPDATE_FILTER_CATEGORY',
                             categories: data[filterOption]
                         });
-                        let themes = categories.filter(function(cat){
-                            if (cat.id === data[filterOption]){
-                                return cat;
-                            }
-                        });
+                        let theme = categories.find(cat => cat.id === data[filterOption]);
                         this.setState({
-                            themes: themes[0].subcat
+                            themes: theme.subcat
                         });
                         break;
                     case 'cities':

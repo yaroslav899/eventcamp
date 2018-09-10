@@ -2,24 +2,29 @@ import { urlRecources } from '../recources';
 import store from '../store';
 import { setCookie } from '../cookie';
 import { adminAccess } from '../credentials';
-import { getRequestUrl, getInterestingUrl, getLastPosts } from './helpers';
+import { getRequestUrl, getInterestingUrl, getLastPosts, authFetch } from './helpers';
 
 export let request = {
+    authUser: function (param) {
+        return authFetch(param).then(function (data) {
+                store.dispatch({
+                    type: 'UPDATE_USERAUTH',
+                    state: {
+                        name: data.user_display_name,
+                        email: data.user_email,
+                        token: data.token,
+                    }
+                });
+                setCookie('authData', JSON.stringify({
+                    token: data.token,
+                    user_display_name: data.user_display_name,
+                    user_nicename: data.user_nicename,
+                    user_email: data.user_email,
+                }));
+            });
+    },
     createNewUser: function (param) {        
-        return fetch(urlRecources.jwtRegister, {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json',
-                'accept': 'application/json',
-            },
-            body: JSON.stringify({
-                username: adminAccess.login,
-                password: adminAccess.password,
-                jwt_auth_expire : '10'  
-            })
-        }).then(function (response) {
-            return response.json();
-        }).then(function (user) {                
+        return authFetch(adminAccess).then(function (user) {                
             return fetch(urlRecources.getUsersUrl, {
                 method: "POST",
                 headers: {

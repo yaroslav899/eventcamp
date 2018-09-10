@@ -222,6 +222,7 @@ div.event_list-pagination ul{
 }
 div.event_list-pagination ul li{
     float: left;
+    margin:10px 0;
 }
 div.event_list-pagination ul li a{
     color:#8c8c8c;
