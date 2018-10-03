@@ -9,15 +9,17 @@ module.exports = {
         }
     },
     "globals": {
-        "window": true,
-        "document": true
+      "window": true,
+      "history": true,
+      "document": true
     },
     "env": {
         "browser": true,
         "node": true,
         "jasmine": true
     },
-    "rules": {
+  "rules": {
+        "react/jsx-wrap-multilines": false,
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
         "no-class-assign": "off",
         "no-console": "off",

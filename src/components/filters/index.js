@@ -3,9 +3,9 @@ import DateRange from './DateRange';
 import SelectFilter from './SelectFilter';
 
 const Filters = () => (
-    <div>
-        <DateRange />
-        <SelectFilter />
-    </div>
+  <div>
+    <DateRange />
+    <SelectFilter />
+  </div>
 );
 export default Filters;
