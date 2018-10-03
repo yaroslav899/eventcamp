@@ -1,9 +1,9 @@
-import { createStore, combineReducers } from 'redux';
+import { createStore } from 'redux';
 import reducers from '../reducers';
 
 const store = createStore(reducers);
 
-//dev only
+//  dev, only for checking
 window.store = store;
 
-export default store
+export default store;

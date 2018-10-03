@@ -1,0 +1,28 @@
+module.exports = {
+    "extends": "airbnb",
+    "parser": "babel-eslint",
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "paths": ["src"]
+            }
+        }
+    },
+    "globals": {
+        "window": true,
+        "document": true
+    },
+    "env": {
+        "browser": true,
+        "node": true,
+        "jasmine": true
+    },
+    "rules": {
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+        "no-class-assign": "off",
+        "no-console": "off",
+        "linebreak-style": "off",
+        "jsx-a11y/media-has-caption": "off",
+        "no-confusing-arrow": "off"
+    }
+};

@@ -2,9 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, IndexRoute } from 'react-router';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { connect, Provider } from 'react-redux';
 import { createBrowserHistory } from 'history';
-import { Provider } from 'react-redux';
 import './main.css';
 
 import Main from './components/Main';

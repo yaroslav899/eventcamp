@@ -1,24 +1,32 @@
-import React from 'react';
-import { getCookie } from '../../cookie';
-import { Route, Redirect } from 'react-router-dom';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
-const authData = getCookie('authData');
-const PrivateRoute = ({ component: Component, ...rest }) => (
-    <Route
-        {...rest}
-        render={props =>
-            authData ? (
-                <Component {...props} />
-            ) : (
-                    <Redirect
-                        to={{
-                            pathname: rest.redirectTo,
-                            state: { from: props.location }
-                        }}
-                    />
-                )
-        }
-    />
-);
+class PrivateRoute extends Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    const {
+      redirectTo,
+      component,
+      userAuth: {
+        name,
+      },
+    } = this.props;
+    if (!name) {
+      return <Redirect to={redirectTo} />;
+    }
+    return (
+      <component />
+    )
+  }
+}
 
-export default PrivateRoute;
+const mapStateToProps = function (store) {
+  return {
+    userAuth: store.authuser.state,
+  };
+};
+
+export default connect(mapStateToProps)(PrivateRoute);
