@@ -1,17 +1,22 @@
-About Project:
-1. Backend - WordPress + WordPress API
-2. Frontend - React: 16.2.0
-Token is saved in cookie after auth.
+This is <b>events board</b>
 
-How to run:
-1. Create 'credentials.js' file in '/src/'
-Example:
-export const adminAccess = {
-    login: 'admin',
-    password: '123456',
-};
-2. npm i
-3. npm run dev
+<h3>Setup Instructions</h3>
+<ul>
+    <li>Clone this repository</li>
+    <li>Create 'credentials.js' file in '/src/'<br/>
+        <code>
+        export const adminAccess = {
+            login: 'admin',
+            password: '123456',
+        };
+        </code>
+    </li>
+    <li>npm i</li>
+    <li>npm run dev<br/>npm run prodbuild</li>
+</ul>
 
-For production build:
-1. npm run prod
+<h3>Using techologies</h3>
+<ul>
+    <li>Backend - WordPress + WordPress API</li>
+    <li>Frontend - React: 16.2.0</li>
+</ul>
