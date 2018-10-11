@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import store from '../store';
 import { request } from '../api';
 
-class Pagination extends Component {
+class Pagination extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,7 +19,7 @@ class Pagination extends Component {
     };
     request.getListPosts(initialParams).then((posts) => {
       store.dispatch({
-        type: 'EVENT_LIST_UPDATE',
+        type: 'UPDATE_EVENT_LIST',
         list: posts,
       });
     });
@@ -33,15 +33,13 @@ class Pagination extends Component {
     const { activePage } = this.state;
     const { totalPages } = this.props;
     const pageNavigation = totalPages.map(pageNumber => (
-      <li key={pageNumber} className={(activePage === pageNumber) ? 'active' : ''}>
-        <a href="#" onClick={this.handlePaginationClick}>{pageNumber}</a>
+      <li key={pageNumber} className={`events-pagination__item events-pagination-item ${(+activePage === +pageNumber) ? ' active' : ''}`}>
+        <a href="#" className="events-pagination-item__link" onClick={this.handlePaginationClick}>{pageNumber}</a>
       </li>
     ),
     );
     return (
-      <div className="event_list-pagination">
-        <ul>{pageNavigation}</ul>
-      </div>
+      <ul className="events__pagination events-pagination">{pageNavigation}</ul>
     );
   }
 }

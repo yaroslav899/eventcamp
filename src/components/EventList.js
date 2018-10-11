@@ -11,34 +11,15 @@ import LastPosts from './list/LastPosts';
 import Adventages from './global/Adventages';
 import { categories, cities, free } from '../fixtures';
 import { listRecources, imageUrlRecources, globalRecources } from '../recources';
-import { getValueFromParams } from '../helper';
+import { getValueFromParams, updateFilterStore } from '../helper';
 
 class EventList extends PureComponent {
   componentDidMount() {
     const initialParams = this.props.match.params;
-    if ('cities' in initialParams) {
-      if (initialParams.cities === 'any') {
-        initialParams.cities = '';
-      } else {
-        let value = cities.find(item => item.url == initialParams.cities);
-        initialParams.cities = value && value.id || '';
-        store.dispatch({
-          type: 'UPDATE_FILTER_CITY',
-          cities: initialParams.cities,
-        });
-      }
-    }
-    if ('categories' in initialParams) {
-      let value = categories.find(item => item.url == initialParams.categories);
-      initialParams.categories = value && value.id || '';
+    updateFilterStore(initialParams);
+    request.getListPosts(initialParams).then(posts => {
       store.dispatch({
-        type: 'UPDATE_FILTER_CATEGORY',
-        categories: initialParams.categories,
-      });
-    }
-    return request.getListPosts(initialParams).then(posts => {
-      store.dispatch({
-        type: 'EVENT_LIST_UPDATE',
+        type: 'UPDATE_EVENT_LIST',
         list: posts,
       });
     });
@@ -46,64 +27,66 @@ class EventList extends PureComponent {
 
   render() {
     const posts = this.props.posts;
-    let articleElements = !posts.length ? listRecources.emptyList : posts.map(article => <li key={article.id} className='event_list'>
-      <NavLink to={`/events/${getValueFromParams(cities, article.acf.cities, 'name', 'url')}/${getValueFromParams(categories, article.categories[0], 'id', 'url')}/${article.id}`}>
+    let articleElements = !posts.length ? listRecources.emptyList : posts.map(article => <li key={article.id} className='events__item events-item'>
+      <NavLink to={`/events/${getValueFromParams(cities, article.acf.cities, 'name', 'url')}/${getValueFromParams(categories, article.categories[0], 'id', 'url')}/${article.id}`} className="events-item__link">
         <div className="row">
           <div className="col-3">
             <img src={article.acf.picture || imageUrlRecources.noPhoto}
-                 className="event_list-img" />
+                  alt={article.title.rendered}
+                  className="events-item__img" />
           </div>
           <div className="col-6">
-            <div className="event_list-title" dangerouslySetInnerHTML={{ __html: article.title.rendered }}></div>
-            <div className="event_list-description" dangerouslySetInnerHTML={{ __html: article.excerpt.rendered }}></div>
-            <div className="event_list-tags">{article.acf.tags ?
-              article.acf.tags.split(',').map(tag =>
-            <span className="tagOpt" key={tag}>{tag}</span>
-            ) : ''}</div>
-          </div>
-                        <div className="col-3">
-                            <div className="event_list-price">
-                                {free.indexOf(article.acf.price) === -1 ? (article.acf.price + '' + article.acf.currency || '') : globalRecources.free}
-                            </div>
-                            <div className="event_list-location">
-                                {article.acf.cities} {article.acf.location}
-                            </div>
-                            <div className="event_list-date">
-                                {article.acf.dateOf ? moment(article.acf.dateOf, "YYYY-MM-DD").format("Do MMM YYYY") : ''}
-                            </div>
-                            <div className="event_list-action">
-                                <button className="event_list-actionMore">{globalRecources.moreInfo}</button>
-                            </div>
-                        </div>
-                    </div>
-                </NavLink>
-            </li>);
-        return (
-            <div className="container">
-                <Adventages />
-                <div className="row">
-                    <div className="col-9">
-                        <Title />
-                        {articleElements}
-                    </div>
-                    <div className="col-3">
-                        <Filters />
-                        <LastPosts />
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-12">
-                        <Pagination />
-                    </div>
-                </div>
+            <div className="events-item__title" dangerouslySetInnerHTML={{ __html: article.title.rendered }} />
+            <div className="events-item__description" dangerouslySetInnerHTML={{ __html: article.excerpt.rendered }} />
+            <div className="events-item__tags events-item-tags">{article.acf.tags ?
+              article.acf.tags.split(',').map(tag => <span key={tag} className="events-item-tags__tag">{tag}</span>) : ''}
             </div>
-        )
-    }
+          </div>
+          <div className="col-3">
+            <div className="events-item__price">
+              {free.indexOf(article.acf.price) === -1 ? (article.acf.price + ' ' + article.acf.currency || '') : globalRecources.free}
+            </div>
+            <div className="events-item__location">
+              {article.acf.cities} {article.acf.location}
+            </div>
+            <div className="events-item__date">
+              {article.acf.dateOf ? moment(article.acf.dateOf, "YYYY-MM-DD").format("Do MMM YYYY") : ''}
+            </div>
+            <div className="events-item__action events-item-action">
+              <button className="events-item-action__button">{globalRecources.moreInfo}</button>
+            </div>
+          </div>
+        </div>
+      </NavLink>
+    </li>);
+    return (
+      <div className="container events">
+        <Adventages />
+        <div className="row">
+          <div className="col-9">
+            <Title />
+            <ul className="events__list">
+              {articleElements}
+            </ul>
+          </div>
+          <div className="col-3">
+            <Filters />
+            <LastPosts />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-12">
+            <Pagination />
+          </div>
+        </div>
+      </div>
+    )
+  }
 }
 
 const mapStateToProps = function(store) {
     return {
-        posts: store.filterState.list
+        posts: store.filterState.list,
     }
 };
 

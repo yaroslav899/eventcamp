@@ -15,17 +15,17 @@ export default class DetailTabs extends Component {
 
   render() {
     const {
-      data: [{
-        acf: [{
+      data: {
+        acf: {
           cities,
           location,
-        }],
-      }],
-      content: [{
-        rendered,
-      }],
+        },
+        content: {
+          rendered,
+        }
+      },
     } = this.props;
-    const address = `${cities},${location}`;
+    const address = `${cities}, ${location}`;
     return (
       <Tabs>
         <TabList>

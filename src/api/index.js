@@ -1,6 +1,6 @@
 import { urlRecources } from '../recources';
 import store from '../store';
-import { setCookie } from '../cookie';
+import { setCookie, getCookie } from '../cookie';
 import { adminAccess } from '../credentials';
 import {
   getRequestUrl,
@@ -10,6 +10,7 @@ import {
 } from './helpers';
 
 export const request = {
+
   authUser: function (param) {
     return authFetch(param).then(function (data) {
       setCookie('authData', JSON.stringify({
@@ -30,6 +31,7 @@ export const request = {
       });
     });
   },
+
   createNewUser: function (param) {
     return authFetch(adminAccess).then(function (user) {
       return fetch(urlRecources.getUsersUrl, {
@@ -50,33 +52,54 @@ export const request = {
 
     });
   },
+
+  getUser: function (param) {
+    const userData = JSON.parse(getCookie('authData'));
+    const { user_email } = userData;
+    return fetch('http://board.it-mir.net.ua/wp-json/wp/v2/users/?search=' + user_email).then(function (response) {
+      return response.json();
+    });
+  },
+
+  getAuthorPosts: function (param) {
+    let url = getRequestUrl(param);
+    return fetch(url).then(function (response) {
+      return response.json()
+    });
+  },
+
   getListPosts: function (param) {
     let url = getRequestUrl(param);
     return fetch(url).then(function(response) {
       store.dispatch({
-        type: 'PAGINATION_UPDATE',
+        type: 'UPDATE_PAGINATION',
         count: response.headers.get('x-wp-totalpages')
       });
       return response.json()
     });
   },
+
   getPostDetail: function (eventID) {
     let url = urlRecources.endpointUrl + 'posts/' + eventID + '?_embed';
     return fetch(url).then((response) => response.json());
   },
+
   getAddress: function (address) {
     let url = urlRecources.geoLookUpUrl + 'address=' + address + '&key=AIzaSyCM7IwnppmyEPSZPDZIoTW8VKOMlS5peN4';
     return fetch(url).then((response) => response.json());
   },
+
   getExchangeData: function () {
     return fetch(urlRecources.exchangeUrl).then((response) => response.json());
   },
+
   getInterestingData: function(param){
     let url = getInterestingUrl(param);
     return fetch(url).then(function(response) {
       return response.json()
     });
   },
+
   getLastPosts: function() {
     let url = getLastPosts();
     return fetch(url).then((response) => response.json());

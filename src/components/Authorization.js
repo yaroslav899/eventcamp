@@ -21,7 +21,7 @@ class Authorization extends PureComponent {
 
 const mapStateToProps = function (store) {
   return {
-    userAuth: store.authuser.state,
+    userAuth: store.user.state,
   };
 };
 

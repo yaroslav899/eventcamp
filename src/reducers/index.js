@@ -2,14 +2,14 @@ import { combineReducers } from 'redux';
 import filterReducer from './filterReducer';
 import paginationReducer from './paginationReducer';
 import lastPostsReducer from './lastPostsReducer';
-import authuserReducer from './authuserReducer';
+import userReducer from './userReducer';
 
 // Combine Reducers
 const reducers = combineReducers({
   filterState: filterReducer,
   totalPages: paginationReducer,
   lastPosts: lastPostsReducer,
-  authuser: authuserReducer,
+  user: userReducer,
 });
 
 export default reducers;

@@ -26,14 +26,17 @@ class AuthHeaderLink extends Component {
     }
 
     render() {
-        let { name } = this.props.userAuth;
-        let authLinks = !name ? <div><ActiveLink to="/enter" >{globalRecources.enter}</ActiveLink>
-                                    <ActiveLink to="/register" >{globalRecources.registr}</ActiveLink>
-                                </div>
-            : <div>Добро пожаловать <NavLink to={`/profile`}>{name}</NavLink></div>
+      const {
+        userAuth: {
+          name,
+        },
+      } = this.props;
+      let authLinks = !name ? <div><ActiveLink to="/enter" >{globalRecources.enter}</ActiveLink>
+                              <ActiveLink to="/register" >{globalRecources.registr}</ActiveLink></div>
+            : <div>Добро пожаловать, <NavLink to={`/profile`}>{name}</NavLink></div>
 
         return (
-            <div className="auth">
+          <div className="header__registration">
                 {authLinks}
             </div>
         )
@@ -42,7 +45,7 @@ class AuthHeaderLink extends Component {
 
 const mapStateToProps = function (store) {
     return {
-        userAuth: store.authuser.state
+        userAuth: store.user.state
     }
 };
 

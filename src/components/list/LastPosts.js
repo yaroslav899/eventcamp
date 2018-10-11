@@ -22,7 +22,7 @@ class LastPosts extends PureComponent {
     if (list) return;
     request.getLastPosts().then(posts => {
       store.dispatch({
-        type: 'LAST_POSTS_UPDATE',
+        type: 'UPDATE_LAST_POSTS',
         list: posts,
       });
     });

@@ -4,7 +4,7 @@ import { Router, IndexRoute } from 'react-router';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect, Provider } from 'react-redux';
 import { createBrowserHistory } from 'history';
-import './main.css';
+import './css/main.css';
 
 import Main from './components/Main';
 import EventList from './components/EventList';
@@ -18,8 +18,8 @@ import PrivateRoute from './components/hoc/PrivateRoute';
 
 class App extends React.Component {
     render() {
-        return(
-            <Provider store={store}>                
+      return (
+            <Provider store={store}> 
                 <Router history={createBrowserHistory()}>
                     <Layout>
                         <Switch>
@@ -34,7 +34,7 @@ class App extends React.Component {
                             <Route component={NoMatch404} />
                         </Switch>
                     </Layout>
-                </Router>                 
+                </Router>
             </Provider>
         )
     }

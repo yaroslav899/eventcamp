@@ -9,7 +9,7 @@ class PrivateRoute extends Component {
   render() {
     const {
       redirectTo,
-      component,
+      component: Component,
       userAuth: {
         name,
       },
@@ -18,14 +18,14 @@ class PrivateRoute extends Component {
       return <Redirect to={redirectTo} />;
     }
     return (
-      <component />
+      <Component />
     )
   }
 }
 
 const mapStateToProps = function (store) {
   return {
-    userAuth: store.authuser.state,
+    userAuth: store.user.state,
   };
 };
 

@@ -29,7 +29,7 @@ class Registration extends PureComponent {
     if (!captcha) {
       return false;
     }
-    request.createNewUser(this.state).then(() => {
+    request.createNewUser(this.state).then((data) => {
       this.setState({ isSuccessRegister: true });
       return false;
     });

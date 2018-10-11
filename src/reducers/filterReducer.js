@@ -10,7 +10,7 @@ const initialFilterState = {
 
 export default function (filterReducer = initialFilterState, action) {
   switch (action.type) {
-    case 'EVENT_LIST_UPDATE':
+    case 'UPDATE_EVENT_LIST':
       return { ...filterReducer, list: action.list };
     case 'UPDATE_FILTER_CATEGORY':
       return { ...filterReducer, categories: action.categories };
