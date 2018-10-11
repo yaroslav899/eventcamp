@@ -17,6 +17,8 @@ This is <b>events board</b>
 
 <h3>Using techologies</h3>
 <ul>
-    <li>Backend - WordPress + WordPress API</li>
-    <li>Frontend - React: 16.2.0</li>
+    <li><b>Backend</b> - WordPress REST API<br/>
+    doc: https://developer.wordpress.org/rest-api/
+    </li>
+    <li><b>Frontend</b> - React (^16.2.0) + Redux (^3.7.2)</li>
 </ul>
