@@ -13,9 +13,7 @@ class AuthForm extends PureComponent {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        var isSuccessRegister = request.authUser(this.state).then(function (data) {
-            return true;
-        });
+        request.authUser(this.state);
     }
 
     onChanges = (value) => {
@@ -30,7 +28,7 @@ class AuthForm extends PureComponent {
                         <input type="text" name="login" value={this.state.login} onChange={this.handleChange} />
                     </label><br />
                     <label><span>Password:</span>
-                        <input type="text" name="password" value={this.state.password} onChange={this.handleChange} />
+                        <input type="text" name="password" type="password" value={this.state.password} onChange={this.handleChange} />
                     </label><br />
                     <input type="submit" value="Submit" />
                 </form>
