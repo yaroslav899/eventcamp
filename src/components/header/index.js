@@ -2,7 +2,6 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import Menu from '../global/Menu';
 import AuthHeaderLink from '../global/AuthHeaderLink';
-import ActiveLink from '../hoc/ActiveLink';
 import { imageUrlRecources } from '../../recources';
 
 const Header = () => (

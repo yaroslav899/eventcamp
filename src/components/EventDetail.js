@@ -11,12 +11,9 @@ import { free } from '../fixtures';
 import { globalRecources, imageUrlRecources } from '../recources';
 
 export default class EventDetail extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+  state = {
       post: null,
-    };
-  }
+  };
 
   componentDidMount () {
     return request.getPostDetail(this.props.match.params.id)
@@ -24,9 +21,8 @@ export default class EventDetail extends Component {
         this.setState({
           post: post,
         });
-        return post;
-      }).then(data => {
-        document.title = data.title.rendered;
+        document.title = post.title.rendered
+        return;
       });
   }
 

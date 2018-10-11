@@ -56,7 +56,7 @@ export const request = {
   getUser: function (param) {
     const userData = JSON.parse(getCookie('authData'));
     const { user_email } = userData;
-    return fetch('http://board.it-mir.net.ua/wp-json/wp/v2/users/?search=' + user_email).then(function (response) {
+    return fetch(urlRecources.mainUrl + urlRecources.endpointUrl + 'users/?search=' + user_email).then(function (response) {
       return response.json();
     });
   },
@@ -80,7 +80,7 @@ export const request = {
   },
 
   getPostDetail: function (eventID) {
-    let url = urlRecources.endpointUrl + 'posts/' + eventID + '?_embed';
+    let url = urlRecources.mainUrl + urlRecources.endpointUrl + 'posts/' + eventID + '?_embed';
     return fetch(url).then((response) => response.json());
   },
 

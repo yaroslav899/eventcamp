@@ -2,19 +2,16 @@ import React, { PureComponent } from 'react';
 import { request } from '../../api';
 
 class AuthForm extends PureComponent {
-    constructor(props) {
-        super(props);
-        this.state = {
-            login: '',
-            password: ''
-        };
-    }
+    state = {
+      login: '',
+      password: ''
+    };
 
-    handleChange = event => {
+    handleChange = (event) => {
         this.setState({ [event.target.name]: event.target.value });
     }
 
-    handleSubmit = event => {
+    handleSubmit = (event) => {
         event.preventDefault();
         var isSuccessRegister = request.authUser(this.state).then(function (data) {
             return true;

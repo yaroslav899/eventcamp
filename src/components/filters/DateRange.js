@@ -13,7 +13,7 @@ class DateRange extends Component {
         super(props);
     }
 
-    handleDayClick = day => {
+    handleDayClick = (day) => {
         if (new Date(day).toLocaleDateString() < new Date().toLocaleDateString()) {
             return;
         }
