@@ -1,21 +1,21 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import store from '../store';
-import { request } from '../api';
+import store from '../../store';
+import Pagination from '../global/Pagination';
+import { request } from '../../api';
 
-class Pagination extends PureComponent {
+class PaginationContainter extends PureComponent {
   constructor(props) {
-    super(props);
+    super();
     this.state = {
       activePage: 1,
     };
-    this.handlePaginationClick = this.handlePaginationClick.bind(this);
   }
 
-  handlePaginationClick(e) {
-    e.preventDefault();
+  handlePaginationClick = (event) => {
+    event.preventDefault();
     const initialParams = {
-      page: e.target.text,
+      page: event.target.text,
     };
     request.getListPosts(initialParams).then((posts) => {
       store.dispatch({
@@ -32,11 +32,12 @@ class Pagination extends PureComponent {
   render() {
     const { activePage } = this.state;
     const { totalPages } = this.props;
-    const pageNavigation = totalPages.map(pageNumber => (
-      <li key={pageNumber} className={`events-pagination__item events-pagination-item ${(+activePage === +pageNumber) ? ' active' : ''}`}>
-        <a href="#" className="events-pagination-item__link" onClick={this.handlePaginationClick}>{pageNumber}</a>
-      </li>
-    ),
+    const pageNavigation = totalPages.map((pageNumber) => (
+      <Pagination pageNumber={pageNumber}
+                  classNameItem={`events-pagination__item events-pagination-item ${(+activePage === +pageNumber) ? ' active' : ''}`}
+                  classNameLink='events-pagination-item__link'
+                  handler={this.handlePaginationClick}/>
+      )
     );
     return (
       <ul className="events__pagination events-pagination">{pageNavigation}</ul>
@@ -50,4 +51,4 @@ const mapTotalPagesToProps = function (store) {
   };
 };
 
-export default connect(mapTotalPagesToProps)(Pagination);
+export default connect(mapTotalPagesToProps)(PaginationContainter);

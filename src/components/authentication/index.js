@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import AuthForm from './global/AuthForm';
+import AuthForm from './AuthForm';
 
-class Authorization extends PureComponent {
+class AuthenticationPage extends PureComponent {
   render() {
     const { name } = this.props.userAuth;
     if (name) {
@@ -25,4 +25,4 @@ const mapStateToProps = function (store) {
   };
 };
 
-export default connect(mapStateToProps)(Authorization);
+export default connect(mapStateToProps)(AuthenticationPage);

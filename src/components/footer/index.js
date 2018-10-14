@@ -1,6 +1,6 @@
 ﻿import React from 'react';
 import { NavLink } from 'react-router-dom';
-import Menu from '../global/Menu';
+import Menu from '../menu';
 import { globalRecources, imageUrlRecources } from '../../recources';
 
 const Footer = () => (

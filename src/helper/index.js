@@ -12,8 +12,8 @@ export const updateFilterStore = (initialParams) => {
     if (initialParams.cities === 'any') {
       initialParams.cities = '';
     } else {
-      let value = cities.find(item => item.url == initialParams.cities);
-      initialParams.cities = value && value.id || '';
+      let value = cities.find((item) => item.url == initialParams.cities);
+      initialParams.cities = value ? value.id : '';
       store.dispatch({
         type: 'UPDATE_FILTER_CITY',
         cities: initialParams.cities,
@@ -21,8 +21,8 @@ export const updateFilterStore = (initialParams) => {
     }
   }
   if ('categories' in initialParams) {
-    let value = categories.find(item => item.url == initialParams.categories);
-    initialParams.categories = value && value.id || '';
+    let value = categories.find((item) => item.url == initialParams.categories);
+    initialParams.categories = value ? value.id : '';
     store.dispatch({
       type: 'UPDATE_FILTER_CATEGORY',
       categories: initialParams.categories,

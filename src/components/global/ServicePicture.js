@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import LastPosts from '../list/LastPosts';
+import LastPosts from '../global/LastPosts';
 import { categories } from '../../fixtures';
 
 export default class ServicePicture extends Component {

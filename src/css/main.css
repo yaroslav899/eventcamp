@@ -227,6 +227,7 @@ h1{
   margin: 10px 0;
 }
 .events-pagination-item__link {
+  cursor: pointer;
   color: #8c8c8c;
   margin-right: 10px;
   font-size: 0.8em;
@@ -407,10 +408,9 @@ ul.react-tabs__tab-list li{
   cursor:pointer;
   float:left;
   font-weight:bold;
-  margin: 15px 0;
-  padding:3px 11px;
+  margin: 15px 10px 15px 0;
+  padding:5px 25px;
   border-radius:10px;
-  margin-right:17px;
 }
 ul.react-tabs__tab-list li.react-tabs__tab--selected{
   color:#ffffff;
@@ -507,7 +507,7 @@ div.samePost-date{
 }
 img.detail-picture{
   height: 235px;
-  width: 415px;
+  width: 100%;
 }
 div.clear{
   clear:both;

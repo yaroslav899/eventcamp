@@ -6,12 +6,12 @@ import { connect, Provider } from 'react-redux';
 import { createBrowserHistory } from 'history';
 import './css/main.css';
 
-import Main from './components/Main';
-import EventList from './components/EventList';
-import EventDetail from './components/EventDetail';
-import Layout from './components/Layout';
-import Registration from './components/Registration';
-import Authorization from './components/Authorization';
+import MainPage from './components/MainPage';
+import ListPage from './components/events-list';
+import DetailPage from './components/event-detail';
+import Layout from './components/global/Layout';
+import RegistrationPage from './components/register';
+import AuthenticationPage from './components/authentication';
 import Profile from './components/profile/';
 import NoMatch404 from './components/NoMatch404';
 import PrivateRoute from './components/hoc/PrivateRoute';
@@ -23,14 +23,14 @@ class App extends Component {
         <Router history={createBrowserHistory()}>
           <Layout>
             <Switch>
-              <Route path='/' component={Main} exact />
-              <Route path='/events/' component={EventList} exact />
-              <Route path='/events/:cities' component={EventList} exact />
-              <Route path='/events/:cities/:categories' component={EventList} exact />
-              <Route path='/events/:cities/:categories/:id' component={EventDetail} />
+              <Route path='/' component={MainPage} exact />
+              <Route path='/events/' component={ListPage} exact />
+              <Route path='/events/:cities' component={ListPage} exact />
+              <Route path='/events/:cities/:categories' component={ListPage} exact />
+              <Route path='/events/:cities/:categories/:id' component={DetailPage} />
               <PrivateRoute path="/profile" redirectTo="/enter" component={Profile} />
-              <Route path='/enter' component={Authorization} />
-              <Route path='/register' component={Registration} />
+              <Route path='/enter' component={AuthenticationPage} />
+              <Route path='/register' component={RegistrationPage} />
               <Route component={NoMatch404} />
             </Switch>
           </Layout>

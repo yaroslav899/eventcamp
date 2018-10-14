@@ -1,12 +1,12 @@
 import React, { PureComponent } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
-import AuthForm from './global/AuthForm';
-import { request } from '../api';
-import { fieldsRegisterForm } from '../recources';
+import AuthForm from '../authentication/AuthForm';
+import { request } from '../../api';
+import { fieldsRegisterForm } from '../../recources';
 
-class Registration extends PureComponent {
+class RegistrationPage extends PureComponent {
   constructor(props) {
-    super(props);
+    super();
     this.state = {
       firstname: '',
       secondname: '',
@@ -18,32 +18,32 @@ class Registration extends PureComponent {
     };
   }
 
-  handleChange= (event) => {
+  handleChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
-    return false;
+    return;
   }
 
-  handleSubmit= (event) => {
+  handleSubmit = (event) => {
     event.preventDefault();
     const { captcha } = this.state;
     if (!captcha) {
-      return false;
+      return;
     }
     request.createNewUser(this.state).then((data) => {
       this.setState({ isSuccessRegister: true });
-      return false;
+      return;
     });
-    return false;
+    return;
   }
 
   onChanges = (value) => {
     this.setState({ captcha: value });
-    return false;
+    return;
   }
 
   render() {
     const { isSuccessRegister } = this.state;
-    const simpleFields = Object.keys(fieldsRegisterForm).map(field => (
+    const simpleFields = Object.keys(fieldsRegisterForm).map((field) => (
       <label htmlFor={field}>
         <span>{fieldsRegisterForm[field]}</span>
         <input type="text" name={field} value={this.state[field]} onChange={this.handleChange} />
@@ -52,9 +52,9 @@ class Registration extends PureComponent {
     );
     const registerForm = (isSuccessRegister ? (
       <div>
-        Р’С‹ СѓСЃРїРµС€РЅРѕ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°Р»РёСЃСЊ
+        Вы успешно зарегистрировались
         <br />
-        РџРѕРїСЂРѕР±СѓР№С‚Рµ Р·Р°Р№РґС‚Рё РІ СЃРІРѕР№ Р°РєРєР°СѓРЅС‚
+        Попробуйте зайдти в свой аккаунт
         <br />
         <AuthForm />
       </div>) : (
@@ -82,4 +82,4 @@ class Registration extends PureComponent {
   }
 }
 
-export default Registration;
+export default RegistrationPage;

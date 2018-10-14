@@ -7,7 +7,7 @@ import { getCookie } from '../../cookie';
 
 class AuthHeaderLink extends Component {
   constructor(props) {
-    super(props);
+    super();
   }
     
   componentDidMount() {
