@@ -1,15 +1,10 @@
 ﻿import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 import ActiveLink from '../hoc/ActiveLink';
-import { globalRecources, imageUrlRecources } from '../../recources';
+import { globalRecources } from '../../recources';
 import { getCookie } from '../../cookie';
 
 class AuthHeaderLink extends Component {
-  constructor(props) {
-    super();
-  }
-    
   componentDidMount() {
     let authData = getCookie('authData');
     if (authData) {
@@ -31,22 +26,20 @@ class AuthHeaderLink extends Component {
         name,
       },
     } = this.props;
-    let authLinks = !name ? <div><ActiveLink to="/enter" >{globalRecources.enter}</ActiveLink>
-                            <ActiveLink to="/register" >{globalRecources.registr}</ActiveLink></div>
-          : <div>Добро пожаловать, <NavLink to={`/profile`}>{name}</NavLink></div>
-
-      return (
-        <div className="header__registration">
-              {authLinks}
-          </div>
-      )
+    if (name) return <div>{globalRecources.welcome} <ActiveLink to={`/profile`}>{name}</ActiveLink></div>
+    return (
+      <div className="header__registration header-registration">
+        <ActiveLink to="/enter" className="header-registration__enter">{globalRecources.enter}</ActiveLink>
+        <ActiveLink to="/register" className="header-registration__register">{globalRecources.registr}</ActiveLink>
+      </div>
+    )
   }
 }
 
 const mapStateToProps = function (store) {
-    return {
-        userAuth: store.user.state
-    }
+  return {
+    userAuth: store.user.state
+  }
 };
 
 export default connect(mapStateToProps)(AuthHeaderLink);

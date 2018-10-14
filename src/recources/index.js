@@ -58,9 +58,11 @@ export const globalRecources = {
   free: 'бесплатно',
   moreInfo: 'Подробнее',
   loading: 'Загрузка...',
+  welcome: 'Добро пожаловать',
   copyright: '©2018 EventCamp. Все права защищены.',
   enter: 'Войти',
   registr: 'Регистрация',
+  successRegisterMsg: 'Вы успешно зарегистрировались. Попробуйте зайдти в свой аккаунт',
 };
 export const imageUrlRecources = {
   noPhoto: 'http://board.it-mir.net.ua/wp-content/uploads/2018/05/nophoto.jpg',

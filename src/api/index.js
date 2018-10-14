@@ -34,7 +34,7 @@ export const request = {
 
   createNewUser: function (param) {
     return authFetch(adminAccess).then(function (user) {
-      return fetch(urlRecources.getUsersUrl, {
+      return fetch(`${urlRecources.mainUrl}${urlRecources.endpointUrl}users`, {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',

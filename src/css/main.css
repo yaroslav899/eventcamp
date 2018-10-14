@@ -7,7 +7,7 @@ h1{
   color:#0367b7;
   padding: 1% 0;
 }
-/** 
+/**
 *  Header
 */
 .header {
@@ -28,101 +28,79 @@ h1{
   margin: 0 0 10px 0;
 }
 
-.header__registration a.enter {
-    color: #f6c806;
-    text-decoration: underline;
-  }
+.header__registration a{
+  color: #ffffff;
+}
+.header-registration__enter {
+  margin-right:10px;
+}
 
-.header__registration .form-group {
-    float: left;
-    border-radius: 0;
-    margin-bottom: 0;
-  }
-
-.header__registration .form-group .form-control {
-      background-color: transparent;
-      border: 0;
-      font-size: 1em;
-    }
-
-.header__registration .login {
-    float: left;
-  }
-/* nav
------------------------------------------------------------------------------*/
+/**
+* Main menu navigation
+*/
 .header nav.navbar {
   margin: 5px 0 0 0;
   padding: 0;
   float: right;
 }
 
-  .header nav.navbar ul.navbar-nav li.menu-item a {
-    font-size: 0.8em;
-    font-weight: bold;
-    text-transform: uppercase;
-    color: #ffffff;
-    border-radius: 5px;
-    padding: 7px 14px;
-  }
-    .header nav.navbar ul.navbar-nav li.menu-item a.active {
-      background-color: #f6c806;
-      color: #004f8f;
-    }
+.header nav.navbar ul.navbar-nav li.menu-item a {
+  font-size: 0.8em;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #ffffff;
+  border-radius: 5px;
+  padding: 7px 14px;
+}
+.header nav.navbar ul.navbar-nav li.menu-item a.active {
+  background-color: #f6c806;
+  color: #004f8f;
+}
 
-    .header nav.navbar ul.navbar-nav li.menu-item a:hover {
-      text-decoration: none;
-      background-color: #035ca4;
-    }
+.header nav.navbar ul.navbar-nav li.menu-item a:hover {
+  text-decoration: none;
+  background-color: #035ca4;
+}
+.header nav.navbar ul.navbar-nav li.menu-item.current-menu-item a {
+  background-color: #f6c806;
+  color: #004f8f;
+}
 
-  .header nav.navbar ul.navbar-nav li.menu-item.current-menu-item a {
-    background-color: #f6c806;
-    color: #004f8f;
-  }
 
 .banner-main {
   margin-top: 10px;
 }
-/* 
+/**
 *  Middle
 */
-@media (max-width: 767.98px) {
-  .advant {
-    display: none;
-  }
-}
-
 .advant {
   margin: 7px 0;
   border-bottom: 1px solid #b3d1e9;
 }
 
-  .advant span.adv-text {
-    width: 60%;
-    display: inline-block;
-    text-align: left;
-    color: #0367b7;
-    font-weight: bold;
-    font-size: 0.7em;
-    vertical-align: top;
-    margin-top: 10px;
-    text-transform: uppercase;
-    border-right: 1px solid #b3d1e9;
-  }
-
-    .advant span.adv-text.last {
-      border-right: 0;
-    }
-
-  .advant img.adv-img {
-    margin-right: 24px;
-    height: 75%;
-  }
-
-    .advant img.adv-img.img-add {
-      height: 63%;
-      margin-top: 2%;
-    }
-
+.advant span.adv-text {
+  width: 60%;
+  display: inline-block;
+  text-align: left;
+  color: #0367b7;
+  font-weight: bold;
+  font-size: 0.7em;
+  vertical-align: top;
+  margin-top: 10px;
+  text-transform: uppercase;
+  border-right: 1px solid #b3d1e9;
+}
+.advant span.adv-text.last {
+  border-right: 0;
+}
+.advant img.adv-img {
+  margin-right: 24px;
+  height: 75%;
+}
+.advant img.adv-img.img-add {
+  height: 63%;
+  margin-top: 2%;
+}
 .line-top {
   padding-top: 15px;
 }
@@ -331,7 +309,9 @@ div.date-range p button{
   padding: 3% 8%;
   width: 160px;
 }
-/*Detail page*/
+/**
+* Detail page
+*/
 div.area-1 {
   color:#565656;
 }
@@ -526,6 +506,25 @@ img.googleCal{
   font-size: 0.9em;
   line-height: 1.4em;
 }
+/**
+*  Registration page
+*/
+.registration{
+
+}
+.registration__form{
+
+}
+.registration-form__label {
+  display: block;
+}
+.registration-form__label span{
+  display: inline-block;
+  width:10%;
+}
+/**
+*  Footer
+*/
 .footer {
   width: 100%;
   height: 100px;
@@ -534,34 +533,34 @@ img.googleCal{
   position: relative;
 }
 
-  .footer div.footer-menu {
-  }
+.footer div.footer-menu {
+}
 
-    .footer div.footer-menu ul {
-    }
+.footer div.footer-menu ul {
+}
 
-      .footer div.footer-menu ul li {
-        float: left;
-        margin: 0 15px 0 0;
-        padding: 0;
-      }
+.footer div.footer-menu ul li {
+  float: left;
+  margin: 0 15px 0 0;
+  padding: 0;
+}
 
-        .footer div.footer-menu ul li:last-child {
-          margin: 0;
-          padding: 0;
-        }
+.footer div.footer-menu ul li:last-child {
+  margin: 0;
+  padding: 0;
+}
 
-        .footer div.footer-menu ul li a {
-          color: #ffffff;
-          text-transform: uppercase;
-          font-size: 0.8em !important;
-        }
+.footer div.footer-menu ul li a {
+  color: #ffffff;
+  text-transform: uppercase;
+  font-size: 0.8em !important;
+}
 
-  .footer div.copyright {
-    margin: 15px 0 0 0;
-    font-size: 0.7em;
-    color: #ffffff;
-  }
+.footer div.copyright {
+  margin: 15px 0 0 0;
+  font-size: 0.7em;
+  color: #ffffff;
+}
 
 .clear {
   clear: both;
@@ -588,6 +587,12 @@ ul li.user-posts span.postName{
     max-width: 1170px;
     padding-right: 0;
     padding-left: 0;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .advant {
+    display: none;
   }
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import Menu from '../menu';
-import AuthHeaderLink from '../global/AuthHeaderLink';
+import AuthHeaderLink from './AuthHeaderLink';
 import { imageUrlRecources } from '../../recources';
 
 const Header = () => (

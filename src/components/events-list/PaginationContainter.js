@@ -32,8 +32,9 @@ class PaginationContainter extends PureComponent {
   render() {
     const { activePage } = this.state;
     const { totalPages } = this.props;
-    const pageNavigation = totalPages.map((pageNumber) => (
+    const pageNavigation = totalPages.map((pageNumber, index) => (
       <Pagination pageNumber={pageNumber}
+                  key={index}
                   classNameItem={`events-pagination__item events-pagination-item ${(+activePage === +pageNumber) ? ' active' : ''}`}
                   classNameLink='events-pagination-item__link'
                   handler={this.handlePaginationClick}/>
