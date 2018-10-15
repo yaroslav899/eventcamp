@@ -37,7 +37,7 @@ export const mainMenu = [{
 {
   name: 'Добавить событие',
   id: '3',
-  url: '/rcl-postedit',
+  url: '/add-event',
 },
 {
   name: 'Инфо',

@@ -61,6 +61,22 @@ export const request = {
     });
   },
 
+  createPost: function () {
+    return fetch('http://board.it-mir.net.ua/wp-json/wp/v2/posts', {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        'accept': 'application/json',
+        'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9ib2FyZC5pdC1taXIubmV0LnVhIiwiaWF0IjoxNTM5NjEyMjA4LCJuYmYiOjE1Mzk2MTIyMDgsImV4cCI6MTU0MDIxNzAwOCwiZGF0YSI6eyJ1c2VyIjp7ImlkIjoiMSJ9fX0.Iz0m08aVLTVGIg_ZaePulGQ2TfnYfPUr5ZAU0yNnHPs',
+      },
+      body: JSON.stringify({
+        title: 'asdasSuper',
+      })
+    }).then(function (response) {
+      return response.json()
+    });
+  },
+
   getAuthorPosts: function (param) {
     let url = getRequestUrl(param);
     return fetch(url).then(function (response) {

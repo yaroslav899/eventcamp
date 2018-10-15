@@ -8,7 +8,9 @@ import {
 } from 'react-tabs';
 import moment from 'moment';
 import store from '../../store';
+import { getCookie } from '../../cookie';
 import { request } from '../../api';
+import { imageUrlRecources } from '../../recources';
 
 class Profile extends Component {
   componentDidMount() {
@@ -29,6 +31,7 @@ class Profile extends Component {
   }
 
   render() {
+    const user = JSON.parse(getCookie('authData'));
     const posts = this.props.posts;
     let userPosts = !posts.length ? '' : posts.map(article => <li key={article.id} className="user-posts">
       <span className="postName" dangerouslySetInnerHTML={{ __html: article.title.rendered }} />
@@ -36,16 +39,30 @@ class Profile extends Component {
       <span>{article.acf.cities}, {article.acf.location} - {article.acf.dateOf ? moment(article.acf.dateOf, "YYYY-MM-DD").format("Do MMM YYYY") : ''}</span>
     </li>);
     return (
-      <div className="container">
+      <div className="container profile">
         <div className="row">
-          <div className="col-12">
+          <div className="col-6">
             <h1>Личный кабинет</h1>
+          </div>
+          <div className="col-6 text-right">
+            <button type="button" className="profile__add-button">Добавить событие</button>
           </div>
           <div className="col-6">
             <h3>Фотография пользователя</h3>
+            <img src="/img/turizm.png" alt="profile photo" className="img-fluid rounded-circle profile__photo"/>
           </div>
           <div className="col-6">
             <h3>Персональная информация</h3>
+            <div className="row">
+              <div className="col-6">
+                Имя:<br />
+                <b>{user.user_display_name}</b>
+              </div>
+              <div className="col-6">
+                Email:<br />
+                <b>{user.user_email}</b>
+              </div>
+            </div>
           </div>
           <div className="col-12">
             <Tabs>

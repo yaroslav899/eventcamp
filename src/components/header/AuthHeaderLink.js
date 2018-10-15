@@ -26,7 +26,7 @@ class AuthHeaderLink extends Component {
         name,
       },
     } = this.props;
-    if (name) return <div>{globalRecources.welcome} <ActiveLink to={`/profile`}>{name}</ActiveLink></div>
+    if (name) return <div className="header__registration">{globalRecources.welcome} <ActiveLink to={`/profile`} className="header-registration__login">{name}</ActiveLink></div>
     return (
       <div className="header__registration header-registration">
         <ActiveLink to="/enter" className="header-registration__enter">{globalRecources.enter}</ActiveLink>
