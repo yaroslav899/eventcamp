@@ -13,6 +13,7 @@ import Layout from './components/global/Layout';
 import RegistrationPage from './components/register';
 import AuthenticationPage from './components/authentication';
 import AddEvent from './components/profile/AddEvent';
+import InfoPage from './components/info';
 import Profile from './components/profile/';
 import NoMatch404 from './components/NoMatch404';
 import PrivateRoute from './components/hoc/PrivateRoute';
@@ -25,11 +26,12 @@ class App extends Component {
           <Layout>
             <Switch>
               <Route path='/' component={MainPage} exact />
-              <Route path='/add-event' component={AddEvent} exact />
+              <PrivateRoute path="/add-event" redirectTo="/enter" component={AddEvent} />
               <Route path='/events/' component={ListPage} exact />
               <Route path='/events/:cities' component={ListPage} exact />
               <Route path='/events/:cities/:categories' component={ListPage} exact />
               <Route path='/events/:cities/:categories/:id' component={DetailPage} />
+              <Route path='/info' component={InfoPage} />
               <PrivateRoute path="/profile" redirectTo="/enter" component={Profile} />
               <Route path='/enter' component={AuthenticationPage} />
               <Route path='/register' component={RegistrationPage} />

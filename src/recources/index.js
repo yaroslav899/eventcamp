@@ -26,12 +26,12 @@ export const advantRecources = {
 };
 export const mainMenu = [{
   name: 'Главная',
-  id: '1',
+  id: '2',
   url: '/',
 },
 {
   name: 'Календарь событий',
-  id: '2',
+  id: '12',
   url: '/events',
 },
 {
@@ -41,7 +41,7 @@ export const mainMenu = [{
 },
 {
   name: 'Инфо',
-  id: '4',
+  id: '24',
   url: '/info',
 },
 {

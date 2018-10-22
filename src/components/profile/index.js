@@ -45,7 +45,7 @@ class Profile extends Component {
             <h1>Личный кабинет</h1>
           </div>
           <div className="col-6 text-right">
-            <button type="button" className="profile__add-button">Добавить событие</button>
+            <button type="button" className="profile__add-button"><span>&#8853;</span> Добавить событие</button>
           </div>
           <div className="col-6">
             <h3>Фотография пользователя</h3>

@@ -2,6 +2,7 @@ import { urlRecources } from '../recources';
 import store from '../store';
 import { setCookie, getCookie } from '../cookie';
 import { adminAccess } from '../credentials';
+import { stateToHTML } from 'draft-js-export-html';
 import {
   getRequestUrl,
   getInterestingUrl,
@@ -61,16 +62,38 @@ export const request = {
     });
   },
 
-  createPost: function () {
-    return fetch('http://board.it-mir.net.ua/wp-json/wp/v2/posts', {
+  createPost: function (param) {
+    const userData = JSON.parse(getCookie('authData'));
+    const {
+      editorState,
+      title,
+      price,
+      currency,
+      category,
+      subcategory,
+      tags,
+      city,
+      address,
+      date,
+      time,
+    } = param;
+    const description = stateToHTML(editorState.getCurrentContent());
+    const { token } = userData;
+    return fetch(`${urlRecources.mainUrl}${urlRecources.endpointUrl}posts`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
         'accept': 'application/json',
-        'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9ib2FyZC5pdC1taXIubmV0LnVhIiwiaWF0IjoxNTM5NjEyMjA4LCJuYmYiOjE1Mzk2MTIyMDgsImV4cCI6MTU0MDIxNzAwOCwiZGF0YSI6eyJ1c2VyIjp7ImlkIjoiMSJ9fX0.Iz0m08aVLTVGIg_ZaePulGQ2TfnYfPUr5ZAU0yNnHPs',
+        'Authorization': 'Bearer' + token,
       },
       body: JSON.stringify({
-        title: 'asdasSuper',
+        title: title,
+        content: description,
+        categories: category,
+        acf: {
+          cities: city,
+
+        }
       })
     }).then(function (response) {
       return response.json()
@@ -119,5 +142,10 @@ export const request = {
   getLastPosts: function() {
     let url = getLastPosts();
     return fetch(url).then((response) => response.json());
-  }
+  },
+
+  getPage: function (pageID) {
+    let url = urlRecources.mainUrl + urlRecources.endpointUrl + 'pages/' + pageID;
+    return fetch(url).then((response) =>response.json());
+  },
 };

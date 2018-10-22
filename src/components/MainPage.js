@@ -1,13 +1,17 @@
 import React from 'react';
 import Adventages from './global/Adventages';
 import ServicePicture from './global/ServicePicture';
+import MainText from './MainText';
 import Banner from './global/Banner';
 
 const MainPage = () => (
-  <div className="container">
-    <Banner />
-    <Adventages />
-    <ServicePicture />
-  </div>
+  <section>
+    <div className="container">
+      <Banner />
+      <Adventages />
+      <ServicePicture />
+    </div>
+    <MainText />
+  </section>
 );
 export default MainPage;
