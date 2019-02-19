@@ -1,59 +1,49 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import { request } from '../../api';
-import EventDetail from './EventDetail';
-import DetailTabs from './DetailTabs';
-import SocialShare from './SocialShare';
-import Calendar from './Calendar';
-import FeedBack from './FeedBack';
-import DetailInteresting from './DetailInteresting';
-import Adventages from '../global/Adventages';
+import DetailPageView from './views/DetailPageView';
+import Loader from '../global/Loader';
+import { connect } from 'react-redux';
+import store from '../../store';
 import { free } from '../../fixtures';
-import { globalRecources, imageUrlRecources } from '../../recources';
+import '../../css/detailPage.css';
+import { globalRecources, imageUrlRecources } from '../../resources';
 
-export default class DetailPage extends Component {
-  state = {
-    post: null,
-  };
-
+class DetailPage extends Component {
   componentDidMount() {
+    store.dispatch({
+      type: 'UPDATE_DETAIL_POST',
+      post: null,
+    });
+
     return request.getPostDetail(this.props.match.params.id)
       .then(post => {
-        this.setState({
+        store.dispatch({
+          type: 'UPDATE_DETAIL_POST',
           post: post,
         });
+        
         document.title = post.title.rendered
+
         return;
       });
   }
 
   render() {
-    const { post: data } = this.state;
-    if (!data) return <div>{globalRecources.loading}</div>;
-    const date = moment(data.acf.dateOf, "YYYY-MM-DD").format("Do MMM").split(' '),
-          dateMonth = date[1],
-          dateDay = date[0];
+    const { post } = this.props;
+    if (!post) return <Loader/>;
+    const date = moment(post.acf.dateOf, "YYYY-MM-DD").format("Do MMM").split(' ');
+
     return (
-      <div className="container">
-        <Adventages />
-        <div className="row">
-          <div className="col-9">
-            <h1 dangerouslySetInnerHTML={{ __html: data.title.rendered }}></h1>
-            <EventDetail event={data} date={date}/>
-            <div className="row area-2">
-              <div className="col-12">
-                <DetailTabs data={data} />
-              </div>
-            </div>
-          </div>
-          <div className="col-3 right-side">
-            <SocialShare data={data} />
-            <Calendar data={data} />
-            <FeedBack data={data} />
-            <DetailInteresting data={data} />
-          </div>
-        </div>
-      </div>
+      <DetailPageView title={post.title.rendered} event={post} date={date}/>
     )
   }
 };
+
+const mapStateToProps = function (store) {
+  return {
+    post: store.post.detail,
+  }
+};
+
+export default connect(mapStateToProps)(DetailPage);

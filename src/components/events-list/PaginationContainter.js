@@ -5,32 +5,37 @@ import Pagination from '../global/Pagination';
 import { request } from '../../api';
 
 class PaginationContainter extends PureComponent {
-  constructor(props) {
-    super();
-    this.state = {
-      activePage: 1,
-    };
-  }
+  state = {
+    activePage: 1
+  };
 
   handlePaginationClick = (event) => {
     event.preventDefault();
+
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+
     const initialParams = {
       page: event.target.text,
     };
+
     request.getListPosts(initialParams).then((posts) => {
       store.dispatch({
         type: 'UPDATE_EVENT_LIST',
         list: posts,
       });
     });
+
     this.setState({
       activePage: initialParams.page,
     });
-    window.scrollTo(0, 0);
   }
 
   render() {
-    const { activePage } = this.state;
+    const { activePage, activeClass } = this.state;
     const { totalPages } = this.props;
     const pageNavigation = totalPages.map((pageNumber, index) => (
       <Pagination pageNumber={pageNumber}
@@ -41,7 +46,7 @@ class PaginationContainter extends PureComponent {
       )
     );
     return (
-      <ul className="events__pagination events-pagination">{pageNavigation}</ul>
+      <ul className="events__pagination events-pagination ">{pageNavigation}</ul>
     );
   }
 }

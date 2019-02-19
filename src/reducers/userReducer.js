@@ -1,5 +1,6 @@
 const initialFilterState = {
   state: {},
+  userData: {},
   listPosts: [],
 };
 
@@ -12,6 +13,9 @@ export default function (userReducer = initialFilterState, action) {
         token: action.state.token,
       };
       return { ...userReducer, state };
+    }
+    case 'UPDATE_USERDATA': {
+      return { ...userReducer, userData: action.userData };
     }
     case 'UPDATE_USER_POSTS':
       return { ...userReducer, listPosts: action.listPosts };

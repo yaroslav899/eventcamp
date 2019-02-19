@@ -31,16 +31,6 @@ export const categories = [
                 "id": "10_5",
                 "url": "exhibitions",
                 "name": "Выставки"
-            },
-            {
-                "id": "10_6",
-                "url": "conference",
-                "name": "Конференция"
-            },
-            {
-                "id": "10_7",
-                "url": "excursions",
-                "name": "Экскурсии"
             }]
     },
     {
@@ -383,3 +373,9 @@ export const cities = [
         "name": "Запорожье"
     }
 ];
+
+export const defaultTopic = [{
+  id: '999',
+  url: 'no_choice',
+  name: 'Выберите категорию',
+}];

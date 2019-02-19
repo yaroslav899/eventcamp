@@ -2,7 +2,12 @@ import React from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { reCaptcha } from '../../credentials';
 
-const RegisterForm = ({ submitHandler, recaptchaHandler, fields, className }) => (
+const RegisterForm = ({
+  submitHandler,
+  recaptchaHandler,
+  fields,
+  className,
+}) => (
   <form onSubmit={submitHandler} className={className}>
     {fields}
     <br />

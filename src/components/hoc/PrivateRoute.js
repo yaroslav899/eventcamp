@@ -3,9 +3,6 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 class PrivateRoute extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     const {
       redirectTo,

@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { request } from '../../api';
-import { mainMenu } from '../../recources';
+import { mainMenu } from '../../resources';
 import { getValueFromParams } from '../../helper';
 import Adventages from '../global/Adventages';
 

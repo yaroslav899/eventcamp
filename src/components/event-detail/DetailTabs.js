@@ -6,13 +6,9 @@ import {
   TabPanel,
 } from 'react-tabs';
 import GoogleMap from './GoogleMap';
-import { detailRecources } from '../../recources';
+import { detailRecources } from '../../resources';
 
 export default class DetailTabs extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const {
       data: {
@@ -26,6 +22,7 @@ export default class DetailTabs extends Component {
       },
     } = this.props;
     const address = `${cities}, ${location}`;
+
     return (
       <Tabs>
         <TabList>

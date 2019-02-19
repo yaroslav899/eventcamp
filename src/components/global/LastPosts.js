@@ -6,20 +6,18 @@ import store from '../../store';
 import { request } from '../../api';
 import { getValueFromParams } from '../../helper';
 import { categories, cities, free } from '../../fixtures';
-import { listRecources, globalRecources } from '../../recources';
+import { listRecources, globalRecources } from '../../resources';
 
 class LastPosts extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     const {
       lastPosts: {
         list,
       },
     } = this.props;
+
     if (list) return;
+
     request.getLastPosts().then(posts => {
       store.dispatch({
         type: 'UPDATE_LAST_POSTS',
@@ -34,14 +32,16 @@ class LastPosts extends PureComponent {
         list,
       },
     } = this.props;
+
     if (!list) return <div></div>;
-    const lastPosts = list.map((post) => <li key={post.id} className='last-post-rightside'>
+
+    const lastPosts = list.map((post) => <li key={post.id}>
       <NavLink to={`/events/${getValueFromParams(cities, post.acf.cities, 'name', 'url')}/${getValueFromParams(categories, post.categories[0], 'id', 'url')}/${post.id}`}>
         <div className="row">
           <div className="col-12">
             <div className="last-post-title" dangerouslySetInnerHTML={{ __html: post.title.rendered }}></div>
           </div>
-          <div className="col-6">
+          <div className="col-8">
             <div className="last-post-location">
               {post.acf.cities}
               {post.acf.location}
@@ -51,9 +51,9 @@ class LastPosts extends PureComponent {
                 ? moment(post.acf.dateOf, 'YYYY-MM-DD').format('DD MMM YYYY') : ''}
             </div>
           </div>
-          <div className="col-6">
+          <div className="col-4">
             <div className="last-post-price">
-              {free.indexOf(post.acf.price) === -1 ? (post.acf.price + '' + post.acf.currency || '') : globalRecources.free}
+              {free.indexOf(post.acf.price) === -1 ? (post.acf.price + ' ' + post.acf.currency || '') : globalRecources.free}
             </div>
           </div>
           <div className="col-12">

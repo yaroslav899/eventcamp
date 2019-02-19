@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import ActiveLink from '../hoc/ActiveLink';
-import { mainMenu } from '../../recources';
+import { mainMenu } from '../../resources';
 
 export default class Menu extends Component {
   render() {
@@ -9,6 +9,7 @@ export default class Menu extends Component {
       <ActiveLink to={item.url} >{item.name}</ActiveLink>
     </li>
     );
+
     return (
       <nav className="navbar navbar-expand-lg navbar-light ">
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

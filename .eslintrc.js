@@ -21,6 +21,7 @@ module.exports = {
   "rules": {
         "react/jsx-wrap-multilines": false,
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+		"no-param-reassign": [2, { "props": false }],
         "no-class-assign": "off",
         "no-console": "off",
         "linebreak-style": "off",

@@ -1,6 +1,6 @@
 ﻿import React from 'react';
 import AdvantageHoc from '../hoc/AdvantageHoc';
-import { advantRecources } from '../../recources';
+import { advantRecources } from '../../resources';
 
 const Adventages = () => (
   <div className="row advant">

@@ -4,15 +4,9 @@ import { connect } from 'react-redux';
 import 'react-select/dist/react-select.css';
 import store from '../../store';
 import { request } from '../../api';
-import { categories, cities } from '../../fixtures';
-import { filterRecources } from '../../recources';
+import { categories, cities, defaultTopic } from '../../fixtures';
+import { filterRecources } from '../../resources';
 import { getValueFromParams } from '../../helper';
-
-const defaultTopic = [{
-  id: '999',
-  url: 'no_choice',
-  name: 'Выберите категорию',
-}];
 
 class SelectFilter extends Component {
   constructor(props) {
@@ -56,10 +50,17 @@ class SelectFilter extends Component {
     } else {
       params = { [selection.type]: selection ? selection.value : '' };
     }
+
     request.getListPosts(params)
       .then((posts) => {
+        if (!posts.length) {
+          posts.push({
+            empty: 'Измените ваш поиск, так как данные отсутствуют'
+          });
+        }
+
         store.dispatch({
-          type: 'EVENT_LIST_UPDATE',
+          type: 'UPDATE_EVENT_LIST',
           list: posts,
         });
         return params;
@@ -86,6 +87,7 @@ class SelectFilter extends Component {
             console.log("Error. Filter option wasn't found");
             break;
         }
+
         return data;
       });
   };
@@ -127,6 +129,7 @@ class SelectFilter extends Component {
       themes,
       currentTheme,
     } = this.state;
+
     return (
       <div className="event-filter-option">
         <p>{filterRecources.city}</p>

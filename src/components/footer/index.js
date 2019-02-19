@@ -1,7 +1,7 @@
 ﻿import React from 'react';
 import { NavLink } from 'react-router-dom';
 import Menu from '../menu';
-import { globalRecources, imageUrlRecources } from '../../recources';
+import { globalRecources, imageUrlRecources } from '../../resources';
 
 const Footer = () => (
     <footer className="footer">
@@ -12,7 +12,7 @@ const Footer = () => (
                         <img src={imageUrlRecources.logo} alt="" title="" />
                     </NavLink>
                 </div>
-                <div className="col-8 text-justify">
+                <div className="col-8 text-right">
                     <div className="footer-menu">
                         <Menu />
                     </div>
@@ -25,4 +25,5 @@ const Footer = () => (
         </div>
     </footer>
 );
+
 export default Footer;

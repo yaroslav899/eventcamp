@@ -24,6 +24,20 @@ export const advantRecources = {
   third: 'Популяризация мероприятий',
   four: 'Только актуальные темы',
 };
+
+export const currencies = [{
+  name: 'UAH',
+  id: '1',
+},
+{
+  name: 'USD',
+  id: '2',
+},
+{
+  name: 'EUR',
+  id: '3',
+},];
+
 export const mainMenu = [{
   name: 'Главная',
   id: '2',
@@ -43,26 +57,24 @@ export const mainMenu = [{
   name: 'Инфо',
   id: '24',
   url: '/info',
-},
-{
-  name: 'Новости',
-  id: '5',
-  url: '/news',
-},
-{
-  name: 'Статьи',
-  id: '6',
-  url: '/articles',
-}];
+  },];
+
 export const globalRecources = {
   free: 'бесплатно',
   moreInfo: 'Подробнее',
+  change: 'Изменить',
   loading: 'Загрузка...',
   welcome: 'Добро пожаловать',
   copyright: '©2018 EventCamp. Все права защищены.',
   enter: 'Войти',
   registr: 'Регистрация',
   successRegisterMsg: 'Вы успешно зарегистрировались. Попробуйте зайдти в свой аккаунт',
+  error404: 'Данной страницы нет. Причины: страница удалена с сайта; пользователь неправильно ввёл URL;'
+  + 'страница переехала и редирект настроен неверно;'
+  + 'сервер работает неправильно(случается крайне редко).',
+  owner: 'Организатор',
+  addEventButton: 'Добавить событие',
+  member: 'Участник',
 };
 export const imageUrlRecources = {
   noPhoto: 'http://board.it-mir.net.ua/wp-content/uploads/2018/05/nophoto.jpg',
@@ -70,17 +82,19 @@ export const imageUrlRecources = {
   logo: '/img/logo.png',
 };
 export const urlRecources = {
-  mainUrl: 'http://board.it-mir.net.ua/',
-  endpointUrl: 'wp-json/wp/v2/',
+  endpointUrl: 'http://board.it-mir.net.ua/wp-json/wp/v2/',
   geoLookUpUrl: 'https://maps.googleapis.com/maps/api/geocode/json?',
   exchangeUrl: 'http://resources.finance.ua/ru/public/currency-cash.json',
   calGoggle: 'http://www.google.com/calendar/event?action=TEMPLATE&text=',
-  jwtRegister: 'wp-json/jwt-auth/v1/token/',
+  jwtRegister: 'http://board.it-mir.net.ua/wp-json/jwt-auth/v1/token/',
 };
 export const fieldsRegisterForm = {
   firstname: 'Имя:',
   secondname: 'Фамилия:',
   email: 'Email:',
-  login: 'Login:',
-  password: 'Password:',
+  login: 'Логин:',
+  password: 'Пароль:',
+};
+export const googleApiService = {
+  key: 'AIzaSyCM7IwnppmyEPSZPDZIoTW8VKOMlS5peN4',
 };

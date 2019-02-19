@@ -1,6 +1,6 @@
 import React from 'react';
 import { free } from '../../fixtures';
-import { globalRecources, imageUrlRecources } from '../../recources';
+import { globalRecources, imageUrlRecources } from '../../resources';
 
 const EventDetail = ({ event, date }) => (
   <div className="row area-1">
@@ -25,4 +25,5 @@ const EventDetail = ({ event, date }) => (
     </div>
   </div>
 );
+
 export default EventDetail;

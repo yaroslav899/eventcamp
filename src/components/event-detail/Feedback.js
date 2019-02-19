@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
-import { globalRecources, detailRecources } from '../../recources';
+import { globalRecources, detailRecources } from '../../resources';
 
 export default class FeedBackURL extends Component {
   render() {
     const { data } = this.props;
+
     if (!data) return <div>{globalRecources.loading}</div>;
 
     return (
       <div className="feedback-detail-right">
         <a href="" className="write-organisator" title="">{detailRecources.writeAuthor}</a>
         <br />
-        <a href="" className="feedback-registration" title="">{detailRecources.register}</a>
+        {data.acf.register &&
+          <a href={data.acf.register} className="feedback-registration" title="">{detailRecources.register}</a>
+        }
       </div>
     );
   }

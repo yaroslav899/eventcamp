@@ -1,59 +1,70 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import moment from 'moment';
 import store from '../../store';
 import { request } from '../../api';
-import Title from './Title';
-import Filters from '../event-filters';
-import Pagination from './PaginationContainter';
-import LastPosts from '../global/LastPosts';
 import EventList from './EventList';
-import Adventages from '../global/Adventages';
-import { categories, cities, free } from '../../fixtures';
-import { listRecources, imageUrlRecources, globalRecources } from '../../recources';
+import ListPageView from './views/ListPageView';
+import Loader from '../global/Loader';
+import { categories, cities } from '../../fixtures';
+import { listRecources } from '../../resources';
 import { getValueFromParams, updateFilterStore } from '../../helper';
 
-class ListPage extends PureComponent {
+class ListPage extends Component {
   componentDidMount() {
     const initialParams = this.props.match.params;
+
     updateFilterStore(initialParams);
+
     request.getListPosts(initialParams).then((posts) => {
       store.dispatch({
         type: 'UPDATE_EVENT_LIST',
         list: posts,
       });
     });
+
   }
 
   render() {
     const { posts } = this.props;
-    let eventsElement = !posts.length ? listRecources.emptyList : posts.map((event) => <li key={event.id} className='events__item events-item'>
-      <NavLink to={`/events/${getValueFromParams(cities, event.acf.cities, 'name', 'url')}/${getValueFromParams(categories, event.categories[0], 'id', 'url')}/${event.id}`} className="events-item__link">
-        <EventList event={event} />
-      </NavLink>
-    </li>);
+    let eventsElement = null;
+
+    if (!posts.length) {
+      return (
+        <Loader/>
+      )
+    }
+
+    if (posts.length === 1 && posts[0].empty) {
+      eventsElement = posts[0].empty;
+    } else {
+      eventsElement = posts.map((event) => {
+        const cityValue = getValueFromParams(cities, event.acf.cities, 'name', 'url');
+        const categoryValue = getValueFromParams(categories, event.categories[0], 'id', 'url');
+
+        return <li key={event.id} className='events__item events-item'>
+          <NavLink to={`/events/${cityValue}/${categoryValue}/${event.id}`} className="events-item__link">
+            <EventList
+              event={event}
+              imgWrapClass="col-3"
+              descrWrapClass="col-6"
+              titleClass="events-item__title"
+              descrClass="events-item__description"
+              actionWrapClass="col-3"
+              priceClass="events-item__price"
+              placeClass="events-item__location"
+              dateClass="events-item__date"
+              ctaWrapClass="events-item__action events-item-action"
+              ctaClass="events-item-action__button"
+              isOwner={false}
+            />
+          </NavLink>
+        </li>
+      });
+    }
+
     return (
-      <div className="container events">
-        <Adventages />
-        <div className="row">
-          <div className="col-9">
-            <Title />
-            <ul className="events__list">
-              {eventsElement}
-            </ul>
-          </div>
-          <div className="col-3">
-            <Filters />
-            <LastPosts />
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-12">
-            <Pagination />
-          </div>
-        </div>
-      </div>
+      <ListPageView eventsElement={eventsElement} />
     )
   }
 }

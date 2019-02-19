@@ -6,45 +6,64 @@ import 'moment/locale/ru';
 import store from '../../store'
 import { connect } from 'react-redux';
 import { request } from '../../api';
-import { filterRecources } from '../../recources';
+import { filterRecources } from '../../resources';
 
 class DateRange extends Component {
-    constructor(props) {
-        super(props);
+  handleDayClick = (day) => {
+    if (new Date(day).toLocaleDateString() < new Date().toLocaleDateString()) {
+        return;
     }
 
-    handleDayClick = (day) => {
-        if (new Date(day).toLocaleDateString() < new Date().toLocaleDateString()) {
-            return;
+    const range = DateUtils.addDayToRange(day, this.props.dateRange);
+
+    store.dispatch({
+      type: 'UPDATE_FILTER_DATERANGE',
+      dateRange: range
+    });
+
+    request.getListPosts(range)
+      .then(posts => {
+        if (!posts.length) {
+          posts.push({
+            empty:'Измените ваш поиск, так как данные отсутствуют'
+          });
         }
-        const range = DateUtils.addDayToRange(day, this.props.dateRange);
         store.dispatch({
-            type: 'UPDATE_FILTER_DATERANGE',
-            dateRange: range
+          type: 'UPDATE_EVENT_LIST',
+          list: posts
         });
-        request.getListPosts(range)
-            .then(posts => {
-                store.dispatch({
-                    type: 'EVENT_LIST_UPDATE',
-                    list: posts
-                });
-                return range;
-        })
-    }
+        return range;
+    });
+  }
 
-    handleResetClick = () => {
+  handleResetClick = () => {
+    request.getListPosts({})
+      .then(posts => {
+        if (!posts.length) {
+          posts.push({
+            empty: 'Измените ваш поиск, так как данные отсутствуют'
+          });
+        }
+
         store.dispatch({
-            type: 'UPDATE_FILTER_DATERANGE',
-            dateRange: {
-                from: undefined,
-                to: undefined
-            }
+          type: 'UPDATE_EVENT_LIST',
+          list: posts
         });
-    }
+
+        store.dispatch({
+          type: 'UPDATE_FILTER_DATERANGE',
+          dateRange: {
+            from: undefined,
+            to: undefined
+          }
+        });
+      });    
+  }
 
     render() {
         const { from, to } = this.props.dateRange;
         const modifiers = { start: from, end: to };
+
         return (
             <div className='date-range'>
                 <DayPicker
@@ -71,7 +90,6 @@ class DateRange extends Component {
             </div>
         );
     }
-
 }
 
 const dateToProps = function(store) {

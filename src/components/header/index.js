@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import Menu from '../menu';
 import AuthHeaderLink from './AuthHeaderLink';
-import { imageUrlRecources } from '../../recources';
+import { imageUrlRecources } from '../../resources';
 
 const Header = () => (
   <header className="header">

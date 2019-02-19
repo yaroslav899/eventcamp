@@ -29,5 +29,8 @@ module.exports = {
               loaders: ['style-loader', 'css-loader'],
             }
         ]
+    },
+    node: {
+      fs: "empty"
     }
 }

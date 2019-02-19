@@ -1,5 +1,5 @@
 import store from '../store';
-import { categories, cities, free } from '../fixtures';
+import { categories, cities } from '../fixtures';
 
 export const getValueFromParams = (values = [], id, searchParam, exitParam) => {
   const value = values.find(item => item[searchParam] === String(id));
@@ -12,7 +12,7 @@ export const updateFilterStore = (initialParams) => {
     if (initialParams.cities === 'any') {
       initialParams.cities = '';
     } else {
-      let value = cities.find((item) => item.url == initialParams.cities);
+      const value = cities.find(item => item.url == initialParams.cities);
       initialParams.cities = value ? value.id : '';
       store.dispatch({
         type: 'UPDATE_FILTER_CITY',
@@ -21,12 +21,17 @@ export const updateFilterStore = (initialParams) => {
     }
   }
   if ('categories' in initialParams) {
-    let value = categories.find((item) => item.url == initialParams.categories);
+    const value = categories.find(item => item.url == initialParams.categories);
     initialParams.categories = value ? value.id : '';
     store.dispatch({
       type: 'UPDATE_FILTER_CATEGORY',
       categories: initialParams.categories,
     });
   }
-  return;
+};
+
+export const logout = () => {
+  localStorage.removeItem('userData');
+  localStorage.removeItem('authData');
+  location.reload();
 };

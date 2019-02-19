@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import store from '../../store';
 import { categories, cities } from '../../fixtures';
-import { listRecources } from '../../recources';
+import { listRecources } from '../../resources';
 import { getValueFromParams } from '../../helper';
 
 class Title extends Component {
@@ -15,6 +15,7 @@ class Title extends Component {
     title = city ? `${title} ${listRecources.additionalTitle} ${getValueFromParams(cities, city, 'id', 'name')}` : title;
     title = category ? `${getValueFromParams(categories, category, 'id', 'name')}. ${title}` : title;
     document.title = title;
+
     return (
       <h1>
         {title}

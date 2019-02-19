@@ -1,0 +1,20 @@
+.category-main {
+  margin-top: 15px;
+}
+.category-main img {
+  margin-bottom: 10px;
+}
+.column {
+  -webkit-column-width: 550px;
+  -moz-column-width: 550px;
+  column-width: 550px;
+  -webkit-column-count: 2;
+  -moz-column-count: 2;
+  column-count: 2;
+  -webkit-column-gap: 30px;
+  -moz-column-gap: 30px;
+  column-gap: 30px;
+  -webkit-column-rule: 1px solid #ccc;
+  -moz-column-rule: 1px solid #ccc;
+  column-rule: 1px solid #ccc;
+}

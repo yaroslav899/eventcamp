@@ -1,0 +1,74 @@
+div.area-1 {
+  color: #565656;
+}
+
+  div.area-1 div.area-1_image {
+    padding: 0 0 0 15px;
+    height: 229px;
+    overflow: hidden;
+  }
+
+  div.area-1 div.area-1_text {
+    padding: 0;
+  }
+
+  div.area-1 div.area-1_info {
+    background-color: #f5f5f5;
+    padding: 24px;
+    height: 85%;
+  }
+
+    div.area-1 div.area-1_info span.day {
+      font-size: 2em;
+      font-weight: bold;
+    }
+
+    div.area-1 div.area-1_info span.month {
+      font-size: 1em;
+      font-weight: bold;
+      position: absolute;
+      padding-left: 5px;
+    }
+
+    div.area-1 div.area-1_info span.time {
+      font-size: 0.9em;
+      margin-left: 1%;
+    }
+
+    div.area-1 div.area-1_info p.area-1_location {
+      background: url(http://board.it-mir.net.ua/wp-content/uploads/2018/05/locator.png) no-repeat left center;
+      padding-left: 20px;
+      margin-top: 5%;
+    }
+
+    div.area-1 div.area-1_info p.area-1_tags {
+      margin: 10px 0;
+    }
+
+      div.area-1 div.area-1_info p.area-1_tags span.tagOpt {
+        background: #ffffff;
+        color: #0367b7;
+        font-size: 0.8em;
+        padding: 3px 14px;
+        border-radius: 5px;
+        margin-right: 2%;
+      }
+
+  div.area-1 div.area-1_price {
+    background-color: #ffffff;
+    border-right: 1px solid #f5f5f5;
+    border-top: 1px solid #f5f5f5;
+    border-radius: 0 20px 0 0;
+    color: #0367b7;
+    font-size: 1.2em;
+    font-weight: bold;
+    padding: 2px 15px 2px 0;
+  }
+
+div.area-2 {
+  color: #565656;
+}
+
+  div.area-2 div.area-2_address {
+    padding-left: 40px;
+  }
