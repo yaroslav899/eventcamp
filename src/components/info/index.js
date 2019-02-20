@@ -12,7 +12,7 @@ class InfoPage extends PureComponent {
   componentDidMount() {
     const mainPageID = getValueFromParams(mainMenu, this.props.location.pathname, 'url', 'id');
     request.getPage(mainPageID).then((data) => {
-      data && this.setState({ text: data.content.rendered })
+      data && this.setState({ text: data.content.rendered });
     });
   }
 

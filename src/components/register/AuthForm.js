@@ -43,6 +43,7 @@ class AuthForm extends PureComponent {
     }
     return (
       <div>
+        <h3>Авторизация</h3>
         <form onSubmit={this.handleSubmit} className="registration__form registration-form">
           <div className="form-row">
             <label htmlFor="login" className="registration-form__label col-sm-2">{fieldsRegisterForm.login}</label>
@@ -57,7 +58,6 @@ class AuthForm extends PureComponent {
           </div>
           <input type="submit" value="Submit" className="btn btn-secondary"/>
         </form>
-
       </div>
     );
   }

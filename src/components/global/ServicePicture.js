@@ -5,7 +5,7 @@ import { categories } from '../../fixtures';
 export default class ServicePicture extends Component {
   render() {
     const categoriesEvent = categories.map(category => <div key={category.id} className="col-12 col-sm-4">
-      <NavLink to={`/events/${category.url}`}>
+      <NavLink to={`/events/any/${category.url}`}>
         <img src={category.img} alt={category.name} title={category.name} className="img-fluid" />
       </NavLink>
     </div>);

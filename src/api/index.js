@@ -11,7 +11,6 @@ import {
 
 export const request = {
   authUser: (param) => authFetch(param).then((response) => {
-
     if ('data' in response && 'status' in response.data && response.data.status === 403) {
       throw Error(response.data);
     }
@@ -41,6 +40,7 @@ export const request = {
         token: data.token,
       },
     });
+
     return fetch(`${urlRecources.endpointUrl}users/?search=${data.user_email}`)
       .then(response => response.json())
       .then(data => {
@@ -50,6 +50,7 @@ export const request = {
           type: 'UPDATE_USERDATA',
           userData: data[0],
         });
+
         return true;
       });
   }).catch(error => {
@@ -58,6 +59,7 @@ export const request = {
 
   createNewUser: (param) => authFetch(adminAccess).then((user) => {
     const url = `${urlRecources.endpointUrl}users`;
+
     return fetch(url, {
       method: 'POST',
       headers: {
@@ -75,6 +77,7 @@ export const request = {
 
   getUser: () => {
     const { user_email: userEmail } = JSON.parse(localeStorage.getItem('authData'));
+
     return fetch(`${urlRecources.endpointUrl}users/?search=${userEmail}`)
       .then(response => response.json());
   },
@@ -125,6 +128,7 @@ export const request = {
 
   getAuthorPosts: (param) => {
     const url = getRequestUrl(param);
+
     return fetch(url).then(response => response.json());
   },
 
@@ -154,16 +158,19 @@ export const request = {
 
   getAddress: (address) => {
     const url = `${urlRecources.geoLookUpUrl}address=${address}&key=${googleApiService.key}`;
+
     return fetch(url).then(response => response.json());
   },
 
   getExchangeData: () => {
     const url = urlRecources.exchangeUrl;
+
     return fetch(url).then(response => response.json());
   },
 
   getInterestingData: (param) => {
     const url = getInterestingUrl(param);
+
     return fetch(url).then(response => response.json());
   },
 
@@ -174,6 +181,7 @@ export const request = {
 
   getPage: (pageID) => {
     const url = `${urlRecources.endpointUrl}pages/${pageID}`;
+
     return fetch(url).then(response => response.json());
   },
 };

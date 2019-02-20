@@ -14,9 +14,20 @@ class ListPage extends Component {
   componentDidMount() {
     const initialParams = this.props.match.params;
 
+    store.dispatch({
+      type: 'UPDATE_EVENT_LIST',
+      list: [],
+    });
+
     updateFilterStore(initialParams);
 
     request.getListPosts(initialParams).then((posts) => {
+      if (!posts.length) {
+        posts.push({
+          empty: 'Измените ваш поиск, так как данные отсутствуют'
+        });
+      }
+
       store.dispatch({
         type: 'UPDATE_EVENT_LIST',
         list: posts,

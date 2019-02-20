@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import AuthForm from './AuthForm';
 import RegisterForm from './RegisterForm';
+import Adventages from '../global/Adventages';
 import { request } from '../../api';
 import { globalRecources, fieldsRegisterForm } from '../../resources';
 
@@ -37,7 +38,7 @@ class RegistrationPage extends PureComponent {
   render() {
     const { isSuccessRegister } = this.state;
     const simpleFields = Object.keys(fieldsRegisterForm).map((field) => (
-      <div className="form-row">
+      <div className="form-row" key={field}>
         <label htmlFor={field} key={fieldsRegisterForm[field]} className="registration-form__label col-sm-2">{fieldsRegisterForm[field]}</label>
         <input type="text" className="form-control col-sm-8" name={field} value={this.state[field]} onChange={this.handleChange} />
       </div>
@@ -58,6 +59,7 @@ class RegistrationPage extends PureComponent {
     );
     return (
       <div className="container">
+        <Adventages />
         <div className="row">
           <div className="col-6">
             <AuthForm />

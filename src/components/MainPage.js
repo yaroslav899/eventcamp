@@ -9,7 +9,11 @@ import MainText from './MainText';
 const MainPage = () => (
   <section>
     <div className="container">
-      <Banner />
+      <div className="row banner-main d-none d-md-block">
+        <div className="col-12">
+          <Banner />
+        </div>
+      </div>
       <Adventages />
       <div className="row">
         <div className="col-12 col-sm-9 category-main">
