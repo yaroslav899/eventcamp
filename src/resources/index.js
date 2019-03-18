@@ -68,6 +68,7 @@ export const globalRecources = {
   copyright: '©2018 EventCamp. Все права защищены.',
   enter: 'Войти',
   registr: 'Регистрация',
+  noFilterResult: 'Измените ваш поиск, так как данные отсутствуют',
   successRegisterMsg: 'Вы успешно зарегистрировались. Попробуйте зайдти в свой аккаунт',
   error404: 'Данной страницы нет. Причины: страница удалена с сайта; пользователь неправильно ввёл URL;'
   + 'страница переехала и редирект настроен неверно;'
@@ -94,6 +95,7 @@ export const fieldsRegisterForm = {
   email: 'Email:',
   login: 'Логин:',
   password: 'Пароль:',
+  duplicatepassword: 'Повторите пароль:',
 };
 export const googleApiService = {
   key: 'AIzaSyCM7IwnppmyEPSZPDZIoTW8VKOMlS5peN4',

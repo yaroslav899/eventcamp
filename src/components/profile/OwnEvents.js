@@ -3,13 +3,20 @@ import { connect } from 'react-redux';
 import EventList from '../events-list/EventList';
 import { request } from '../../api';
 import store from '../../store';
+import { getUserData } from '../../helper';
 
 class OwnEvents extends PureComponent {
   componentDidMount() {
-    request.getAuthorPosts({ author: this.props.userData.id }).then(posts => {
-      store.dispatch({
-        type: 'UPDATE_USER_POSTS',
-        listPosts: posts,
+    //ToDo change approach
+    new Promise((resolve) => {
+      const requestUserData = getUserData();
+      resolve(requestUserData);
+    }).then(() => {
+      request.getAuthorPosts({ author: this.props.userData.id }).then(posts => {
+        store.dispatch({
+          type: 'UPDATE_USER_POSTS',
+          listPosts: posts,
+        });
       });
     });
   }
@@ -48,7 +55,7 @@ class OwnEvents extends PureComponent {
 const mapStateToProps = function (store) {
   return {
     posts: store.user.listPosts,
-    userData: store.user.userData,
+    userData: store.user.data,
   };
 };
 

@@ -1,41 +1,33 @@
 import React, { Component } from 'react';
 import { EditorState } from 'draft-js';
-import axios from 'axios';
 import { Editor } from 'react-draft-wysiwyg';
 import Select from 'react-select';
+import { getCookie } from '../../_cookie';
 import { request } from '../../api';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import { categories, cities } from '../../fixtures';
+import { categories, cities, defaultTopic } from '../../fixtures';
 import { currencies } from '../../resources';
 
-const defaultTopic = [{
-  id: '999',
-  url: 'no_choice',
-  name: 'Выберите категорию',
-}];
-
 export default class AddEvent extends Component {
-  constructor(props) {
-    super(props);
-    this.fileInput = React.createRef();
-    this.state = {
-      themes: defaultTopic,
-      currentTheme: '',
-      editorState: EditorState.createEmpty(),
-      title: '',
-      image: null,
-      price: '',
-      currency: '',
-      category: '',
-      subcategory: '',
-      tags: '',
-      city: '',
-      address: '',
-      date: '',
-      time: '',
-      isSuccessRegister: false,
-    };
-  }
+  state = {
+    topics: defaultTopic,
+    currentTheme: '',
+    editorState: EditorState.createEmpty(),
+    title: '',
+    image: null,
+    price: '',
+    currency: '',
+    category: '',
+    subcategory: '',
+    tags: '',
+    city: '',
+    address: '',
+    date: '',
+    time: '',
+    isSuccessRegister: false,
+  };
+
+  fileInput = React.createRef();
 
   handleInputChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
@@ -48,7 +40,7 @@ export default class AddEvent extends Component {
   changeCategory = (event) => {
     this.setState({
       [event.type]: event.value,
-      themes: categories.find(category => category.id === event.value).subcat,
+      topics: categories.find(category => category.id === event.value).subcat,
     });
   }
 
@@ -56,24 +48,19 @@ export default class AddEvent extends Component {
     event.preventDefault();
     const file = this.fileInput.current.files[0];
     const { state } = this;
-    const { token } = JSON.parse(localStorage.getItem('authData'));
+
     //ToDo update case without image and when image has cyrillic name
-    axios.post('http://board.it-mir.net.ua/wp-json/wp/v2/media', file, {
-      headers: {
-        'Content-Type': file.type,
-        'Content-Disposition': 'attachment; filename=' + file.name + '',
-        'Authorization': 'Bearer' + token,
-        'Cache-Control': 'no-cache',
-      }
-    }).then(function (response) {
-      request.createPost(state, response.data.id).then(() => this.setState({ isSuccessRegister: true }))
-    });
+    request.uploadImage(file)
+      .then(function (response) {
+        request.createPost(state, response.data.id)
+          .then(() => this.setState({ isSuccessRegister: true }));
+      });
   };
 
     changeTheme = (selection) => {
-      const { themes } = this.state;
+      const { topics } = this.state;
       if (selection) {
-        const param = themes.filter(theme => theme.name === selection.label);
+        const param = topics.filter(topic => topic.name === selection.label);
       }
 
       this.setState({
@@ -102,6 +89,7 @@ export default class AddEvent extends Component {
     const { editorState } = this.state;
     return (
       <div className="container">
+        <h1>Добавить событие</h1>
         <form onSubmit={this.handleSubmit}>
           <div className="form-row">
             <div className="col-md-8">
@@ -131,14 +119,14 @@ export default class AddEvent extends Component {
                 </div>
 
                 <div className="form-group col-md-6">
-                  <label htmlFor="themes">Тема</label>
+                  <label htmlFor="topics">Тема</label>
                   <Select
-                    name="form-field-themes"
-                    label="themes"
-                    options={this.state.themes.map(theme => ({
-                      label: theme.name,
-                      value: theme.id,
-                      type: 'themes',
+                    name="form-field-topics"
+                    label="topics"
+                    options={this.state.topics.map(topic => ({
+                      label: topic.name,
+                      value: topic.id,
+                      type: 'topics',
                     }))}
                     value={this.state.currentTheme}
                     onChange={this.changeTheme}
@@ -149,6 +137,48 @@ export default class AddEvent extends Component {
             <div className="form-group col-md-4 text-center">
               <input type="file" ref={this.fileInput} onChange={this.handleUploadImg} />
               <img src={this.state.image} height="80px" />
+            </div>
+          </div>
+          <div className="border-separate"></div>
+          <div className="form-row">
+            <div className="form-group col-md-2">
+              <label htmlFor="date">Дата</label>
+              <input type="date"
+                className="form-control"
+                name="date"
+                value={this.state.date}
+                onChange={this.handleInputChange}
+                placeholder="Введите ключевые слова: uber,asd,qwe,aaa" />
+            </div>
+            <div className="form-group col-md-2">
+              <label htmlFor="time">Время</label>
+              <input type="time"
+                className="form-control"
+                name="time"
+                value={this.state.time}
+                onChange={this.handleInputChange}
+                placeholder="Введите ключевые слова: uber,asd,qwe,aaa" />
+            </div>
+          </div>
+          <div className="border-separate"></div>
+          <div className="form-row">
+            <div className="form-group col-md-4">
+              <label htmlFor="tags">Ссылка для регистрации</label>
+              <input type="text"
+                className="form-control"
+                name="tags"
+                value={this.state.tags}
+                onChange={this.handleInputChange}
+                placeholder="Введите ключевые слова: uber,asd,qwe,aaa" />
+            </div>
+            <div className="form-group col-md-4">
+              <label htmlFor="tags">Email для связи</label>
+              <input type="text"
+                className="form-control"
+                name="tags"
+                value={this.state.tags}
+                onChange={this.handleInputChange}
+                placeholder="Введите ключевые слова: uber,asd,qwe,aaa" />
             </div>
           </div>
           <div className="border-separate"></div>
@@ -215,24 +245,6 @@ export default class AddEvent extends Component {
                 onChange={this.handleInputChange}
                 placeholder="Адрес" />
             </div>
-            <div className="form-group col-md-2">
-              <label htmlFor="date">Дата</label>
-              <input type="date"
-                className="form-control"
-                name="date"
-                value={this.state.date}
-                onChange={this.handleInputChange}
-                placeholder="Введите ключевые слова: uber,asd,qwe,aaa" />
-            </div>
-            <div className="form-group col-md-2">
-              <label htmlFor="time">Время</label>
-              <input type="time"
-                className="form-control"
-                name="time"
-                value={this.state.time}
-                onChange={this.handleInputChange}
-                placeholder="Введите ключевые слова: uber,asd,qwe,aaa" />
-            </div>
           </div>
           <div className="border-separate"></div>
           <div className="">
@@ -242,7 +254,7 @@ export default class AddEvent extends Component {
               toolbarClassName="toolbarClassName"
               wrapperClassName="wrapperClassName"
               editorClassName="editorClassName"
-              onEditorStateChange={this.onEditorStateChange}              
+              onEditorStateChange={this.onEditorStateChange}
             />
           </div>
 

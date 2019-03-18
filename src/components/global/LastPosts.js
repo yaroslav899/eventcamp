@@ -26,6 +26,10 @@ class LastPosts extends PureComponent {
     });
   }
 
+  createMarkupText(text) {
+    return { __html: text };
+  }
+
   render() {
     const {
       lastPosts: {
@@ -35,35 +39,44 @@ class LastPosts extends PureComponent {
 
     if (!list) return <div></div>;
 
-    const lastPosts = list.map((post) => <li key={post.id}>
-      <NavLink to={`/events/${getValueFromParams(cities, post.acf.cities, 'name', 'url')}/${getValueFromParams(categories, post.categories[0], 'id', 'url')}/${post.id}`}>
-        <div className="row">
-          <div className="col-12">
-            <div className="last-post-title" dangerouslySetInnerHTML={{ __html: post.title.rendered }}></div>
-          </div>
-          <div className="col-8">
-            <div className="last-post-location">
-              {post.acf.cities}
-              {post.acf.location}
+    const lastPosts = list.map((post) => {
+      let city = getValueFromParams(cities, post.acf.cities, 'name', 'url');
+      let category = getValueFromParams(categories, post.categories[0], 'id', 'url');
+      let location = `${post.acf.cities}, ${post.acf.location}`;
+      let date = post.acf.dateOf ? moment(post.acf.dateOf, 'YYYY-MM-DD').format('DD MMM YYYY') : '';
+      let price = !free.includes(post.acf.price) ? (post.acf.price + ' ' + post.acf.currency || '') : globalRecources.free ;
+
+      return (
+        <li key={post.id}>
+          <NavLink to={`/events/${city}/${category}/${post.id}`}>
+            <div className="row">
+              <div className="col-12">
+                <div className="last-post-title" dangerouslySetInnerHTML={this.createMarkupText(post.title.rendered)}></div>
+              </div>
+              <div className="col-8">
+                <div className="last-post-location">
+                  {location}
+                </div>
+                <div className="last-post-date">
+                  {date}
+                </div>
+              </div>
+              <div className="col-4">
+                <div className="last-post-price">
+                  {price}
+                </div>
+              </div>
+              <div className="col-12">
+                <div className="last-post-tags">{post.acf.tags
+                  ? post.acf.tags.split(',').map(tag => <span className="tagOpt" key={tag}>{tag}</span>) : ''}
+                </div>
+              </div>
             </div>
-            <div className="last-post-date">
-              {post.acf.dateOf
-                ? moment(post.acf.dateOf, 'YYYY-MM-DD').format('DD MMM YYYY') : ''}
-            </div>
-          </div>
-          <div className="col-4">
-            <div className="last-post-price">
-              {free.indexOf(post.acf.price) === -1 ? (post.acf.price + ' ' + post.acf.currency || '') : globalRecources.free}
-            </div>
-          </div>
-          <div className="col-12">
-            <div className="last-post-tags">{post.acf.tags
-              ? post.acf.tags.split(',').map(tag => <span className="tagOpt" key={tag}>{tag}</span>) : ''}
-            </div>
-          </div>
-        </div>
-      </NavLink>
-    </li>);
+          </NavLink>
+        </li>
+      )
+    });
+
     return (
       <div className="last-post-list">
         <h4>{listRecources.lastEvent}</h4>

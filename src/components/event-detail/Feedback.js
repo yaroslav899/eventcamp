@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { globalRecources, detailRecources } from '../../resources';
 
-export default class FeedBackURL extends Component {
+export default class FeedBackURL extends PureComponent {
   render() {
     const { data } = this.props;
 

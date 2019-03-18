@@ -5,17 +5,14 @@ import 'react-select/dist/react-select.css';
 import store from '../../store';
 import { request } from '../../api';
 import { categories, cities, defaultTopic } from '../../fixtures';
-import { filterRecources } from '../../resources';
+import { filterRecources, globalRecources } from '../../resources';
 import { getValueFromParams } from '../../helper';
 
 class SelectFilter extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      themes: defaultTopic,
-      currentTheme: '',
-    };
-  }
+  state = {
+    themes: defaultTopic,
+    currentTheme: '',
+  };
 
   changeCity = (selection) => {
     this.changeSelection('cities', selection);
@@ -55,7 +52,7 @@ class SelectFilter extends Component {
       .then((posts) => {
         if (!posts.length) {
           posts.push({
-            empty: 'Измените ваш поиск, так как данные отсутствуют'
+            empty: globalRecources.noFilterResult
           });
         }
 
@@ -63,6 +60,7 @@ class SelectFilter extends Component {
           type: 'UPDATE_EVENT_LIST',
           list: posts,
         });
+
         return params;
       })
       .then((data) => {

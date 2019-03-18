@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   urlRecources,
   detailRecources,
@@ -6,10 +6,12 @@ import {
   imageUrlRecources,
 } from '../../resources';
 
-export default class Calendar extends Component {
+export default class Calendar extends PureComponent {
   render() {
     const { data } = this.props;
-    if (!data) return <div>{globalRecources.loading}</div>;
+    if (!data) {
+      return <div>{globalRecources.loading}</div>;
+    }
 
     const date = data.acf.dateOf.replace(/-/ig, '');
     const location = `${data.acf.cities},${data.acf.location}`;

@@ -1,4 +1,5 @@
 import store from '../store';
+import { getCookie, deleteCookie } from '../_cookie';
 import { categories, cities } from '../fixtures';
 
 export const getValueFromParams = (values = [], id, searchParam, exitParam) => {
@@ -31,7 +32,29 @@ export const updateFilterStore = (initialParams) => {
 };
 
 export const logout = () => {
-  localStorage.removeItem('userData');
-  localStorage.removeItem('authData');
+  deleteCookie('userData');
   location.reload();
 };
+
+export const getUserData = () => {
+  //ToDo optimize it
+  let userData = getCookie('userData');
+  const {
+    user: {
+      data: {
+        id
+      }
+    }
+  } = store.getState();
+
+  if (userData && !id) {
+    userData = JSON.parse(userData);
+    store.dispatch({
+      type: 'UPDATE_USERDATA',
+      data: userData
+    });
+  }
+
+  return true;
+};
+

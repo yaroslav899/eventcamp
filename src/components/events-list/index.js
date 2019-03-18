@@ -50,11 +50,11 @@ class ListPage extends Component {
       eventsElement = posts[0].empty;
     } else {
       eventsElement = posts.map((event) => {
-        const cityValue = getValueFromParams(cities, event.acf.cities, 'name', 'url');
-        const categoryValue = getValueFromParams(categories, event.categories[0], 'id', 'url');
+        let city = getValueFromParams(cities, event.acf.cities, 'name', 'url');
+        let category = getValueFromParams(categories, event.categories[0], 'id', 'url');
 
         return <li key={event.id} className='events__item events-item'>
-          <NavLink to={`/events/${cityValue}/${categoryValue}/${event.id}`} className="events-item__link">
+          <NavLink to={`/events/${city}/${category}/${event.id}`} className="events-item__link">
             <EventList
               event={event}
               imgWrapClass="col-3"

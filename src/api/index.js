@@ -1,6 +1,8 @@
+import axios from 'axios';
 import { stateToHTML } from 'draft-js-export-html';
 import { urlRecources, googleApiService } from '../resources';
 import store from '../store';
+import { setCookie, getCookie } from '../_cookie';
 import { adminAccess } from '../credentials';
 import {
   getRequestUrl,
@@ -15,40 +17,24 @@ export const request = {
       throw Error(response.data);
     }
 
-    const {
-      token: tokenValue,
-      user_display_name: userName,
-      user_nicename: userNiceName,
-      user_email: userEmail,
-    } = response;
-
-    //auth data recording for cache
-    sessionStorage.setItem('authData', JSON.stringify({
-      token: tokenValue,
-      user_display_name: userName,
-      user_nicename: userNiceName,
-      user_email: userEmail,
-    }));
-
-    return response;
-  }).then((data) => {
-    store.dispatch({
-      type: 'UPDATE_USERAUTH',
-      state: {
-        name: data.user_display_name,
-        email: data.user_email,
-        token: data.token,
-      },
-    });
-
-    return fetch(`${urlRecources.endpointUrl}users/?search=${data.user_email}`)
-      .then(response => response.json())
+    return fetch(`${urlRecources.endpointUrl}users/?search=${response.user_email}`)
+      .then(data => data.json())
       .then(data => {
-         //user data recording for cache
-        sessionStorage.setItem('userData', JSON.stringify(data[0]));
+        if (!data || !data.length) {
+          return false;
+        }
+
+        const userData = {
+          name: response.user_display_name,
+          email: response.user_email,
+          token: response.token,
+          id: data[0].id
+        }
+
+        setCookie('userData', JSON.stringify(userData), 2);
         store.dispatch({
           type: 'UPDATE_USERDATA',
-          userData: data[0],
+          data: userData,
         });
 
         return true;
@@ -76,14 +62,14 @@ export const request = {
   }),
 
   getUser: () => {
-    const { user_email: userEmail } = JSON.parse(localeStorage.getItem('authData'));
+    const { user_email: userEmail } = JSON.parse(getCookie('authData'));
 
     return fetch(`${urlRecources.endpointUrl}users/?search=${userEmail}`)
       .then(response => response.json());
   },
 
   createPost: (param, imageID) => {
-    const userData = JSON.parse(sessionStorage.getItem('authData'));
+    const userData = JSON.parse(getCookie('userData'));
     const {
       editorState,
       title: displayTitle,
@@ -96,6 +82,7 @@ export const request = {
       address,
       date,
       time: eventTime,
+      currentTheme,
     } = param;
     const description = stateToHTML(editorState.getCurrentContent());
     const { token } = userData;
@@ -113,6 +100,7 @@ export const request = {
         featured_media: imageID,
         categories: category,
         fields: {
+          topic: currentTheme,
           cities: city,
           picture: imageID,
           price: priceValue,
@@ -183,5 +171,17 @@ export const request = {
     const url = `${urlRecources.endpointUrl}pages/${pageID}`;
 
     return fetch(url).then(response => response.json());
+  },
+
+  uploadImage: (file) => {
+    const { token } = JSON.parse(getCookie('userData'));
+    return axios.post('http://board.it-mir.net.ua/wp-json/wp/v2/media', file, {
+      headers: {
+        'Content-Type': file.type,
+        'Content-Disposition': 'attachment; filename=' + file.name + '',
+        'Authorization': 'Bearer' + token,
+        'Cache-Control': 'no-cache',
+      }
+    });
   },
 };

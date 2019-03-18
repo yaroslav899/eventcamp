@@ -1,25 +1,11 @@
 ﻿import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import store from '../../store';
 import ActiveLink from '../hoc/ActiveLink';
 import { globalRecources } from '../../resources';
 import { logout } from '../../helper';
 
 class AuthHeaderLink extends Component {
-  componentDidMount() {
-    let authData = localStorage.getItem('authData');
-    if (authData) {
-      authData = JSON.parse(authData);
-      store.dispatch({
-        type: 'UPDATE_USERAUTH',
-        state: {
-            name: authData.user_display_name,
-            email: authData.user_email,
-            token: authData.token,
-        }
-      });
-    }
-  }
-
   logoutUser = (event) => logout();
 
   render() {
@@ -50,7 +36,7 @@ class AuthHeaderLink extends Component {
 
 const mapStateToProps = function (store) {
   return {
-    userAuth: store.user.state
+    userAuth: store.user.data
   }
 };
 

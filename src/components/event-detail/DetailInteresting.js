@@ -35,6 +35,10 @@ export default class DetailInteresting extends Component {
     });
   }
 
+  createMarkupText(text) {
+    return { __html: text };
+  }
+
   render() {
     const { posts } = this.state;
 
@@ -46,7 +50,7 @@ export default class DetailInteresting extends Component {
           <div className="col-12">
             <img src={samePost.acf.picture || imageUrlRecources.noPhoto} alt="" className="" />
             <div className="samePost-info-rightside row">
-              <div className="samePost-title col-7" dangerouslySetInnerHTML={{ __html: samePost.title.rendered }} />
+              <div className="samePost-title col-7" dangerouslySetInnerHTML={this.createMarkupText(samePost.title.rendered)} />
               <div className="samePost-price text-right col-5">
                 {samePost.acf.price}
                 {samePost.acf.currency ? ` ${samePost.acf.currency}` : ''}

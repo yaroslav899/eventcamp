@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import moment from 'moment';
 import { request } from '../../api';
+import store from '../../store';
 import DetailPageView from './views/DetailPageView';
 import Loader from '../global/Loader';
-import { connect } from 'react-redux';
-import store from '../../store';
-import { free } from '../../fixtures';
 import '../../css/detailPage.css';
-import { globalRecources, imageUrlRecources } from '../../resources';
 
 class DetailPage extends Component {
   componentDidMount() {
@@ -23,20 +21,17 @@ class DetailPage extends Component {
           post: post,
         });
         
-        document.title = post.title.rendered
-
-        return;
+        document.title = post.title.rendered;
       });
   }
 
   render() {
     const { post } = this.props;
-    if (!post) return <Loader/>;
+    if (!post) return <Loader />;
+
     const date = moment(post.acf.dateOf, "YYYY-MM-DD").format("Do MMM").split(' ');
 
-    return (
-      <DetailPageView title={post.title.rendered} event={post} date={date}/>
-    )
+    return <DetailPageView title={post.title.rendered} event={post} date={date} />
   }
 };
 

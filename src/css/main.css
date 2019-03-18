@@ -359,6 +359,7 @@ img.googleCal{
   cursor:pointer;
   background-color: #0367b7;
   border: 0;
+  display:inline-block;
 }
 .profile__photo{
   width:200px;

@@ -6,7 +6,7 @@ import 'moment/locale/ru';
 import store from '../../store'
 import { connect } from 'react-redux';
 import { request } from '../../api';
-import { filterRecources } from '../../resources';
+import { filterRecources, globalRecources } from '../../resources';
 
 class DateRange extends Component {
   handleDayClick = (day) => {
@@ -25,13 +25,15 @@ class DateRange extends Component {
       .then(posts => {
         if (!posts.length) {
           posts.push({
-            empty:'Измените ваш поиск, так как данные отсутствуют'
+            empty: globalRecources.noFilterResult
           });
         }
+
         store.dispatch({
           type: 'UPDATE_EVENT_LIST',
           list: posts
         });
+
         return range;
     });
   }
@@ -41,7 +43,7 @@ class DateRange extends Component {
       .then(posts => {
         if (!posts.length) {
           posts.push({
-            empty: 'Измените ваш поиск, так как данные отсутствуют'
+            empty: globalRecources.noFilterResult
           });
         }
 
@@ -57,39 +59,39 @@ class DateRange extends Component {
             to: undefined
           }
         });
-      });    
+      });
   }
 
-    render() {
-        const { from, to } = this.props.dateRange;
-        const modifiers = { start: from, end: to };
+  render() {
+    const { from, to } = this.props.dateRange;
+    const modifiers = { start: from, end: to };
 
-        return (
-            <div className='date-range'>
-                <DayPicker
-                    localeUtils={MomentLocaleUtils}
-                    locale='ru'
-                    selectedDays={[from, { from, to }]}
-                    disabledDays={[
-                    {
-                        after: new Date(false),
-                        before: new Date()
-                    }
-                ]}
-                    modifiers={modifiers}
-                    onDayClick={this.handleDayClick}
-                />
-                {from && to && (
-                    <p>
-                        {from.toLocaleDateString()} по {to.toLocaleDateString()}
-                        <br/><button className="link" onClick={this.handleResetClick}>
-                            {filterRecources.reset}
-                        </button>
-                    </p>
-                )}
-            </div>
-        );
-    }
+    return (
+      <div className='date-range'>
+        <DayPicker
+          localeUtils={MomentLocaleUtils}
+          locale='ru'
+          selectedDays={[from, { from, to }]}
+          disabledDays={[
+          {
+              after: new Date(false),
+              before: new Date()
+          }
+        ]}
+          modifiers={modifiers}
+          onDayClick={this.handleDayClick}
+        />
+        {from && to && (
+          <p>
+            {from.toLocaleDateString()} по {to.toLocaleDateString()}
+            <br/><button className="link" onClick={this.handleResetClick}>
+              {filterRecources.reset}
+            </button>
+          </p>
+        )}
+      </div>
+    );
+  }
 }
 
 const dateToProps = function(store) {

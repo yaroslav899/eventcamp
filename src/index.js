@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Router, IndexRoute } from 'react-router';
+import { Router } from 'react-router';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect, Provider } from 'react-redux';
 import { createBrowserHistory } from 'history';
 import './css/main.css';
+import { getUserData } from './helper';
 
 import MainPage from './components/MainPage';
 import ListPage from './components/events-list';
@@ -18,9 +19,13 @@ import NoMatch404 from './components/NoMatch404';
 import PrivateRoute from './components/hoc/PrivateRoute';
 
 class App extends Component {
+  componentDidMount() {
+    //ToDo oprimize approach
+    getUserData();
+  }
   render() {
     return (
-      <Provider store={store}> 
+      <Provider store={store}>
         <Router history={createBrowserHistory()}>
           <Layout>
             <Switch>
