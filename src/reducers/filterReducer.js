@@ -1,6 +1,7 @@
 const initialFilterState = {
   list: [],
   categories: '',
+  topics: '',
   cities: '',
   dateRange: {
     from: '',
@@ -16,6 +17,8 @@ export default function (filterReducer = initialFilterState, action) {
       return { ...filterReducer, categories: action.categories };
     case 'UPDATE_FILTER_CITY':
       return { ...filterReducer, cities: action.cities };
+    case 'UPDATE_FILTER_TOPIC':
+        return { ...filterReducer, topics: action.topics };
     case 'UPDATE_FILTER_DATERANGE':
       return { ...filterReducer, dateRange: action.dateRange };
     default:

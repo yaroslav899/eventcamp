@@ -58,3 +58,7 @@ export const getUserData = () => {
   return true;
 };
 
+export const getUniqueArray = (array) => {
+    return [...new Set(array)];
+}
+

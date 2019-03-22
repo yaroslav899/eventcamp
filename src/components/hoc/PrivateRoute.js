@@ -6,10 +6,12 @@ export default class PrivateRoute extends Component {
   render() {
     //ToDo change approach
     const {
-      redirectTo,
-      component: Component,
-    } = this.props;
-    const userData = JSON.parse(getCookie('userData'));
+      props: {
+        redirectTo,
+        component: Component,
+      }
+    } = this;
+    const userData = getCookie('userData');
 
     if (!userData) {
       return <Redirect to={redirectTo} />;

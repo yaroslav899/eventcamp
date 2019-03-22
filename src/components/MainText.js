@@ -7,7 +7,11 @@ import { getValueFromParams } from '../helper';
 
 class MainText extends PureComponent {
   componentDidMount() {
-    const { text } = this.props;
+    const {
+      props: {
+        text,
+      } = {},
+    } = this;
 
     if (text) {
       return null;

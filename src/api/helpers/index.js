@@ -20,6 +20,7 @@ export const getRequestUrl = (param) => {
 
   const query = {
     categories: (filterOption === 'categories') ? param.categories : prevFilterState.categories,
+    topics: (filterOption === 'topics') ? param.topics : prevFilterState.topics,
     cities: (filterOption === 'cities') ? param.cities : prevFilterState.cities,
     from: (filterOption === 'from') ? moment(param.from).format('YYYY-MM-DDT00:00:00') : dateFrom,
     to: (filterOption === 'from') ? moment(param.to).format('YYYY-MM-DDT00:00:00') : dateTo,
@@ -30,6 +31,7 @@ export const getRequestUrl = (param) => {
   if (query.cities) url = `${url}&filter[meta_query][0][key]=cities&filter[meta_query][0][value]=${city.name}`;
   if (query.from) url = `${url}&filter[meta_query][1][key]=dateOf&filter[meta_query][1][value]=${query.from}&filter[meta_query][1][compare]=>`;
   if (query.to) url = `${url}&filter[meta_query][2][key]=dateOf&filter[meta_query][2][value]=${query.to}&filter[meta_query][2][compare]=<`;
+  if (query.topics) url = `${url}&filter[meta_query][3][key]=topic&filter[meta_query][3][value]=${query.topics}`;
   if (query.page) url = `${url}&page=${query.page}`;
   return url;
 };

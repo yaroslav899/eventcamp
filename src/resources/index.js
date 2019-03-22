@@ -4,12 +4,14 @@ export const listRecources = {
   emptyList: 'записи отсутствуют',
   lastEvent: 'Последние события',
 };
+
 export const filterRecources = {
   city: 'Город',
   category: 'Категория',
   topic: 'Тема',
   reset: 'Сбросить',
 };
+
 export const detailRecources = {
   writeAuthor: 'Написать организатору',
   register: 'Зарегистрироваться',
@@ -18,6 +20,7 @@ export const detailRecources = {
   description: 'Описание',
   howToGet: 'Как добраться',
 };
+
 export const advantRecources = {
   first: 'Узнавайте новое и полезное',
   second: 'Заводите новые контакты',
@@ -57,7 +60,8 @@ export const mainMenu = [{
   name: 'Инфо',
   id: '24',
   url: '/info',
-  },];
+  },
+];
 
 export const globalRecources = {
   free: 'бесплатно',
@@ -76,12 +80,15 @@ export const globalRecources = {
   owner: 'Организатор',
   addEventButton: 'Добавить событие',
   member: 'Участник',
+  privacy: '*Я согласен(-на) с условиями использования сайта и политикой конфиденциальности.',
 };
+
 export const imageUrlRecources = {
   noPhoto: 'http://board.it-mir.net.ua/wp-content/uploads/2018/05/nophoto.jpg',
   googleLogo: 'http://board.it-mir.net.ua/wp-content/uploads/2018/06/google.png',
   logo: '/img/logo.png',
 };
+
 export const urlRecources = {
   endpointUrl: 'http://board.it-mir.net.ua/wp-json/wp/v2/',
   geoLookUpUrl: 'https://maps.googleapis.com/maps/api/geocode/json?',
@@ -89,6 +96,7 @@ export const urlRecources = {
   calGoggle: 'http://www.google.com/calendar/event?action=TEMPLATE&text=',
   jwtRegister: 'http://board.it-mir.net.ua/wp-json/jwt-auth/v1/token/',
 };
+
 export const fieldsRegisterForm = {
   firstname: 'Имя:',
   secondname: 'Фамилия:',
@@ -97,6 +105,11 @@ export const fieldsRegisterForm = {
   password: 'Пароль:',
   duplicatepassword: 'Повторите пароль:',
 };
+
+export const titleList = {
+  registration: 'Регистрация',
+};
+
 export const googleApiService = {
   key: 'AIzaSyCM7IwnppmyEPSZPDZIoTW8VKOMlS5peN4',
 };

@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import AuthForm from './AuthForm';
 import RegisterForm from './RegisterForm';
+import { formValidator } from '../../validator';
 import Adventages from '../global/Adventages';
 import { request } from '../../api';
 import { globalRecources, fieldsRegisterForm } from '../../resources';
@@ -15,6 +16,7 @@ class RegistrationPage extends PureComponent {
     duplicatepassword: '',
     isSuccessRegister: false,
     captcha: false,
+    privacyChecked: false,
     className: {
       password: '',
       duplicatepassword: '',
@@ -49,16 +51,52 @@ class RegistrationPage extends PureComponent {
   handleSubmit = (event) => {
     event.preventDefault();
 
-    const { captcha } = this.state;
-    if (!captcha) {
-      return;
-    }
+    this.validator();
 
-    const isPasswordValid = validatePassword();
+    /*request.createNewUser(this.state).then(() => {
+        this.setState({ isSuccessRegister: true });
+      });*/
+  }
 
-    request.createNewUser(this.state).then(() => {
-      this.setState({ isSuccessRegister: true });
-    });
+  privacyHandler = (event) => {
+      this.setState({privacyChecked: !this.state.privacyChecked});
+  }
+
+  validator = () => {
+      const fields = {
+        email: {
+          value: this.state.email,
+        },
+        login: {
+          value: this.state.login,
+        },
+        password: {
+          value: this.state.password,
+        },
+        duplicatepassword: {
+          value: this.state.duplicatepassword,
+          duplicate: this.state.password,
+        },
+        captcha: {
+          value: this.state.captcha,
+        },
+        privacyPolicy: {
+          value: this.state.privacyChecked,
+        },
+       };
+
+       const s = formValidator(fields);
+       const r = 0;
+      /*const {
+        captcha,
+        privacyChecked,
+      } = this.state;
+
+      if (!captcha || !privacyChecked) {
+          this.validator();
+          return false;
+        }
+      const isPasswordValid = this.validatePassword();*/
   }
 
   validatePassword = () => {
@@ -108,6 +146,7 @@ class RegistrationPage extends PureComponent {
         />
       </div>
     });
+
     const registerForm = (isSuccessRegister ? (
       <div>
         {globalRecources.successRegisterMsg}
@@ -116,12 +155,14 @@ class RegistrationPage extends PureComponent {
       </div>) : (
       <RegisterForm
         submitHandler={this.handleSubmit}
+        privacyHandler={this.privacyHandler}
         recaptchaHandler={this.onChanges}
         fields={simpleFields}
         className="registration__form registration-form"
       />
       )
     );
+
     return (
       <div className="container">
         <Adventages />

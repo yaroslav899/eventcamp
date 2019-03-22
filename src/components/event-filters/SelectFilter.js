@@ -10,7 +10,7 @@ import { getValueFromParams } from '../../helper';
 
 class SelectFilter extends Component {
   state = {
-    themes: defaultTopic,
+    topics: defaultTopic,
     currentTheme: '',
   };
 
@@ -23,16 +23,18 @@ class SelectFilter extends Component {
     this.changeSelection('categories', selection);
     if (!selection) {
       this.setState({
-        themes: defaultTopic,
+        topics: defaultTopic,
       });
     }
     this.addToHistory('categories', selection);
   };
 
-  changeTheme = (selection) => {
-    const { themes } = this.state;
+  changeTopic = (selection) => {
+    this.changeSelection('topics', selection);
+
+    const { topics } = this.state;
     if (selection) {
-      const param = themes.filter(theme => theme.name === selection.label);
+      const param = topics.filter(topic => topic.name === selection.label);
     }
 
     this.setState({
@@ -72,13 +74,19 @@ class SelectFilter extends Component {
               categories: data[filterOption],
             });
             this.setState({
-              themes: categories.find(cat => cat.id === data[filterOption]).subcat,
+              topics: categories.find(cat => cat.id === data[filterOption]).subcat,
             });
             break;
           case 'cities':
             store.dispatch({
               type: 'UPDATE_FILTER_CITY',
               cities: data[filterOption],
+            });
+            break;
+          case 'topics':
+            store.dispatch({
+              type: 'UPDATE_FILTER_TOPIC',
+              topics: data[filterOption],
             });
             break;
           default:
@@ -124,7 +132,7 @@ class SelectFilter extends Component {
       cities: cityFilter,
     } = this.props;
     const {
-      themes,
+      topics,
       currentTheme,
     } = this.state;
 
@@ -156,15 +164,15 @@ class SelectFilter extends Component {
         />
         <p>{filterRecources.topic}</p>
         <Select
-          name="form-field-themes"
-          label="themes"
-          options={themes.map(theme => ({
-            label: theme.name,
-            value: theme.id,
-            type: 'themes',
+          name="form-field-topics"
+          label="topics"
+          options={topics.map(topic => ({
+            label: topic.name,
+            value: topic.url,
+            type: 'topics',
           }))}
           value={currentTheme}
-          onChange={this.changeTheme}
+          onChange={this.changeTopic}
         />
       </div>
     );
@@ -174,6 +182,7 @@ const mapStateToProps = (store) => {
   return {
     posts: store.filterState.list,
     categories: store.filterState.categories,
+    topics: store.filterState.topics,
     cities: store.filterState.cities,
   };
 };

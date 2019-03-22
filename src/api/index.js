@@ -62,14 +62,25 @@ export const request = {
   }),
 
   getUser: () => {
-    const { user_email: userEmail } = JSON.parse(getCookie('authData'));
+    const authData = getCookie('authData');
+
+    if (!authData) {
+        return false;
+    }
+
+    const { user_email: userEmail } = JSON.parse(authData);
 
     return fetch(`${urlRecources.endpointUrl}users/?search=${userEmail}`)
       .then(response => response.json());
   },
 
   createPost: (param, imageID) => {
-    const userData = JSON.parse(getCookie('userData'));
+    const userData = getCookie('userData');
+
+    if (!userData) {
+        return false;
+    }
+
     const {
       editorState,
       title: displayTitle,
@@ -85,7 +96,7 @@ export const request = {
       currentTheme,
     } = param;
     const description = stateToHTML(editorState.getCurrentContent());
-    const { token } = userData;
+    const { token } = JSON.parse(userData);
 
     return fetch(`${urlRecources.endpointUrl}posts/`, {
       method: 'POST',
@@ -164,6 +175,7 @@ export const request = {
 
   getLastPosts: () => {
     const url = getLastPostsUrl();
+
     return fetch(url).then(response => response.json());
   },
 
@@ -175,6 +187,7 @@ export const request = {
 
   uploadImage: (file) => {
     const { token } = JSON.parse(getCookie('userData'));
+
     return axios.post('http://board.it-mir.net.ua/wp-json/wp/v2/media', file, {
       headers: {
         'Content-Type': file.type,

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import { free } from '../../fixtures';
+import { getUniqueArray } from '../../helper';
 import { imageUrlRecources, globalRecources } from '../../resources';
 
 export default class EventList extends Component {
@@ -26,6 +27,11 @@ export default class EventList extends Component {
     const price = !free.includes(event.acf.price) ? (event.acf.price + ' ' + event.acf.currency || '') : globalRecources.free;
     const location = `${event.acf.cities}, ${event.acf.location}`;
     const date = event.acf.dateOf ? moment(event.acf.dateOf, "YYYY-MM-DD").format("Do MMM YYYY") : '';
+    let tags = event.acf.tags || '';
+    if (tags.length) {
+        tags = getUniqueArray(tags.split(','));
+        tags = tags.map((tag) => <span key={tag} className="events-item-tags__tag">{tag}</span>);
+    }
 
     return (
       <div className="row">
@@ -39,7 +45,7 @@ export default class EventList extends Component {
           <div className={descrClass} dangerouslySetInnerHTML={this.createMarkupText(event.excerpt.rendered)} />
           {!isOwner &&
             <div className="events-item__tags events-item-tags">
-              {event.acf.tags ? event.acf.tags.split(',').map((tag) => <span key={tag} className="events-item-tags__tag">{tag}</span>) : ''}
+              {tags}
             </div>
           }
         </div>

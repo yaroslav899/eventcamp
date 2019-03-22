@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import moment from 'moment';
 import store from '../../store';
 import { request } from '../../api';
-import { getValueFromParams } from '../../helper';
+import { getValueFromParams, getUniqueArray } from '../../helper';
 import { categories, cities, free } from '../../fixtures';
 import { listRecources, globalRecources } from '../../resources';
 
@@ -44,7 +44,14 @@ class LastPosts extends PureComponent {
       let category = getValueFromParams(categories, post.categories[0], 'id', 'url');
       let location = `${post.acf.cities}, ${post.acf.location}`;
       let date = post.acf.dateOf ? moment(post.acf.dateOf, 'YYYY-MM-DD').format('DD MMM YYYY') : '';
-      let price = !free.includes(post.acf.price) ? (post.acf.price + ' ' + post.acf.currency || '') : globalRecources.free ;
+      let price = !free.includes(post.acf.price) ? (post.acf.price + ' ' + post.acf.currency || '') : globalRecources.free;
+
+      let tags = post.acf.tags || '';
+      if (tags.length) {
+          tags = getUniqueArray(tags.split(','));
+          tags = tags.map(tag => <span className="tagOpt" key={tag}>{tag}</span>);
+      }
+
 
       return (
         <li key={post.id}>
@@ -67,8 +74,8 @@ class LastPosts extends PureComponent {
                 </div>
               </div>
               <div className="col-12">
-                <div className="last-post-tags">{post.acf.tags
-                  ? post.acf.tags.split(',').map(tag => <span className="tagOpt" key={tag}>{tag}</span>) : ''}
+                <div className="last-post-tags">
+                    {tags}
                 </div>
               </div>
             </div>

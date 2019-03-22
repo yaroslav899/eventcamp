@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { NavLink } from 'react-router-dom';
 import { categories } from '../../fixtures';
 
-export default class ServicePicture extends Component {
+export default class ServicePicture extends PureComponent {
   render() {
     const categoriesEvent = categories.map(category => <div key={category.id} className="col-12 col-sm-4">
       <NavLink to={`/events/any/${category.url}`}>
