@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import moment from 'moment';
 import { NavLink } from 'react-router-dom';
 import store from '../../store';
@@ -16,22 +16,26 @@ export default class DetailInteresting extends Component {
     const { data } = this.props;
 
     return request.getInterestingData(data).then((posts) => {
-      this.setState({
-        posts: posts.filter(post => post.id !== data.id),
-      });
+      updateDetailInterestingPosts(posts, data);
     });
   }
 
   handleUpdateDetailPage(data) {
     request.getInterestingData(post).then((posts) => {
-      this.setState({
-        posts: posts.filter(post => post.id !== data.id),
-      });
+      updateDetailInterestingPosts(posts, data);
     });
 
     store.dispatch({
       type: 'UPDATE_DETAIL_POST',
       post: data,
+    });
+  }
+
+  updateDetailInterestingPosts(posts, data) {
+    if (!posts) return false;
+
+    this.setState({
+      posts: posts.filter(post => post.id !== data.id),
     });
   }
 
@@ -42,31 +46,50 @@ export default class DetailInteresting extends Component {
   render() {
     const { posts } = this.state;
 
-    if (!posts) return <div />;
+    if (!posts) return <Fragment />;
 
-    const samePosts = posts.map(samePost => <li key={samePost.id} className="same-post-rightside">
-      <NavLink onClick={this.handleUpdateDetailPage.bind(this, samePost)} to={`/events/${getValueFromParams(cities, samePost.acf.cities, 'name', 'url')}/${getValueFromParams(categories, samePost.categories[0], 'id', 'url')}/${samePost.id}`}>
-        <div className="row">
-          <div className="col-12">
-            <img src={samePost.acf.picture || imageUrlRecources.noPhoto} alt="" className="" />
-            <div className="samePost-info-rightside row">
-              <div className="samePost-title col-7" dangerouslySetInnerHTML={this.createMarkupText(samePost.title.rendered)} />
-              <div className="samePost-price text-right col-5">
-                {samePost.acf.price}
-                {samePost.acf.currency ? ` ${samePost.acf.currency}` : ''}
-              </div>
-              <div className="samePost-location col-7">
-                {samePost.acf.cities}
-                {samePost.acf.location}
-              </div>
-              <div className="samePost-date text-right col-5">
-                {samePost.acf.dateOf ? moment(samePost.acf.dateOf, 'YYYY-MM-DD').format('DD MMM YYYY') : ''}
+    const samePosts = posts.map(samePost => {
+      let {
+        id: postID,
+        categories: postCategories = ['it'],
+        title: {
+          rendered: postTitle,
+        },
+        acf: {
+          picture = imageUrlRecources.noPhoto,
+          price,
+          currency = '',
+          cities: postCity,
+          location,
+          dateOf,
+        }
+      } = samePost;
+      let city = getValueFromParams(cities, postCity, 'name', 'url');
+      let category = getValueFromParams(categories, postCategories[0], 'id', 'url');
+
+
+      return <li key={postID} className="same-post-rightside">
+        <NavLink onClick={this.handleUpdateDetailPage.bind(this, samePost)} to={`/events/${city}/${category}/${postID}`}>
+          <div className="row">
+            <div className="col-12">
+              <img src={picture} alt="" className="" />
+              <div className="samePost-info-rightside row">
+                <div className="samePost-title col-7" dangerouslySetInnerHTML={this.createMarkupText(postTitle)} />
+                <div className="samePost-price text-right col-5">
+                  {`${price} ${currency}`}
+                </div>
+                <div className="samePost-location col-7">
+                  {`${postCity} ${location}`}
+                </div>
+                <div className="samePost-date text-right col-5">
+                  {dateOf ? moment(dateOf, 'YYYY-MM-DD').format('DD MMM YYYY') : ''}
+                </div>
               </div>
             </div>
           </div>
-        </div>
         </NavLink>
-    </li>);
+      </li>
+    });
 
     return (
       <div className="detail-interesting">

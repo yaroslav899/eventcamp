@@ -15,6 +15,7 @@ class RegistrationPage extends PureComponent {
     password: '',
     duplicatepassword: '',
     isSuccessRegister: false,
+    isRegisterFormValid: true,
     captcha: false,
     privacyChecked: false,
     className: {
@@ -26,8 +27,7 @@ class RegistrationPage extends PureComponent {
       email: 'email',
       password: 'password',
       duplicatepassword: 'password',
-    }
-
+    },
   };
 
   handleChange = (event) => {
@@ -40,7 +40,7 @@ class RegistrationPage extends PureComponent {
       this.setState(prevState => ({
         className: {
           ...prevState.className,
-          [eventName]: 'ads'
+          [eventName]: 'ads',
         }
       }))
     }
@@ -51,7 +51,8 @@ class RegistrationPage extends PureComponent {
   handleSubmit = (event) => {
     event.preventDefault();
 
-    this.validator();
+    const isFormValid = this.validator();
+
 
     /*request.createNewUser(this.state).then(() => {
         this.setState({ isSuccessRegister: true });

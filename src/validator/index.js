@@ -16,12 +16,16 @@ export const formValidator = (fields) => {
          isValidForm = defaultValidateField(field, fieldName, fieldDefaultRules);
      }
 
+     if (!isValidForm.success) {
+       return isValidForm;
+       break;
+     }
 
      isValidForm = customValidateField(field, fieldName);
 
      if (!isValidForm.success) {
-         isValidForm.field = fieldName;
-         break;
+       return isValidForm;
+       break;
      }
    }
 
@@ -32,50 +36,69 @@ export const validateField = (fieldName, value) => {
 
 }
 
+
 const defaultValidateField = (field, fieldName, fieldDefaultRules) => {
-    const defaultRules = fieldDefaultRules.rules;
-    const defaultErrorMsgs = fieldDefaultRules.errorMsg;
+  const { value: fieldValue = ''} = field;
+  const {
+    rules: defaultRules,
+    errorMsgs: defaultErrorMsgs,
+  } = fieldDefaultRules;
 
-    for (let i = 0; i < defaultRules.length; i++) {
-        let rule = validateMethod[defaultRules[i]];
+  for (let i = 0; i < defaultRules.length; i++) {
+    let validationRule = defaultRules[i];
+    let validationMethod = validateMethod[validationRule];
 
-        if (!rule) {
-            continue;
-        }
-
-        validateResult = rule(value, duplicate);
-
-        let r = 0;
+    if (!validationMethod) {
+      continue;
     }
 
-    var t = 0;
+    let validateResult = validationMethod(fieldValue, '');
+
+    if (!validateResult.success) {
+      validateResult.errorMsg = defaultErrorMsgs[validationRule].replace('{0}', fieldName);
+      validateResult.field = fieldName;
+
+      return validateResult;
+      break;
+    }
+  }
+
+  return defaultValidForm;
 }
 
 const customValidateField = (field, fieldName) => {
-    if (!field.rules){
-        return defaultValidForm;
+  if (!field.rules){
+    return defaultValidForm;
+  }
+
+  const {
+    value,
+    rules,
+    duplicate = '',
+  } = field;
+
+  let validateResult = defaultValidForm;
+
+  for (let i = 0; i < rules.length; i++) {
+    let validationRule = rules[i];
+    let validationMethod = validateMethod[validationRule];
+
+    if (!validationMethod) {
+     continue;
     }
-    const {
-        value,
-        rules,
-        duplicate,
-      } = field;
-    let validateResult = defaultValidForm;
 
-    for (let i = 0; i < rules.length; i++) {
-        let rule = validateMethod[rules[i]];
+    let validateResult = validationMethod(value, duplicate);
 
-        if (!rule) {
-            continue;
-        }
+    if (!validateResult.success) {
+      validateResult.field = fieldName;
 
-        validateResult = rule(value, duplicate);
-
-        if (!validateResult.success) {
-            break;
-        }
+      return validateResult;
+      break;
     }
-    return validateResult;
+
+  }
+
+  return defaultValidForm;
 }
 
 const validateMethod = {

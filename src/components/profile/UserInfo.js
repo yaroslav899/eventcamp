@@ -11,7 +11,7 @@ const UserInfo = (user, addEventUrl) => (
     <div className="col-6 text-right">
       <NavLink to={addEventUrl} className="profile__add-button">
         <span>&#8853;</span> Добавить событие
-       </NavLink>
+      </NavLink>
     </div>
     <div className="col-6">
       <h3>{profileProperties.photoUser}</h3>

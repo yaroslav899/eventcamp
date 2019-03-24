@@ -23,6 +23,7 @@ module.exports = {
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
 		"no-param-reassign": [2, { "props": false }],
         "no-class-assign": "off",
+		"react/prop-types": 0,
         "no-console": "off",
         "linebreak-style": "off",
         "jsx-a11y/media-has-caption": "off",

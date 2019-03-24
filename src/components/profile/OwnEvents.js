@@ -7,12 +7,19 @@ import { getUserData } from '../../helper';
 
 class OwnEvents extends PureComponent {
   componentDidMount() {
-    //ToDo change approach
+    const {
+      props: {
+        userData: {
+          id: authorID,
+        },
+      } = {},
+    } = this;
+    // ToDo change approach
     new Promise((resolve) => {
       const requestUserData = getUserData();
       resolve(requestUserData);
     }).then(() => {
-      request.getAuthorPosts({ author: this.props.userData.id }).then(posts => {
+      request.getAuthorPosts({ author: authorID }).then(posts => {
         store.dispatch({
           type: 'UPDATE_USER_POSTS',
           listPosts: posts,
