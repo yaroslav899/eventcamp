@@ -1,123 +1,131 @@
-import React, { Component, Fragment } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { reCaptcha } from '../../credentials';
 import { formValidator } from '../../validator';
 import { request } from '../../api';
 import { titleList, globalRecources, fieldsRegisterForm } from '../../resources';
 
-class RegisterForm extends Component {
-  state = {
-    firstname: '',
-    secondname: '',
-    email: '',
-    login: '',
-    password: '',
-    duplicatepassword: '',
-    isSuccessRegister: false,
-    isRegisterFormValid: true,
-    captcha: false,
-    privacyChecked: false,
-    className: {
-      password: '',
-      duplicatepassword: '',
-    },
-    fieldTypes: {
+class RegisterForm extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.fieldTypes = {
       text: 'text',
       email: 'email',
       password: 'password',
       duplicatepassword: 'password',
-    },
-  };
-
-  handleChange = (event) => {
-    const eventName = event.target.name;
-    const {
-      className
-    } = this.state;
-
-    if (className[eventName]) {
-      this.setState(prevState => ({
-        className: {
-          ...prevState.className,
-          [eventName]: 'ads',
-        }
-      }))
-    }
-
-    this.setState({ [eventName]: event.target.value });
+    };
+    this.state = {
+      firstname: '',
+      secondname: '',
+      email: '',
+      login: '',
+      password: '',
+      duplicatepassword: '',
+      isSuccessRegister: false,
+      captcha: false,
+      privacyChecked: false,
+      errorMsg: '',
+    };
   }
 
-  handleSubmit = (event) => {
+  handleChange = (event) => {
+    this.setState({ [event.target.name]: event.target.value });
+  }
+
+  reCaptchaHandler = (value) => {
+    this.setState({ captcha: value });
+  }
+
+  privacyHandler = (event) => {
+    this.setState({ privacyChecked: !this.state.privacyChecked });
+  }
+
+  submitHandler = (event) => {
     event.preventDefault();
 
-    const isFormValid = this.validator();
+    const checkValidForm = this.validator();
 
-    /*request.createNewUser(this.state).then(() => {
+    if (!checkValidForm.success) {
+      this.setState({ errorMsg: checkValidForm.errorMsg });
+      return false;
+    }
+
+    request.createNewUser(this.state).then(() => {
         this.setState({ isSuccessRegister: true });
-      });*/
+    });
   }
 
   validator = () => {
+    const {
+      state: {
+        firstname,
+        secondname,
+        email,
+        login,
+        password,
+        duplicatepassword,
+        captcha,
+        privacyChecked,
+      }
+    } = this;
+
+    if (!captcha || !privacyChecked) {
+      return false;
+    }
+
     const fields = {
       email: {
-        value: this.state.email,
+        value: email,
       },
       login: {
-        value: this.state.login,
+        value: login,
       },
       password: {
-        value: this.state.password,
+        value: password,
       },
       duplicatepassword: {
-        value: this.state.duplicatepassword,
-        duplicate: this.state.password,
-      },
-      captcha: {
-        value: this.state.captcha,
-      },
-      privacyPolicy: {
-        value: this.state.privacyChecked,
+        value: duplicatepassword,
+        duplicate: password,
       },
     };
 
-    const s = formValidator(fields);
-    const r = 0;
-    /*const {
-      captcha,
-      privacyChecked,
-    } = this.state;
-
-    if (!captcha || !privacyChecked) {
-        this.validator();
-        return false;
-      }
-    const isPasswordValid = this.validatePassword();*/
+    return formValidator(fields);
   }
 
   render() {
-    const {
-      props: {
-        privacyHandler,
-        recaptchaHandler,
-        fields,
-        className,
-      } = {},
-    } = this;
+    const fields = Object.keys(fieldsRegisterForm).map((field) => {
+      let fieldValue = fieldsRegisterForm[field];
+      let fieldType = this.fieldTypes[field] || this.fieldTypes.text;
+
+      return (
+        <div className="form-row" key={field}>
+          <label
+            htmlFor={field}
+            key={fieldValue}
+            className="registration-form__label col-sm-4"
+          >
+            {fieldValue}
+          </label>
+          <input
+            type={fieldType}
+            className="form-control col-sm-7"
+            name={field}
+            value={this.state[field]}
+            onChange={this.handleChange}
+          />
+        </div>
+      )
+    });
+
     return (
       <Fragment>
         <h3>{titleList.registration}</h3>
-        <form onSubmit={this.submitHandler} className={className}>
+        <form onSubmit={this.submitHandler} className="registration__form registration-form">
           {fields}
           <br />
-
-          <input type="checkbox" onChange={privacyHandler} />
-          {globalRecources.privacy}
-
-          <ReCAPTCHA
-            sitekey={reCaptcha.siteKey}
-            onChange={recaptchaHandler}
-          />
-
+          <input type="checkbox" onChange={this.privacyHandler} /> {globalRecources.privacy}
+          <ReCAPTCHA sitekey={reCaptcha.siteKey} onChange={this.reCaptchaHandler} />
+          <span className="error-message">{this.state.errorMsg}</span>
           <input type="submit" value="Submit" className="btn btn-secondary" />
         </form>
       </Fragment>
@@ -126,31 +134,3 @@ class RegisterForm extends Component {
 }
 
 export default RegisterForm;
-
-/*const RegisterForm = ({
-  submitHandler,
-  privacyHandler,
-  recaptchaHandler,
-  fields,
-  className,
-}) => (
-  <Fragment>
-    <h3>{titleList.registration}</h3>
-    <form onSubmit={submitHandler} className={className}>
-      {fields}
-      <br />
-
-      <input type="checkbox" onChange={privacyHandler} />
-      {globalRecources.privacy}
-
-      <ReCAPTCHA
-        sitekey={reCaptcha.siteKey}
-        onChange={recaptchaHandler}
-      />
-
-      <input type="submit" value="Submit" className="btn btn-secondary" />
-    </form>
-    <span>{!formValidationMessage}</span>
-  </Fragment>
-);
-export default RegisterForm;*/

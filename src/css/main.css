@@ -29,6 +29,10 @@ ul {
 img {
   border: 0;
 }
+.error-message{
+  display:block;
+  color:#ff0000;
+}
 
 /**
 *  Header
@@ -107,7 +111,7 @@ img {
 .advant div {
   margin: 7px 0;
 }
-.advant div + div {  
+.advant div + div {
   border-left: 1px solid #b3d1e9;
 }
 .advant span {
@@ -343,6 +347,10 @@ img.googleCal{
 }
 .registration__form div+div{
   margin-top:10px;
+}
+
+.registration__form input.non-valid{
+    border:1px solid #ff0000;
 }
 
 
