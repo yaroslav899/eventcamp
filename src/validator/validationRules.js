@@ -1,52 +1,51 @@
+import { validationMsg } from './resources';
+
 export const defaultRules = {
   email: {
-    rules: ['isMandatory'],
+    rules: ['isMandatory', 'isValidEmail'],
+    regexp: /^.+@[^\.].*\.[a-z]{2,}$/,
     errorMsgs: {
-        isMandatory: 'Поле {0} является обязательным',
-    }
+        isMandatory: validationMsg.mandatory,
+        isMandatory: validationMsg.nonValidEmail,
+    },
   },
   login: {
     rules: ['isMandatory'],
     errorMsgs: {
-        isMandatory: 'Поле {0} является обязательным',
-    }
+        isMandatory: validationMsg.mandatory,
+    },
   },
   password: {
     rules: ['isMandatory', 'isValidPassword'],
-    regexpPassword: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/,
+    regexp: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/,
     errorMsgs: {
-        isMandatory: 'Поле {0} является обязательным',
-        isValidPassword: 'Проверьте пароль:<br/>' +
-            'Содержит не менее 8 символов<br/>' +
-            'содержат не менее 1 цифры<br/>' +
-            'содержат как минимум один символ нижнего регистра (a-z)<br/>'+
-            'содержат как минимум 1 символ верхнего регистра (A-Z)<br/>' +
-            'содержит только 0-9a-zA-Z',
+        isMandatory: validationMsg.mandatory,
+        isValidPassword: validationMsg.nonValidPassword,
     },
   },
   duplicatepassword: {
     rules: ['isMandatory', 'isValidPassword', 'isPasswordMatch'],
     errorMsgs: {
-        isMandatory: 'The field {0} is mandatory. Please fill that',
-        isValidPassword: 'Проверьте пароль:<br/>' +
-            'Содержит не менее 8 символов' +
-            'содержат не менее 1 цифры' +
-            'содержат как минимум один символ нижнего регистра (a-z)'+
-            'содержат как минимум 1 символ верхнего регистра (A-Z)' +
-            'содержит только 0-9a-zA-Z',
-        isPasswordMatch: 'Пароли не совпадают',
+        isMandatory: validationMsg.mandatory,
+        isValidPassword: validationMsg.nonValidPassword,
+        isPasswordMatch: validationMsg.passwordsNotMatch,
     },
   },
   captcha: {
     rules: ['isMandatory'],
     errorMsgs: {
-        isMandatory: 'The field {0} is mandatory. Please fill that',
-    }
+        isMandatory: validationMsg.mandatory,
+    },
   },
-  privacyPolicy: {
+  privacyChecked: {
     rules: ['isMandatory'],
     errorMsgs: {
-        isMandatory: 'The field {0} is mandatory. Please fill that',
-    }
+        isMandatory: validationMsg.mandatory,
+    },
+  },
+  custom: {
+    errorMsgs: {
+      isMandatory: validationMsg.mandatory,
+    },
   },
 };

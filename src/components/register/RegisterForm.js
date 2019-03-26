@@ -29,7 +29,10 @@ class RegisterForm extends PureComponent {
   }
 
   handleChange = (event) => {
-    this.setState({ [event.target.name]: event.target.value });
+    this.setState({
+        [event.target.name]: event.target.value,
+        errorMsg: '',
+    });
   }
 
   reCaptchaHandler = (value) => {
@@ -66,14 +69,16 @@ class RegisterForm extends PureComponent {
         duplicatepassword,
         captcha,
         privacyChecked,
-      }
+      } = {},
     } = this;
 
-    if (!captcha || !privacyChecked) {
-      return false;
-    }
-
     const fields = {
+      captcha: {
+        value: captcha,
+      },
+      privacyChecked: {
+        value: privacyChecked,
+      },
       email: {
         value: email,
       },
