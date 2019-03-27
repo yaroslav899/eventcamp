@@ -6,8 +6,11 @@ This is <b>events board</b>
     <li>Create 'credentials.js' file in '/src/'<br/>
         <code>
         export const adminAccess = {
-            login: 'admin',
-            password: '123456',
+            login: '***',
+            password: '***',
+        };
+        export const googleApiService = {
+          key: '***',
         };
         </code>
     </li>
