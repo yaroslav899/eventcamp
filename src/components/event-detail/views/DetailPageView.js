@@ -7,12 +7,12 @@ import Calendar from '../Calendar';
 import FeedBack from '../FeedBack';
 import DetailInteresting from '../DetailInteresting';
 
-const DetailPageView = ({ title, event, date }) => (
+const DetailPageView = ({ event, date }) => (
   <div className="container">
     <Adventages />
     <div className="row">
       <div className="col-9">
-        <h1 dangerouslySetInnerHTML={{ __html: title }}></h1>
+        <h1 dangerouslySetInnerHTML={{ __html: event.title.rendered }}></h1>
         <EventDetail event={event} date={date} />
         <div className="row area-2">
           <div className="col-12">

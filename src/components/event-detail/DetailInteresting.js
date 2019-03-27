@@ -15,14 +15,12 @@ export default class DetailInteresting extends Component {
   componentDidMount() {
     const { data } = this.props;
 
-    return request.getInterestingData(data).then((posts) => {
-      updateDetailInterestingPosts(posts, data);
-    });
+    this.handleUpdateDetailPage(data);
   }
 
   handleUpdateDetailPage(data) {
-    request.getInterestingData(post).then((posts) => {
-      updateDetailInterestingPosts(posts, data);
+    request.getInterestingData(data).then((posts) => {
+      this.updateDetailInterestingPosts(posts, data);
     });
 
     store.dispatch({
@@ -66,7 +64,6 @@ export default class DetailInteresting extends Component {
       } = samePost;
       let city = getValueFromParams(cities, postCity, 'name', 'url');
       let category = getValueFromParams(categories, postCategories[0], 'id', 'url');
-
 
       return <li key={postID} className="same-post-rightside">
         <NavLink onClick={this.handleUpdateDetailPage.bind(this, samePost)} to={`/events/${city}/${category}/${postID}`}>

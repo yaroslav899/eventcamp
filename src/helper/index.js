@@ -61,4 +61,3 @@ export const getUserData = () => {
 export const getUniqueArray = (array) => {
     return [...new Set(array)];
 }
-

@@ -9,17 +9,21 @@ import GoogleMap from './GoogleMap';
 import { detailRecources } from '../../resources';
 
 export default class DetailTabs extends Component {
+  createMarkupText(text) {
+    return { __html: text };
+  }
+
   render() {
     const {
       data: {
         acf: {
           cities,
           location,
-        },
+        } = {},
         content: {
           rendered,
-        }
-      },
+        } = {},
+      } = {},
     } = this.props;
     const address = `${cities}, ${location}`;
 
@@ -30,7 +34,7 @@ export default class DetailTabs extends Component {
           <Tab>{detailRecources.howToGet}</Tab>
         </TabList>
         <TabPanel>
-          <div className="event_text" dangerouslySetInnerHTML={{ __html: rendered }} />
+          <div className="event_text" dangerouslySetInnerHTML={this.createMarkupText(rendered)} />
         </TabPanel>
         <TabPanel>
           <div className="row">

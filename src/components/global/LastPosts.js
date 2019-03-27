@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import moment from 'moment';
@@ -37,7 +37,7 @@ class LastPosts extends PureComponent {
       },
     } = this.props;
 
-    if (!list) return <div></div>;
+    if (!list) return <Fragment/>;
 
     const lastPosts = list.map((post) => {
       let city = getValueFromParams(cities, post.acf.cities, 'name', 'url');
@@ -73,10 +73,8 @@ class LastPosts extends PureComponent {
                   {price}
                 </div>
               </div>
-              <div className="col-12">
-                <div className="last-post-tags">
-                    {tags}
-                </div>
+              <div className="col-12 last-post-tags">
+                  {tags}
               </div>
             </div>
           </NavLink>

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import store from '../../store';
 import Pagination from '../global/Pagination';
 import { request } from '../../api';
+import { scrollToTop } from '../../helper/scroll';
 
 class PaginationContainter extends PureComponent {
   state = {
@@ -12,11 +13,7 @@ class PaginationContainter extends PureComponent {
   handlePaginationClick = (event) => {
     event.preventDefault();
 
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: 'smooth'
-    });
+    scrollToTop()
 
     const initialParams = {
       page: event.target.text,

@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import DateRange from './DateRange';
 import SelectFilter from './SelectFilter';
 
 const Filters = () => (
-  <div>
+  <Fragment>
     <DateRange />
     <SelectFilter />
-  </div>
+  </Fragment>
 );
 export default Filters;

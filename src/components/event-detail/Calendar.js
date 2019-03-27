@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import {
   urlRecources,
   detailRecources,
@@ -10,7 +10,7 @@ export default class Calendar extends PureComponent {
   render() {
     const { data } = this.props;
     if (!data) {
-      return <div>{globalRecources.loading}</div>;
+      return <Fragment>{globalRecources.loading}</Fragment>;
     }
 
     const date = data.acf.dateOf.replace(/-/ig, '');

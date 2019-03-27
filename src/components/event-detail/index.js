@@ -14,13 +14,13 @@ class DetailPage extends Component {
       post: null,
     });
 
-    return request.getPostDetail(this.props.match.params.id)
+    request.getPostDetail(this.props.match.params.id)
       .then(post => {
         store.dispatch({
           type: 'UPDATE_DETAIL_POST',
           post: post,
         });
-        
+
         document.title = post.title.rendered;
       });
   }
@@ -31,7 +31,7 @@ class DetailPage extends Component {
 
     const date = moment(post.acf.dateOf, "YYYY-MM-DD").format("Do MMM").split(' ');
 
-    return <DetailPageView title={post.title.rendered} event={post} date={date} />
+    return <DetailPageView event={post} date={date} />
   }
 };
 

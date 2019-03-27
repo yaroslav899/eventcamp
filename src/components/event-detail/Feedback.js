@@ -1,11 +1,11 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import { globalRecources, detailRecources } from '../../resources';
 
 export default class FeedBackURL extends PureComponent {
   render() {
     const { data } = this.props;
 
-    if (!data) return <div>{globalRecources.loading}</div>;
+    if (!data) return <Fragment />;
 
     return (
       <div className="feedback-detail-right">

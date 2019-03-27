@@ -14,6 +14,7 @@ class AuthHeaderLink extends Component {
         name,
       },
     } = this.props;
+
     if (name) {
       return (
         <div className="header__registration" >
@@ -22,9 +23,9 @@ class AuthHeaderLink extends Component {
             выход
           </button>
         </div>
-        ) 
-
+        )
     }
+
     return (
       <div className="header__registration header-registration">
         <ActiveLink to="/register">{globalRecources.enter}</ActiveLink>
