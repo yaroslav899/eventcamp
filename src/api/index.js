@@ -167,8 +167,8 @@ export const request = {
     return fetch(url).then(response => response.json());
   },
 
-  getInterestingData: (param) => {
-    const url = getInterestingUrl(param);
+  getInterestingData: (param, isTagActive) => {
+    const url = getInterestingUrl(param, isTagActive);
 
     return fetch(url).then(response => response.json());
   },
@@ -188,7 +188,7 @@ export const request = {
   uploadImage: (file) => {
     const { token } = JSON.parse(getCookie('userData'));
 
-    return axios.post('http://board.it-mir.net.ua/wp-json/wp/v2/media', file, {
+    return axios.post(urlRecources.mediaResources, file, {
       headers: {
         'Content-Type': file.type,
         'Content-Disposition': 'attachment; filename=' + file.name + '',

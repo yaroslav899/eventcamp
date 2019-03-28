@@ -131,7 +131,7 @@ class RegisterForm extends PureComponent {
           <input type="checkbox" onChange={this.privacyHandler} /> {globalRecources.privacy}
           <ReCAPTCHA sitekey={reCaptcha.siteKey} onChange={this.reCaptchaHandler} />
           <span className="error-message">{this.state.errorMsg}</span>
-          <input type="submit" value="Submit" className="btn btn-secondary" />
+          <input type="submit" value="Зарегистрироваться" className="btn btn-secondary" />
         </form>
       </Fragment>
     )

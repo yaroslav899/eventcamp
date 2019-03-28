@@ -19,7 +19,15 @@ export default class DetailInteresting extends Component {
   }
 
   handleUpdateDetailPage(data) {
-    request.getInterestingData(data).then((posts) => {
+    request.getInterestingData(data, true).then((posts) => {
+      if(!posts || !posts.length) {
+        request.getInterestingData(data, false).then((posts) => {
+          this.updateDetailInterestingPosts(posts, data);
+        });
+
+        return;
+      }
+
       this.updateDetailInterestingPosts(posts, data);
     });
 

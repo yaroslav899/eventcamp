@@ -20,6 +20,9 @@ export default class AddEvent extends Component {
     category: '',
     subcategory: '',
     tags: '',
+    register: '',
+    phone: '',
+    email: '',
     city: '',
     address: '',
     date: '',
@@ -67,7 +70,7 @@ export default class AddEvent extends Component {
         currentTheme: selection || defaultTopic,
       });
     };
-  
+
 
   onChanges = (value) => {
     this.setState({ captcha: value })
@@ -163,22 +166,46 @@ export default class AddEvent extends Component {
           <div className="border-separate"></div>
           <div className="form-row">
             <div className="form-group col-md-4">
-              <label htmlFor="tags">Ссылка для регистрации</label>
+              <label htmlFor="register">Ссылка для регистрации</label>
               <input type="text"
                 className="form-control"
-                name="tags"
-                value={this.state.tags}
+                name="register"
+                value={this.state.register}
                 onChange={this.handleInputChange}
-                placeholder="Введите ключевые слова: uber,asd,qwe,aaa" />
+                placeholder="http://add-your-link.com" />
             </div>
+            <div className="form-group col-md-6 offset-md-2">
+              Ссылка на ваш сайт для регистрации участников или информация о событии
+            </div>
+          </div>
+          <div className="border-separate"></div>
+          <div className="form-row">
             <div className="form-group col-md-4">
-              <label htmlFor="tags">Email для связи</label>
+              <label htmlFor="phone">Телефон для связи</label>
               <input type="text"
                 className="form-control"
-                name="tags"
-                value={this.state.tags}
+                name="phone"
+                value={this.state.phone}
                 onChange={this.handleInputChange}
-                placeholder="Введите ключевые слова: uber,asd,qwe,aaa" />
+                placeholder="+38 (0xx) xxx-xx-xx" />
+            </div>
+            <div className="form-group col-md-6 offset-md-2">
+              Добавляйте номер телефона и ваше событие получит больший отклик. Люди смогут узанть больше информации по телефону
+            </div>
+          </div>
+          <div className="border-separate"></div>
+          <div className="form-row">
+            <div className="form-group col-md-4">
+              <label htmlFor="email">Email для связи</label>
+              <input type="text"
+                className="form-control"
+                name="email"
+                value={this.state.email}
+                onChange={this.handleInputChange}
+                placeholder="your@email.com" />
+            </div>
+            <div className="form-group col-md-6 offset-md-2">
+              Добавляйте адрес вашей электронной почты и получайте обратную связь от пользователей.
             </div>
           </div>
           <div className="border-separate"></div>
@@ -191,6 +218,10 @@ export default class AddEvent extends Component {
                 value={this.state.tags}
                 onChange={this.handleInputChange}
                 placeholder="Введите ключевые слова: uber,asd,qwe,aaa" />
+            </div>
+            <div className="form-group col-md-6 offset-md-2">
+              Добавляйте ключевые слова через запятую. Это позволит системе показывать ваше
+              объявление в поиске похожие и улучшит его в поиске событий.
             </div>
           </div>
           <div className="border-separate"></div>
@@ -257,8 +288,8 @@ export default class AddEvent extends Component {
               onEditorStateChange={this.onEditorStateChange}
             />
           </div>
-
-          <input type="submit" value="Submit" />
+          <div className="border-separate"></div>
+          <input type="submit" value="Добавить событие" className="btn btn-secondary" />
         </form>
       </div>
     );

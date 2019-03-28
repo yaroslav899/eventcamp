@@ -6,7 +6,7 @@ import {
   imageUrlRecources,
 } from '../../resources';
 
-export default class Calendar extends PureComponent {
+class GoogleCalendar extends PureComponent {
   render() {
     const { data } = this.props;
     if (!data) {
@@ -27,3 +27,5 @@ export default class Calendar extends PureComponent {
     );
   }
 }
+
+export default GoogleCalendar;

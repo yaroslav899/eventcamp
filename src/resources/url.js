@@ -9,4 +9,5 @@ export const urlRecources = {
   exchangeUrl: 'http://resources.finance.ua/ru/public/currency-cash.json',
   calGoggle: 'http://www.google.com/calendar/event?action=TEMPLATE&text=',
   jwtRegister: 'http://board.it-mir.net.ua/wp-json/jwt-auth/v1/token/',
+  mediaResources: 'http://board.it-mir.net.ua/wp-json/wp/v2/media',
 };

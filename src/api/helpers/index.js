@@ -36,13 +36,24 @@ export const getRequestUrl = (param) => {
   return url;
 };
 
-export const getInterestingUrl = (param) => {
-  const tagCommon = param.acf.tags ? param.acf.tags.split(',')[0] : false;
+export const getInterestingUrl = (param, isTagActive) => {
+  const tagCommon = param.acf.tags && isTagActive ? param.acf.tags.split(',')[0] : false;
   let url = `${urlRecources.endpointUrl}posts?`;
-  if (param.categories.length) url = `${url}&categories=${param.categories[0]}`;
-  if (param.acf.cities) url = `${url}&filter[meta_query][0][key]=cities&filter[meta_query][0][value]=${param.acf.cities}`;
+
+  if (param.categories.length) {
+    url = `${url}&categories=${param.categories[0]}`;
+  }
+
+  if (param.acf.cities) {
+    url = `${url}&filter[meta_query][0][key]=cities&filter[meta_query][0][value]=${param.acf.cities}`;
+  }
+
   url = `${url}&filter[meta_query][1][key]=dateOf&filter[meta_query][1][value]=${moment(new Date()).format('YYYY-MM-DDT00:00:00')}&filter[meta_query][1][compare]=>`;
-  if (tagCommon) url = `${url}&search=${tagCommon}`;
+
+  if (tagCommon) {
+    url = `${url}&search=${tagCommon}`;
+  }
+
   return `${url}&per_page=3`;
 };
 

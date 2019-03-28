@@ -76,9 +76,19 @@
 .events-item__action {
   position: absolute;
   bottom: 5%;
-  right: 8%;
+  right: 10%;
 }
 
+.events-item__action span+span{
+  margin: 0 0 0 3%;
+  background-color: #ffffff;
+  border:1px solid #cccccc;
+  color: #004f8f;
+  font-weight: bold;
+}
+.events-item__action span+span:hover{
+  background-color: #f6c806;
+}
 .events-item-action__button {
   background: #0367b7;
   color: #ffffff;

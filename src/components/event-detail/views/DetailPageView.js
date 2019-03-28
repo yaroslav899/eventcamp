@@ -3,7 +3,7 @@ import Adventages from '../../global/Adventages';
 import EventDetail from '../EventDetail';
 import DetailTabs from '../DetailTabs';
 import SocialShare from '../SocialShare';
-import Calendar from '../Calendar';
+import GoogleCalendar from '../GoogleCalendar';
 import FeedBack from '../FeedBack';
 import DetailInteresting from '../DetailInteresting';
 
@@ -22,7 +22,7 @@ const DetailPageView = ({ event, date }) => (
       </div>
       <div className="col-3 right-side">
         <SocialShare data={event} />
-        <Calendar data={event} />
+        <GoogleCalendar data={event} />
         <FeedBack data={event} />
         <DetailInteresting data={event} />
       </div>

@@ -459,3 +459,7 @@ img.googleCal{
     color: #f6c806;
   }
 }
+
+.rdw-editor-main{
+    min-height:400px;
+}

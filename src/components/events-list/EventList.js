@@ -1,10 +1,20 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import moment from 'moment';
 import { free } from '../../fixtures';
 import { getUniqueArray } from '../../helper';
 import { imageUrlRecources, globalRecources } from '../../resources';
 
-export default class EventList extends Component {
+export default class EventList extends PureComponent {
+  handleGoToClick = (event) => {
+    event.preventDefault();
+
+    if (!this.props.isOwner) {
+      this.setState((state, props) => ({
+        countmembers: state.countmembers + props.increment,
+      }));
+    }
+  }
+
   createMarkupText(text) {
     return { __html: text };
   }
@@ -27,7 +37,11 @@ export default class EventList extends Component {
     const price = !free.includes(event.acf.price) ? (event.acf.price + ' ' + event.acf.currency || '') : globalRecources.free;
     const location = `${event.acf.cities}, ${event.acf.location}`;
     const date = event.acf.dateOf ? moment(event.acf.dateOf, "YYYY-MM-DD").format("Do MMM YYYY") : '';
+
+    console.log('updated');
+
     let tags = event.acf.tags || '';
+
     if (tags.length) {
         tags = getUniqueArray(tags.split(','));
         tags = tags.map((tag) => <span key={tag} className="events-item-tags__tag">{tag}</span>);
@@ -61,9 +75,9 @@ export default class EventList extends Component {
           </div>
           <div className={ctaWrapClass}>
             <span className={ctaClass}>{globalRecources.moreInfo}</span>
-            {isOwner &&
-              <a className={ctaClass}>{globalRecources.change}</a>
-            }
+            <span className={ctaClass} onClick={this.handleGoToClick}>
+            {!isOwner ? `Иду +1` : globalRecources.change}
+            </span>
           </div>
         </div>
       </div>
