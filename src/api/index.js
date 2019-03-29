@@ -61,6 +61,24 @@ export const request = {
     }).then(response => response.json());
   }),
 
+  updatePost: (param) => authFetch(adminAccess).then((user) => {
+    const url = 'http://board.it-mir.net.ua/wp-json/wp/v2/posts/490';
+
+    return fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${user.token}`,
+      },
+      body: JSON.stringify({
+        fields: {
+          countmembers: '3',
+        },
+      }),
+    }).then(response => response.json());
+  }),
+
   getUser: () => {
     const authData = getCookie('authData');
 

@@ -1,8 +1,8 @@
 const initialFilterState = {
   list: [],
-  categories: '',
-  topics: '',
-  cities: '',
+  categories: null,
+  topics: null,
+  cities: null,
   dateRange: {
     from: '',
     to: '',

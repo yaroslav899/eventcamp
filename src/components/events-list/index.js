@@ -7,7 +7,7 @@ import EventList from './EventList';
 import ListPageView from './views/ListPageView';
 import Loader from '../global/Loader';
 import { categories, cities } from '../../fixtures';
-import { listRecources } from '../../resources';
+import { listRecources, globalRecources } from '../../resources';
 import { getValueFromParams, updateFilterStore } from '../../helper';
 
 class ListPage extends Component {
@@ -24,7 +24,7 @@ class ListPage extends Component {
     request.getListPosts(initialParams).then((posts) => {
       if (!posts.length) {
         posts.push({
-          empty: 'Измените ваш поиск, так как данные отсутствуют'
+          empty: globalRecources.noFilterResult
         });
       }
 

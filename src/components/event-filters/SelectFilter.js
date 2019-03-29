@@ -14,6 +14,20 @@ class SelectFilter extends Component {
     currentTheme: '',
   };
 
+  componentDidMount() {
+    const {
+      categories: category,
+      topics: topic
+    } = this.props;
+
+    if (category) {
+      this.setState({
+        topics: categories.find(cat => cat.id === category).subcat,
+        currentTheme: topic || '',
+      });
+    }
+  }
+
   changeCity = (selection) => {
     this.changeSelection('cities', selection);
     this.addToHistory('cities', selection);
@@ -21,11 +35,13 @@ class SelectFilter extends Component {
 
   changeCategory = (selection) => {
     this.changeSelection('categories', selection);
+
     if (!selection) {
       this.setState({
         topics: defaultTopic,
       });
     }
+
     this.addToHistory('categories', selection);
   };
 
@@ -40,6 +56,8 @@ class SelectFilter extends Component {
     this.setState({
       currentTheme: selection || defaultTopic,
     });
+
+    this.addToHistory('topics', selection);
   };
 
   changeSelection = (type, selection) => {
@@ -73,9 +91,11 @@ class SelectFilter extends Component {
               type: 'UPDATE_FILTER_CATEGORY',
               categories: data[filterOption],
             });
+
             this.setState({
               topics: categories.find(cat => cat.id === data[filterOption]).subcat,
             });
+
             break;
           case 'cities':
             store.dispatch({
@@ -99,6 +119,7 @@ class SelectFilter extends Component {
   };
 
   addToHistory = (type, selection) => {
+    const { topics } = this.state;
     let data;
     switch (type) {
       case 'categories':
@@ -106,6 +127,9 @@ class SelectFilter extends Component {
         break;
       case 'cities':
         data = { name: 'cities', values: cities };
+        break;
+      case 'topics':
+        data = { name: 'topics', values: topics };
         break;
       default:
         console.log("Error. Type wasn't found");
@@ -120,9 +144,12 @@ class SelectFilter extends Component {
       categories: catFilter ? getValueFromParams(categories, catFilter[0], 'id', 'url') : '',
       cities: cityFilter ? getValueFromParams(cities, cityFilter[0], 'id', 'url') : '',
     };
+
     status[data.name] = getValueFromParams(data.values, selection ? selection.value : '', 'id', 'url');
+
     const selectCity = status.cities.length ? status.cities : 'any';
     const url = `/events/${selectCity}/${status.categories}`;
+
     history.pushState(window.location.origin, '', url);
   }
 

@@ -9,9 +9,7 @@ export default class EventList extends PureComponent {
     event.preventDefault();
 
     if (!this.props.isOwner) {
-      this.setState((state, props) => ({
-        countmembers: state.countmembers + props.increment,
-      }));
+      // TODO send member who will go to the event
     }
   }
 
@@ -37,8 +35,6 @@ export default class EventList extends PureComponent {
     const price = !free.includes(event.acf.price) ? (event.acf.price + ' ' + event.acf.currency || '') : globalRecources.free;
     const location = `${event.acf.cities}, ${event.acf.location}`;
     const date = event.acf.dateOf ? moment(event.acf.dateOf, "YYYY-MM-DD").format("Do MMM YYYY") : '';
-
-    console.log('updated');
 
     let tags = event.acf.tags || '';
 
@@ -76,7 +72,7 @@ export default class EventList extends PureComponent {
           <div className={ctaWrapClass}>
             <span className={ctaClass}>{globalRecources.moreInfo}</span>
             <span className={ctaClass} onClick={this.handleGoToClick}>
-            {!isOwner ? `Иду +1` : globalRecources.change}
+              {!isOwner ? `Иду +` : globalRecources.change}
             </span>
           </div>
         </div>
