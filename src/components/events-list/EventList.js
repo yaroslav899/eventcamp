@@ -1,12 +1,21 @@
 import React, { PureComponent } from 'react';
 import moment from 'moment';
+import Modal from '../global/Modal';
 import { free } from '../../fixtures';
 import { getUniqueArray } from '../../helper';
 import { imageUrlRecources, globalRecources } from '../../resources';
 
 export default class EventList extends PureComponent {
+  state = {
+      showModalBox: false,
+  }
+
   handleGoToClick = (event) => {
     event.preventDefault();
+
+    this.setState(state => ({
+      showModalBox: !state.showModalBox,
+    }));
 
     if (!this.props.isOwner) {
       // TODO send member who will go to the event
@@ -74,6 +83,8 @@ export default class EventList extends PureComponent {
             <span className={ctaClass} onClick={this.handleGoToClick}>
               {!isOwner ? `Иду +` : globalRecources.change}
             </span>
+            { this.state.showModalBox && <Modal showModalBox={this.state.showModalBox} /> }
+
           </div>
         </div>
       </div>
