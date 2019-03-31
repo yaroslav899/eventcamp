@@ -15,8 +15,7 @@ const Modal = (showModalBox) => (
           <p>Modal body text goes here.</p>
         </div>
         <div className="modal-footer">
-          <button type="button" className="btn btn-primary">Save changes</button>
-          <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+          <span></span>
         </div>
       </div>
     </div>

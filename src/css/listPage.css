@@ -82,14 +82,14 @@
   right: 10%;
 }
 
-.events-item__action span+span{
+.events-item__action a+span{
   margin: 0 0 0 3%;
   background-color: #ffffff;
   border:1px solid #cccccc;
   color: #004f8f;
   font-weight: bold;
 }
-.events-item__action span+span:hover{
+.events-item__action a+span:hover{
   background-color: #f6c806;
 }
 .events-item-action__button {

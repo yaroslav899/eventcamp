@@ -7,19 +7,12 @@ import { getUserData } from '../../helper';
 
 class OwnEvents extends PureComponent {
   componentDidMount() {
-    const {
-      props: {
-        userData: {
-          id: authorID,
-        },
-      } = {},
-    } = this;
     // ToDo change approach
     new Promise((resolve) => {
       const requestUserData = getUserData();
       resolve(requestUserData);
-    }).then(() => {
-      request.getAuthorPosts({ author: authorID }).then(posts => {
+    }).then((data) => {
+      request.getAuthorPosts({ author: data }).then(posts => {
         store.dispatch({
           type: 'UPDATE_USER_POSTS',
           listPosts: posts,
@@ -62,7 +55,6 @@ class OwnEvents extends PureComponent {
 const mapStateToProps = function (store) {
   return {
     posts: store.user.listPosts,
-    userData: store.user.data,
   };
 };
 

@@ -1,9 +1,12 @@
 import React, { PureComponent } from 'react';
 import moment from 'moment';
 import Modal from '../global/Modal';
+import { NavLink } from 'react-router-dom';
 import { free } from '../../fixtures';
 import { getUniqueArray } from '../../helper';
 import { imageUrlRecources, globalRecources } from '../../resources';
+import { categories, cities } from '../../fixtures';
+import { getValueFromParams, updateFilterStore } from '../../helper';
 
 export default class EventList extends PureComponent {
   state = {
@@ -27,20 +30,9 @@ export default class EventList extends PureComponent {
   }
 
   render() {
-    const {
-      event,
-      imgWrapClass,
-      descrWrapClass,
-      titleClass,
-      descrClass,
-      actionWrapClass,
-      priceClass,
-      placeClass,
-      dateClass,
-      ctaWrapClass,
-      ctaClass,
-      isOwner
-    } = this.props;
+    const { event, imgWrapClass, descrWrapClass, actionWrapClass, isOwner } = this.props;
+    const city = getValueFromParams(cities, event.acf.cities, 'name', 'url');
+    const category = getValueFromParams(categories, event.categories[0], 'id', 'url');
     const price = !free.includes(event.acf.price) ? (event.acf.price + ' ' + event.acf.currency || '') : globalRecources.free;
     const location = `${event.acf.cities}, ${event.acf.location}`;
     const date = event.acf.dateOf ? moment(event.acf.dateOf, "YYYY-MM-DD").format("Do MMM YYYY") : '';
@@ -51,17 +43,20 @@ export default class EventList extends PureComponent {
         tags = getUniqueArray(tags.split(','));
         tags = tags.map((tag) => <span key={tag} className="events-item-tags__tag">{tag}</span>);
     }
+    const url = `/events/${city}/${category}/${event.id}`;
 
     return (
-      <div className="row">
-        <div className={imgWrapClass}>
+      <div className="row events-item">
+        <NavLink to={url} className={imgWrapClass}>
           <img src={event.acf.picture || imageUrlRecources.noPhoto}
             alt={event.title.rendered}
             className="events-item__img" />
-        </div>
+        </NavLink>
         <div className={descrWrapClass}>
-          <div className={titleClass} dangerouslySetInnerHTML={this.createMarkupText(event.title.rendered)} />
-          <div className={descrClass} dangerouslySetInnerHTML={this.createMarkupText(event.excerpt.rendered)} />
+          <NavLink to={url} className="events-item__title">
+            <span dangerouslySetInnerHTML={this.createMarkupText(event.title.rendered)} />
+          </NavLink>
+          <div className="events-item__description" dangerouslySetInnerHTML={this.createMarkupText(event.excerpt.rendered)} />
           {!isOwner &&
             <div className="events-item__tags events-item-tags">
               {tags}
@@ -69,24 +64,25 @@ export default class EventList extends PureComponent {
           }
         </div>
         <div className={actionWrapClass}>
-          <div className={priceClass}>
+          <div className="events-item__price">
             {price}
           </div>
-          <div className={placeClass}>
+          <div className="events-item__location">
             {location}
           </div>
-          <div className={dateClass}>
+          <div className="events-item__date">
             {date}
           </div>
-          <div className={ctaWrapClass}>
-            <span className={ctaClass}>{globalRecources.moreInfo}</span>
-            <span className={ctaClass} onClick={this.handleGoToClick}>
+          <div className="events-item__action events-item-action">
+            <NavLink to={url} className="events-item-action__button">
+              {globalRecources.moreInfo}
+            </NavLink>
+            <span className="events-item-action__button" onClick={this.handleGoToClick}>
               {!isOwner ? `Иду +` : globalRecources.change}
             </span>
-            { this.state.showModalBox && <Modal showModalBox={this.state.showModalBox} /> }
-
           </div>
         </div>
+        {this.state.showModalBox && <Modal showModalBox={this.handleGoToClick} />}
       </div>
     )
   }

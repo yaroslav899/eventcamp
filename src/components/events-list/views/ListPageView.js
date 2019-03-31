@@ -12,7 +12,7 @@ const ListPageView = ({ eventsElement }) => (
     <div className="row">
       <div className="col-9">
         <Title />
-        <ul className="events__list">
+        <ul>
           {eventsElement}
         </ul>
       </div>

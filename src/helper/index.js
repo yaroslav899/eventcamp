@@ -38,14 +38,19 @@ export const logout = () => {
 
 export const getUserData = () => {
   //ToDo optimize it
-  let userData = getCookie('userData');
   const {
     user: {
       data: {
-        id
-      }
-    }
+        id = null,
+      } = {},
+    } = {},
   } = store.getState();
+
+  if (id) {
+    return id;
+  }
+
+  let userData = getCookie('userData');
 
   if (userData && !id) {
     userData = JSON.parse(userData);
@@ -55,7 +60,7 @@ export const getUserData = () => {
     });
   }
 
-  return true;
+  return userData.id;
 };
 
 export const getUniqueArray = (array) => {

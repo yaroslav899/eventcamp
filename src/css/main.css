@@ -34,6 +34,13 @@ img {
   color:#ff0000;
 }
 
+a {
+  color: #0367b7;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
 /**
 *  Header
 */
@@ -465,4 +472,20 @@ img.googleCal{
 
 .rdw-editor-main{
     min-height:400px;
+}
+
+.modal {
+  background-color: rgba(0,0,0,0.5);
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+no-scroll {
+  overflow-y: hidden;
 }
