@@ -9,9 +9,17 @@ h1,h3{
 h3{
   font-size:1.2em;
 }
+h4 {
+  font-size:1em;
+  color: #0367b7;
+}
 ul {
   margin: 0;
   padding: 0;
+  list-style-type: none;
+}
+ul li{
+  list-style-type: none;
 }
 .border-separate {
   clear: both;
@@ -33,20 +41,25 @@ img {
   display:block;
   color:#ff0000;
 }
-
 a {
+  cursor: pointer;
   color: #0367b7;
   text-decoration: none;
 }
 a:hover {
+  cursor: pointer;
   text-decoration: none;
 }
+
 /**
 *  Header
 */
 .header {
   height: 75px;
   background: #0367b7;
+}
+.header a {
+  color: #ffffff;
 }
 .header__logo {
   margin-top: 1%;
@@ -60,7 +73,6 @@ a:hover {
   margin: 0;
 }
 .header__registration a {
-  color: #ffffff;
   padding:0 10px;
 }
 .header__registration a + a {
@@ -68,16 +80,6 @@ a:hover {
 }
 .header-registration__login {
   color: #f2c609 !important;
-}
-.header-registration__enter {
-  margin-right:10px;
-}
-.header-registration__exit {
-  background-color: transparent;
-  border: 0;
-  color: #f2c609;
-  border-left: 1px solid #cccccc;
-  padding-left: 10px;
 }
 
 /**
@@ -92,7 +94,6 @@ a:hover {
   font-size: 0.8em;
   font-weight: bold;
   text-transform: uppercase;
-  color: #ffffff;
   border-radius: 5px;
   padding: 7px 14px;
 }
@@ -101,9 +102,12 @@ a:hover {
   color: #004f8f;
 }
 .header nav.navbar ul.navbar-nav li.menu-item a:hover {
-  text-decoration: none;
   background-color: #035ca4;
 }
+
+/**
+* Main banner
+*/
 .banner-main {
   margin-top: 10px;
 }
@@ -138,25 +142,21 @@ a:hover {
 }
 
 /**
-*   Event pagination
+*   Event pagination area
 */
-.events__pagination {
-  list-style-type: none;
-}
 .events-pagination__item {
   float: left;
   margin: 10px 0;
 }
-.events-pagination-item__link {
-  cursor: pointer;
+.events-pagination__item a {
   color: #8c8c8c;
-  margin-right: 10px;
-  font-size: 0.8em;
+  margin-right: 8px;
+  font-size: 0.9em;
 }
-.events-pagination__item.active .events-pagination-item__link {
+.events-pagination__item.active a, .events-pagination__item.active a:hover {
   background: #0367b7;
   color: #ffffff;
-  padding: 3px 8px;
+  padding: 3px 9px;
   border-radius: 15px;
 }
 
@@ -166,20 +166,12 @@ a:hover {
 .last-post-list {
   margin: 15px 0;
 }
-.last-post-list h4 {
-  font-size:1em;
-  color: #0367b7;
-}
 .last-post-list li {
-  list-style-type:none;
   margin: 0 0 20px 0;
 }
 .last-post-list li a {
   color: #565656;
   font-size: 0.7em;
-}
-.last-post-list li a:hover{
-  text-decoration:none;
 }
 .last-post-list .last-post-title{
   color:#0367b7;
@@ -203,11 +195,11 @@ a:hover {
   padding: 0 0 0 15%;
 }
 .last-post-list .last-post-tags{
-  margin: 4px 0 0 0;
-  height: 19px;
+  margin: 10px 0 0 0;
+  height: 20px;
   overflow: hidden;
 }
-.last-post-list .last-post-tags .tagOpt{
+.last-post-list .last-post-tags span{
   font-size: 0.8em;
   border: 1px solid #8f8f8f;
   padding: 2px 8px;
@@ -217,127 +209,8 @@ a:hover {
 }
 
 /**
-* Detail page
+*  Additional area on main page
 */
-div.right-side div.socialButton{
-  float:left;
-  margin:10px 0 10px 10px
-}
-ul.react-tabs__tab-list{
-  list-style-type:none;
-  padding: 0;
-  margin: 25px 0 0 0;
-  border-top:1px solid #dbdbdb;
-}
-ul.react-tabs__tab-list li{
-  cursor:pointer;
-  float:left;
-  font-weight:bold;
-  margin: 15px 10px 15px 0;
-  padding:5px 25px;
-  border-radius:10px;
-}
-ul.react-tabs__tab-list li.react-tabs__tab--selected{
-  color:#ffffff;
-  background-color:#0367b7;
-}
-div.react-tabs__tab-panel{
-  clear:both;
-}
-div.react-tabs__tab-panel div.event_text img{
-  max-width:100%;
-}
-div.react-tabs__tab-panel div.event_text p.rcl-custom-fields {
-  display:none;
-}
-div.loader{
-  background: url('http://board.it-mir.net.ua/wp-content/uploads/2018/06/Loading_icon.gif') no-repeat center center;
-  height:100%;
-  width:100%;
-  position:absolute;
-  z-index:999;
-}
-div.calendar-link{
-  text-align:center;
-  margin: 30px 0 20px 0;
-}
-div.calendar-link p{
-  font-weight:bold;
-  font-size:0.7em;
-  color: #0367b7;
-  padding: 0;
-  margin: 0 0 10px 0;
-}
-div.feedback-detail-right{
-  text-align:center;
-  margin: 25px 0 45px 0;
-}
-div.feedback-detail-right a.write-organisator{
-  display: inline-block;
-  margin-top: 15px;
-   background-color: #0367b7;
-   color: #ffffff;
-   font-weight: bold;
-   font-size: 0.8em;
-   padding: 5px 20px;
-   border-radius: 5px;
- }
-div.feedback-detail-right a.feedback-registration{
-  display: inline-block;
-  margin-top: 15px;
-  background-color: #f5f5f5;
-  color: #0367b7;
-  font-weight: bold;
-  font-size: 0.8em;
-  padding: 5px 30px;
-  border:1px solid #dbdbdb;
-  border-radius: 5px;
-}
-div.right-side div.detail-interesting{
-  margin-top:25px;
-}
-div.right-side div.detail-interesting h4{
-  color: #0367b7;
-  font-size: 1.1em;
-  text-align: center;
-}
-div.right-side li.same-post-rightside{
-  list-style-type:none;
-  margin-bottom: 25px;
-}
-div.right-side li.same-post-rightside img{
-  width:100%;
-}
-div.right-side li.same-post-rightside div.samePost-info-rightside{
-  background-color: rgba(18,100,165,0.9);
-  border-bottom: 1px solid #f5f5f5;
-  color: #ffffff;
-  font-size: 0.7em;
-  margin: 0;
-}
-
-div.socialShare{
-  text-align:center;
-}
-div.samePost-title{
-  font-weight: bold;
-  margin: 10px 0;
-}
-div.samePost-price{
-  margin: 10px 0;
-}
-div.samePost-location{
-}
-div.samePost-date{
-}
-img.detail-picture{
-  height: 235px;
-  width: 100%;
-}
-
-img.googleCal{
-  width:40%;
-}
 .additional-area {
   height: 490px;
   background-image: url(http://board.it-mir.net.ua/img/ftrbanner.jpg);
@@ -347,22 +220,17 @@ img.googleCal{
   text-shadow: 0px 1px 1px rgba(0, 0, 0, 1);
   padding-top: 30px;
   font-size: 0.9em;
-  line-height: 1.4em;
 }
+
 /**
 *  Registration page
 */
-.registration{
-
-}
 .registration__form div+div{
   margin-top:10px;
 }
-
 .registration__form input.non-valid{
     border:1px solid #ff0000;
 }
-
 
 /**
 * Profile
@@ -382,6 +250,7 @@ img.googleCal{
 .profile__photo{
   width:200px;
   height:200px;
+  margin: 10px 0;
 }
 /**
 *  Footer area
@@ -409,18 +278,26 @@ img.googleCal{
 }
 
 /**
-*  Profile Items
+*  Profile Own Item
 */
 .own-events__item {
-  list-style-type: none;
-  padding: 10px;
+  padding: 20px;
   font-size: 0.9em;
-}
-.own-events-item__title{
-  font-weight:bold;
 }
 .own-events__item:nth-child(2n+1) {
   background-color: #f5f5f5;
+}
+.own-events-item__title {
+  font-weight:bold;
+}
+.own-events__item .events-item__description,
+.own-events__item .events-item__price,
+.own-events__item .events-item__location,
+.own-events__item .events-item__date {
+  display: none;
+}
+.own-events__item .events-item__action {
+  position: initial;
 }
 .own-events-item__button {
   color: #004f8f;
@@ -428,9 +305,6 @@ img.googleCal{
   border: 0;
   border-left: 1px solid #dbdbdb;
   cursor: pointer;
-}
-.editorClassName {
-  border: 1px solid #F1F1F1;
 }
 
 
@@ -472,20 +346,4 @@ img.googleCal{
 
 .rdw-editor-main{
     min-height:400px;
-}
-
-.modal {
-  background-color: rgba(0,0,0,0.5);
-  position: fixed;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-no-scroll {
-  overflow-y: hidden;
 }

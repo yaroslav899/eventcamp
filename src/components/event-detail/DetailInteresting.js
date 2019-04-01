@@ -80,13 +80,13 @@ export default class DetailInteresting extends Component {
               <img src={picture} alt="" className="" />
               <div className="samePost-info-rightside row">
                 <div className="samePost-title col-7" dangerouslySetInnerHTML={this.createMarkupText(postTitle)} />
-                <div className="samePost-price text-right col-5">
+                <div className="text-right col-5">
                   {`${price} ${currency}`}
                 </div>
-                <div className="samePost-location col-7">
+                <div className="col-7">
                   {`${postCity} ${location}`}
                 </div>
-                <div className="samePost-date text-right col-5">
+                <div className="text-right col-5">
                   {dateOf ? moment(dateOf, 'YYYY-MM-DD').format('DD MMM YYYY') : ''}
                 </div>
               </div>
@@ -99,7 +99,9 @@ export default class DetailInteresting extends Component {
     return (
       <div className="detail-interesting">
         <h4>{detailRecources.maybeInteresting}</h4>
-        {samePosts}
+        <ul>
+          {samePosts}
+        </ul>
       </div>
     );
   }

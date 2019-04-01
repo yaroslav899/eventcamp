@@ -49,7 +49,7 @@ class LastPosts extends PureComponent {
       let tags = post.acf.tags || '';
       if (tags.length) {
           tags = getUniqueArray(tags.split(','));
-          tags = tags.map(tag => <span className="tagOpt" key={tag}>{tag}</span>);
+          tags = tags.map(tag => <span key={tag}>{tag}</span>);
       }
 
 

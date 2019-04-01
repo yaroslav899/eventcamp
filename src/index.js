@@ -20,7 +20,7 @@ import PrivateRoute from './components/hoc/PrivateRoute';
 
 class App extends Component {
   componentDidMount() {
-    //ToDo oprimize approach
+    //ToDo optimize approach
     getUserData();
   }
   render() {

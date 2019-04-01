@@ -22,13 +22,11 @@ class FeedBackURL extends PureComponent {
     return (
       <div className="feedback-detail-right">
         <a href="" className="write-organisator" title="">{detailRecources.writeAuthor}</a>
-        <br />
         {data.acf.register &&
           <a href={data.acf.register} className="feedback-registration" title="">{detailRecources.register}</a>
         }
-        <br />
         {data.acf.phone &&
-          <div onClick={this.handlePhoneClick}>Показать телефон</div>
+          <a className="feedback-phone" onClick={this.handlePhoneClick}>Показать телефон</a>
         }
       </div>
     );

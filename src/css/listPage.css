@@ -76,10 +76,10 @@
   overflow: hidden;
 }
 
-.events-item__action {
+.events-item .events-item__action {
   position: absolute;
-  bottom: 5%;
-  right: 10%;
+  right: 26px;
+  bottom: 10px;
 }
 
 .events-item__action a+span{

@@ -4,4 +4,5 @@ export const profileProperties = {
   participant: 'Участник',
   personalInfo: 'Персональная информация',
   photoUser: 'Фотографии пользователя',
+  addEventText: 'Добавить событие',
 };

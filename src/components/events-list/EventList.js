@@ -16,13 +16,17 @@ export default class EventList extends PureComponent {
   handleGoToClick = (event) => {
     event.preventDefault();
 
-    this.setState(state => ({
-      showModalBox: !state.showModalBox,
-    }));
+    this.toggleModal();
 
     if (!this.props.isOwner) {
       // TODO send member who will go to the event
     }
+  }
+
+  toggleModal = () => {
+    this.setState(state => ({
+      showModalBox: !state.showModalBox,
+    }));
   }
 
   createMarkupText(text) {
@@ -46,7 +50,7 @@ export default class EventList extends PureComponent {
     const url = `/events/${city}/${category}/${event.id}`;
 
     return (
-      <div className="row events-item">
+      <div className="row">
         <NavLink to={url} className={imgWrapClass}>
           <img src={event.acf.picture || imageUrlRecources.noPhoto}
             alt={event.title.rendered}
@@ -82,7 +86,11 @@ export default class EventList extends PureComponent {
             </span>
           </div>
         </div>
-        {this.state.showModalBox && <Modal showModalBox={this.handleGoToClick} />}
+        {this.state.showModalBox &&
+          <Modal
+            toggleModal={this.toggleModal}
+            title={event.title.rendered} />
+        }
       </div>
     )
   }

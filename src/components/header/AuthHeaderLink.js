@@ -19,9 +19,9 @@ class AuthHeaderLink extends Component {
       return (
         <div className="header__registration" >
           {globalRecources.welcome} <ActiveLink to={`/profile`} className="header-registration__login" >{name}</ActiveLink >
-          <button className="header-registration__exit" onClick={this.logoutUser}>
+          <a className="header-registration__exit" onClick={this.logoutUser}>
             выход
-          </button>
+          </a>
         </div>
         )
     }

@@ -1,25 +1,33 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import '../../css/modal.css';
 
-const Modal = (showModalBox) => (
-  <div className="modal" tabIndex="-1" role="dialog">
-    <div className="modal-dialog" role="document">
-      <div className="modal-content">
-        <div className="modal-header">
-          <h5 className="modal-title">Modal title</h5>
-          <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div className="modal-body">
-          <p>Modal body text goes here.</p>
-        </div>
-        <div className="modal-footer">
-          <span></span>
+export default class Modal extends PureComponent {
+  closeModal = (event) => {
+    event.preventDefault();
+    this.props.toggleModal();
+  }
+
+  render() {
+    const { title } = this.props;
+    return(
+      <div className="modal" tabIndex="-1" role="dialog">
+        <div className="modal-dialog" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title">{title}</h5>
+              <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={this.closeModal}>
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div className="modal-body">
+              <p>Modal body text goes here.</p>
+            </div>
+            <div className="modal-footer">
+              <span></span>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-);
-
-export default Modal;
+    )
+  }
+}

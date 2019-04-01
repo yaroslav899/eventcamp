@@ -22,30 +22,19 @@ class OwnEvents extends PureComponent {
   }
 
   render() {
-    const {
-      props: {
-        posts,
-      },
-    } = this;
-
+    const { posts } = this.props;
     const userPosts = !posts.length ? '' : posts.map(article => <li key={article.id} className="own-events__item own-events-item">
       <EventList
         event={article}
         imgWrapClass="d-none"
         descrWrapClass="col-9"
-        titleClass="own-events-item__title"
-        descrClass="d-none"
         actionWrapClass="col-3 text-right"
-        priceClass="d-none"
-        placeClass="d-none"
-        dateClass="d-none"
-        ctaWrapClass="own-events-item__action"
-        ctaClass="own-events-item__button"
         isOwner={true}
       />
-    </li>);
+      </li>);
+
     return (
-      <ul className="own-events__list">
+      <ul>
         {userPosts}
       </ul>
     )

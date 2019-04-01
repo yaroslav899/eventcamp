@@ -1,74 +1,167 @@
+/**
+* Detail page
+*/
+
 div.area-1 {
   color: #565656;
 }
-
-  div.area-1 div.area-1_image {
-    padding: 0 0 0 15px;
-    height: 229px;
-    overflow: hidden;
-  }
-
-  div.area-1 div.area-1_text {
-    padding: 0;
-  }
-
-  div.area-1 div.area-1_info {
-    background-color: #f5f5f5;
-    padding: 24px;
-    height: 85%;
-  }
-
-    div.area-1 div.area-1_info span.day {
-      font-size: 2em;
-      font-weight: bold;
-    }
-
-    div.area-1 div.area-1_info span.month {
-      font-size: 1em;
-      font-weight: bold;
-      position: absolute;
-      padding-left: 5px;
-    }
-
-    div.area-1 div.area-1_info span.time {
-      font-size: 0.9em;
-      margin-left: 1%;
-    }
-
-    div.area-1 div.area-1_info p.area-1_location {
-      background: url(http://board.it-mir.net.ua/wp-content/uploads/2018/05/locator.png) no-repeat left center;
-      padding-left: 20px;
-      margin-top: 5%;
-    }
-
-    div.area-1 div.area-1_info p.area-1_tags {
-      margin: 10px 0;
-    }
-
-      div.area-1 div.area-1_info p.area-1_tags span.tagOpt {
-        background: #ffffff;
-        color: #0367b7;
-        font-size: 0.8em;
-        padding: 3px 14px;
-        border-radius: 5px;
-        margin-right: 2%;
-      }
-
-  div.area-1 div.area-1_price {
-    background-color: #ffffff;
-    border-right: 1px solid #f5f5f5;
-    border-top: 1px solid #f5f5f5;
-    border-radius: 0 20px 0 0;
-    color: #0367b7;
-    font-size: 1.2em;
-    font-weight: bold;
-    padding: 2px 15px 2px 0;
-  }
-
+div.area-1 div.area-1_image {
+  padding: 0 0 0 15px;
+  height: 238px;
+  overflow: hidden;
+}
+div.area-1 div.area-1_image img {
+  height: 235px;
+  width: 100%;
+}
+div.area-1 div.area-1_text {
+  padding: 0;
+}
+div.area-1 div.area-1_price {
+  background-color: #ffffff;
+  border-right: 1px solid #f5f5f5;
+  border-top: 1px solid #f5f5f5;
+  border-radius: 0 20px 0 0;
+  color: #0367b7;
+  font-size: 1.4em;
+  font-weight: bold;
+  padding: 2px 15px 2px 0;
+}
+div.area-1 div.area-1_info {
+  background-color: #f5f5f5;
+  padding: 24px;
+  height: 197px;
+}
+div.area-1 div.area-1_info span.day {
+  font-size: 2em;
+  font-weight: bold;
+}
+div.area-1 div.area-1_info span.month {
+  font-size: 1em;
+  font-weight: bold;
+  position: absolute;
+  padding-left: 5px;
+}
+div.area-1 div.area-1_info span.time {
+  font-size: 0.9em;
+  margin-left: 1%;
+}
+div.area-1 div.area-1_info p.area-1_location {
+  background: url(http://board.it-mir.net.ua/wp-content/uploads/2018/05/locator.png) no-repeat left center;
+  padding-left: 20px;
+  margin-top: 4%;
+}
+div.area-1 div.area-1_info p.area-1_tags {
+  margin: 10px 0;
+}
+div.area-1 div.area-1_info p.area-1_tags span {
+  background: #ffffff;
+  color: #0367b7;
+  font-size: 0.8em;
+  padding: 3px 14px;
+  border-radius: 5px;
+  margin: 0 2% 2% 0;
+  display: inline-block;
+}
 div.area-2 {
   color: #565656;
 }
 
-  div.area-2 div.area-2_address {
-    padding-left: 40px;
-  }
+/**
+* Detail tabs area
+*/
+ul.react-tabs__tab-list {
+  margin-top: 20px;
+  border-top:1px solid #dbdbdb;
+}
+ul.react-tabs__tab-list li {
+  cursor:pointer;
+  float:left;
+  font-weight:bold;
+  margin: 15px 10px 15px 0;
+  padding:5px 25px;
+  border-radius:5px;
+}
+ul.react-tabs__tab-list li.react-tabs__tab--selected {
+  color:#ffffff;
+  background-color:#0367b7;
+}
+div.react-tabs__tab-panel {
+  clear:both;
+}
+div.react-tabs__tab-panel div.event_text img {
+  max-width:100%;
+}
+
+/**
+* Detail right side area
+*/
+div.calendar-link {
+  text-align:center;
+  margin: 30px 0 20px 0;
+}
+div.calendar-link img{
+    width:48%;
+}
+div.calendar-link p {
+  font-weight:bold;
+  font-size:0.7em;
+  color: #0367b7;
+  margin: 0 0 10px 0;
+}
+div.feedback-detail-right {
+  display: inline-block;
+  margin: 10px 0;
+  text-align:center;
+}
+div.feedback-detail-right a {
+  display: inline-block;
+  font-weight: bold;
+  font-size: 0.8em;
+  border-radius: 5px;
+}
+div.feedback-detail-right a+a {
+  margin-top: 15px;
+}
+div.feedback-detail-right a.write-organisator {
+  background-color: #0367b7;
+  color: #ffffff;
+  padding: 5px 20px;
+}
+div.feedback-detail-right a.feedback-registration {
+  background-color: #f5f5f5;
+  color: #0367b7;
+  padding: 5px 30px;
+  border:1px solid #dbdbdb;
+}
+div.feedback-detail-right a.feedback-phone {
+  font-size: 0.9em;
+}
+
+/**
+* Detail right side area. Interesting list
+*/
+div.right-side div.detail-interesting {
+  margin-top: 25px;
+}
+div.right-side div.detail-interesting h4 {
+  text-align: center;
+}
+div.right-side li.same-post-rightside {
+  margin-bottom: 25px;
+}
+div.right-side li.same-post-rightside img {
+  width:100%;
+}
+div.right-side li.same-post-rightside div.samePost-info-rightside {
+  background-color: rgba(18, 100, 165, 0.9);
+  color: #ffffff;
+  font-size: 0.7em;
+  margin: 0;
+}
+div.right-side li.same-post-rightside div.samePost-info-rightside div {
+  margin: 10px 0;
+}
+div.right-side li.same-post-rightside div.samePost-info-rightside div.samePost-title {
+  font-weight: bold;
+}

@@ -60,16 +60,16 @@ export default class AddEvent extends Component {
       });
   };
 
-    changeTheme = (selection) => {
-      const { topics } = this.state;
-      if (selection) {
-        const param = topics.filter(topic => topic.name === selection.label);
-      }
+  changeTheme = (selection) => {
+    const { topics } = this.state;
+    if (selection) {
+      const param = topics.filter(topic => topic.name === selection.label);
+    }
 
-      this.setState({
-        currentTheme: selection || defaultTopic,
-      });
-    };
+    this.setState({
+      currentTheme: selection || defaultTopic,
+    });
+  };
 
 
   onChanges = (value) => {

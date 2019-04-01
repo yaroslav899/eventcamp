@@ -23,7 +23,9 @@ const DetailPageView = ({ event, date }) => (
       <div className="col-3 right-side">
         <SocialShare data={event} />
         <GoogleCalendar data={event} />
+        <div className="border-separate"/>
         <FeedBack data={event} />
+        <div className="border-separate"/>
         <DetailInteresting data={event} />
       </div>
     </div>

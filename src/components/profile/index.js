@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
   Tab,
@@ -12,17 +12,14 @@ import UserInfo from './UserInfo';
 import TabProfileEvents from './TabProfileEvents';
 import { request } from '../../api';
 import { mainMenu } from '../../resources';
+import { profileProperties } from '../../resources/profile';
 
-class Profile extends PureComponent {
+class Profile extends Component {
   render() {
-    const addEventPageID = '3',
-          addEventUrl = mainMenu.find((menu) => menu.id === addEventPageID).url;
-    const {
-      props: {
-        user,
-        userData,
-      },
-    } = this;
+    const addEventPageID = '3';
+    const addEventUrl = mainMenu.find((menu) => menu.id === addEventPageID).url;
+    const { user } = this.props;
+
 
     return (
       <div className="container profile">
@@ -34,8 +31,8 @@ class Profile extends PureComponent {
           <div className="col-12">
             <Tabs>
               <TabList>
-                <Tab>Организатор</Tab>
-                <Tab>Участник</Tab>
+                <Tab>{profileProperties.organizer}</Tab>
+                <Tab>{profileProperties.participant}</Tab>
               </TabList>
               <TabPanel>
                 <div className="row">
@@ -47,7 +44,7 @@ class Profile extends PureComponent {
               <TabPanel>
                 <div className="row">
                   <div className="col-12">
-                    Организатор
+                  {profileProperties.participant}
                   </div>
                 </div>
               </TabPanel>
@@ -61,8 +58,7 @@ class Profile extends PureComponent {
 
 const mapStateToProps = function (store) {
   return {
-    user: store.user.state,
-    userData: store.user.userData,
+    user: store.user.data,
   };
 };
 

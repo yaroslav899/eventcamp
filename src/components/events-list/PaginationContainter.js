@@ -39,9 +39,10 @@ class PaginationContainter extends PureComponent {
                   key={index}
                   classNameItem={`events-pagination__item events-pagination-item ${(+activePage === +pageNumber) ? ' active' : ''}`}
                   classNameLink='events-pagination-item__link'
-                  handler={this.handlePaginationClick}/>
-      )
-    );
+                  handler={this.handlePaginationClick}
+      />
+    ));
+
     return (
       <ul className="events__pagination events-pagination ">{pageNavigation}</ul>
     );

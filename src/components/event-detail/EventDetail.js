@@ -17,7 +17,7 @@ const EventDetail = ({ event, date }) => (
         <span className="month">{date[1]}</span>
         <span className="time">{event.acf.time}</span>
         <p className="area-1_tags">
-          {event.acf.tags ? getUniqueArray(event.acf.tags.split(',')).map((tag) => <span key={tag} className="tagOpt">{tag}</span>) : ''}
+          {event.acf.tags ? getUniqueArray(event.acf.tags.split(',')).map((tag) => <span key={tag}>{tag}</span>) : ''}
         </p>
         <p className="area-1_location">
           {event.acf.cities}, {event.acf.location}
