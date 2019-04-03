@@ -2,36 +2,41 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import EventList from '../events-list/EventList';
 import { request } from '../../api';
+import { getCookie } from '../../_cookie';
 import store from '../../store';
-import { getUserData } from '../../helper';
 
 class OwnEvents extends PureComponent {
+	state = {
+    userID: null,
+	}
+
   componentDidMount() {
-    // ToDo change approach
-    new Promise((resolve) => {
-    	request.getUserID().then(response => {
+		const { posts } = this.props;
+		if (posts.length) {
+			return true;
+		}
 
-    	})
-
-      const requestUserData = getUserData();
-      resolve(requestUserData);
-    }).then((data) => {
-    	if (!data) {
-    		return;
+		request.getUserID().then((data) => {
+			if (!data) {
+    		return false;
     	}
+			this.setState({userID: data});
+			this.loadOwnEvents(data);
+		})
+  }
 
-      request.getAuthorPosts({ author: data }).then(posts => {
-        store.dispatch({
-          type: 'UPDATE_USER_POSTS',
-          listPosts: posts,
-        });
+  loadOwnEvents(userID) {
+  	return request.getAuthorPosts({ author: userID }).then(posts => {
+      store.dispatch({
+        type: 'UPDATE_USER_POSTS',
+        listPosts: posts,
       });
     });
   }
 
   render() {
     const { posts } = this.props;
-    const userPosts = !posts.length ? 'Событий на данный момент нет' : posts.map(article => <li key={article.id} className="own-events__item own-events-item">
+    const userPosts = !posts.length ? '---' : posts.map(article => <li key={article.id} className="own-events__item own-events-item">
       <EventList
         event={article}
         imgWrapClass="d-none"
@@ -39,7 +44,7 @@ class OwnEvents extends PureComponent {
         actionWrapClass="col-3 text-right"
         isOwner={true}
       />
-      </li>);
+    </li>);
 
     return (
       <ul>

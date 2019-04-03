@@ -10,7 +10,6 @@ export default function (userReducer = initialFilterState, action) {
         name: action.data.name,
         email: action.data.email,
         token: action.data.token,
-        id: action.data.id,
       };
       return { ...userReducer, data };
     }

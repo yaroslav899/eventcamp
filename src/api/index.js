@@ -21,7 +21,6 @@ export const request = {
       name: response.user_display_name,
       email: response.user_email,
       token: response.token,
-      id: null
     }
 
     setCookie('userData', JSON.stringify(userData), 2);
@@ -86,7 +85,14 @@ export const request = {
     const { email: userEmail } = JSON.parse(authData);
 
     return fetch(`${urlRecources.endpointUrl}users/?search=${userEmail}`)
-      .then(response => response.json());
+      .then(response => response.json())
+      .then(response => {
+      	if (response.length) {
+      		return response[0].id;
+      	}
+
+      	return null;
+      });
   },
 
   createPost: (param, imageID) => {

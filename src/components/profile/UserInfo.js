@@ -28,9 +28,6 @@ export default class UserInfo extends Component {
           <h1>{profileProperties.title}</h1>
         </div>
         <div className="col-6 text-right">
-          <NavLink to={addEventUrl} className="profile__add-button">
-            <span>&#8853;</span> {profileProperties.addEventText}
-          </NavLink>
         </div>
         <div className="col-3 text-center">
           <h3>{profileProperties.photoUser}</h3>
@@ -41,14 +38,36 @@ export default class UserInfo extends Component {
           <h3>{profileProperties.title}</h3>
           <div className="row">
             <div className="col-6">
-              {fieldsRegisterForm.firstname}
-              <br />
-              <b>{user.name}</b>
+              <p>
+              	{fieldsRegisterForm.firstname}
+	              <br />
+	              <b>{user.name}</b>
+              </p>
+              <p>
+	              {fieldsRegisterForm.email}
+	              <br />
+	              <b>{user.email}</b>
+              </p>
+              <p>
+	              Тeлефон
+	              <br />
+	              <b>{user.email}</b>
+              </p>
             </div>
             <div className="col-6">
-              {fieldsRegisterForm.email}
-              <br />
-              <b>{user.email}</b>
+            	<p className="profile__add-button">редактировать профиль</p>
+            	<p>
+	              Город
+	              <br />
+	              <b>{user.name}</b>
+              </p>
+              <p>
+                <input type="checkbox" name="" value=""/> Подписка
+	              <br />
+	              <select>
+	              	<option>asdas</option>
+	              </select>
+	            </p>
             </div>
           </div>
         </div>
