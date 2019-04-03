@@ -77,7 +77,7 @@ export default class DetailInteresting extends Component {
         <NavLink onClick={this.handleUpdateDetailPage.bind(this, samePost)} to={`/events/${city}/${category}/${postID}`}>
           <div className="row">
             <div className="col-12">
-              <img src={picture} alt="" className="" />
+              <img src={picture || imageUrlRecources.noPhoto} alt="" />
               <div className="samePost-info-rightside row">
                 <div className="samePost-title col-7" dangerouslySetInnerHTML={this.createMarkupText(postTitle)} />
                 <div className="text-right col-5">

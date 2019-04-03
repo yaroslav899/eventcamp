@@ -76,3 +76,4 @@ export const authFetch = param => fetch(urlRecources.jwtRegister, {
     jwt_auth_expire: '10',
   }),
 }).then(response => response.json());
+

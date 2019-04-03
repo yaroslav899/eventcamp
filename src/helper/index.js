@@ -45,6 +45,11 @@ export const getUserData = () => {
       } = {},
     } = {},
   } = store.getState();
+  let userData = getCookie('userData');
+  if (userData) {
+  	userData = JSON.parse(userData);
+  	const requestUser = fetch(`${urlRecources.endpointUrl}users/?search=${response.user_email}`)
+  }
 
   if (id) {
     return id;
@@ -61,6 +66,25 @@ export const getUserData = () => {
   }
 
   return userData.id;
+
+  return fetch(`${urlRecources.endpointUrl}users/?search=${response.user_email}`)
+  .then(data => data.json())
+  .then(data => {
+    const userData = {
+      name: response.user_display_name,
+      email: response.user_email,
+      token: response.token,
+      id: data.length ? data[0].id : null
+    }
+
+    setCookie('userData', JSON.stringify(userData), 2);
+    store.dispatch({
+      type: 'UPDATE_USERDATA',
+      data: userData,
+    });
+
+    return true;
+  });
 };
 
 export const getUniqueArray = (array) => {

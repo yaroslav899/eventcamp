@@ -9,9 +9,17 @@ class OwnEvents extends PureComponent {
   componentDidMount() {
     // ToDo change approach
     new Promise((resolve) => {
+    	request.getUserID().then(response => {
+
+    	})
+
       const requestUserData = getUserData();
       resolve(requestUserData);
     }).then((data) => {
+    	if (!data) {
+    		return;
+    	}
+
       request.getAuthorPosts({ author: data }).then(posts => {
         store.dispatch({
           type: 'UPDATE_USER_POSTS',
@@ -23,7 +31,7 @@ class OwnEvents extends PureComponent {
 
   render() {
     const { posts } = this.props;
-    const userPosts = !posts.length ? '' : posts.map(article => <li key={article.id} className="own-events__item own-events-item">
+    const userPosts = !posts.length ? 'Событий на данный момент нет' : posts.map(article => <li key={article.id} className="own-events__item own-events-item">
       <EventList
         event={article}
         imgWrapClass="d-none"

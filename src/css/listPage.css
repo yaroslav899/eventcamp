@@ -22,7 +22,8 @@
 }
 .events-item__title {
   font-weight: bold;
-  padding: 1.2% 0;
+  padding: 5px 0;
+  display: inline-block;
 }
 
 .events-item__description {

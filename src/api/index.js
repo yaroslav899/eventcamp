@@ -17,28 +17,22 @@ export const request = {
       throw Error(response.data);
     }
 
-    return fetch(`${urlRecources.endpointUrl}users/?search=${response.user_email}`)
-      .then(data => data.json())
-      .then(data => {
-        if (!data || !data.length) {
-          return false;
-        }
+    const userData = {
+      name: response.user_display_name,
+      email: response.user_email,
+      token: response.token,
+      id: null
+    }
 
-        const userData = {
-          name: response.user_display_name,
-          email: response.user_email,
-          token: response.token,
-          id: data[0].id
-        }
+    setCookie('userData', JSON.stringify(userData), 2);
 
-        setCookie('userData', JSON.stringify(userData), 2);
-        store.dispatch({
-          type: 'UPDATE_USERDATA',
-          data: userData,
-        });
+    store.dispatch({
+      type: 'UPDATE_USERDATA',
+      data: userData,
+    });
 
-        return true;
-      });
+    return true;
+
   }).catch(error => {
     return false;
   }),
@@ -55,6 +49,9 @@ export const request = {
       },
       body: JSON.stringify({
         username: param.login,
+        first_name: param.firstname || '',
+        last_name: param.secondname || '',
+        nickname: param.login,
         email: param.email,
         password: param.password,
       }),
@@ -79,14 +76,14 @@ export const request = {
     }).then(response => response.json());
   }),
 
-  getUser: () => {
-    const authData = getCookie('authData');
+  getUserID: () => {
+    const authData = getCookie('userData');
 
     if (!authData) {
         return false;
     }
 
-    const { user_email: userEmail } = JSON.parse(authData);
+    const { email: userEmail } = JSON.parse(authData);
 
     return fetch(`${urlRecources.endpointUrl}users/?search=${userEmail}`)
       .then(response => response.json());

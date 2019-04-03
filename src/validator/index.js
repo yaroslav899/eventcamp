@@ -41,22 +41,28 @@ const defaultValidateForm = (field, fieldName) => {
     return defaultValidForm;
   }
 
-  return validateForm(fieldValue, fieldName, rules, errorMsgs);
+  return validateForm(field, fieldName, rules, errorMsgs);
 }
 
 const customValidateForm = (field, fieldName) => {
-  const { value: fieldValue, duplicate, rules } = field;
+  const { rules } = field;
   const fieldDefaultRules = defaultRules[fieldName] || defaultRules.custom;
   const { errorMsgs } = fieldDefaultRules;
 
-  if (!rules){
+  if (!rules || !rules.length){
     return defaultValidForm;
   }
 
-  return validateForm(fieldValue, fieldName, rules, errorMsgs);
+  return validateForm(field, fieldName, rules, errorMsgs);
 }
 
-const validateForm = (fieldValue, fieldName, rules, errorMsgs) => {
+const validateForm = (field, fieldName, rules, errorMsgs) => {
+	const { value: fieldValue, duplicate } = field;
+
+	if (!rules){
+    return defaultValidForm;
+  }
+
   for (let i = 0; i < rules.length; i++) {
     let validationRule = rules[i];
     let validationMethod = validationMethods[validationRule];
@@ -65,7 +71,7 @@ const validateForm = (fieldValue, fieldName, rules, errorMsgs) => {
       continue;
     }
 
-    let validateResult = validationMethod(fieldValue, 'duplicate');
+    let validateResult = validationMethod(fieldValue, duplicate);
 
     if (!validateResult.success) {
       validateResult.errorMsg = errorMsgs[validationRule].replace('{0}', fieldName);

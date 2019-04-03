@@ -54,8 +54,8 @@ export default class AddEvent extends Component {
 
     //ToDo update case without image and when image has cyrillic name
     request.uploadImage(file)
-      .then(function (response) {
-        request.createPost(state, response.data.id)
+      .then((response) => {
+        return request.createPost(state, response.data.id)
           .then(() => this.setState({ isSuccessRegister: true }));
       });
   };

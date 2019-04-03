@@ -1,11 +1,11 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { reCaptcha } from '../../credentials';
 import { formValidator } from '../../validator';
 import { request } from '../../api';
 import { titleList, globalRecources, fieldsRegisterForm } from '../../resources';
 
-class RegisterForm extends PureComponent {
+class RegisterForm extends Component {
   constructor(props) {
     super(props);
     this.fieldTypes = {
@@ -53,8 +53,14 @@ class RegisterForm extends PureComponent {
       return false;
     }
 
-    request.createNewUser(this.state).then(() => {
-        this.setState({ isSuccessRegister: true });
+    request.createNewUser(this.state).then((response) => {
+    	const { message = null } = response;
+
+    	if (message) {
+    		this.setState({ errorMsg: response.message });
+    	} else {
+    		this.setState({ isSuccessRegister: true });
+    	}
     });
   }
 
@@ -98,6 +104,13 @@ class RegisterForm extends PureComponent {
   }
 
   render() {
+  	if (this.state.isSuccessRegister) {
+  		return (
+  		  <Fragment>
+  		  	Вы успешно зарегестрировались. Можете выполнить вход.
+  		  </Fragment>
+  		)
+  	}
     const fields = Object.keys(fieldsRegisterForm).map((field) => {
       let fieldValue = fieldsRegisterForm[field];
       let fieldType = this.fieldTypes[field] || this.fieldTypes.text;
