@@ -3,7 +3,7 @@ import { free } from '../../fixtures';
 import { getUniqueArray } from '../../helper';
 import { globalRecources, imageUrlRecources } from '../../resources';
 
-const EventDetail = ({ event, date }) => (
+const EventDetail = ({ event, date, dateDay }) => (
   <div className="row area-1">
     <div className="col-6 area-1_image">
       <img src={event.acf.picture || imageUrlRecources.noPhoto} alt={event.title.rendered} className="detail-picture" />
@@ -16,6 +16,7 @@ const EventDetail = ({ event, date }) => (
         <span className="day">{date[0]}</span>
         <span className="month">{date[1]}</span>
         <span className="time">{event.acf.time}</span>
+        <p>{dateDay}</p>
         <p className="area-1_tags">
           {event.acf.tags ? getUniqueArray(event.acf.tags.split(',')).map((tag) => <span key={tag}>{tag}</span>) : ''}
         </p>

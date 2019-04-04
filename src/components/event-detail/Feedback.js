@@ -15,13 +15,23 @@ class FeedBackURL extends PureComponent {
 
     if (!data) return <Fragment />;
 
+    const {
+    	acf: {
+    		email,
+    	},
+    	title: {
+    		rendered,
+    	},
+    } = data;
+    const url = location.href;
+    const emailUrl = `mailto:${email}?subject=${rendered}&;body=${url}`;
     this.setState({
       phoneNumber: data.acf.phone,
     });
 
     return (
       <div className="feedback-detail-right">
-        <a href="" className="write-organisator" title="">{detailRecources.writeAuthor}</a>
+        <a href={emailUrl} className="write-organisator" title="">{detailRecources.writeAuthor}</a>
         {data.acf.register &&
           <a href={data.acf.register} className="feedback-registration" title="">{detailRecources.register}</a>
         }

@@ -30,8 +30,9 @@ class DetailPage extends Component {
     if (!post) return <Loader />;
 
     const date = moment(post.acf.dateOf, "YYYY-MM-DD").format("Do MMM").split(' ');
+    const getDateDay = moment(post.acf.dateOf, "YYYY-MM-DD").format("dddd");
 
-    return <DetailPageView event={post} date={date} />
+    return <DetailPageView event={post} date={date} dateDay={getDateDay}/>
   }
 };
 

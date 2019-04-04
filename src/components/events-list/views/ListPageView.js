@@ -1,5 +1,6 @@
 import React from 'react';
 import Adventages from '../../global/Adventages';
+import Breadcrumbs from '../../global/Breadcrumbs';
 import Title from '../Title';
 import Filters from '../../event-filters';
 import LastPosts from '../../global/LastPosts';
@@ -11,6 +12,7 @@ const ListPageView = ({ eventsElement }) => (
     <Adventages />
     <div className="row">
       <div className="col-9">
+        <Breadcrumbs />
         <Title />
         <ul>
           {eventsElement}

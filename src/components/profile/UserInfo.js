@@ -2,9 +2,13 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { request } from '../../api';
 import { profileProperties } from '../../resources/profile';
-import { fieldsRegisterForm } from '../../resources';
+import { fieldsRegisterForm, imageUrlRecources } from '../../resources';
 
 export default class UserInfo extends Component {
+	state = {
+    imgUrl: imageUrlRecources.noPhoto,
+	}
+
   fileInput = React.createRef();
 
   handleUploadImage = (event) => {
@@ -22,6 +26,7 @@ export default class UserInfo extends Component {
 
   render() {
     const { user = {}, addEventUrl = '' } = this.props;
+    const { imgUrl } = this.state;
     return (
       <div className="row">
         <div className="col-6">
@@ -31,7 +36,7 @@ export default class UserInfo extends Component {
         </div>
         <div className="col-3 text-center">
           <h3>{profileProperties.photoUser}</h3>
-          <img src="/img/turizm.png" alt="profile photo" className="img-fluid rounded-circle profile__photo" />
+          <img src={imgUrl} alt="profile photo" className="img-fluid rounded-circle profile__photo" />
           <input type="file" ref={this.fileInput} onChange={this.handleUploadImage} />
         </div>
         <div className="offset-3 col-6">
@@ -61,13 +66,13 @@ export default class UserInfo extends Component {
 	              <br />
 	              <b>{user.name}</b>
               </p>
-              <p>
+              {/*<p>
                 <input type="checkbox" name="" value=""/> Подписка
 	              <br />
 	              <select>
 	              	<option>asdas</option>
 	              </select>
-	            </p>
+	            </p>*/}
             </div>
           </div>
         </div>

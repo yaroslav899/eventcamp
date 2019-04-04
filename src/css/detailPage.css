@@ -33,7 +33,7 @@ div.area-1 div.area-1_info {
   height: 197px;
 }
 div.area-1 div.area-1_info span.day {
-  font-size: 2em;
+  font-size: 1.8em;
   font-weight: bold;
 }
 div.area-1 div.area-1_info span.month {
@@ -49,18 +49,14 @@ div.area-1 div.area-1_info span.time {
 div.area-1 div.area-1_info p.area-1_location {
   background: url(http://board.it-mir.net.ua/wp-content/uploads/2018/05/locator.png) no-repeat left center;
   padding-left: 20px;
-  margin-top: 4%;
-}
-div.area-1 div.area-1_info p.area-1_tags {
-  margin: 10px 0;
 }
 div.area-1 div.area-1_info p.area-1_tags span {
   background: #ffffff;
   color: #0367b7;
   font-size: 0.8em;
-  padding: 3px 14px;
+  padding: 2px 13px;
   border-radius: 5px;
-  margin: 0 2% 2% 0;
+  margin: 0 2% 0 0;
   display: inline-block;
 }
 div.area-2 {
@@ -93,12 +89,22 @@ div.react-tabs__tab-panel div.event_text img {
   max-width:100%;
 }
 
+/*
+** Social share
+*/
+.socialShare a img{
+	width:40px;
+}
+.socialShare a+a img{
+	margin-left:17px;
+}
+
 /**
 * Detail right side area
 */
 div.calendar-link {
   text-align:center;
-  margin: 30px 0 20px 0;
+  margin: 20px 0 20px 0;
 }
 div.calendar-link img{
     width:48%;
