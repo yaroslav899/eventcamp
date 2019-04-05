@@ -4,6 +4,7 @@ import { Editor } from 'react-draft-wysiwyg';
 import Select from 'react-select';
 import { getCookie } from '../../_cookie';
 import { request } from '../../api';
+import { formValidator } from '../../validator';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { categories, cities, defaultTopic } from '../../fixtures';
 import { currencies } from '../../resources';
@@ -18,7 +19,6 @@ export default class AddEvent extends Component {
     price: '',
     currency: '',
     category: '',
-    subcategory: '',
     tags: '',
     register: '',
     phone: '',
@@ -27,6 +27,7 @@ export default class AddEvent extends Component {
     address: '',
     date: '',
     time: '',
+    errorMsg: '',
     isSuccessRegister: false,
   };
 
@@ -52,16 +53,64 @@ export default class AddEvent extends Component {
     const file = this.fileInput.current.files[0];
     const { state } = this;
 
+    const checkValidForm = this.validator();
+
+    if (!checkValidForm.success) {
+      this.setState({ errorMsg: checkValidForm.errorMsg });
+      return false;
+    }
+
     //ToDo update case without image and when image has cyrillic name
     request.uploadImage(file)
       .then((response) => {
         return request.createPost(state, response.data.id)
           .then(() => this.setState({ isSuccessRegister: true }));
-      });
+    });
   };
+
+  validator = () => {
+    const {
+      title,
+      category,
+      currentTheme,
+      date,
+      time,
+      city,
+    } = this.state;
+
+    const fields = {
+      title: {
+        value: title,
+        rules: ['isMandatory'],
+      },
+      category: {
+        value: category,
+        rules: ['isMandatory'],
+      },
+      currentTheme: {
+        value: currentTheme,
+        rules: ['isMandatory'],
+      },
+      date: {
+        value: date,
+        rules: ['isMandatory'],
+      },
+      time: {
+        value: time,
+        rules: ['isMandatory'],
+      },
+      city: {
+        value: city,
+        rules: ['isMandatory'],
+      },
+    };
+
+    return formValidator(fields);
+  }
 
   changeTheme = (selection) => {
     const { topics } = this.state;
+
     if (selection) {
       const param = topics.filter(topic => topic.name === selection.label);
     }
@@ -95,7 +144,7 @@ export default class AddEvent extends Component {
         <h1>Добавить событие</h1>
         <form onSubmit={this.handleSubmit}>
           <div className="form-row">
-            <div className="col-md-8">
+            <div className="col-md-6">
               <div className="row">
                 <div className="form-group col-md-12">
                   <label htmlFor="title">Заголовок</label>
@@ -104,7 +153,8 @@ export default class AddEvent extends Component {
                     name="title"
                     value={this.state.title}
                     onChange={this.handleInputChange}
-                    placeholder="Заполните заголовок" />
+                    placeholder="Заполните заголовок"
+                  />
                 </div>
                 <div className="form-group col-md-6">
                   <label htmlFor="category">Категория</label>
@@ -137,9 +187,9 @@ export default class AddEvent extends Component {
                 </div>
               </div>
             </div>
-            <div className="form-group col-md-4 text-center">
+            <div className="form-group offset-md-2 col-md-4 text-center">
               <input type="file" ref={this.fileInput} onChange={this.handleUploadImg} />
-              <img src={this.state.image} height="80px" />
+              <img src={this.state.image} height="120" />
             </div>
           </div>
           <div className="border-separate"></div>
@@ -151,7 +201,7 @@ export default class AddEvent extends Component {
                 name="date"
                 value={this.state.date}
                 onChange={this.handleInputChange}
-                placeholder="Введите ключевые слова: uber,asd,qwe,aaa" />
+              />
             </div>
             <div className="form-group col-md-2">
               <label htmlFor="time">Время</label>
@@ -160,7 +210,7 @@ export default class AddEvent extends Component {
                 name="time"
                 value={this.state.time}
                 onChange={this.handleInputChange}
-                placeholder="Введите ключевые слова: uber,asd,qwe,aaa" />
+              />
             </div>
           </div>
           <div className="border-separate"></div>
@@ -172,9 +222,10 @@ export default class AddEvent extends Component {
                 name="register"
                 value={this.state.register}
                 onChange={this.handleInputChange}
-                placeholder="http://add-your-link.com" />
+                placeholder="http://add-your-link.com"
+              />
             </div>
-            <div className="form-group col-md-6 offset-md-2">
+            <div className="form-group col-md-6 offset-md-2 descr-label">
               Ссылка на ваш сайт для регистрации участников или информация о событии
             </div>
           </div>
@@ -187,9 +238,10 @@ export default class AddEvent extends Component {
                 name="phone"
                 value={this.state.phone}
                 onChange={this.handleInputChange}
-                placeholder="+38 (0xx) xxx-xx-xx" />
+                placeholder="+38 (0xx) xxx-xx-xx"
+              />
             </div>
-            <div className="form-group col-md-6 offset-md-2">
+            <div className="form-group col-md-6 offset-md-2 descr-label">
               Добавляйте номер телефона и ваше событие получит больший отклик. Люди смогут узанть больше информации по телефону
             </div>
           </div>
@@ -202,9 +254,10 @@ export default class AddEvent extends Component {
                 name="email"
                 value={this.state.email}
                 onChange={this.handleInputChange}
-                placeholder="your@email.com" />
+                placeholder="your@email.com"
+              />
             </div>
-            <div className="form-group col-md-6 offset-md-2">
+            <div className="form-group col-md-6 offset-md-2 descr-label">
               Добавляйте адрес вашей электронной почты и получайте обратную связь от пользователей.
             </div>
           </div>
@@ -217,9 +270,10 @@ export default class AddEvent extends Component {
                 name="tags"
                 value={this.state.tags}
                 onChange={this.handleInputChange}
-                placeholder="Введите ключевые слова: uber,asd,qwe,aaa" />
+                placeholder="javascript,биология,конференция"
+              />
             </div>
-            <div className="form-group col-md-6 offset-md-2">
+            <div className="form-group col-md-6 offset-md-2 descr-label">
               Добавляйте ключевые слова через запятую. Это позволит системе показывать ваше
               объявление в поиске похожие и улучшит его в поиске событий.
             </div>
@@ -234,7 +288,8 @@ export default class AddEvent extends Component {
                 name="price"
                 value={this.state.price}
                 onChange={this.handleInputChange}
-                placeholder="1000" />
+                placeholder="1000"
+              />
             </div>
             <div className="form-group col-md-2">
               <label htmlFor="currency">Валюта</label>
@@ -274,7 +329,8 @@ export default class AddEvent extends Component {
                 name="address"
                 value={this.state.address}
                 onChange={this.handleInputChange}
-                placeholder="Адрес" />
+                placeholder="Адрес"
+              />
             </div>
           </div>
           <div className="border-separate"></div>
@@ -289,6 +345,7 @@ export default class AddEvent extends Component {
             />
           </div>
           <div className="border-separate"></div>
+          <span className="error-message">{this.state.errorMsg}</span>
           <input type="submit" value="Добавить событие" className="btn btn-secondary" />
         </form>
       </div>

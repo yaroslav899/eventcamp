@@ -4,6 +4,8 @@ import { urlRecources, googleApiService } from '../resources';
 import store from '../store';
 import { setCookie, getCookie } from '../_cookie';
 import { adminAccess } from '../credentials';
+import { cities } from '../fixtures';
+import { getValueFromParams } from '../helper';
 import {
   getRequestUrl,
   getInterestingUrl,
@@ -87,9 +89,9 @@ export const request = {
     return fetch(`${urlRecources.endpointUrl}users/?search=${userEmail}`)
       .then(response => response.json())
       .then(response => {
-      	if (response.length) {
-      		return response[0].id;
-      	}
+        if (response.length) {
+          return response[0].id;
+        }
 
       	return null;
       });
@@ -115,6 +117,9 @@ export const request = {
       date,
       time: eventTime,
       currentTheme,
+      register,
+      phone,
+      email,
     } = param;
     const description = stateToHTML(editorState.getCurrentContent());
     const { token } = JSON.parse(userData);
@@ -132,8 +137,8 @@ export const request = {
         featured_media: imageID,
         categories: category,
         fields: {
-          topic: currentTheme,
-          cities: city,
+          topic: currentTheme.label,
+          cities: getValueFromParams(cities, city, 'id', 'name'),
           picture: imageID,
           price: priceValue,
           location: address,
@@ -141,6 +146,9 @@ export const request = {
           currency: currencyValue,
           tags: topicTags,
           time: eventTime,
+          register: register,
+          phone: phone,
+          email: email,
         },
       }),
     }).then(response => response.json());

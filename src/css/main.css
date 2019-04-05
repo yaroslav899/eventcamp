@@ -307,6 +307,13 @@ a:hover {
   cursor: pointer;
 }
 
+.descr-label {
+  font-size:0.8em;
+}
+.rdw-editor-main{
+  border: 1px solid #ced4da;
+}
+
 
 @media (min-width: 1200px) {
   .container {
