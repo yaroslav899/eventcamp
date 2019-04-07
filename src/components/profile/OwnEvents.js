@@ -2,31 +2,32 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import EventList from '../events-list/EventList';
 import { request } from '../../api';
-import { getCookie } from '../../_cookie';
 import store from '../../store';
 
 class OwnEvents extends PureComponent {
-	state = {
+  state = {
     userID: null,
-	}
+  }
 
   componentDidMount() {
-		const { posts } = this.props;
-		if (posts.length) {
-			return true;
-		}
+    const { posts } = this.props;
 
-		request.getUserID().then((data) => {
-			if (!data) {
-    		return false;
-    	}
-			this.setState({userID: data});
-			this.loadOwnEvents(data);
-		})
+    if (posts.length) {
+      return true;
+    }
+
+    request.getUserID().then((data) => {
+      if (!data) {
+        return false;
+      }
+
+      this.setState({ userID: data });
+      this.loadOwnEvents(data);
+    })
   }
 
   loadOwnEvents(userID) {
-  	return request.getAuthorPosts({ author: userID }).then(posts => {
+    return request.getAuthorPosts({ author: userID }).then(posts => {
       store.dispatch({
         type: 'UPDATE_USER_POSTS',
         listPosts: posts,

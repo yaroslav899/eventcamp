@@ -30,8 +30,8 @@ class RegisterForm extends Component {
 
   handleChange = (event) => {
     this.setState({
-        [event.target.name]: event.target.value,
-        errorMsg: '',
+      [event.target.name]: event.target.value,
+      errorMsg: '',
     });
   }
 
@@ -39,8 +39,9 @@ class RegisterForm extends Component {
     this.setState({ captcha: value });
   }
 
-  privacyHandler = (event) => {
-    this.setState({ privacyChecked: !this.state.privacyChecked });
+  privacyHandler = () => {
+    const { privacyChecked } = this.state;
+    this.setState({ privacyChecked: !privacyChecked });
   }
 
   submitHandler = (event) => {
@@ -53,22 +54,20 @@ class RegisterForm extends Component {
       return false;
     }
 
-    request.createNewUser(this.state).then((response) => {
-    	const { message = null } = response;
+    return request.createNewUser(this.state).then((response) => {
+      const { message = null } = response;
 
-    	if (message) {
-    		this.setState({ errorMsg: response.message });
-    	} else {
-    		this.setState({ isSuccessRegister: true });
-    	}
+      if (message) {
+        this.setState({ errorMsg: response.message });
+      } else {
+        this.setState({ isSuccessRegister: true });
+      }
     });
   }
 
   validator = () => {
     const {
       state: {
-        firstname,
-        secondname,
         email,
         login,
         password,
@@ -104,13 +103,14 @@ class RegisterForm extends Component {
   }
 
   render() {
-  	if (this.state.isSuccessRegister) {
-  		return (
-  		  <Fragment>
-  		  	Вы успешно зарегестрировались. Можете выполнить вход.
-  		  </Fragment>
-  		)
-  	}
+    const { isSuccessRegister, errorMsg } = this.state;
+    if (isSuccessRegister) {
+      return (
+        <Fragment>
+          Вы успешно зарегестрировались. Можете выполнить вход.
+        </Fragment>
+      );
+    }
     const fields = Object.keys(fieldsRegisterForm).map((field) => {
       let fieldValue = fieldsRegisterForm[field];
       let fieldType = this.fieldTypes[field] || this.fieldTypes.text;
@@ -126,13 +126,14 @@ class RegisterForm extends Component {
           </label>
           <input
             type={fieldType}
+            id={field}
             className="form-control col-sm-7"
             name={field}
             value={this.state[field]}
             onChange={this.handleChange}
           />
         </div>
-      )
+      );
     });
 
     return (
@@ -141,13 +142,14 @@ class RegisterForm extends Component {
         <form onSubmit={this.submitHandler} className="registration__form registration-form">
           {fields}
           <br />
-          <input type="checkbox" onChange={this.privacyHandler} /> {globalRecources.privacy}
+          <input type="checkbox" onChange={this.privacyHandler} />
+          {globalRecources.privacy}
           <ReCAPTCHA sitekey={reCaptcha.siteKey} onChange={this.reCaptchaHandler} />
-          <span className="error-message">{this.state.errorMsg}</span>
+          <span className="error-message">{errorMsg}</span>
           <input type="submit" value="Зарегистрироваться" className="btn btn-secondary" />
         </form>
       </Fragment>
-    )
+    );
   }
 }
 

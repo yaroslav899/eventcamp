@@ -1,11 +1,13 @@
 import React, { PureComponent } from 'react';
 import moment from 'moment';
+import { request } from '../../api';
 import Modal from '../global/Modal';
+import GoogleCalendar from '../event-detail/GoogleCalendar';
 import { NavLink } from 'react-router-dom';
-import { free } from '../../fixtures';
+import store from '../../store';
 import { getUniqueArray } from '../../helper';
 import { imageUrlRecources, globalRecources } from '../../resources';
-import { categories, cities } from '../../fixtures';
+import { free, categories, cities } from '../../fixtures';
 import { getValueFromParams, updateFilterStore } from '../../helper';
 
 export default class EventList extends PureComponent {
@@ -13,13 +15,22 @@ export default class EventList extends PureComponent {
       showModalBox: false,
   }
 
-  handleGoToClick = (event) => {
-    event.preventDefault();
+  handleGoToClick = (e) => {
+    e.preventDefault();
+    const { event } = this.props;
+    const {
+      user: {
+        data: userData = null,
+      } = {},
+    } = store.getState();
 
-    this.toggleModal();
-
-    if (!this.props.isOwner) {
+    if (!this.props.isOwner && userData) {
+      console.log('2');
       // TODO send member who will go to the event
+      request.updatePost(event.id).then(() => {
+        this.toggleModal();
+      });
+      
     }
   }
 
@@ -40,6 +51,7 @@ export default class EventList extends PureComponent {
     const price = !free.includes(event.acf.price) ? (event.acf.price + ' ' + event.acf.currency || '') : globalRecources.free;
     const location = `${event.acf.cities}, ${event.acf.location}`;
     const date = event.acf.dateOf ? moment(event.acf.dateOf, "YYYY-MM-DD").format("Do MMM YYYY") : '';
+    const modalBody = `Вы подтвердили свое участие в мероприятии. Подробная информация в личном кабинете`;
 
     let tags = event.acf.tags || '';
 
@@ -89,7 +101,10 @@ export default class EventList extends PureComponent {
         {this.state.showModalBox &&
           <Modal
             toggleModal={this.toggleModal}
-            title={event.title.rendered} />
+            title={event.title.rendered}
+            body={modalBody}
+            footer={<GoogleCalendar data={event} />}
+          />
         }
       </div>
     )

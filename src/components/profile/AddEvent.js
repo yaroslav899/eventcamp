@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { EditorState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import Select from 'react-select';
-import { getCookie } from '../../_cookie';
 import { request } from '../../api';
 import { formValidator } from '../../validator';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
@@ -50,9 +49,9 @@ export default class AddEvent extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+
     const file = this.fileInput.current.files[0];
     const { state } = this;
-
     const checkValidForm = this.validator();
 
     if (!checkValidForm.success) {
@@ -60,8 +59,8 @@ export default class AddEvent extends Component {
       return false;
     }
 
-    //ToDo update case without image and when image has cyrillic name
-    request.uploadImage(file)
+    // ToDo update case without image and when image has cyrillic name
+    return request.uploadImage(file)
       .then((response) => {
         return request.createPost(state, response.data.id)
           .then(() => this.setState({ isSuccessRegister: true }));

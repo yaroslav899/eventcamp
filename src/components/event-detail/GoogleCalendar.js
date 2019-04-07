@@ -20,7 +20,7 @@ class GoogleCalendar extends PureComponent {
     return (
       <div className="calendar-link">
         <p>{detailRecources.addToCalendar}</p>
-        <a href={calGoggles}>
+        <a href={calGoggles} target="_blank">
           <img src="/img/google.png" alt="" />
         </a>
       </div>

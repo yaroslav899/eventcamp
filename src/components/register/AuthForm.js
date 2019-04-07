@@ -18,15 +18,16 @@ class AuthForm extends PureComponent {
 
   handleSubmit = (event) => {
     event.preventDefault();
+
     request.authUser(this.state)
       .then((response) => {
         this.setState({
-          isSuccessAuth: !response ? false : true,
-          isValidForm: !response ? false : true,
+          isSuccessAuth: !!response,
+          isValidForm: !!response,
         });
       });
   }
-  
+
   render() {
     const {
       isSuccessAuth,
@@ -52,7 +53,7 @@ class AuthForm extends PureComponent {
           <div className={isValidForm ? 'd-none' : ''}>
             Неправильный логин или пароль
           </div>
-          <input type="submit" value="Submit" className="btn btn-secondary"/>
+          <input type="submit" value="Submit" className="btn btn-secondary" />
         </form>
       </div>
     );

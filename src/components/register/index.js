@@ -1,10 +1,8 @@
 import React, { PureComponent } from 'react';
 import AuthForm from './AuthForm';
 import RegisterForm from './RegisterForm';
-import { formValidator } from '../../validator';
 import Adventages from '../global/Adventages';
-import { request } from '../../api';
-import { globalRecources, fieldsRegisterForm } from '../../resources';
+import { globalRecources } from '../../resources';
 
 class RegistrationPage extends PureComponent {
   state = {
@@ -22,9 +20,8 @@ class RegistrationPage extends PureComponent {
         <br />
         <AuthForm />
       </div>) : (
-      <RegisterForm />
-      )
-    );
+        <RegisterForm />
+    ));
 
     return (
       <div className="container">

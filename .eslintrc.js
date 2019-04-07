@@ -21,9 +21,14 @@ module.exports = {
   "rules": {
         "react/jsx-wrap-multilines": false,
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-		"no-param-reassign": [2, { "props": false }],
+        "no-param-reassign": [2, { "props": false }],
         "no-class-assign": "off",
-		"react/prop-types": 0,
+        "jsx-a11y/label-has-for": [2, {
+          "required": {
+            "every": ["id"]
+          }
+        }],
+        "react/prop-types": 0,
         "no-console": "off",
         "linebreak-style": "off",
         "jsx-a11y/media-has-caption": "off",
