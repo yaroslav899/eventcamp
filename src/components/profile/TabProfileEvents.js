@@ -33,4 +33,5 @@ const TabProfileEvents = (userData, addEventUrl) => (
     </TabPanel>
   </Tabs>
 );
+
 export default TabProfileEvents;

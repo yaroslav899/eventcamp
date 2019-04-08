@@ -5,10 +5,6 @@ import { request } from '../../api';
 import store from '../../store';
 
 class OwnEvents extends PureComponent {
-  state = {
-    userID: null,
-  }
-
   componentDidMount() {
     const { posts } = this.props;
 
@@ -16,18 +12,17 @@ class OwnEvents extends PureComponent {
       return true;
     }
 
-    request.getUserID().then((data) => {
+    return request.getUserID().then((data) => {
       if (!data) {
         return false;
       }
 
-      this.setState({ userID: data });
       this.loadOwnEvents(data);
-    })
+    });
   }
 
   loadOwnEvents(userID) {
-    return request.getAuthorPosts({ author: userID }).then(posts => {
+    return request.getAuthorPosts({ author: userID }).then((posts) => {
       store.dispatch({
         type: 'UPDATE_USER_POSTS',
         listPosts: posts,
@@ -51,11 +46,11 @@ class OwnEvents extends PureComponent {
       <ul>
         {userPosts}
       </ul>
-    )
+    );
   }
 }
 
-const mapStateToProps = function (store) {
+const mapStateToProps = (store) => {
   return {
     posts: store.user.listPosts,
   };

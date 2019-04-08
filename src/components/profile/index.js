@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import {
   Tab,
@@ -9,15 +9,13 @@ import {
 import store from '../../store';
 import OwnEvents from './OwnEvents';
 import UserInfo from './UserInfo';
-import TabProfileEvents from './TabProfileEvents';
-import { request } from '../../api';
 import { mainMenu } from '../../resources';
 import { profileProperties } from '../../resources/profile';
 
-class Profile extends Component {
+class Profile extends PureComponent {
   render() {
     const addEventPageID = '3';
-    const addEventUrl = mainMenu.find((menu) => menu.id === addEventPageID).url;
+    const addEventUrl = mainMenu.find(menu => menu.id === addEventPageID).url;
     const { user } = this.props;
 
 
@@ -44,7 +42,7 @@ class Profile extends Component {
               <TabPanel>
                 <div className="row">
                   <div className="col-12">
-                  {profileProperties.participant}
+                    {profileProperties.participant}
                   </div>
                 </div>
               </TabPanel>
@@ -56,7 +54,7 @@ class Profile extends Component {
   }
 }
 
-const mapStateToProps = function (store) {
+const mapStateToProps = (store) => {
   return {
     user: store.user.data,
   };

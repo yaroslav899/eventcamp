@@ -137,7 +137,25 @@ export default class AddEvent extends Component {
   };
 
   render() {
-    const { editorState } = this.state;
+    const {
+      editorState,
+      title,
+      category,
+      currentTheme,
+      image,
+      date,
+      time,
+      register,
+      phone,
+      price,
+      currency,
+      email,
+      city,
+      address,
+      tags,
+      errorMsg,
+    } = this.state;
+
     return (
       <div className="container">
         <h1>Добавить событие</h1>
@@ -150,7 +168,7 @@ export default class AddEvent extends Component {
                   <input type="text"
                     className="form-control"
                     name="title"
-                    value={this.state.title}
+                    value={title}
                     onChange={this.handleInputChange}
                     placeholder="Заполните заголовок"
                   />
@@ -165,7 +183,7 @@ export default class AddEvent extends Component {
                       value: category.id,
                       type: 'category',
                     }))}
-                    value={this.state.category}
+                    value={category}
                     onChange={this.changeCategory}
                   />
                 </div>
@@ -180,7 +198,7 @@ export default class AddEvent extends Component {
                       value: topic.id,
                       type: 'topics',
                     }))}
-                    value={this.state.currentTheme}
+                    value={currentTheme}
                     onChange={this.changeTheme}
                   />
                 </div>
@@ -188,17 +206,17 @@ export default class AddEvent extends Component {
             </div>
             <div className="form-group offset-md-2 col-md-4 text-center">
               <input type="file" ref={this.fileInput} onChange={this.handleUploadImg} />
-              <img src={this.state.image} height="120" />
+              <img src={image} height="120" />
             </div>
           </div>
-          <div className="border-separate"></div>
+          <div className="border-separate" />
           <div className="form-row">
             <div className="form-group col-md-2">
               <label htmlFor="date">Дата</label>
               <input type="date"
                 className="form-control"
                 name="date"
-                value={this.state.date}
+                value={date}
                 onChange={this.handleInputChange}
               />
             </div>
@@ -207,19 +225,19 @@ export default class AddEvent extends Component {
               <input type="time"
                 className="form-control"
                 name="time"
-                value={this.state.time}
+                value={time}
                 onChange={this.handleInputChange}
               />
             </div>
           </div>
-          <div className="border-separate"></div>
+          <div className="border-separate" />
           <div className="form-row">
             <div className="form-group col-md-4">
               <label htmlFor="register">Ссылка для регистрации</label>
               <input type="text"
                 className="form-control"
                 name="register"
-                value={this.state.register}
+                value={register}
                 onChange={this.handleInputChange}
                 placeholder="http://add-your-link.com"
               />
@@ -228,14 +246,14 @@ export default class AddEvent extends Component {
               Ссылка на ваш сайт для регистрации участников или информация о событии
             </div>
           </div>
-          <div className="border-separate"></div>
+          <div className="border-separate" />
           <div className="form-row">
             <div className="form-group col-md-4">
               <label htmlFor="phone">Телефон для связи</label>
               <input type="text"
                 className="form-control"
                 name="phone"
-                value={this.state.phone}
+                value={phone}
                 onChange={this.handleInputChange}
                 placeholder="+38 (0xx) xxx-xx-xx"
               />
@@ -244,14 +262,14 @@ export default class AddEvent extends Component {
               Добавляйте номер телефона и ваше событие получит больший отклик. Люди смогут узанть больше информации по телефону
             </div>
           </div>
-          <div className="border-separate"></div>
+          <div className="border-separate" />
           <div className="form-row">
             <div className="form-group col-md-4">
               <label htmlFor="email">Email для связи</label>
               <input type="text"
                 className="form-control"
                 name="email"
-                value={this.state.email}
+                value={email}
                 onChange={this.handleInputChange}
                 placeholder="your@email.com"
               />
@@ -267,7 +285,7 @@ export default class AddEvent extends Component {
               <input type="text"
                 className="form-control"
                 name="tags"
-                value={this.state.tags}
+                value={tags}
                 onChange={this.handleInputChange}
                 placeholder="javascript,биология,конференция"
               />
@@ -277,7 +295,7 @@ export default class AddEvent extends Component {
               объявление в поиске похожие и улучшит его в поиске событий.
             </div>
           </div>
-          <div className="border-separate"></div>
+          <div className="border-separate" />
           <div className="form-row">
             <div className="form-group col-md-2">
               <label htmlFor="price">Цена</label>
@@ -285,7 +303,7 @@ export default class AddEvent extends Component {
                 type="number"
                 className="form-control"
                 name="price"
-                value={this.state.price}
+                value={price}
                 onChange={this.handleInputChange}
                 placeholder="1000"
               />
@@ -300,12 +318,12 @@ export default class AddEvent extends Component {
                   value: currency.name,
                   type: 'currency',
                 }))}
-                value={this.state.currency}
+                value={currency}
                 onChange={this.handleSelectChange}
               />
             </div>
           </div>
-          <div className="border-separate"></div>
+          <div className="border-separate" />
           <div className="form-row">
             <div className="form-group col-md-3">
               <label htmlFor="city">Город</label>
@@ -317,7 +335,7 @@ export default class AddEvent extends Component {
                   value: city.id,
                   type: 'city',
                 }))}
-                value={this.state.city}
+                value={city}
                 onChange={this.handleSelectChange}
               />
             </div>
@@ -326,15 +344,15 @@ export default class AddEvent extends Component {
               <input type="text"
                 className="form-control"
                 name="address"
-                value={this.state.address}
+                value={address}
                 onChange={this.handleInputChange}
                 placeholder="Адрес"
               />
             </div>
           </div>
-          <div className="border-separate"></div>
+          <div className="border-separate" />
           <div className="">
-            <label htmlFor="inputDescription">Описание</label>
+            <span>Описание</span>
             <Editor
               editorState={editorState}
               toolbarClassName="toolbarClassName"
@@ -343,8 +361,8 @@ export default class AddEvent extends Component {
               onEditorStateChange={this.onEditorStateChange}
             />
           </div>
-          <div className="border-separate"></div>
-          <span className="error-message">{this.state.errorMsg}</span>
+          <div className="border-separate" />
+          <span className="error-message">{errorMsg}</span>
           <input type="submit" value="Добавить событие" className="btn btn-secondary" />
         </form>
       </div>
