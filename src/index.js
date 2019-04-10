@@ -4,7 +4,6 @@ import { Router } from 'react-router';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect, Provider } from 'react-redux';
 import { createBrowserHistory } from 'history';
-import './css/main.css';
 import { getUserData } from './helper';
 
 import MainPage from './components/MainPage';

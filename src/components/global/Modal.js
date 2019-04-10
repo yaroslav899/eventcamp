@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import '../../css/modal.css';
 
 export default class Modal extends PureComponent {
   closeModal = (event) => {

@@ -5,7 +5,6 @@ import Title from '../Title';
 import Filters from '../../event-filters';
 import LastPosts from '../../global/LastPosts';
 import Pagination from '../PaginationContainter';
-import '../../../css/listPage.css';
 
 const ListPageView = ({ eventsElement }) => (
   <div className="container events">

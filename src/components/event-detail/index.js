@@ -5,7 +5,6 @@ import { request } from '../../api';
 import store from '../../store';
 import DetailPageView from './views/DetailPageView';
 import Loader from '../global/Loader';
-import '../../css/detailPage.css';
 
 class DetailPage extends Component {
   componentDidMount() {

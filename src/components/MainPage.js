@@ -1,5 +1,4 @@
 import React from 'react';
-import '../css/index.css';
 import Banner from './global/Banner';
 import Adventages from './global/Adventages';
 import ServicePicture from './global/ServicePicture';
