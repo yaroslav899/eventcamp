@@ -27,10 +27,10 @@ class RegistrationPage extends PureComponent {
       <div className="container">
         <Adventages />
         <div className="row">
-          <div className="col-6">
+          <div className="col-12 col-md-6">
             <AuthForm />
           </div>
-          <div className="col-6 registration">
+          <div className="col-12 col-md-6 registration">
             {registerForm}
           </div>
         </div>

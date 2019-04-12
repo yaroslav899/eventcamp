@@ -1,6 +1,5 @@
 import React from 'react';
 import Adventages from '../../global/Adventages';
-import Breadcrumbs from '../../global/Breadcrumbs';
 import EventDetail from '../EventDetail';
 import DetailTabs from '../DetailTabs';
 import SocialShare from '../SocialShare';
@@ -13,7 +12,6 @@ const DetailPageView = ({ event, date, dateDay }) => (
     <Adventages />
     <div className="row">
       <div className="col-9">
-      	<Breadcrumbs />
         <h1 dangerouslySetInnerHTML={{ __html: event.title.rendered }}></h1>
         <EventDetail event={event} date={date} dateDay={dateDay} />
         <div className="row area-2">

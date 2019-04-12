@@ -98,13 +98,18 @@ a:hover {
   border-radius: 5px;
   padding: 7px 14px;
 }
+.header nav.navbar ul.navbar-nav li.menu-item a:hover {
+  background-color: #035ca4;
+}
 .header nav.navbar ul.navbar-nav li.menu-item a.active, .header nav.navbar ul.navbar-nav li.menu-item.current-menu-item a {
   background-color: #f6c806;
   color: #004f8f;
 }
-.header nav.navbar ul.navbar-nav li.menu-item a:hover {
-  background-color: #035ca4;
+.navbar-brand img{
+  width: 115px;
+  margin-left: 10px;
 }
+
 /**
 * Main banner
 */
@@ -740,12 +745,21 @@ div.right-side li.same-post-rightside div.samePost-info-rightside div.samePost-t
 }
 
 @media (max-width: 576px) {
+  h3 {
+    margin-top:10px;
+  }
   .header {
     height: 55px;
+    margin-bottom: 10px;
+  }
+  .header__registration a {
+    position: relative;
+    z-index: 999;
   }
   .header nav.navbar {
-    margin-top: 0;
+    margin-top: -20px;
     float: none;
+    z-index: 1;
   }
   #navbarSupportedContent {
     z-index: 999;
@@ -754,11 +768,34 @@ div.right-side li.same-post-rightside div.samePost-info-rightside div.samePost-t
   }
   .header nav.navbar ul.navbar-nav li {
     padding: 5px 0;
+    display: contents;
+  }
+  .header nav.navbar ul.navbar-nav li.menu-item a {
+    border-radius: 0;
   }
   .header nav.navbar ul.navbar-nav li.menu-item.current-menu-item a {
     background-color: transparent;
     color: #f6c806;
   }
+  .events_wrapper {
+    order:2;
+  }
+  .events_filter-wrapper{
+    order:1;
+  }
+  .event-filter-option{
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+    border-radius: 0;
+  }
+  .event-filter-option p{
+      padding: 10px 0 0 0;
+  }
+  .footer img{
+    width: 140px;
+  }
+
 }
 
 .rdw-editor-main{

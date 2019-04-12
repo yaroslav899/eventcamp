@@ -22,7 +22,7 @@ const MainPage = () => (
             </div>
           </div>
         </div>
-        <div className="col-3">
+        <div className="col-12 col-md-3">
           <LastPosts />
         </div>
       </div>

@@ -13,7 +13,7 @@ const Footer = () => (
                     </NavLink>
                 </div>
                 <div className="col-8 text-right">
-                    <div className="footer-menu">
+                    <div className="footer-menu d-md-none">
                         <Menu />
                     </div>
                     <div className="clear"></div>
