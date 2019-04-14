@@ -16,10 +16,8 @@ const MainPage = () => (
       <Adventages />
       <div className="row">
         <div className="col-12 col-sm-9 category-main">
-          <div className="container">
-            <div className="row">
-              <ServicePicture />
-            </div>
+          <div className="row">
+            <ServicePicture />
           </div>
         </div>
         <div className="col-12 col-md-3">

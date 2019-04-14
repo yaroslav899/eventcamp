@@ -58,6 +58,9 @@ a:hover {
   height: 75px;
   background: #0367b7;
 }
+header .authBlock {
+  background-color: #000000;
+}
 .header a {
   color: #ffffff;
 }

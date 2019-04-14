@@ -6,6 +6,15 @@ import { imageUrlRecources } from '../../resources';
 
 const Header = () => (
   <header className="header">
+    <div className="authBlock">
+      <div className="container">
+        <div className="row">
+          <div className="col-sm-10 col-12">
+            <AuthHeaderLink />
+          </div>
+        </div>
+      </div>
+    </div>
     <div className="container">
       <div className="row">
         <div className="col-2 d-none d-sm-block header__logo">
@@ -14,7 +23,6 @@ const Header = () => (
           </NavLink>
         </div>
         <div className="col-sm-10 col-12">
-          <AuthHeaderLink />
           <Menu />
         </div>
       </div>
