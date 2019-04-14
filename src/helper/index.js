@@ -36,6 +36,10 @@ export const logout = () => {
   location.reload();
 };
 
+export const createMarkupText = (text) => {
+  return { __html: text };
+};
+
 export const getUserData = () => {
   //ToDo optimize it
   const {

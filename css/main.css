@@ -116,7 +116,9 @@ a:hover {
 .banner-main {
   margin-top: 10px;
 }
-
+.category-main img {
+  margin-bottom:10px;
+}
 /**
 *  Advantages container
 */

@@ -24,17 +24,17 @@ export default class EventList extends PureComponent {
       } = {},
     } = store.getState();
 
-    if (!this.props.isOwner && userData) {
-      console.log('2');
+    if (Object.keys(userData).length) {
       // TODO send member who will go to the event
       request.updatePost(event.id).then(() => {
         this.toggleModal();
       });
-      
+    } else {
+      this.toggleModal();
     }
   }
 
-  toggleModal = () => {
+  toggleModal = (data) => {
     this.setState(state => ({
       showModalBox: !state.showModalBox,
     }));
@@ -45,13 +45,19 @@ export default class EventList extends PureComponent {
   }
 
   render() {
-    const { event, imgWrapClass, descrWrapClass, actionWrapClass, isOwner } = this.props;
+    const { event, imgWrapClass, descrWrapClass, actionWrapClass } = this.props;
     const city = getValueFromParams(cities, event.acf.cities, 'name', 'url');
     const category = getValueFromParams(categories, event.categories[0], 'id', 'url');
     const price = !free.includes(event.acf.price) ? (event.acf.price + ' ' + event.acf.currency || '') : globalRecources.free;
     const location = `${event.acf.cities}, ${event.acf.location}`;
     const date = event.acf.dateOf ? moment(event.acf.dateOf, "YYYY-MM-DD").format("Do MMM YYYY") : '';
-    const modalBody = `Вы подтвердили свое участие в мероприятии. Подробная информация в личном кабинете`;
+    const {
+      user: {
+        data: userData,
+      } = {},
+    } = store.getState();
+    const modalBody = Object.keys(userData).length ? `Вы подтвердили свое участие в мероприятии. Подробная информация в личном кабинете` :
+      'Необходимо зарегистрироватьсяс, чтобы подтвердить участие';
 
     let tags = event.acf.tags || '';
 
@@ -73,11 +79,9 @@ export default class EventList extends PureComponent {
             <span dangerouslySetInnerHTML={this.createMarkupText(event.title.rendered)} />
           </NavLink>
           <div className="events-item__description" dangerouslySetInnerHTML={this.createMarkupText(event.excerpt.rendered)} />
-          {!isOwner &&
-            <div className="events-item__tags events-item-tags">
-              {tags}
-            </div>
-          }
+          <div className="events-item__tags events-item-tags">
+            {tags}
+          </div>
         </div>
         <div className={actionWrapClass}>
           <div className="events-item__price">
@@ -94,7 +98,7 @@ export default class EventList extends PureComponent {
               {globalRecources.moreInfo}
             </NavLink>
             <span className="events-item-action__button" onClick={this.handleGoToClick}>
-              {!isOwner ? `Иду +` : globalRecources.change}
+              Иду +
             </span>
           </div>
         </div>
@@ -103,7 +107,7 @@ export default class EventList extends PureComponent {
             toggleModal={this.toggleModal}
             title={event.title.rendered}
             body={modalBody}
-            footer={<GoogleCalendar data={event} />}
+            footer={Object.keys(userData).length ? <GoogleCalendar data={event} /> : ''}
           />
         }
       </div>

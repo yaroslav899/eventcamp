@@ -9,6 +9,7 @@ import {
 import store from '../../store';
 import OwnEvents from './OwnEvents';
 import UserInfo from './UserInfo';
+import TakingPartMember from './TakingPartMember';
 import { mainMenu } from '../../resources';
 import { profileProperties } from '../../resources/profile';
 
@@ -17,7 +18,6 @@ class Profile extends PureComponent {
     const addEventPageID = '3';
     const addEventUrl = mainMenu.find(menu => menu.id === addEventPageID).url;
     const { user } = this.props;
-
 
     return (
       <div className="container profile">
@@ -42,7 +42,7 @@ class Profile extends PureComponent {
               <TabPanel>
                 <div className="row">
                   <div className="col-12">
-                    {profileProperties.participant}
+                    <TakingPartMember user={user} />
                   </div>
                 </div>
               </TabPanel>

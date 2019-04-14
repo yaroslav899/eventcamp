@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import EventList from '../events-list/EventList';
+import EventView from '../global/EventView';
 import { request } from '../../api';
 import store from '../../store';
 
@@ -33,13 +33,7 @@ class OwnEvents extends PureComponent {
   render() {
     const { posts } = this.props;
     const userPosts = !posts.length ? '---' : posts.map(article => <li key={article.id} className="own-events__item own-events-item">
-      <EventList
-        event={article}
-        imgWrapClass="d-none"
-        descrWrapClass="col-9"
-        actionWrapClass="col-3 text-right"
-        isOwner={true}
-      />
+      <EventView event={article} isOwner={true} />
     </li>);
 
     return (

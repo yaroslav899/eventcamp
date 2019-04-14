@@ -35,9 +35,12 @@ export default class UserInfo extends PureComponent {
         <div className="col-3 text-center">
           <h3>{profileProperties.photoUser}</h3>
           <img src={imgUrl} alt="profile" className="img-fluid rounded-circle profile__photo" />
+        </div>
+        <div className="col-3 text-center">
+          Для смены фотографии загрузите новый файл
           <input type="file" ref={this.fileInput} onChange={this.handleUploadImage} />
         </div>
-        <div className="offset-3 col-6">
+        <div className="col-6">
           <h3>{profileProperties.title}</h3>
           <div className="row">
             <div className="col-6">
