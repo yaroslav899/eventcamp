@@ -13,6 +13,7 @@ import { getValueFromParams, updateFilterStore } from '../../helper';
 export default class EventList extends PureComponent {
   state = {
       showModalBox: false,
+      ctaClass: 'events-item-action__button ',
   }
 
   handleGoToClick = (e) => {
@@ -26,8 +27,12 @@ export default class EventList extends PureComponent {
 
     if (Object.keys(userData).length) {
       // TODO send member who will go to the event
-      request.updatePost(event.id).then(() => {
+      request.updatePost(event).then(() => {
         this.toggleModal();
+        this.setState({
+            ctaClass: 'events-item-action__button action-button__active'
+        });
+
       });
     } else {
       this.toggleModal();
@@ -46,6 +51,11 @@ export default class EventList extends PureComponent {
 
   render() {
     const { event, imgWrapClass, descrWrapClass, actionWrapClass } = this.props;
+    const {
+        acf: {
+            countmembers,
+        },
+    } = event;
     const city = getValueFromParams(cities, event.acf.cities, 'name', 'url');
     const category = getValueFromParams(categories, event.categories[0], 'id', 'url');
     const price = !free.includes(event.acf.price) ? (event.acf.price + ' ' + event.acf.currency || '') : globalRecources.free;
@@ -56,6 +66,7 @@ export default class EventList extends PureComponent {
         data: userData,
       } = {},
     } = store.getState();
+    const isUserTakeAPart = countmembers && countmembers.indexOf(userData.email);
     const modalBody = Object.keys(userData).length ? `Вы подтвердили свое участие в мероприятии. Подробная информация в личном кабинете` :
       'Необходимо зарегистрироватьсяс, чтобы подтвердить участие';
 
@@ -97,7 +108,7 @@ export default class EventList extends PureComponent {
             <NavLink to={url} className="events-item-action__button">
               {globalRecources.moreInfo}
             </NavLink>
-            <span className="events-item-action__button" onClick={this.handleGoToClick}>
+            <span className={this.state.ctaClass} onClick={this.handleGoToClick}>
               Иду +
             </span>
           </div>

@@ -227,14 +227,21 @@ export const request = {
     });
   },
 
-  updatePost: (eventID) => {
+  updatePost: (event) => {
+    // ToDo optimize this approach
     const userData = getCookie('userData');
 
     if (!userData) {
       return false;
     }
 
-    const { token } = JSON.parse(userData);
+    const { token, email } = JSON.parse(userData);
+    const {
+        id:eventID,
+        acf : {
+            countmembers
+        }
+    } = event;
     const url = `${urlRecources.endpointUrl}posts/${eventID}`;
 
     return fetch(url, {
@@ -246,7 +253,7 @@ export const request = {
       },
       body: JSON.stringify({
         fields: {
-          countmembers: 'yaroslav',
+          countmembers: `${countmembers},${email}`,
         },
       }),
     }).then(response => response.json());

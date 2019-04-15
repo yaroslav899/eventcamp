@@ -67,7 +67,7 @@ class DateRange extends Component {
     const modifiers = { start: from, end: to };
 
     return (
-      <div className='date-range d-md-none'>
+      <div className='date-range'>
         <DayPicker
           localeUtils={MomentLocaleUtils}
           locale='ru'

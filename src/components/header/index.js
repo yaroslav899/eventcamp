@@ -9,7 +9,7 @@ const Header = () => (
     <div className="authBlock">
       <div className="container">
         <div className="row">
-          <div className="col-sm-10 col-12">
+          <div className="offset-md-2 col-sm-10 col-12">
             <AuthHeaderLink />
           </div>
         </div>
