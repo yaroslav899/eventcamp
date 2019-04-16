@@ -13,7 +13,7 @@ class TakingPartMember extends PureComponent {
       return true;
     }
 
-    const url = `http://board.it-mir.net.ua/wp-json/wp/v2/posts?&filter[meta_query][0][key]=countmembers&filter[meta_query][0][value]=yaroslav`;
+    const url = `http://board.it-mir.net.ua/wp-json/wp/v2/posts?filter[meta_key]=countmembers&filter[meta_compare]=LIKE&filter[meta_value]=${user.email}`;
 
     return fetch(url)
       .then(response => response.json())

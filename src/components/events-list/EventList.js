@@ -13,26 +13,41 @@ import { getValueFromParams, updateFilterStore } from '../../helper';
 export default class EventList extends PureComponent {
   state = {
       showModalBox: false,
-      ctaClass: 'events-item-action__button ',
+      isSubscribed: false,
+  }
+
+  componentDidMount() {
+    const { event } = this.props;
+    const { countmembers } = event.acf;
+    const { user } = store.getState();
+    const { data: userData } = user;
+
+    if (Object.keys(userData).length) {
+      this.setState({
+        isSubscribed: countmembers && countmembers.includes(userData.email),
+        isAuthorized: true,
+      });
+    }
   }
 
   handleGoToClick = (e) => {
     e.preventDefault();
+
     const { event } = this.props;
-    const {
-      user: {
-        data: userData = null,
-      } = {},
-    } = store.getState();
+    const { isSubscribed } = this.state;
+    const { user } = store.getState();
+    const { data: userData } = user;
+    const { email } = userData;
 
     if (Object.keys(userData).length) {
       // TODO send member who will go to the event
-      request.updatePost(event).then(() => {
-        this.toggleModal();
+      let { countmembers } = event.acf;
+      countmembers = isSubscribed ? countmembers.replace(email, '') : `${countmembers},${email}`;
+      request.updatePostCountMembers(event, userData, countmembers).then(() => {
+        !isSubscribed && this.toggleModal();
         this.setState({
-            ctaClass: 'events-item-action__button action-button__active'
+          isSubscribed: !isSubscribed,
         });
-
       });
     } else {
       this.toggleModal();
@@ -51,24 +66,13 @@ export default class EventList extends PureComponent {
 
   render() {
     const { event, imgWrapClass, descrWrapClass, actionWrapClass } = this.props;
-    const {
-        acf: {
-            countmembers,
-        },
-    } = event;
     const city = getValueFromParams(cities, event.acf.cities, 'name', 'url');
     const category = getValueFromParams(categories, event.categories[0], 'id', 'url');
     const price = !free.includes(event.acf.price) ? (event.acf.price + ' ' + event.acf.currency || '') : globalRecources.free;
     const location = `${event.acf.cities}, ${event.acf.location}`;
     const date = event.acf.dateOf ? moment(event.acf.dateOf, "YYYY-MM-DD").format("Do MMM YYYY") : '';
-    const {
-      user: {
-        data: userData,
-      } = {},
-    } = store.getState();
-    const isUserTakeAPart = countmembers && countmembers.indexOf(userData.email);
-    const modalBody = Object.keys(userData).length ? `Вы подтвердили свое участие в мероприятии. Подробная информация в личном кабинете` :
-      'Необходимо зарегистрироватьсяс, чтобы подтвердить участие';
+    const modalBody = this.state.isAuthorized ? `Вы подтвердили свое участие в мероприятии. Подробная информация в личном кабинете` :
+      'Необходимо зарегистрироваться, чтобы подтвердить участие';
 
     let tags = event.acf.tags || '';
 
@@ -108,7 +112,7 @@ export default class EventList extends PureComponent {
             <NavLink to={url} className="events-item-action__button">
               {globalRecources.moreInfo}
             </NavLink>
-            <span className={this.state.ctaClass} onClick={this.handleGoToClick}>
+            <span className={`events-item-action__button ${this.state.isSubscribed && 'action-button__active'}`} onClick={this.handleGoToClick}>
               Иду +
             </span>
           </div>
@@ -118,7 +122,7 @@ export default class EventList extends PureComponent {
             toggleModal={this.toggleModal}
             title={event.title.rendered}
             body={modalBody}
-            footer={Object.keys(userData).length ? <GoogleCalendar data={event} /> : ''}
+            footer={this.state.isAuthorized ? <GoogleCalendar data={event} /> : ''}
           />
         }
       </div>

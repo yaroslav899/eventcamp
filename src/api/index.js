@@ -59,24 +59,6 @@ export const request = {
     }).then(response => response.json());
   }),
 
-  updatePost: (param) => authFetch(adminAccess).then((user) => {
-    const url = 'http://board.it-mir.net.ua/wp-json/wp/v2/posts/490';
-
-    return fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: `Bearer ${user.token}`,
-      },
-      body: JSON.stringify({
-        fields: {
-          countmembers: '3',
-        },
-      }),
-    }).then(response => response.json());
-  }),
-
   getUserID: () => {
     const authData = getCookie('userData');
 
@@ -227,21 +209,14 @@ export const request = {
     });
   },
 
-  updatePost: (event) => {
-    // ToDo optimize this approach
-    const userData = getCookie('userData');
-
+  updatePostCountMembers: (event, userData, countmembers) => {
     if (!userData) {
       return false;
     }
 
-    const { token, email } = JSON.parse(userData);
-    const {
-        id:eventID,
-        acf : {
-            countmembers
-        }
-    } = event;
+    const { token } = userData;
+    const { id: eventID } = event;
+
     const url = `${urlRecources.endpointUrl}posts/${eventID}`;
 
     return fetch(url, {
@@ -253,7 +228,7 @@ export const request = {
       },
       body: JSON.stringify({
         fields: {
-          countmembers: `${countmembers},${email}`,
+          countmembers: countmembers,
         },
       }),
     }).then(response => response.json());
