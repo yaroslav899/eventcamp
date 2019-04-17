@@ -43,12 +43,11 @@ export default class EventList extends PureComponent {
       // TODO send member who will go to the event
       let { countmembers } = event.acf;
       countmembers = isSubscribed ? countmembers.replace(email, '') : `${countmembers},${email}`;
-      request.updatePostCountMembers(event, userData, countmembers).then(() => {
-        !isSubscribed && this.toggleModal();
-        this.setState({
-          isSubscribed: !isSubscribed,
-        });
+      !isSubscribed && this.toggleModal();
+      this.setState({
+        isSubscribed: !isSubscribed,
       });
+      request.updatePostCountMembers(event, userData, countmembers);
     } else {
       this.toggleModal();
     }
@@ -113,7 +112,7 @@ export default class EventList extends PureComponent {
               {globalRecources.moreInfo}
             </NavLink>
             <span className={`events-item-action__button ${this.state.isSubscribed && 'action-button__active'}`} onClick={this.handleGoToClick}>
-              Иду +
+              {globalRecources.interestingCTA}
             </span>
           </div>
         </div>

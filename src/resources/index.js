@@ -69,6 +69,7 @@ export const globalRecources = {
   change: 'Изменить',
   loading: 'Загрузка...',
   welcome: 'Добро пожаловать',
+  interestingCTA: 'Интересно',
   copyright: '©2019 EventCamp. Все права защищены.',
   enter: 'Мой кабинет',
   registr: 'Регистрация',

@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import store from '../../store';
 import { request } from '../../api';
 import { profileProperties } from '../../resources/profile';
 import { fieldsRegisterForm, imageUrlRecources } from '../../resources';
@@ -8,12 +9,37 @@ export default class UserInfo extends PureComponent {
     imgUrl: imageUrlRecources.noPhoto,
   }
 
+  componentDidMount() {
+    const { user } = store.getState();
+    const { data: userData } = user;
+    const url = `http://board.it-mir.net.ua/wp-json/wp/v2/media?&slug=profile-img-yaroslav899@gmail.com_`;
+
+    return fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        var g = 0;
+      });
+  }
+
+
   fileInput = React.createRef();
 
   handleUploadImage = () => {
-    const file = this.fileInput.current.files[0];
+    const { user } = store.getState();
+    const { data: userData } = user;
 
-    request.uploadImage(file)
+    const { email } = userData;
+
+    const file = this.fileInput.current.files[0];
+    const fileNameArray = file.name.split('.');
+    const fileType = fileNameArray[fileNameArray.length-1];
+    const updatedFile = new File([file], `profile-img-${email}.${fileType}`, {type: file.type});
+
+    this.setState({
+      imgUrl: URL.createObjectURL(updatedFile),
+    })
+
+    request.uploadImage(updatedFile)
       .then(() => {
         // update image profile
       });
@@ -36,9 +62,12 @@ export default class UserInfo extends PureComponent {
           <h3>{profileProperties.photoUser}</h3>
           <img src={imgUrl} alt="profile" className="img-fluid rounded-circle profile__photo" />
         </div>
-        <div className="col-3 text-center">
-          Для смены фотографии загрузите новый файл
-          <input type="file" ref={this.fileInput} onChange={this.handleUploadImage} />
+        <div className="col-3 profile__add-photo">
+          <p>
+            Для смены фотографии загрузите новый файл
+            <br/>
+            <input type="file" ref={this.fileInput} onChange={this.handleUploadImage} />
+          </p>
         </div>
         <div className="col-6">
           <h3>{profileProperties.title}</h3>
@@ -61,7 +90,7 @@ export default class UserInfo extends PureComponent {
               </p>
             </div>
             <div className="col-6">
-              <p className="profile__add-button">редактировать профиль</p>
+              <p className="profile__add-button d-none">редактировать профиль</p>
               <p>
                 Город
                 <br />

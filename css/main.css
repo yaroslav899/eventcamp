@@ -1,5 +1,9 @@
+html {
+	position: relative;
+}
 body{
   font-family: 'Montserrat', arial;
+  margin-bottom: 100px;
 }
 h1,h3{
   font-size: 1.3em;
@@ -257,6 +261,17 @@ header .authBlock {
   border: 0;
   display:inline-block;
 }
+.profile__add-photo {
+  text-align:center;
+  padding-top: 60px;
+  font-size: 0.9em;
+}
+.profile__add-photo p{
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  padding: 10px;
+}
+
 .profile__photo{
   width:200px;
   height:200px;
@@ -271,7 +286,8 @@ header .authBlock {
   color: #ffffff;
   padding: 25px 0 0 0;
   background: #0367b7;
-  position: relative;
+  position: absolute;
+  bottom: 0;
 }
 .footer div.footer-menu ul li+li {
   float: left;
@@ -291,7 +307,7 @@ header .authBlock {
 *  Profile Own Item
 */
 .own-events__item {
-  padding: 20px;
+  padding: 10px;
   font-size: 0.9em;
 }
 .own-events__item:nth-child(2n+1) {
@@ -364,14 +380,14 @@ header .authBlock {
   height: 27px;
   bottom: 10px;
   overflow: hidden;
-  font-size: 0.8em;
+  font-size: 0.7em;
 }
 
 .events-item-tags__tag {
   color: #0367b7;
   background: #ffffff;
   margin-right: 5px;
-  padding: 4px 14px;
+  padding: 3px 14px;
   border-radius: 5px;
   display: inline-block;
 }
@@ -405,7 +421,6 @@ header .authBlock {
 
 .events-item .events-item__action {
   position: absolute;
-  right: 26px;
   bottom: 10px;
 }
 
@@ -424,8 +439,8 @@ header .authBlock {
   color: #ffffff;
   border: 0;
   border-radius: 5px;
-  font-size: 0.9em;
-  padding: 5px 10px;
+  font-size: 0.8em;
+  padding: 7px;
   cursor: pointer;
 }
 .events-item__action .action-button__active{
@@ -585,14 +600,17 @@ div.area-1 div.area-1_price {
   border-top: 1px solid #f5f5f5;
   border-radius: 0 20px 0 0;
   color: #0367b7;
-  font-size: 1.4em;
+  font-size: 1.3em;
   font-weight: bold;
   padding: 2px 15px 2px 0;
 }
 div.area-1 div.area-1_info {
   background-color: #f5f5f5;
-  padding: 24px;
-  height: 197px;
+  padding: 20px 5px 20px 20px;
+  height: 199px;
+}
+div.area-1 div.area-1_info p {
+  margin-bottom:10px;
 }
 div.area-1 div.area-1_info span.day {
   font-size: 1.8em;
@@ -615,11 +633,26 @@ div.area-1 div.area-1_info p.area-1_location {
 div.area-1 div.area-1_info p.area-1_tags span {
   background: #ffffff;
   color: #0367b7;
-  font-size: 0.8em;
+  font-size: 0.7em;
   padding: 2px 13px;
   border-radius: 5px;
   margin: 0 2% 0 0;
   display: inline-block;
+}
+div.area-1 p.area-1_interesting {
+  text-align:right;
+}
+div.area-1 p.area-1_interesting span{
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: #004f8f;
+  font-weight: bold;
+  cursor: pointer;
+}
+div.area-1 p.area-1_interesting span:hover, div.area-1 p.area-1_interesting span.m-active{
+  background-color: #f6c806;
 }
 div.area-2 {
   color: #565656;
