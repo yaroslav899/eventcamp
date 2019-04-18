@@ -1,14 +1,9 @@
-﻿import React, { PureComponent } from 'react';
-import { NavLink } from 'react-router-dom';
+﻿import React from 'react';
 
-export default class Breadcrumbs extends PureComponent {
-  render() {
-    return(
-      <div>
-        <NavLink to='/'>Главная</NavLink>
-        &nbsp;>&nbsp;
-        <span>{document.title}</span>
-      </div>
-    )
-  }
-};
+const Breadcrumbs = () => (
+  <div>
+    <span>{document.title}</span>
+  </div>
+);
+
+export default Breadcrumbs;

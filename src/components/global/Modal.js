@@ -8,6 +8,7 @@ export default class Modal extends PureComponent {
 
   render() {
     const { title, body, footer } = this.props;
+
     return(
       <div className="modal" tabIndex="-1" role="dialog">
         <div className="modal-dialog" role="document">
@@ -27,6 +28,6 @@ export default class Modal extends PureComponent {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }

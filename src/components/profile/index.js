@@ -6,7 +6,6 @@ import {
   TabList,
   TabPanel,
 } from 'react-tabs';
-import store from '../../store';
 import OwnEvents from './OwnEvents';
 import UserInfo from './UserInfo';
 import TakingPartMember from './TakingPartMember';

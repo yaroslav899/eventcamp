@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import store from '../../store';
 import { request } from '../../api';
 import { categories, cities } from '../../fixtures';
-import { getValueFromParams } from '../../helper';
+import { getValueFromParams, createMarkupText } from '../../helper';
 import { imageUrlRecources, detailRecources } from '../../resources';
 
 export default class DetailInteresting extends Component {
@@ -20,9 +20,9 @@ export default class DetailInteresting extends Component {
 
   handleUpdateDetailPage(data) {
     request.getInterestingData(data, true).then((posts) => {
-      if(!posts || !posts.length) {
-        request.getInterestingData(data, false).then((posts) => {
-          this.updateDetailInterestingPosts(posts, data);
+      if (!posts || !posts.length) {
+        request.getInterestingData(data, false).then((newPosts) => {
+          this.updateDetailInterestingPosts(newPosts, data);
         });
 
         return;
@@ -43,10 +43,8 @@ export default class DetailInteresting extends Component {
     this.setState({
       posts: posts.filter(post => post.id !== data.id),
     });
-  }
 
-  createMarkupText(text) {
-    return { __html: text };
+    return true;
   }
 
   render() {
@@ -68,7 +66,7 @@ export default class DetailInteresting extends Component {
           cities: postCity,
           location,
           dateOf,
-        }
+        },
       } = samePost;
       let city = getValueFromParams(cities, postCity, 'name', 'url');
       let category = getValueFromParams(categories, postCategories[0], 'id', 'url');
@@ -79,7 +77,7 @@ export default class DetailInteresting extends Component {
             <div className="col-12">
               <img src={picture || imageUrlRecources.noPhoto} alt="" />
               <div className="samePost-info-rightside row">
-                <div className="samePost-title col-7" dangerouslySetInnerHTML={this.createMarkupText(postTitle)} />
+                <div className="samePost-title col-7" dangerouslySetInnerHTML={createMarkupText(postTitle)} />
                 <div className="text-right col-5">
                   {`${price} ${currency}`}
                 </div>

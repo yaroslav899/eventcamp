@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import store from '../../store';
 import { categories, cities } from '../../fixtures';
 import { listRecources } from '../../resources';
 import { getValueFromParams } from '../../helper';

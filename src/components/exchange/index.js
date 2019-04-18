@@ -1,10 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 
-export default class Exhange extends Component {
-    render(){
-        return (
-            <div>
-            </div>
-        )
-    }
-}
+const Exhange = () => (<div/>);
+
+export default Exhange;

@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import moment from 'moment';
 import store from '../../store';
 import { request } from '../../api';
-import { getValueFromParams, getUniqueArray } from '../../helper';
+import { getValueFromParams, getUniqueArray, createMarkupText } from '../../helper';
 import { categories, cities, free } from '../../fixtures';
 import { listRecources, globalRecources } from '../../resources';
 
@@ -18,16 +18,12 @@ class LastPosts extends PureComponent {
 
     if (list) return;
 
-    request.getLastPosts().then(posts => {
+    request.getLastPosts().then((posts) => {
       store.dispatch({
         type: 'UPDATE_LAST_POSTS',
         list: posts,
       });
     });
-  }
-
-  createMarkupText(text) {
-    return { __html: text };
   }
 
   render() {
@@ -48,8 +44,8 @@ class LastPosts extends PureComponent {
 
       let tags = post.acf.tags || '';
       if (tags.length) {
-          tags = getUniqueArray(tags.split(','));
-          tags = tags.map(tag => <span key={tag}>{tag}</span>);
+        tags = getUniqueArray(tags.split(','));
+        tags = tags.map(tag => <span key={tag}>{tag}</span>);
       }
 
 
@@ -58,7 +54,7 @@ class LastPosts extends PureComponent {
           <NavLink to={`/events/${city}/${category}/${post.id}`}>
             <div className="row">
               <div className="col-12">
-                <div className="last-post-title" dangerouslySetInnerHTML={this.createMarkupText(post.title.rendered)}></div>
+                <div className="last-post-title" dangerouslySetInnerHTML={createMarkupText(post.title.rendered)}></div>
               </div>
               <div className="col-8">
                 <div className="last-post-location">

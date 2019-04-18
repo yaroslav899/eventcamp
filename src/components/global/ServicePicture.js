@@ -9,6 +9,7 @@ export default class ServicePicture extends PureComponent {
         <img src={category.img} alt={category.name} title={category.name} className="img-fluid" />
       </NavLink>
     </div>);
+
     return categoriesEvent;
   }
 }

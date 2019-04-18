@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Redirect } from 'react-router-dom';
 import { getCookie } from '../../_cookie';
 
-export default class PrivateRoute extends Component {
+export default class PrivateRoute extends PureComponent {
   render() {
-    //ToDo change approach
+    // ToDo change approach
     const {
       props: {
         redirectTo,
         component: Component,
-      }
+      },
     } = this;
     const userData = getCookie('userData');
 
@@ -19,6 +19,6 @@ export default class PrivateRoute extends Component {
 
     return (
       <Component />
-    )
+    );
   }
 }

@@ -1,12 +1,11 @@
 ﻿import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import store from '../../store';
 import ActiveLink from '../hoc/ActiveLink';
 import { globalRecources } from '../../resources';
 import { logout } from '../../helper';
 
 class AuthHeaderLink extends Component {
-  logoutUser = (event) => logout();
+  logoutUser = () => logout();
 
   render() {
     const {
@@ -17,10 +16,10 @@ class AuthHeaderLink extends Component {
 
     if (name) {
       return (
-        <div className="header__registration" >
+        <div className="header__registration">
           <ActiveLink to={`/profile`} className="header-registration__login" >{name}</ActiveLink >
           <a className="header-registration__exit" onClick={this.logoutUser}>
-            выход
+            {globalRecources.exit}
           </a>
         </div>
         )

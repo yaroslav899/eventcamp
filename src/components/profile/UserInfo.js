@@ -12,7 +12,7 @@ export default class UserInfo extends PureComponent {
   componentDidMount() {
     const { user } = store.getState();
     const { data: userData } = user;
-    const url = `http://board.it-mir.net.ua/wp-json/wp/v2/media?&slug=profile-img-yaroslav899@gmail.com_`;
+    const url = 'http://board.it-mir.net.ua/wp-json/wp/v2/media?&slug=profile-img-yaroslav899@gmail.com_';
 
     return fetch(url)
       .then(response => response.json())
@@ -32,12 +32,12 @@ export default class UserInfo extends PureComponent {
 
     const file = this.fileInput.current.files[0];
     const fileNameArray = file.name.split('.');
-    const fileType = fileNameArray[fileNameArray.length-1];
-    const updatedFile = new File([file], `profile-img-${email}.${fileType}`, {type: file.type});
+    const fileType = fileNameArray[fileNameArray.length - 1];
+    const updatedFile = new File([file], `profile-img-${email}.${fileType}`, { type: file.type });
 
     this.setState({
       imgUrl: URL.createObjectURL(updatedFile),
-    })
+    });
 
     request.uploadImage(updatedFile)
       .then(() => {

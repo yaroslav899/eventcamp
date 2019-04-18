@@ -6,7 +6,7 @@ import { mainMenu, imageUrlRecources } from '../../resources';
 export default class Menu extends Component {
   render() {
     const menuLinks = mainMenu.map((item) => <li key={item.id} className="menu-item">
-      <ActiveLink to={item.url} >{item.name}</ActiveLink>
+      <ActiveLink to={item.url}>{item.name}</ActiveLink>
     </li>
     );
 
@@ -14,13 +14,13 @@ export default class Menu extends Component {
       <nav className="navbar navbar-expand-lg navbar-light" role="navigation">
         <div className="navbar-header">
           <button
-              className="navbar-toggler"
-              type="button"
-              data-toggle="collapse"
-              data-target="#navbarSupportedContent"
-              aria-controls="navbarSupportedContent"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
+            className="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
           >
             <span className="navbar-toggler-icon"></span>
           </button>

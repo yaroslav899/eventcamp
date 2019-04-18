@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { EditorState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import Select from 'react-select';
@@ -8,7 +8,7 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { categories, cities, defaultTopic } from '../../fixtures';
 import { currencies } from '../../resources';
 
-export default class AddEvent extends Component {
+export default class AddEvent extends PureComponent {
   state = {
     topics: defaultTopic,
     currentTheme: '',
@@ -62,9 +62,10 @@ export default class AddEvent extends Component {
     // ToDo update case without image and when image has cyrillic name
     return request.uploadImage(file)
       .then((response) => {
-        return request.createPost(state, response.data.id)
+        const { id } = response.data;
+        return request.createPost(state, id)
           .then(() => this.setState({ isSuccessRegister: true }));
-    });
+      });
   };
 
   validator = () => {
@@ -117,11 +118,6 @@ export default class AddEvent extends Component {
     this.setState({
       currentTheme: selection || defaultTopic,
     });
-  };
-
-
-  onChanges = (value) => {
-    this.setState({ captcha: value })
   };
 
   handleUploadImg = (event) => {

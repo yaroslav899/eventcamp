@@ -17,7 +17,7 @@ class TakingPartMember extends PureComponent {
 
     return fetch(url)
       .then(response => response.json())
-      .then(data => {
+      .then((data) => {
         this.setState({
           events: data,
         });

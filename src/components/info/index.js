@@ -12,7 +12,7 @@ class InfoPage extends PureComponent {
       text,
       location: {
         pathname,
-      }
+      },
     } = this.props;
 
     if (text) {
@@ -31,6 +31,8 @@ class InfoPage extends PureComponent {
         info: data.content.rendered,
       });
     });
+
+    return true;
   }
 
   createMarkupText() {

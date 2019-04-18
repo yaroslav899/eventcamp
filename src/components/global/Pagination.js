@@ -5,4 +5,5 @@ const Pagination = ({ pageNumber, classNameItem, classNameLink, handler }) => (
     <a onClick={handler}>{pageNumber}</a>
   </li>
 );
+
 export default Pagination;

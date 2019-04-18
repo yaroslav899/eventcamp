@@ -17,7 +17,7 @@ class SelectFilter extends Component {
   componentDidMount() {
     const {
       categories: category,
-      topics: topic
+      topics: topic,
     } = this.props;
 
     if (category) {

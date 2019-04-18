@@ -72,6 +72,7 @@ export const globalRecources = {
   interestingCTA: 'Интересно',
   copyright: '©2019 EventCamp. Все права защищены.',
   enter: 'Мой кабинет',
+  exit: 'Выйти',
   registr: 'Регистрация',
   noFilterResult: 'Измените ваш поиск, так как данные отсутствуют',
   successRegisterMsg: 'Вы успешно зарегистрировались. Попробуйте зайдти в свой аккаунт',
@@ -82,6 +83,8 @@ export const globalRecources = {
   addEventButton: 'Добавить событие',
   member: 'Участник',
   privacy: '*Я согласен(-на) с условиями использования сайта и политикой конфиденциальности.',
+  interestedTitle: 'Событие добавлено в "Интересное" в личный кабинет',
+  nonRegistred: 'Необходимо зарегистрироваться, чтобы добавить в интересное',
 };
 
 export const imageUrlRecources = {

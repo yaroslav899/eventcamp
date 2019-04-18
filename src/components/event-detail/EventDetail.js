@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import Modal from '../global/Modal';
-import GoogleCalendar from '../event-detail/GoogleCalendar';
+import GoogleCalendar from './GoogleCalendar';
 import { request } from '../../api';
 import store from '../../store';
 import { free } from '../../fixtures';
@@ -9,8 +9,8 @@ import { globalRecources, imageUrlRecources } from '../../resources';
 
 export default class EventDetail extends PureComponent {
   state = {
-      showModalBox: false,
-      isSubscribed: false,
+    showModalBox: false,
+    isSubscribed: false,
   }
 
   componentDidMount() {
@@ -50,16 +50,16 @@ export default class EventDetail extends PureComponent {
     }
   }
 
-  toggleModal = (data) => {
+  toggleModal = () => {
     this.setState(state => ({
       showModalBox: !state.showModalBox,
     }));
   }
 
   render() {
-    const {event, date, dateDay} = this.props;
-    const modalBody = this.state.isAuthorized ? `Вы подтвердили свое участие в мероприятии. Подробная информация в личном кабинете` :
-      'Необходимо зарегистрироваться, чтобы подтвердить участие';
+    const { event, date, dateDay } = this.props;
+    const { isAuthorized } = this.state;
+    const modalBody = isAuthorized ? globalRecources.interestedTitle : globalRecources.nonRegistred;
 
     return (
       <div className="row area-1">

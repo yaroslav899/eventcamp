@@ -1,18 +1,16 @@
 import React from 'react';
 import moment from 'moment';
 import { NavLink } from 'react-router-dom';
-import { imageUrlRecources, globalRecources } from '../../resources';
+import { globalRecources } from '../../resources';
 import { categories, cities } from '../../fixtures';
 import { getValueFromParams, createMarkupText } from '../../helper';
 
 const EventView = (data) => {
-  const event = data.event;
-  const isOwner = data.isOwner;
+  const { event, isOwner } = data;
   const city = getValueFromParams(cities, event.acf.cities, 'name', 'url');
   const category = getValueFromParams(categories, event.categories[0], 'id', 'url');
   const location = `${event.acf.cities}, ${event.acf.location}`;
   const date = event.acf.dateOf ? moment(event.acf.dateOf, "YYYY-MM-DD").format("Do MMM YYYY") : '';
-
   const url = `/events/${city}/${category}/${event.id}`;
 
   return (

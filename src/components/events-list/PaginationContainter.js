@@ -7,13 +7,13 @@ import { scrollToTop } from '../../helper/scroll';
 
 class PaginationContainter extends PureComponent {
   state = {
-    activePage: 1
+    activePage: 1,
   };
 
   handlePaginationClick = (event) => {
     event.preventDefault();
 
-    scrollToTop()
+    scrollToTop();
 
     const initialParams = {
       page: event.target.text,
@@ -32,14 +32,15 @@ class PaginationContainter extends PureComponent {
   }
 
   render() {
-    const { activePage, activeClass } = this.state;
+    const { activePage } = this.state;
     const { totalPages } = this.props;
-    const pageNavigation = totalPages.map((pageNumber, index) => (
-      <Pagination pageNumber={pageNumber}
-                  key={index}
-                  classNameItem={`events-pagination__item events-pagination-item ${(+activePage === +pageNumber) ? ' active' : ''}`}
-                  classNameLink='events-pagination-item__link'
-                  handler={this.handlePaginationClick}
+    const pageNavigation = totalPages.map((pageNumber) => (
+      <Pagination
+        pageNumber={pageNumber}
+        key={pageNumber}
+        classNameItem={`events-pagination__item events-pagination-item ${(+activePage === +pageNumber) ? ' active' : ''}`}
+        classNameLink='events-pagination-item__link'
+        handler={this.handlePaginationClick}
       />
     ));
 
