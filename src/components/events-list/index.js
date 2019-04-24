@@ -52,9 +52,9 @@ class ListPage extends Component {
         return <li key={event.id} className='events__item events-item'>
             <EventList
               event={event}
-              imgWrapClass="col-3"
-              descrWrapClass="col-6"
-              actionWrapClass="col-3"
+              imgWrapClass="col-12 col-md-3"
+              descrWrapClass="col-12 col-md-6"
+              actionWrapClass="col-12 col-md-3"
               isOwner={false}
             />
         </li>

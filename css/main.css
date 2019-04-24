@@ -836,7 +836,56 @@ div.right-side li.same-post-rightside div.samePost-info-rightside div.samePost-t
     border-radius: 0;
   }
   .event-filter-option p{
-      padding: 10px 0 0 0;
+    padding: 10px 0 0 0;
+  }
+  .events__item{
+    padding-bottom:10px;
+  }
+  .events-item__img {
+    height: 160px;
+    border-radius: 5px 5px 0 0;
+  }
+  .events-item__title {
+    border-bottom: 1px solid #dbdbdb;
+    margin: 10px;
+  }
+  .events-item__description{
+    display:none;
+  }
+  .events-item__tags {
+    display: none;
+  }
+  .events-item__price {
+    float: right;
+    background: transparent;
+    margin: 0;
+    width: 35%;
+    padding: 0;
+  }
+  .events-item__location {
+    margin-left: 10px;
+    padding: 0 0 0 20px;
+    float: left;
+    clear: none;
+    width: 60%;
+  }
+  .events-item__date {
+    padding: 0 0 0 20px;
+    margin-left: 10px;
+  }
+  .events-item .events-item__action {
+    position: initial;
+    bottom: 0;
+    margin: 10px 10px 0 10px;
+  }
+  .events-item .events-item__action a {
+    float:left;
+  }
+  .events-item .events-item__action span {
+    float:right;
+  }
+  .events-item-action__button {
+    padding: 7px 23px;
   }
   .footer {
     height: 60px;
