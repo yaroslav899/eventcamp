@@ -6,4 +6,5 @@ const AdvantageHoc = ({ imgUrl, text }) => (
     <span>{text}</span>
   </div>
 );
+
 export default AdvantageHoc;

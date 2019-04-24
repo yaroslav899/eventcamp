@@ -1,8 +1,9 @@
 import React, { PureComponent } from 'react';
 import store from '../../store';
 import { request } from '../../api';
+import { fieldsRegisterForm } from '../../resources';
 import { profileProperties } from '../../resources/profile';
-import { fieldsRegisterForm, imageUrlRecources } from '../../resources';
+import { imageUrlRecources } from '../../resources/url';
 
 export default class UserInfo extends PureComponent {
   state = {
@@ -20,7 +21,6 @@ export default class UserInfo extends PureComponent {
         var g = 0;
       });
   }
-
 
   fileInput = React.createRef();
 

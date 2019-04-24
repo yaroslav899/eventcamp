@@ -18,3 +18,8 @@ export const mainMenu = [{
   id: '24',
   url: '/info',
 }];
+
+export const userMenu = {
+  profile: '/profile',
+  register: '/register',
+}

@@ -1,49 +1,60 @@
-import React, { Component, Fragment } from 'react';
-import {request} from '../../api';
-import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
-import { globalRecources } from '../../resources';
+import React, { PureComponent, Fragment } from 'react';
+import { request } from '../../api';
+import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
+import { globalRecources } from '../../resources/global';
+import { googleApiService } from '../../credentials';
 
-export class GoogleMap extends Component {
+export class GoogleMap extends PureComponent {
   state = {
-    address: null
+    googleAddress: null,
+    zoomLvl: 15,
+    mapWidth: '100%',
+    mapHeight: '400px',
   };
 
   componentDidMount () {
-    request.getAddress(this.props.address).then(address => {
+    const { address: eventAddress } = this.props;
+
+    return request.getAddress(eventAddress).then(address => {
       this.setState({
-        address: address.results[0]
+        googleAddress: address.results[0]
       });
-    })
+    });
   }
 
   render() {
-    if (!this.props.loaded || !this.state.address) {
+    const { loaded, address, google } = this.props;
+    const { googleAddress, zoomLvl, mapWidth, mapHeight } = this.state;
+
+    if (!loaded || !address || !googleAddress) {
       return <Fragment />
     }
 
-    const lat = this.state.address.geometry.location.lat;
-    const lng = this.state.address.geometry.location.lng;
+    const {
+      geometry: {
+        location: {
+          lat: locationLat,
+          lng: locationLng,
+        },
+      },
+    } = googleAddress;
 
     return (
-      <div>
-        <Map google={this.props.google}
-           zoom={15}
-           style={{width: '100%', height: '400px', position: 'relative'}}
-           initialCenter = {{ lat: lat, lng: lng }}
+      <Fragment>
+        <Map
+          google={google}
+          zoom={zoomLvl}
+          style={{width: mapWidth, height: mapHeight, position: 'relative'}}
+          initialCenter = {{ lat: locationLat, lng: locationLng }}
         >
-          <Marker
-            onClick = { this.onMarkerClick }
-            title = { 'Changing Colors Garage' }
-            position = {{ lat: lat, lng: lng }}
-            name = { 'Changing Colors Garage' }
-          />
+          <Marker position = {{ lat: locationLat, lng: locationLng }} />
         </Map>
-      </div>
+      </Fragment>
     );
   }
 }
 
 export default GoogleApiWrapper({
-  apiKey: 'AIzaSyCM7IwnppmyEPSZPDZIoTW8VKOMlS5peN4',
-  language: 'ru'
+  apiKey: googleApiService.ru.key,
+  language: googleApiService.ru.lang
 })(GoogleMap)

@@ -19,6 +19,7 @@ export const detailRecources = {
   addToCalendar: 'Добавьте в календарь',
   description: 'Описание',
   howToGet: 'Как добраться',
+  showPhone: 'Показать телефон',
 };
 
 export const advantRecources = {

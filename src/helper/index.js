@@ -8,7 +8,8 @@ export const getValueFromParams = (values = [], id, searchParam, exitParam) => {
 };
 
 export const updateFilterStore = (initialParams) => {
-  if (!initialParams) return;
+  if (!initialParams) return false;
+
   if ('cities' in initialParams) {
     if (initialParams.cities === 'any') {
       initialParams.cities = '';
@@ -21,6 +22,7 @@ export const updateFilterStore = (initialParams) => {
       });
     }
   }
+
   if ('categories' in initialParams) {
     const value = categories.find(item => item.url == initialParams.categories);
     initialParams.categories = value ? value.id : '';
@@ -29,6 +31,8 @@ export const updateFilterStore = (initialParams) => {
       categories: initialParams.categories,
     });
   }
+
+  return true;
 };
 
 export const logout = () => {

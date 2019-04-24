@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { globalRecources } from '../../resources/global';
 import { imageUrlRecources, socialUrl } from '../../resources/url';
 
@@ -6,7 +6,7 @@ class SocialShare extends Component {
   render(){
     const { data } = this.props;
     if (!data) {
-      return <div>{globalRecources.loading}</div>;
+      return <Fragment>{globalRecources.loading}</Fragment>;
     }
 
     const {

@@ -6,7 +6,8 @@ import 'moment/locale/ru';
 import store from '../../store'
 import { connect } from 'react-redux';
 import { request } from '../../api';
-import { filterRecources, globalRecources } from '../../resources';
+import { filterRecources } from '../../resources';
+import { globalRecources } from '../../resources/global';
 
 class DateRange extends Component {
   handleDayClick = (day) => {

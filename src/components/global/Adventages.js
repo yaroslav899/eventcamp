@@ -11,4 +11,5 @@ const Adventages = () => (
     <AdvantageHoc imgUrl={advantageImageUrl.themes} text={advantRecources.four} />
   </div>
 );
+
 export default Adventages;

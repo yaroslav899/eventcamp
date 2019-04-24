@@ -2,6 +2,7 @@
 import { connect } from 'react-redux';
 import ActiveLink from '../hoc/ActiveLink';
 import { globalRecources } from '../../resources/global';
+import { userMenu } from '../../resources/menu';
 import { logout } from '../../helper';
 
 class AuthHeaderLink extends Component {
@@ -17,7 +18,9 @@ class AuthHeaderLink extends Component {
     if (name) {
       return (
         <div className="header__registration">
-          <ActiveLink to={`/profile`} className="header-registration__login" >{name}</ActiveLink >
+          <ActiveLink to={userMenu.profile} className="header-registration__login" >
+            {name}
+          </ActiveLink >
           <a className="header-registration__exit" onClick={this.logoutUser}>
             {globalRecources.exit}
           </a>
@@ -27,8 +30,12 @@ class AuthHeaderLink extends Component {
 
     return (
       <div className="header__registration header-registration">
-        <ActiveLink to="/register">{globalRecources.enter}</ActiveLink>
-        <ActiveLink to="/register">{globalRecources.registr}</ActiveLink>
+        <ActiveLink to={userMenu.register}>
+          {globalRecources.enter}
+        </ActiveLink>
+        <ActiveLink to={userMenu.register}>
+          {globalRecources.registr}
+        </ActiveLink>
       </div>
     )
   }

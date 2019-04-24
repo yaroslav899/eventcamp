@@ -7,13 +7,19 @@ import DetailPageView from './views/DetailPageView';
 import Loader from '../global/Loader';
 
 class DetailPage extends Component {
-  componentDidMount() {
+  resetPostAmount() {
     store.dispatch({
       type: 'UPDATE_DETAIL_POST',
       post: null,
     });
 
-    request.getPostDetail(this.props.match.params.id)
+    return true;
+  }
+
+  componentDidMount() {
+    this.resetPostAmount();
+
+    return request.getPostDetail(this.props.match.params.id)
       .then(post => {
         store.dispatch({
           type: 'UPDATE_DETAIL_POST',

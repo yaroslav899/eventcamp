@@ -71,9 +71,10 @@ class DetailInteresting extends PureComponent {
       } = samePost;
       let city = getValueFromParams(cities, postCity, 'name', 'url');
       let category = getValueFromParams(categories, postCategories[0], 'id', 'url');
+      let eventUrl = `/events/${city}/${category}/${postID}`;
 
       return <li key={postID} className="same-post-rightside">
-        <NavLink onClick={this.handleUpdateDetailPage.bind(this, samePost)} to={`/events/${city}/${category}/${postID}`}>
+        <NavLink onClick={this.handleUpdateDetailPage.bind(this, samePost)} to={eventUrl}>
           <div className="row">
             <div className="col-12">
               <img src={picture || imageUrlRecources.noPhoto} alt="" />
