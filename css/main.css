@@ -388,7 +388,7 @@ header .authBlock {
   font-weight: bold;
   padding: 5px 0;
   display: inline-block;
-  height: 50px;
+  max-height: 50px;
   overflow: hidden;
 }
 
@@ -872,6 +872,7 @@ div.right-side li.same-post-rightside div.samePost-info-rightside div.samePost-t
   .events-item__title {
     border-bottom: 1px solid #dbdbdb;
     margin: 10px;
+    max-height: inherit;
   }
   .events-item__description{
     display:none;
@@ -910,6 +911,26 @@ div.right-side li.same-post-rightside div.samePost-info-rightside div.samePost-t
   }
   .events-item-action__button {
     padding: 7px 23px;
+  }
+  .event-detail h1 {
+    padding: 0;
+    font-size: 1em;
+    font-weight: bold;
+  }
+  .event-detail div.area-1 div.area-1_image {
+    padding: 0;
+    height: 180px;
+  }
+  .event-detail div.area-1 div.area-1_image img {
+    height: 100%;
+    width: 100%;
+  }
+  ul.react-tabs__tab-list {
+    margin:0;
+    border:0;
+  }
+  ul.react-tabs__tab-list li {
+    padding: 5px 15px;
   }
   .footer {
     height: 60px;

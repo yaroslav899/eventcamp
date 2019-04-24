@@ -64,10 +64,10 @@ class EventDetail extends PureComponent {
 
     return (
       <div className="row area-1">
-        <div className="col-6 area-1_image">
+        <div className="col-12 col-md-6 area-1_image">
           <img src={event.acf.picture || imageUrlRecources.noPhoto} alt={event.title.rendered} className="detail-picture" />
         </div>
-        <div className="col-6 area-1_text">
+        <div className="col-12 col-md-6 area-1_text">
           <div className="text-right area-1_price">
             {!free.includes(event.acf.price) ? (event.acf.price + ' ' + event.acf.currency || '') : globalRecources.free}
           </div>

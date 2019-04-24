@@ -11,7 +11,7 @@ const DetailPageView = ({ event, date, dateDay }) => (
   <div className="container">
     <Adventages />
     <div className="row">
-      <div className="col-9">
+      <div className="col-12 col-md-9 event-detail">
         <h1 dangerouslySetInnerHTML={{ __html: event.title.rendered }}></h1>
         <EventDetail event={event} date={date} dateDay={dateDay} />
         <div className="row area-2">
@@ -20,7 +20,7 @@ const DetailPageView = ({ event, date, dateDay }) => (
           </div>
         </div>
       </div>
-      <div className="col-3 right-side">
+      <div className="col-12 col-md-3 right-side">
         <SocialShare data={event} />
         <div className="border-separate"/>
         <GoogleCalendar data={event} />
