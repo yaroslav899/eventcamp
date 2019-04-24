@@ -366,6 +366,8 @@ header .authBlock {
   font-weight: bold;
   padding: 5px 0;
   display: inline-block;
+  height: 50px;
+  overflow: hidden;
 }
 
 .events-item__description {

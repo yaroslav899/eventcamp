@@ -5,7 +5,7 @@ import Pagination from '../global/Pagination';
 import { request } from '../../api';
 import { scrollToTop } from '../../helper/scroll';
 
-class PaginationContainter extends PureComponent {
+class PaginationContainer extends PureComponent {
   state = {
     activePage: 1,
   };
@@ -56,4 +56,4 @@ const mapTotalPagesToProps = function (store) {
   };
 };
 
-export default connect(mapTotalPagesToProps)(PaginationContainter);
+export default connect(mapTotalPagesToProps)(PaginationContainer);

@@ -3,7 +3,7 @@ import Adventages from '../../global/Adventages';
 import Title from '../Title';
 import Filters from '../../event-filters';
 import LastPosts from '../../global/LastPosts';
-import Pagination from '../PaginationContainter';
+import PaginationContainer from '../PaginationContainer';
 
 const ListPageView = ({ eventsElement }) => (
   <div className="container events">
@@ -22,7 +22,7 @@ const ListPageView = ({ eventsElement }) => (
     </div>
     <div className="row">
       <div className="col-12">
-        <Pagination />
+        <PaginationContainer />
       </div>
     </div>
   </div>
