@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
 import store from '../../store';
 import Pagination from '../global/Pagination';
@@ -8,6 +8,8 @@ import { scrollToTop } from '../../helper/scroll';
 class PaginationContainer extends PureComponent {
   state = {
     activePage: 1,
+    maxPageNumber: 10,
+    lastPage: 10,
   };
 
   handlePaginationClick = (event) => {
@@ -15,6 +17,7 @@ class PaginationContainer extends PureComponent {
 
     scrollToTop();
 
+    // ToDo updated approach without target.text
     const initialParams = {
       page: event.target.text,
     };
@@ -31,6 +34,58 @@ class PaginationContainer extends PureComponent {
     });
   }
 
+  goToPreviousPage = () => {
+    const { activePage } = this.state;
+
+    if (activePage === 1) {
+      return false;
+    }
+
+    const initialParams = {
+      page: activePage - 1,
+    };
+
+    request.getListPosts(initialParams).then((posts) => {
+      store.dispatch({
+        type: 'UPDATE_EVENT_LIST',
+        list: posts,
+      });
+    });
+
+    this.setState({
+      activePage: initialParams.page,
+    });
+
+    scrollToTop();
+
+  }
+
+  goToNextPage = () => {
+    const { activePage } = this.state;
+    const { totalPages } = this.props;
+
+    if (activePage === totalPages.length) {
+      return false;
+    }
+
+    const initialParams = {
+      page: activePage + 1,
+    };
+
+    request.getListPosts(initialParams).then((posts) => {
+      store.dispatch({
+        type: 'UPDATE_EVENT_LIST',
+        list: posts,
+      });
+    });
+
+    this.setState({
+      activePage: initialParams.page,
+    });
+
+    scrollToTop();
+  }
+
   render() {
     const { activePage } = this.state;
     const { totalPages } = this.props;
@@ -45,7 +100,13 @@ class PaginationContainer extends PureComponent {
     ));
 
     return (
-      <ul className="events__pagination events-pagination ">{pageNavigation}</ul>
+      <Fragment>
+        <button className="events-pagination__navButton" onClick={this.goToPreviousPage}>prev page</button>
+        <ul className="events__pagination events-pagination ">
+          {pageNavigation}
+        </ul>
+        <button className="events-pagination__navButton" onClick={this.goToNextPage}>next page</button>
+      </Fragment>
     );
   }
 }

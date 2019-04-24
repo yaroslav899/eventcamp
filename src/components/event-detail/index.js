@@ -7,7 +7,7 @@ import DetailPageView from './views/DetailPageView';
 import Loader from '../global/Loader';
 
 class DetailPage extends Component {
-  resetPostAmount() {
+  resetPostAmount = () => {
     store.dispatch({
       type: 'UPDATE_DETAIL_POST',
       post: null,

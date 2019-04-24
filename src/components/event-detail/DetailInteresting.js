@@ -19,7 +19,7 @@ class DetailInteresting extends PureComponent {
     this.handleUpdateDetailPage(data);
   }
 
-  handleUpdateDetailPage(data) {
+  handleUpdateDetailPage = (data) => {
     request.getInterestingData(data, true).then((posts) => {
       if (!posts || !posts.length) {
         request.getInterestingData(data, false).then((newPosts) => {
@@ -38,7 +38,7 @@ class DetailInteresting extends PureComponent {
     });
   }
 
-  updateDetailInterestingPosts(posts, data) {
+  updateDetailInterestingPosts = (posts, data) => {
     if (!posts) return false;
 
     this.setState({

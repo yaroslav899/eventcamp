@@ -5,7 +5,7 @@ import Modal from '../global/Modal';
 import GoogleCalendar from '../event-detail/GoogleCalendar';
 import { NavLink } from 'react-router-dom';
 import store from '../../store';
-import { getUniqueArray, getValueFromParams, updateFilterStore } from '../../helper';
+import { getUniqueArray, getValueFromParams, updateFilterStore, createMarkupText } from '../../helper';
 import { free, categories, cities } from '../../fixtures';
 import { imageUrlRecources } from '../../resources/url';
 import { globalRecources } from '../../resources/global';
@@ -59,10 +59,6 @@ class EventList extends PureComponent {
     }));
   }
 
-  createMarkupText(text) {
-    return { __html: text };
-  }
-
   render() {
     const { event, imgWrapClass, descrWrapClass, actionWrapClass } = this.props;
     const city = getValueFromParams(cities, event.acf.cities, 'name', 'url');
@@ -90,9 +86,9 @@ class EventList extends PureComponent {
         </NavLink>
         <div className={descrWrapClass}>
           <NavLink to={url} className="events-item__title">
-            <span dangerouslySetInnerHTML={this.createMarkupText(event.title.rendered)} />
+            <span dangerouslySetInnerHTML={createMarkupText(event.title.rendered)} />
           </NavLink>
-          <div className="events-item__description" dangerouslySetInnerHTML={this.createMarkupText(event.excerpt.rendered)} />
+          <div className="events-item__description" dangerouslySetInnerHTML={createMarkupText(event.excerpt.rendered)} />
           <div className="events-item__tags events-item-tags">
             {tags}
           </div>
