@@ -5,9 +5,10 @@ import { request } from '../../api';
 import store from '../../store';
 import { free } from '../../fixtures';
 import { getUniqueArray } from '../../helper';
-import { globalRecources, imageUrlRecources } from '../../resources';
+import { globalRecources } from '../../resources/global';
+import { imageUrlRecources } from '../../resources/url';
 
-export default class EventDetail extends PureComponent {
+class EventDetail extends PureComponent {
   state = {
     showModalBox: false,
     isSubscribed: false,
@@ -100,3 +101,5 @@ export default class EventDetail extends PureComponent {
     )
   }
 }
+
+export default EventDetail;

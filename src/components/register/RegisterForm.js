@@ -3,17 +3,20 @@ import ReCAPTCHA from 'react-google-recaptcha';
 import { reCaptcha } from '../../credentials';
 import { formValidator } from '../../validator';
 import { request } from '../../api';
-import { titleList, globalRecources, fieldsRegisterForm } from '../../resources';
+import { fieldsRegisterForm } from '../../resources';
+import { titleList, globalRecources } from '../../resources/global';
 
 class RegisterForm extends Component {
   constructor(props) {
     super(props);
+
     this.fieldTypes = {
       text: 'text',
       email: 'email',
       password: 'password',
       duplicatepassword: 'password',
     };
+
     this.state = {
       firstname: '',
       secondname: '',

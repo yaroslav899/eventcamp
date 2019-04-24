@@ -5,7 +5,8 @@ import 'react-select/dist/react-select.css';
 import store from '../../store';
 import { request } from '../../api';
 import { categories, cities, defaultTopic } from '../../fixtures';
-import { filterRecources, globalRecources } from '../../resources';
+import { filterRecources } from '../../resources';
+import { globalRecources } from '../../resources/global';
 import { getValueFromParams } from '../../helper';
 
 class SelectFilter extends Component {
@@ -158,10 +159,7 @@ class SelectFilter extends Component {
       categories: catFilter,
       cities: cityFilter,
     } = this.props;
-    const {
-      topics,
-      currentTheme,
-    } = this.state;
+    const { topics, currentTheme } = this.state;
 
     return (
       <div className="event-filter-option">

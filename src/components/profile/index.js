@@ -9,7 +9,7 @@ import {
 import OwnEvents from './OwnEvents';
 import UserInfo from './UserInfo';
 import TakingPartMember from './TakingPartMember';
-import { mainMenu } from '../../resources';
+import { mainMenu } from '../../resources/menu';
 import { profileProperties } from '../../resources/profile';
 
 class Profile extends PureComponent {

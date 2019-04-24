@@ -5,8 +5,8 @@ import { request } from '../../api';
 import EventList from './EventList';
 import ListPageView from './views/ListPageView';
 import Loader from '../global/Loader';
-import { globalRecources } from '../../resources';
 import { updateFilterStore } from '../../helper';
+import { globalRecources } from '../../resources/global';
 
 class ListPage extends Component {
   componentDidMount() {

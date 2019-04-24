@@ -1,10 +1,7 @@
 import axios from 'axios';
 import { stateToHTML } from 'draft-js-export-html';
-import { urlRecources, googleApiService } from '../resources';
 import store from '../store';
 import { setCookie, getCookie } from '../_cookie';
-import { adminAccess } from '../credentials';
-import { cities } from '../fixtures';
 import { getValueFromParams } from '../helper';
 import {
   getRequestUrl,
@@ -12,6 +9,10 @@ import {
   getLastPostsUrl,
   authFetch,
 } from './helpers';
+import { adminAccess } from '../credentials';
+import { cities } from '../fixtures';
+import { urlRecources } from '../resources/url';
+import { googleApiService } from '../resources';
 
 export const request = {
   authUser: (param) => authFetch(param).then((response) => {

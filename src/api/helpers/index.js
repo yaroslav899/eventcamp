@@ -1,6 +1,6 @@
 import moment from 'moment';
 import { cities } from '../../fixtures';
-import { urlRecources } from '../../resources';
+import { urlRecources } from '../../resources/url';
 import store from '../../store';
 
 export const getRequestUrl = (param) => {

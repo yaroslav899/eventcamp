@@ -1,4 +1,6 @@
 import React from 'react';
+import { imageUrlRecources } from '../../resources/url';
 
-const Banner = () => <img src="/img/slider1.png" className="img-fluid" />
+const Banner = () => <img src={imageUrlRecources.banner} className="img-fluid" />
+
 export default Banner;

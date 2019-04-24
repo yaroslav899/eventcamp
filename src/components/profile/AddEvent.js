@@ -3,10 +3,12 @@ import { EditorState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import Select from 'react-select';
 import { request } from '../../api';
+import Loader from '../global/Loader';
 import { formValidator } from '../../validator';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { categories, cities, defaultTopic } from '../../fixtures';
-import { currencies } from '../../resources';
+import { currencies } from '../../resources/currencies';
+import { global, addEventFields, addEventPlaceholders, descrFields } from '../../resources/profile';
 
 export default class AddEvent extends PureComponent {
   state = {
@@ -14,7 +16,6 @@ export default class AddEvent extends PureComponent {
     currentTheme: '',
     editorState: EditorState.createEmpty(),
     title: '',
-    image: null,
     price: '',
     currency: '',
     category: '',
@@ -64,7 +65,10 @@ export default class AddEvent extends PureComponent {
       .then((response) => {
         const { id } = response.data;
         return request.createPost(state, id)
-          .then(() => this.setState({ isSuccessRegister: true }));
+          .then((data) => {
+              var g = 0;
+              this.setState({ isSuccessRegister: true });
+          });
       });
   };
 
@@ -120,12 +124,6 @@ export default class AddEvent extends PureComponent {
     });
   };
 
-  handleUploadImg = (event) => {
-    this.setState({
-      image: URL.createObjectURL(event.target.files[0])
-    })
-  };
-
   onEditorStateChange = (editorState) => {
     this.setState({
       editorState,
@@ -138,7 +136,6 @@ export default class AddEvent extends PureComponent {
       title,
       category,
       currentTheme,
-      image,
       date,
       time,
       register,
@@ -150,27 +147,36 @@ export default class AddEvent extends PureComponent {
       address,
       tags,
       errorMsg,
+      isSuccessRegister,
     } = this.state;
+
+    if (isSuccessRegister) {
+      return (
+        <div className="container">
+            {global.successMsg}
+        </div>
+      )
+    }
 
     return (
       <div className="container">
-        <h1>Добавить событие</h1>
+        <h1>{global.addEventButton}</h1>
         <form onSubmit={this.handleSubmit}>
           <div className="form-row">
             <div className="col-md-6">
               <div className="row">
                 <div className="form-group col-md-12">
-                  <label htmlFor="title">Заголовок</label>
+                  <label htmlFor="title">{addEventFields.titleField}</label>
                   <input type="text"
                     className="form-control"
                     name="title"
                     value={title}
                     onChange={this.handleInputChange}
-                    placeholder="Заполните заголовок"
+                    placeholder={addEventPlaceholders.titleField}
                   />
                 </div>
                 <div className="form-group col-md-6">
-                  <label htmlFor="category">Категория</label>
+                  <label htmlFor="category">{addEventFields.categoryField}</label>
                   <Select
                     name="form-field-category"
                     label="category"
@@ -183,9 +189,8 @@ export default class AddEvent extends PureComponent {
                     onChange={this.changeCategory}
                   />
                 </div>
-
                 <div className="form-group col-md-6">
-                  <label htmlFor="topics">Тема</label>
+                  <label htmlFor="topics">{addEventFields.topicField}</label>
                   <Select
                     name="form-field-topics"
                     label="topics"
@@ -201,14 +206,13 @@ export default class AddEvent extends PureComponent {
               </div>
             </div>
             <div className="form-group offset-md-2 col-md-4 text-center">
-              <input type="file" ref={this.fileInput} onChange={this.handleUploadImg} />
-              <img src={image} height="120" />
+              <input type="file" ref={this.fileInput} />
             </div>
           </div>
           <div className="border-separate" />
           <div className="form-row">
             <div className="form-group col-md-2">
-              <label htmlFor="date">Дата</label>
+              <label htmlFor="date">{addEventFields.dateField}</label>
               <input type="date"
                 className="form-control"
                 name="date"
@@ -217,7 +221,7 @@ export default class AddEvent extends PureComponent {
               />
             </div>
             <div className="form-group col-md-2">
-              <label htmlFor="time">Время</label>
+              <label htmlFor="time">{addEventFields.timeField}</label>
               <input type="time"
                 className="form-control"
                 name="time"
@@ -229,83 +233,82 @@ export default class AddEvent extends PureComponent {
           <div className="border-separate" />
           <div className="form-row">
             <div className="form-group col-md-4">
-              <label htmlFor="register">Ссылка для регистрации</label>
+              <label htmlFor="register">{addEventFields.linkField}</label>
               <input type="text"
                 className="form-control"
                 name="register"
                 value={register}
                 onChange={this.handleInputChange}
-                placeholder="http://add-your-link.com"
+                placeholder={addEventPlaceholders.linkField}
               />
             </div>
             <div className="form-group col-md-6 offset-md-2 descr-label">
-              Ссылка на ваш сайт для регистрации участников или информация о событии
+              {descrFields.linkField}
             </div>
           </div>
           <div className="border-separate" />
           <div className="form-row">
             <div className="form-group col-md-4">
-              <label htmlFor="phone">Телефон для связи</label>
+              <label htmlFor="phone">{addEventFields.phoneField}</label>
               <input type="text"
                 className="form-control"
                 name="phone"
                 value={phone}
                 onChange={this.handleInputChange}
-                placeholder="+38 (0xx) xxx-xx-xx"
+                placeholder={addEventPlaceholders.phoneField}
               />
             </div>
             <div className="form-group col-md-6 offset-md-2 descr-label">
-              Добавляйте номер телефона и ваше событие получит больший отклик. Люди смогут узанть больше информации по телефону
+              {descrFields.phoneField}
             </div>
           </div>
           <div className="border-separate" />
           <div className="form-row">
             <div className="form-group col-md-4">
-              <label htmlFor="email">Email для связи</label>
+              <label htmlFor="email">{addEventFields.emailField}</label>
               <input type="text"
                 className="form-control"
                 name="email"
                 value={email}
                 onChange={this.handleInputChange}
-                placeholder="your@email.com"
+                placeholder={addEventPlaceholders.emailField}
               />
             </div>
             <div className="form-group col-md-6 offset-md-2 descr-label">
-              Добавляйте адрес вашей электронной почты и получайте обратную связь от пользователей.
+              {descrFields.emailField}
             </div>
           </div>
-          <div className="border-separate"></div>
+          <div className="border-separate" />
           <div className="form-row">
             <div className="form-group col-md-4">
-              <label htmlFor="tags">Тэги</label>
+              <label htmlFor="tags">{addEventFields.tagsField}</label>
               <input type="text"
                 className="form-control"
                 name="tags"
                 value={tags}
                 onChange={this.handleInputChange}
-                placeholder="javascript,биология,конференция"
+                placeholder={addEventPlaceholders.tagsField}
               />
             </div>
             <div className="form-group col-md-6 offset-md-2 descr-label">
-              Добавляйте ключевые слова через запятую. Это позволит системе показывать ваше
-              объявление в поиске похожие и улучшит его в поиске событий.
+              {descrFields.tagsField}
             </div>
           </div>
           <div className="border-separate" />
           <div className="form-row">
             <div className="form-group col-md-2">
-              <label htmlFor="price">Цена</label>
+              <label htmlFor="price">{addEventFields.priceField}</label>
               <input
                 type="number"
                 className="form-control"
                 name="price"
                 value={price}
                 onChange={this.handleInputChange}
-                placeholder="1000"
+                placeholder={addEventPlaceholders.priceField}
               />
             </div>
             <div className="form-group col-md-2">
-              <label htmlFor="currency">Валюта</label>
+              <label htmlFor="currency">{addEventFields.curriencesField}</label>
               <Select
                 name="form-field-currency"
                 label="currency"
@@ -322,7 +325,7 @@ export default class AddEvent extends PureComponent {
           <div className="border-separate" />
           <div className="form-row">
             <div className="form-group col-md-3">
-              <label htmlFor="city">Город</label>
+              <label htmlFor="city">{addEventFields.cityField}</label>
               <Select
                 name="form-field-cities"
                 label="city"
@@ -336,30 +339,29 @@ export default class AddEvent extends PureComponent {
               />
             </div>
             <div className="form-group col-md-5">
-              <label htmlFor="address">Адрес</label>
+              <label htmlFor="address">{addEventFields.addressField}</label>
               <input type="text"
                 className="form-control"
                 name="address"
                 value={address}
                 onChange={this.handleInputChange}
-                placeholder="Адрес"
+                placeholder={addEventPlaceholders.addressField}
               />
             </div>
           </div>
           <div className="border-separate" />
-          <div className="">
-            <span>Описание</span>
-            <Editor
-              editorState={editorState}
-              toolbarClassName="toolbarClassName"
-              wrapperClassName="wrapperClassName"
-              editorClassName="editorClassName"
-              onEditorStateChange={this.onEditorStateChange}
-            />
-          </div>
+          <span>{addEventFields.descriptionField}</span>
+          <Editor
+            editorState={editorState}
+            toolbarClassName="toolbarClassName"
+            wrapperClassName="wrapperClassName"
+            editorClassName="editorClassName"
+            onEditorStateChange={this.onEditorStateChange}
+          />
           <div className="border-separate" />
           <span className="error-message">{errorMsg}</span>
-          <input type="submit" value="Добавить событие" className="btn btn-secondary" />
+          <input type="submit" value={global.addEventButton} className="btn btn-secondary" />
+          <Loader/>
         </form>
       </div>
     );

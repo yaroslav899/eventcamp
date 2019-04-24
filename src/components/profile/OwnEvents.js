@@ -21,7 +21,7 @@ class OwnEvents extends PureComponent {
     });
   }
 
-  loadOwnEvents(userID) {
+  loadOwnEvents = (userID) => {
     return request.getAuthorPosts({ author: userID }).then((posts) => {
       store.dispatch({
         type: 'UPDATE_USER_POSTS',

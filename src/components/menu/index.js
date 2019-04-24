@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import ActiveLink from '../hoc/ActiveLink';
-import { mainMenu, imageUrlRecources } from '../../resources';
+import { imageUrlRecources } from '../../resources/url';
+import { mainMenu } from '../../resources/menu';
+import { titleList } from '../../resources/global';
 
-export default class Menu extends Component {
+class Menu extends Component {
   render() {
     const menuLinks = mainMenu.map((item) => <li key={item.id} className="menu-item">
       <ActiveLink to={item.url}>{item.name}</ActiveLink>
@@ -25,7 +27,7 @@ export default class Menu extends Component {
             <span className="navbar-toggler-icon"></span>
           </button>
           <NavLink to="/" className="navbar-brand d-md-none" exact>
-            <img src={imageUrlRecources.logo} />
+            <img src={imageUrlRecources.logo} alt={titleList.home} title={titleList.home} />
           </NavLink>
         </div>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -37,3 +39,5 @@ export default class Menu extends Component {
     )
   }
 }
+
+export default Menu;

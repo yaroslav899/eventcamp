@@ -1,24 +1,19 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { getCookie } from '../../_cookie';
 
-export default class PrivateRoute extends PureComponent {
-  render() {
-    // ToDo change approach
-    const {
-      props: {
-        redirectTo,
-        component: Component,
-      },
-    } = this;
-    const userData = getCookie('userData');
+const PrivateRoute = (props) => {
+  // ToDo need to redo this approach
+  const { redirectTo, component: Component } = props;
+  const userData = getCookie('userData');
 
-    if (!userData) {
-      return <Redirect to={redirectTo} />;
-    }
-
-    return (
-      <Component />
-    );
+  if (!userData) {
+    return <Redirect to={redirectTo} />;
   }
-}
+
+  return (
+    <Component />
+  );
+};
+
+export default PrivateRoute;

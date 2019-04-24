@@ -1,13 +1,14 @@
-import React, { Component, Fragment } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import moment from 'moment';
 import { NavLink } from 'react-router-dom';
 import store from '../../store';
 import { request } from '../../api';
-import { categories, cities } from '../../fixtures';
 import { getValueFromParams, createMarkupText } from '../../helper';
-import { imageUrlRecources, detailRecources } from '../../resources';
+import { categories, cities } from '../../fixtures';
+import { detailRecources } from '../../resources';
+import { imageUrlRecources } from '../../resources/url';
 
-export default class DetailInteresting extends Component {
+class DetailInteresting extends PureComponent {
   state = {
     posts: null,
   };
@@ -18,7 +19,7 @@ export default class DetailInteresting extends Component {
     this.handleUpdateDetailPage(data);
   }
 
-  handleUpdateDetailPage(data) {
+  handleUpdateDetailPage = (data) => {
     request.getInterestingData(data, true).then((posts) => {
       if (!posts || !posts.length) {
         request.getInterestingData(data, false).then((newPosts) => {
@@ -37,7 +38,7 @@ export default class DetailInteresting extends Component {
     });
   }
 
-  updateDetailInterestingPosts(posts, data) {
+  updateDetailInterestingPosts = (posts, data) => {
     if (!posts) return false;
 
     this.setState({
@@ -70,9 +71,10 @@ export default class DetailInteresting extends Component {
       } = samePost;
       let city = getValueFromParams(cities, postCity, 'name', 'url');
       let category = getValueFromParams(categories, postCategories[0], 'id', 'url');
+      let eventUrl = `/events/${city}/${category}/${postID}`;
 
       return <li key={postID} className="same-post-rightside">
-        <NavLink onClick={this.handleUpdateDetailPage.bind(this, samePost)} to={`/events/${city}/${category}/${postID}`}>
+        <NavLink onClick={this.handleUpdateDetailPage.bind(this, samePost)} to={eventUrl}>
           <div className="row">
             <div className="col-12">
               <img src={picture || imageUrlRecources.noPhoto} alt="" />
@@ -104,3 +106,5 @@ export default class DetailInteresting extends Component {
     );
   }
 }
+
+export default DetailInteresting;

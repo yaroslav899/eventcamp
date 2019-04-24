@@ -2,9 +2,9 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import store from '../../store';
 import { request } from '../../api';
-import { mainMenu } from '../../resources';
-import { getValueFromParams } from '../../helper';
+import { getValueFromParams, createMarkupText } from '../../helper';
 import Adventages from '../global/Adventages';
+import { mainMenu } from '../../resources/menu';
 
 class InfoPage extends PureComponent {
   componentDidMount() {
@@ -35,19 +35,16 @@ class InfoPage extends PureComponent {
     return true;
   }
 
-  createMarkupText() {
-    const { text } = this.props;
-    return { __html: text };
-  }
-
   render() {
+    const { text } = this.props;
+
     return (
       <div className="container">
         <Adventages/>
-          <div className="row">
-            <div className="col-12" dangerouslySetInnerHTML={this.createMarkupText()} />
-          </div>
+        <div className="row">
+          <div className="col-12" dangerouslySetInnerHTML={createMarkupText(text)} />
         </div>
+      </div>
     );
   }
 }
