@@ -2,7 +2,8 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import Menu from '../menu';
 import AuthHeaderLink from './AuthHeaderLink';
-import { imageUrlRecources } from '../../resources';
+import { imageUrlRecources } from '../../resources/url';
+import { titleList } from '../../resources/global';
 
 const Header = () => (
   <header className="header">
@@ -19,7 +20,7 @@ const Header = () => (
       <div className="row">
         <div className="col-2 d-none d-sm-block header__logo">
           <NavLink to="/" exact>
-            <img src={imageUrlRecources.logo} alt="" title="" />
+            <img src={imageUrlRecources.logo} alt={titleList.home} title={titleList.home} />
           </NavLink>
         </div>
         <div className="col-sm-10 col-12">

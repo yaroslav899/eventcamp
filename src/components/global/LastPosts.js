@@ -6,7 +6,8 @@ import store from '../../store';
 import { request } from '../../api';
 import { getValueFromParams, getUniqueArray, createMarkupText } from '../../helper';
 import { categories, cities, free } from '../../fixtures';
-import { listRecources, globalRecources } from '../../resources';
+import { listRecources } from '../../resources';
+import { globalRecources } from '../../resources/global';
 
 class LastPosts extends PureComponent {
   componentDidMount() {

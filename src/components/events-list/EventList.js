@@ -5,12 +5,12 @@ import Modal from '../global/Modal';
 import GoogleCalendar from '../event-detail/GoogleCalendar';
 import { NavLink } from 'react-router-dom';
 import store from '../../store';
-import { getUniqueArray } from '../../helper';
-import { imageUrlRecources, globalRecources } from '../../resources';
+import { getUniqueArray, getValueFromParams, updateFilterStore } from '../../helper';
 import { free, categories, cities } from '../../fixtures';
-import { getValueFromParams, updateFilterStore } from '../../helper';
+import { imageUrlRecources } from '../../resources/url';
+import { globalRecources } from '../../resources/global';
 
-export default class EventList extends PureComponent {
+class EventList extends PureComponent {
   state = {
       showModalBox: false,
       isSubscribed: false,
@@ -128,3 +128,5 @@ export default class EventList extends PureComponent {
     )
   }
 }
+
+export default EventList;

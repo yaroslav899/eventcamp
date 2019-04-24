@@ -2,16 +2,12 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import store from '../store';
 import { request } from '../api';
-import { mainMenu } from '../resources';
-import { getValueFromParams } from '../helper';
+import { getValueFromParams, createMarkupText } from '../helper';
+import { mainMenu } from '../resources/menu';
 
 class MainText extends PureComponent {
   componentDidMount() {
-    const {
-      props: {
-        text,
-      } = {},
-    } = this;
+    const { text } = this.props;
 
     if (text) {
       return null;
@@ -31,17 +27,14 @@ class MainText extends PureComponent {
     });
   }
 
-  createMarkupText() {
-    const { text } = this.props;
-    return { __html: text };
-  }
-
   render() {
+    const { text } = this.props;
+
     return (
       <div className="additional-area d-none d-sm-block">
         <div className="container">
           <div className="row">
-            <div className="col-12 column" dangerouslySetInnerHTML={this.createMarkupText()} />
+            <div className="col-12 column" dangerouslySetInnerHTML={createMarkupText(text)} />
           </div>
         </div>
       </div>

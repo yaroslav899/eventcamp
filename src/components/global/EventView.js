@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import { NavLink } from 'react-router-dom';
-import { globalRecources } from '../../resources';
+import { globalRecources } from '../../resources/global';
 import { categories, cities } from '../../fixtures';
 import { getValueFromParams, createMarkupText } from '../../helper';
 

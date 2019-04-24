@@ -1,14 +1,12 @@
 import React, { PureComponent, Fragment } from 'react';
-import {
-  urlRecources,
-  detailRecources,
-  globalRecources,
-  imageUrlRecources,
-} from '../../resources';
+import { detailRecources } from '../../resources';
+import { urlRecources, imageUrlRecources } from '../../resources/url';
+import { globalRecources } from '../../resources/global';
 
 class GoogleCalendar extends PureComponent {
   render() {
     const { data } = this.props;
+
     if (!data) {
       return <Fragment>{globalRecources.loading}</Fragment>;
     }
@@ -21,7 +19,7 @@ class GoogleCalendar extends PureComponent {
       <div className="calendar-link">
         <p>{detailRecources.addToCalendar}</p>
         <a href={calGoggles} target="_blank">
-          <img src="/img/google.png" alt="" />
+          <img src={imageUrlRecources.google} alt="" />
         </a>
       </div>
     );

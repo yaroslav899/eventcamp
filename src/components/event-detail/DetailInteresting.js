@@ -1,13 +1,14 @@
-import React, { Component, Fragment } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import moment from 'moment';
 import { NavLink } from 'react-router-dom';
 import store from '../../store';
 import { request } from '../../api';
-import { categories, cities } from '../../fixtures';
 import { getValueFromParams, createMarkupText } from '../../helper';
-import { imageUrlRecources, detailRecources } from '../../resources';
+import { categories, cities } from '../../fixtures';
+import { detailRecources } from '../../resources';
+import { imageUrlRecources } from '../../resources/url';
 
-export default class DetailInteresting extends Component {
+class DetailInteresting extends PureComponent {
   state = {
     posts: null,
   };
@@ -104,3 +105,5 @@ export default class DetailInteresting extends Component {
     );
   }
 }
+
+export default DetailInteresting;

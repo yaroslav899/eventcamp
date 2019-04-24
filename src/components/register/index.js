@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import AuthForm from './AuthForm';
 import RegisterForm from './RegisterForm';
 import Adventages from '../global/Adventages';
-import { globalRecources } from '../../resources';
+import { globalRecources } from '../../resources/global';
 
 class RegistrationPage extends PureComponent {
   state = {
@@ -10,10 +10,7 @@ class RegistrationPage extends PureComponent {
   };
 
   render() {
-    const {
-      isSuccessRegister,
-    } = this.state;
-
+    const { isSuccessRegister } = this.state;
     const registerForm = (isSuccessRegister ? (
       <div>
         {globalRecources.successRegisterMsg}

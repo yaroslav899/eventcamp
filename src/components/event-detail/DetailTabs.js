@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   Tab,
   Tabs,
@@ -6,13 +6,10 @@ import {
   TabPanel,
 } from 'react-tabs';
 import GoogleMap from './GoogleMap';
+import { createMarkupText } from '../../helper';
 import { detailRecources } from '../../resources';
 
-export default class DetailTabs extends Component {
-  createMarkupText(text) {
-    return { __html: text };
-  }
-
+class DetailTabs extends PureComponent {
   render() {
     const {
       data: {
@@ -34,7 +31,7 @@ export default class DetailTabs extends Component {
           <Tab>{detailRecources.howToGet}</Tab>
         </TabList>
         <TabPanel>
-          <div className="event_text" dangerouslySetInnerHTML={this.createMarkupText(rendered)} />
+          <div className="event_text" dangerouslySetInnerHTML={createMarkupText(rendered)} />
         </TabPanel>
         <TabPanel>
           <div className="row">
@@ -51,3 +48,5 @@ export default class DetailTabs extends Component {
     );
   }
 }
+
+export default DetailTabs;

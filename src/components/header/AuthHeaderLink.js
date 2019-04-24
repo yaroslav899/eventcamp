@@ -1,7 +1,7 @@
 ﻿import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ActiveLink from '../hoc/ActiveLink';
-import { globalRecources } from '../../resources';
+import { globalRecources } from '../../resources/global';
 import { logout } from '../../helper';
 
 class AuthHeaderLink extends Component {
