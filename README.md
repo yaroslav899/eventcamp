@@ -9,8 +9,20 @@ This is <b>events board</b>
             login: '***',
             password: '***',
         };
+        </code>
+        <br/>
+        <code>
+        export const reCaptcha = {
+          siteKey: '***',
+        };
+        </code>
+        <br/>
+        <code>
         export const googleApiService = {
-          key: '***',
+          ru: {
+            key: '***',
+            lang: '***',
+          },
         };
         </code>
     </li>
