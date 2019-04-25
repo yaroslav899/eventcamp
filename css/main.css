@@ -54,6 +54,9 @@ a:hover {
   cursor: pointer;
   text-decoration: none;
 }
+.article-appear {
+  margin-bottom: 20px;
+}
 
 /**
 *  Header
@@ -160,23 +163,38 @@ header .authBlock {
 */
 .events-pagination__item {
   float: left;
-  margin: 5px 0 10px 0;
+  margin: 5px 5px 10px 0;
 }
-.events-pagination__item a {
+.events-pagination__item button {
   color: #8c8c8c;
-  margin-right: 8px;
   font-size: 0.9em;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
 }
-.events-pagination__item.active a, .events-pagination__item.active a:hover {
+.events-pagination__item.active button, .events-pagination__item.active button:hover {
   background: #0367b7;
   color: #ffffff;
-  padding: 3px 9px;
+  padding: 1px 8px;
   border-radius: 15px;
 }
 .events-pagination__navButton {
   float: left;
   background-color: transparent;
+  background-size: cover;
+  width: 25px;
+  height: 25px;
   border: 0px;
+  cursor: pointer;
+}
+.events-pagination__prev-button {
+  background-image: url(/img/prev-button.png);
+  margin: 5px 15px 0 0;
+}
+.events-pagination__next-button {
+  background-image: url(/img/next-button.png);
+  margin: 5px 0 0 10px;
 }
 
 /**

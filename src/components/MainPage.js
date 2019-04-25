@@ -3,6 +3,7 @@ import Banner from './global/Banner';
 import Adventages from './global/Adventages';
 import ServicePicture from './global/ServicePicture';
 import LastPosts from './global/LastPosts';
+import FacebookWidget from './global/FacebookWidget';
 import MainText from './MainText';
 
 const MainPage = () => (
@@ -22,19 +23,7 @@ const MainPage = () => (
         </div>
         <div className="col-12 col-md-3">
           <LastPosts />
-          <div>
-            <div
-              className="fb-page"
-              data-href="https://www.facebook.com/eventcampua/"
-              data-width="270"
-              data-hide-cover="false"
-              data-show-facepile="false"
-            >
-              <blockquote cite="https://www.facebook.com/eventcampua/" className="fb-xfbml-parse-ignore">
-                <a href="https://www.facebook.com/eventcampua/">Homepets. ќбъ€влени€ о продаже, в€зке домашних животных</a>
-              </blockquote>
-            </div>
-          </div>
+          <FacebookWidget />
         </div>
       </div>
     </div>
