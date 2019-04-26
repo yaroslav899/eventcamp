@@ -1,6 +1,7 @@
 export const titleList = {
   home: 'Event camp - События, конференции и встречи Украины',
   registration: 'Регистрация',
+  authorization: 'Авторизация',
 };
 
 export const globalRecources = {
@@ -22,6 +23,7 @@ export const globalRecources = {
     + 'сервер работает неправильно(случается крайне редко).',
   owner: 'Организатор',
   addEventButton: 'Добавить событие',
+  sendText: 'Отправить',
   member: 'Участник',
   privacy: '*Я согласен(-на) с условиями использования сайта и политикой конфиденциальности.',
   interestedTitle: 'Событие добавлено в "Интересное" в личный кабинет',

@@ -28,28 +28,79 @@ export default class AddEvent extends PureComponent {
     date: '',
     time: '',
     errorMsg: '',
+    isAddingEvent: false,
     isSuccessRegister: false,
   };
 
   fileInput = React.createRef();
 
   handleInputChange = (event) => {
+    const { isAddingEvent } = this.state;
+
+    if (isAddingEvent) {
+      return false;
+    }
+
     this.setState({ [event.target.name]: event.target.value });
   }
 
   handleSelectChange = (event) => {
+    const { isAddingEvent } = this.state;
+
+    if (isAddingEvent) {
+      return false;
+    }
+
     this.setState({ [event.type]: event.value });
   }
 
   changeCategory = (event) => {
+    const { isAddingEvent } = this.state;
+
+    if (isAddingEvent) {
+      return false;
+    }
+
     this.setState({
       [event.type]: event.value,
       topics: categories.find(category => category.id === event.value).subcat,
     });
   }
 
+  changeTheme = (selection) => {
+    const { topics, isAddingEvent } = this.state;
+
+    if (isAddingEvent) {
+      return false;
+    }
+
+    if (selection) {
+      const param = topics.filter(topic => topic.name === selection.label);
+    }
+
+    this.setState({
+      currentTheme: selection || defaultTopic,
+    });
+  };
+
+  onEditorStateChange = (editorState) => {
+    const { isAddingEvent } = this.state;
+
+    if (isAddingEvent) {
+      return false;
+    }
+
+    this.setState({
+      editorState,
+    });
+  };
+
   handleSubmit = (event) => {
     event.preventDefault();
+
+    this.setState({
+      isAddingEvent: true,
+    });
 
     const file = this.fileInput.current.files[0];
     const { state } = this;
@@ -73,62 +124,43 @@ export default class AddEvent extends PureComponent {
   };
 
   validator = () => {
-    const {
-      title,
-      category,
-      currentTheme,
-      date,
-      time,
-      city,
-    } = this.state;
-
+    const { title, category, currentTheme, date, time, city } = this.state;
+    const { titleField, categoryField, topicField, dateField, timeField, cityField } = addEventFields;
     const fields = {
       title: {
         value: title,
+        name: titleField,
         rules: ['isMandatory'],
       },
       category: {
         value: category,
+        name: categoryField,
         rules: ['isMandatory'],
       },
       currentTheme: {
         value: currentTheme,
+        name: topicField,
         rules: ['isMandatory'],
       },
       date: {
         value: date,
+        name: dateField,
         rules: ['isMandatory'],
       },
       time: {
         value: time,
+        name: timeField,
         rules: ['isMandatory'],
       },
       city: {
         value: city,
+        name: cityField,
         rules: ['isMandatory'],
       },
     };
 
     return formValidator(fields);
   }
-
-  changeTheme = (selection) => {
-    const { topics } = this.state;
-
-    if (selection) {
-      const param = topics.filter(topic => topic.name === selection.label);
-    }
-
-    this.setState({
-      currentTheme: selection || defaultTopic,
-    });
-  };
-
-  onEditorStateChange = (editorState) => {
-    this.setState({
-      editorState,
-    });
-  };
 
   render() {
     const {
@@ -147,13 +179,14 @@ export default class AddEvent extends PureComponent {
       address,
       tags,
       errorMsg,
+      isAddingEvent,
       isSuccessRegister,
     } = this.state;
 
     if (isSuccessRegister) {
       return (
         <div className="container">
-            {global.successMsg}
+          {global.successMsg}
         </div>
       )
     }
@@ -166,17 +199,15 @@ export default class AddEvent extends PureComponent {
             <div className="col-md-6">
               <div className="row">
                 <div className="form-group col-md-12">
-                  <label htmlFor="title">{addEventFields.titleField}</label>
-                  <input type="text"
-                    className="form-control"
-                    name="title"
-                    value={title}
-                    onChange={this.handleInputChange}
-                    placeholder={addEventPlaceholders.titleField}
-                  />
+                  <label htmlFor="title">
+                    {addEventFields.titleField}
+                  </label>
+                  <input type="text" className="form-control" name="title" value={title} onChange={this.handleInputChange} placeholder={addEventPlaceholders.titleField} />
                 </div>
                 <div className="form-group col-md-6">
-                  <label htmlFor="category">{addEventFields.categoryField}</label>
+                  <label htmlFor="category">
+                    {addEventFields.categoryField}
+                  </label>
                   <Select
                     name="form-field-category"
                     label="category"
@@ -190,7 +221,9 @@ export default class AddEvent extends PureComponent {
                   />
                 </div>
                 <div className="form-group col-md-6">
-                  <label htmlFor="topics">{addEventFields.topicField}</label>
+                  <label htmlFor="topics">
+                    {addEventFields.topicField}
+                  </label>
                   <Select
                     name="form-field-topics"
                     label="topics"
@@ -212,35 +245,25 @@ export default class AddEvent extends PureComponent {
           <div className="border-separate" />
           <div className="form-row">
             <div className="form-group col-md-2">
-              <label htmlFor="date">{addEventFields.dateField}</label>
-              <input type="date"
-                className="form-control"
-                name="date"
-                value={date}
-                onChange={this.handleInputChange}
-              />
+              <label htmlFor="date">
+                {addEventFields.dateField}
+              </label>
+              <input type="date" className="form-control" name="date" value={date} onChange={this.handleInputChange} />
             </div>
             <div className="form-group col-md-2">
-              <label htmlFor="time">{addEventFields.timeField}</label>
-              <input type="time"
-                className="form-control"
-                name="time"
-                value={time}
-                onChange={this.handleInputChange}
-              />
+              <label htmlFor="time">
+                {addEventFields.timeField}
+              </label>
+              <input type="time" className="form-control" name="time" value={time} onChange={this.handleInputChange} />
             </div>
           </div>
           <div className="border-separate" />
           <div className="form-row">
             <div className="form-group col-md-4">
-              <label htmlFor="register">{addEventFields.linkField}</label>
-              <input type="text"
-                className="form-control"
-                name="register"
-                value={register}
-                onChange={this.handleInputChange}
-                placeholder={addEventPlaceholders.linkField}
-              />
+              <label htmlFor="register">
+                {addEventFields.linkField}
+              </label>
+              <input type="text" className="form-control" name="register" value={register} onChange={this.handleInputChange} placeholder={addEventPlaceholders.linkField} />
             </div>
             <div className="form-group col-md-6 offset-md-2 descr-label">
               {descrFields.linkField}
@@ -249,14 +272,10 @@ export default class AddEvent extends PureComponent {
           <div className="border-separate" />
           <div className="form-row">
             <div className="form-group col-md-4">
-              <label htmlFor="phone">{addEventFields.phoneField}</label>
-              <input type="text"
-                className="form-control"
-                name="phone"
-                value={phone}
-                onChange={this.handleInputChange}
-                placeholder={addEventPlaceholders.phoneField}
-              />
+              <label htmlFor="phone">
+                {addEventFields.phoneField}
+              </label>
+              <input type="text" className="form-control" name="phone" value={phone} onChange={this.handleInputChange} placeholder={addEventPlaceholders.phoneField} />
             </div>
             <div className="form-group col-md-6 offset-md-2 descr-label">
               {descrFields.phoneField}
@@ -265,14 +284,10 @@ export default class AddEvent extends PureComponent {
           <div className="border-separate" />
           <div className="form-row">
             <div className="form-group col-md-4">
-              <label htmlFor="email">{addEventFields.emailField}</label>
-              <input type="text"
-                className="form-control"
-                name="email"
-                value={email}
-                onChange={this.handleInputChange}
-                placeholder={addEventPlaceholders.emailField}
-              />
+              <label htmlFor="email">
+                {addEventFields.emailField}
+              </label>
+              <input type="text" className="form-control" name="email" value={email} onChange={this.handleInputChange} placeholder={addEventPlaceholders.emailField} />
             </div>
             <div className="form-group col-md-6 offset-md-2 descr-label">
               {descrFields.emailField}
@@ -281,7 +296,9 @@ export default class AddEvent extends PureComponent {
           <div className="border-separate" />
           <div className="form-row">
             <div className="form-group col-md-4">
-              <label htmlFor="tags">{addEventFields.tagsField}</label>
+              <label htmlFor="tags">
+                {addEventFields.tagsField}
+              </label>
               <input type="text"
                 className="form-control"
                 name="tags"
@@ -297,7 +314,9 @@ export default class AddEvent extends PureComponent {
           <div className="border-separate" />
           <div className="form-row">
             <div className="form-group col-md-2">
-              <label htmlFor="price">{addEventFields.priceField}</label>
+              <label htmlFor="price">
+                {addEventFields.priceField}
+              </label>
               <input
                 type="number"
                 className="form-control"
@@ -308,7 +327,9 @@ export default class AddEvent extends PureComponent {
               />
             </div>
             <div className="form-group col-md-2">
-              <label htmlFor="currency">{addEventFields.curriencesField}</label>
+              <label htmlFor="currency">
+                {addEventFields.curriencesField}
+              </label>
               <Select
                 name="form-field-currency"
                 label="currency"
@@ -325,7 +346,9 @@ export default class AddEvent extends PureComponent {
           <div className="border-separate" />
           <div className="form-row">
             <div className="form-group col-md-3">
-              <label htmlFor="city">{addEventFields.cityField}</label>
+              <label htmlFor="city">
+                {addEventFields.cityField}
+              </label>
               <Select
                 name="form-field-cities"
                 label="city"
@@ -339,18 +362,16 @@ export default class AddEvent extends PureComponent {
               />
             </div>
             <div className="form-group col-md-5">
-              <label htmlFor="address">{addEventFields.addressField}</label>
-              <input type="text"
-                className="form-control"
-                name="address"
-                value={address}
-                onChange={this.handleInputChange}
-                placeholder={addEventPlaceholders.addressField}
-              />
+              <label htmlFor="address">
+                {addEventFields.addressField}
+              </label>
+              <input type="text" className="form-control" name="address" value={address} onChange={this.handleInputChange} placeholder={addEventPlaceholders.addressField} />
             </div>
           </div>
           <div className="border-separate" />
-          <span>{addEventFields.descriptionField}</span>
+          <span>
+            {addEventFields.descriptionField}
+          </span>
           <Editor
             editorState={editorState}
             toolbarClassName="toolbarClassName"
@@ -361,7 +382,6 @@ export default class AddEvent extends PureComponent {
           <div className="border-separate" />
           <span className="error-message">{errorMsg}</span>
           <input type="submit" value={global.addEventButton} className="btn btn-secondary" />
-          <Loader/>
         </form>
       </div>
     );

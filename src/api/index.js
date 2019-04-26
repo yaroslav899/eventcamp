@@ -198,6 +198,10 @@ export const request = {
   },
 
   uploadImage: (file) => {
+    if (!file) {
+      return new Promise();
+    }
+
     const { token } = JSON.parse(getCookie('userData'));
 
     return axios.post(urlRecources.mediaResources, file, {

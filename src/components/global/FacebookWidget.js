@@ -4,14 +4,14 @@ class FacebookWidget extends PureComponent {
   componentDidMount() {
     // ToDo update this approach
     window.fbAsyncInit = function () {
-      FB.init({
+      FB && FB.init({
           appId: '652873901800006',
           xfbml: false,
           version: 'v2.6'
       });
       document.dispatchEvent(new Event('fb_init'));
     };
-    document.addEventListener('fb_init', e => FB.XFBML.parse());
+    document.addEventListener('fb_init', e => FB && FB.XFBML.parse());
     window.fbAsyncInit && window.fbAsyncInit();
   }
 

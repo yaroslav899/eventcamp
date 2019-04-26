@@ -1,4 +1,3 @@
-import { validationMsg } from './resources';
 import { defaultRules } from './validationRules';
 
 export const validationMethods = {
@@ -11,7 +10,7 @@ export const validationMethods = {
   },
   isValidEmail: (value) => {
     const result = {};
-    const { email: { regexp: regexpEmail } } = defaultRules;
+    const { email: { regexp: regexpEmail } = {} } = defaultRules;
     const isValid = regexpEmail.test(value);
 
     result.success = !isValid ? false : true;

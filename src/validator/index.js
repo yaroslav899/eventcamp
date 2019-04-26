@@ -1,22 +1,20 @@
-import { defaultRules } from './validationRules';
+import { validationRules } from './validationRules';
 import { validationMethods } from './validationMethods';
+import { validationMessage } from './validationMessage';
+
+const defaultValidForm = {
+  success: true,
+  errorMsg: '',
+}
 
 export const formValidator = (fields) => {
    let isValidForm = defaultValidForm;
 
    for (let fieldName in fields) {
      let field = fields[fieldName];
+     let rules = getValidationRules(field, fieldName);
 
-     if (fieldName in defaultRules){
-         isValidForm = defaultValidateForm(field, fieldName);
-     }
-
-     if (!isValidForm.success) {
-       return isValidForm;
-       break;
-     }
-
-     isValidForm = customValidateForm(field, fieldName);
+     isValidForm = validateForm(field, fieldName, rules);
 
      if (!isValidForm.success) {
        return isValidForm;
@@ -27,39 +25,22 @@ export const formValidator = (fields) => {
    return isValidForm;
 };
 
-const defaultValidForm = {
-    success: true,
-    errorMsg: '',
-}
-
-const defaultValidateForm = (field, fieldName) => {
-  const { value: fieldValue = ''} = field;
-  const fieldDefaultRules = defaultRules[fieldName];
-  const { rules, errorMsgs } = fieldDefaultRules;
-
-  if (!rules || !rules.length){
-    return defaultValidForm;
-  }
-
-  return validateForm(field, fieldName, rules, errorMsgs);
-}
-
-const customValidateForm = (field, fieldName) => {
+const getValidationRules = (field, fieldName) => {
   const { rules } = field;
-  const fieldDefaultRules = defaultRules[fieldName] || defaultRules.custom;
-  const { errorMsgs } = fieldDefaultRules;
 
-  if (!rules || !rules.length){
-    return defaultValidForm;
+  if (fieldName in validationRules) {
+    const fieldDefaultRules = validationRules[fieldName];
+
+    return fieldDefaultRules.rules;
   }
 
-  return validateForm(field, fieldName, rules, errorMsgs);
+  return rules;
 }
 
-const validateForm = (field, fieldName, rules, errorMsgs) => {
-	const { value: fieldValue, duplicate } = field;
+const validateForm = (field, fieldName, rules) => {
+  const { value: fieldValue, duplicate, name } = field;
 
-	if (!rules){
+  if (!rules || !rules.length) {
     return defaultValidForm;
   }
 
@@ -74,7 +55,7 @@ const validateForm = (field, fieldName, rules, errorMsgs) => {
     let validateResult = validationMethod(fieldValue, duplicate);
 
     if (!validateResult.success) {
-      validateResult.errorMsg = errorMsgs[validationRule].replace('{0}', fieldName);
+      validateResult.errorMsg = validationMessage[validationRule].replace('{0}', name || fieldName);
       validateResult.field = fieldName;
 
       return validateResult;

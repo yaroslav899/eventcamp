@@ -9,7 +9,7 @@ class PaginationContainer extends PureComponent {
   state = {
     updatedTotalPages: [],
     activePage: 1,
-    maxPageNumber: 2,
+    maxPageNumber: 10,
     lastPage: null,
     firstPage: 1,
   };

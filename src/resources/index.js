@@ -36,6 +36,7 @@ export const fieldsRegisterForm = {
   login: 'Логин:',
   password: 'Пароль:',
   duplicatepassword: 'Повторите пароль:',
+  errorMsg: 'Неправильный логин или пароль',
 };
 
 export const googleApiService = {

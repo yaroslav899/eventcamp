@@ -304,7 +304,7 @@ header .authBlock {
 .profile__add-photo {
   text-align:center;
   padding-top: 60px;
-  font-size: 0.9em;
+  font-size: 0.8em;
 }
 .profile__add-photo p{
   background-color: #f5f5f5;
@@ -947,9 +947,12 @@ div.right-side li.same-post-rightside div.samePost-info-rightside div.samePost-t
     margin:0;
     border:0;
   }
-  ul.react-tabs__tab-list li {
-    padding: 5px 15px;
-  }
+    ul.react-tabs__tab-list li {
+      padding: 5px 0;
+      text-align: center;
+      width: 50%;
+      margin: 10px 0;
+    }
   .footer {
     height: 60px;
     padding: 10px 0 0 0;

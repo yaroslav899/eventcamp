@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { Redirect } from 'react-router-dom';
 import { request } from '../../api';
 import { fieldsRegisterForm } from '../../resources';
+import { globalRecources, titleList } from '../../resources/global';
 
 class AuthForm extends PureComponent {
   state = {
@@ -29,31 +30,32 @@ class AuthForm extends PureComponent {
   }
 
   render() {
-    const {
-      isSuccessAuth,
-      password,
-      login,
-      isValidForm,
-    } = this.state;
+    const { login, password, isSuccessAuth, isValidForm } = this.state;
+
     if (isSuccessAuth) {
       return <Redirect to="/profile" />;
     }
+
     return (
       <div>
-        <h3>Авторизация</h3>
+        <h3>{titleList.authorization}</h3>
         <form onSubmit={this.handleSubmit} className="registration__form registration-form">
           <div className="form-row">
-            <label htmlFor="login" className="registration-form__label col-sm-2">{fieldsRegisterForm.login}</label>
+            <label htmlFor="login" className="registration-form__label col-sm-2">
+              {fieldsRegisterForm.login}
+            </label>
             <input type="text" className="form-control col-sm-6" name="login" value={login} onChange={this.handleChange} required />
           </div>
           <div className="form-row">
-            <label htmlFor="password" className="registration-form__label col-sm-2">{fieldsRegisterForm.password}</label>
+            <label htmlFor="password" className="registration-form__label col-sm-2">
+              {fieldsRegisterForm.password}
+            </label>
             <input type="password" className="form-control col-sm-6" name="password" value={password} onChange={this.handleChange} required />
           </div>
           <div className={isValidForm ? 'd-none' : ''}>
-            Неправильный логин или пароль
+            {fieldsRegisterForm.errorMsg}
           </div>
-          <input type="submit" value="Submit" className="btn btn-secondary" />
+          <input type="submit" value={globalRecources.sendText} className="btn btn-secondary" />
         </form>
       </div>
     );
