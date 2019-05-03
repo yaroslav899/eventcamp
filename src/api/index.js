@@ -21,23 +21,55 @@ export const request = {
     }
 
     const userData = {
-      name: response.user_display_name,
       email: response.user_email,
       token: response.token,
     }
 
     setCookie('userData', JSON.stringify(userData), 2);
-
-    store.dispatch({
-      type: 'UPDATE_USERDATA',
-      data: userData,
-    });
-
-    return true;
-
+    
+    return {
+      success: true,
+    };
   }).catch(error => {
-    return false;
+    return {
+      success: false,
+    };
   }),
+
+  getUserData: () => {
+    const userData = getCookie('userData');
+
+    if (!userData) {
+      return false;
+    }
+
+    const { token, email } = JSON.parse(userData);
+    
+    return fetch(`${urlRecources.endpointUrl}users/me`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(response => response.json())
+      .then(response => {
+        const responseUserData = {
+          name: response.name,
+          email: email,
+          token: token,
+          userID: response.id,
+          phone: response.acf.phone,
+          city: response.acf.city,
+          imageUrl: response.acf.image,
+        }
+
+        setCookie('userData', JSON.stringify(responseUserData), 2);
+
+        return responseUserData;
+      });
+  },
 
   createNewUser: (param) => authFetch(adminAccess).then((user) => {
     const url = `${urlRecources.endpointUrl}users`;
@@ -59,26 +91,6 @@ export const request = {
       }),
     }).then(response => response.json());
   }),
-
-  getUserID: () => {
-    const authData = getCookie('userData');
-
-    if (!authData) {
-        return false;
-    }
-
-    const { email: userEmail } = JSON.parse(authData);
-
-    return fetch(`${urlRecources.endpointUrl}users/?search=${userEmail}`)
-      .then(response => response.json())
-      .then(response => {
-        if (response.length) {
-          return response[0].id;
-        }
-
-      	return null;
-      });
-  },
 
   createPost: (param, imageID) => {
     const userData = getCookie('userData');

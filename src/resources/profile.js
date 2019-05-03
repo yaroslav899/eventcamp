@@ -10,6 +10,8 @@ export const profileProperties = {
   personalInfo: 'Персональная информация',
   photoUser: 'Фотографии пользователя',
   addEventText: 'Добавить событие',
+  uploadFile: 'Для смены фотографии загрузите новый файл',
+  editProfileButton: 'редактировать профиль',
 };
 
 export const addEventFields = {
@@ -19,8 +21,8 @@ export const addEventFields = {
   dateField: 'Дата',
   timeField: 'Время',
   linkField: 'Ссылка для регистрации',
-  phoneField: 'Телефон для связи',
-  emailField: 'Email для связи',
+  phoneField: 'Телефон',
+  emailField: 'Email',
   tagsField: 'Тэги',
   priceField: 'Цена',
   curriencesField: 'Валюта',

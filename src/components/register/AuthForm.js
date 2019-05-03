@@ -22,9 +22,17 @@ class AuthForm extends PureComponent {
 
     request.authUser(this.state)
       .then((response) => {
+        if (!response.success) {
+          this.setState({
+            isValidForm: false,
+          });
+
+          return false;
+        }
+        
         this.setState({
-          isSuccessAuth: !!response,
-          isValidForm: !!response,
+          isSuccessAuth: true,
+          isValidForm: true,
         });
       });
   }

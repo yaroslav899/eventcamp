@@ -5,20 +5,21 @@ import { request } from '../../api';
 import store from '../../store';
 
 class OwnEvents extends PureComponent {
-  componentDidMount() {
-    const { posts } = this.props;
-
-    if (posts.length) {
-      return true;
+  getSnapshotBeforeUpdate(prevProps, prevState) {
+    const { user: prevUserData } = prevProps;
+    const { user: userData } = this.props;
+    if (Object.keys(prevUserData).length < Object.keys(userData).length) {
+      return userData;
     }
+    return null;
+  }
 
-    return request.getUserID().then((data) => {
-      if (!data) {
-        return false;
-      }
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (snapshot !== null) {
+      const { userID } = snapshot;
 
-      this.loadOwnEvents(data);
-    });
+      return this.loadOwnEvents(userID);
+    }
   }
 
   loadOwnEvents = (userID) => {
@@ -44,9 +45,9 @@ class OwnEvents extends PureComponent {
   }
 }
 
-const mapStateToProps = (store) => {
+const mapStateToProps = (storeData) => {
   return {
-    posts: store.user.listPosts,
+    posts: storeData.user.listPosts,
   };
 };
 

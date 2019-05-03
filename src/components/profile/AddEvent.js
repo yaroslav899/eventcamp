@@ -10,23 +10,23 @@ import { categories, cities, defaultTopic } from '../../fixtures';
 import { currencies } from '../../resources/currencies';
 import { global, addEventFields, addEventPlaceholders, descrFields } from '../../resources/profile';
 
-export default class AddEvent extends PureComponent {
+class AddEvent extends PureComponent {
   state = {
-    topics: defaultTopic,
-    currentTheme: '',
-    editorState: EditorState.createEmpty(),
     title: '',
-    price: '',
-    currency: '',
     category: '',
-    tags: '',
+    currentTheme: '',
+    date: '',
+    time: '',
     register: '',
     phone: '',
     email: '',
+    tags: '',
+    price: '',
+    currency: '',
     city: '',
     address: '',
-    date: '',
-    time: '',
+    topics: defaultTopic,
+    editorState: EditorState.createEmpty(),
     errorMsg: '',
     isAddingEvent: false,
     isSuccessRegister: false,
@@ -387,3 +387,5 @@ export default class AddEvent extends PureComponent {
     );
   }
 }
+
+export default AddEvent;

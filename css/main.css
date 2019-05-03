@@ -6,12 +6,12 @@ body{
   margin-bottom: 100px;
 }
 h1,h3{
-  font-size: 1.3em;
+  font-size: 1.2em;
   color:#0367b7;
   padding: 1% 0;
 }
 h3{
-  font-size:1.2em;
+  font-size:1.1em;
 }
 h4 {
   font-size:1em;
@@ -304,7 +304,7 @@ header .authBlock {
 .profile__add-photo {
   text-align:center;
   padding-top: 60px;
-  font-size: 0.8em;
+  font-size: 0.7em;
 }
 .profile__add-photo p{
   background-color: #f5f5f5;

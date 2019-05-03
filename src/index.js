@@ -6,14 +6,15 @@ import { connect, Provider } from 'react-redux';
 import { createBrowserHistory } from 'history';
 import { getUserData } from './helper';
 
+import Layout from './components/global/Layout';
 import MainPage from './components/MainPage';
 import ListPage from './components/events-list';
 import DetailPage from './components/event-detail';
-import Layout from './components/global/Layout';
-import RegistrationPage from './components/register';
-import AddEvent from './components/profile/AddEvent';
 import InfoPage from './components/info';
+import RegistrationPage from './components/register';
 import Profile from './components/profile/';
+import AddEvent from './components/profile/AddEvent';
+import EditEvent from './components/profile/EditEvent';
 import NoMatch404 from './components/NoMatch404';
 import PrivateRoute from './components/hoc/PrivateRoute';
 
@@ -29,14 +30,15 @@ class App extends Component {
           <Layout>
             <Switch>
               <Route path='/' component={MainPage} exact />
-              <PrivateRoute path="/add-event" redirectTo="/register" component={AddEvent} />
               <Route path='/events/' component={ListPage} exact />
               <Route path='/events/:cities' component={ListPage} exact />
               <Route path='/events/:cities/:categories' component={ListPage} exact />
               <Route path='/events/:cities/:categories/:id' component={withRouter(DetailPage)} exact />
               <Route path='/info' component={InfoPage} />
-              <PrivateRoute path="/profile" redirectTo="/register" component={Profile} />
               <Route path='/register' component={RegistrationPage} />
+              <PrivateRoute path="/profile" redirectTo="/register" component={Profile} />
+              <PrivateRoute path="/add-event" redirectTo="/register" component={AddEvent} />
+              <Route path='/edit-event/:id' component={EditEvent} exact />
               <Route component={NoMatch404} />
             </Switch>
           </Layout>

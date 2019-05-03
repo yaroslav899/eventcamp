@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
   Tab,
@@ -6,24 +6,44 @@ import {
   TabList,
   TabPanel,
 } from 'react-tabs';
+import store from '../../store';
 import OwnEvents from './OwnEvents';
+import UserImage from './UserImage';
 import UserInfo from './UserInfo';
 import TakingPartMember from './TakingPartMember';
+import { request } from '../../api';
 import { mainMenu } from '../../resources/menu';
 import { profileProperties } from '../../resources/profile';
 
-class Profile extends PureComponent {
+class Profile extends Component {
+  componentDidMount() {
+    const { user: userData } = this.props;
+
+    if (Object.keys(userData).length) {
+      return false;
+    }
+
+    return request.getUserData().then(response => {
+      if (!response) {
+        return false;
+      }
+
+      store.dispatch({
+        type: 'UPDATE_USERDATA',
+        data: response,
+      });
+    });
+  }
+
   render() {
-    const addEventPageID = '3';
-    const addEventUrl = mainMenu.find(menu => menu.id === addEventPageID).url;
     const { user } = this.props;
 
     return (
       <div className="container profile">
-        <UserInfo
-          user={user}
-          addEventUrl={addEventUrl}
-        />
+        <div className="row">
+          <UserImage user={user} />
+          <UserInfo user={user} />
+        </div>
         <div className="row">
           <div className="col-12">
             <Tabs>
@@ -34,7 +54,7 @@ class Profile extends PureComponent {
               <TabPanel>
                 <div className="row">
                   <div className="col-12">
-                    <OwnEvents />
+                    <OwnEvents user={user} />
                   </div>
                 </div>
               </TabPanel>
@@ -53,9 +73,9 @@ class Profile extends PureComponent {
   }
 }
 
-const mapStateToProps = (store) => {
+const mapStateToProps = (storeData) => {
   return {
-    user: store.user.data,
+    user: storeData.user.data,
   };
 };
 
