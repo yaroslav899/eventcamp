@@ -1,10 +1,11 @@
 import React, { PureComponent } from 'react';
 import Modal from '../global/Modal';
 import GoogleCalendar from './GoogleCalendar';
+import EventLocation from '../event-global/EventLocation';
+import EventPrice from '../event-global/EventPrice';
+import EventTags from '../event-global/EventTags';
 import { request } from '../../api';
 import store from '../../store';
-import { free } from '../../fixtures';
-import { getUniqueArray } from '../../helper';
 import { globalRecources } from '../../resources/global';
 import { imageUrlRecources } from '../../resources/url';
 
@@ -58,18 +59,18 @@ class EventDetail extends PureComponent {
   }
 
   render() {
-    const { event, date, dateDay } = this.props;
-    const { isAuthorized } = this.state;
-    const modalBody = isAuthorized ? globalRecources.interestedTitle : globalRecources.nonRegistred;
+    const { event, date, dateDay, interestedTitle, nonRegistredTitle, interestedButton, noPhotoUrl } = this.props;
+    const { isAuthorized, showModalBox } = this.state;
+    const modalBody = isAuthorized ? interestedTitle : nonRegistredTitle;
 
     return (
       <div className="row area-1">
         <div className="col-12 col-md-6 area-1_image">
-          <img src={event.acf.picture || imageUrlRecources.noPhoto} alt={event.title.rendered} className="detail-picture" />
+          <img src={event.acf.picture || noPhotoUrl} alt={event.title.rendered} className="detail-picture" />
         </div>
         <div className="col-12 col-md-6 area-1_text">
           <div className="text-right area-1_price">
-            {!free.includes(event.acf.price) ? (event.acf.price + ' ' + event.acf.currency || '') : globalRecources.free}
+            <EventPrice price={event.acf.price} currency={event.acf.currency} />
           </div>
           <div className="area-1_info">
             <span className="day">{date[0]}</span>
@@ -77,29 +78,36 @@ class EventDetail extends PureComponent {
             <span className="time">{event.acf.time}</span>
             <p>{dateDay}</p>
             <p className="area-1_tags">
-              {event.acf.tags ? getUniqueArray(event.acf.tags.split(',')).map((tag) => <span key={tag}>{tag}</span>) : ''}
+              <EventTags tags={event.acf.tags} />
             </p>
             <p className="area-1_location">
-              {event.acf.cities}, {event.acf.location}
+              <EventLocation city={event.acf.cities} address={event.acf.location} />
             </p>
             <p className="area-1_interesting">
               <span className={this.state.isSubscribed ? 'm-active' : ''} onClick={this.handleGoToClick}>
-                {globalRecources.interestingCTA}
+                {interestedButton}
               </span>
             </p>
           </div>
         </div>
-        {this.state.showModalBox &&
+        {showModalBox &&
           <Modal
             toggleModal={this.toggleModal}
             title={event.title.rendered}
             body={modalBody}
-            footer={this.state.isAuthorized ? <GoogleCalendar data={event} /> : ''}
+            footer={isAuthorized ? <GoogleCalendar data={event} /> : ''}
           />
         }
       </div>
     )
   }
+}
+
+EventDetail.defaultProps = {
+  interestedTitle: globalRecources.interestedTitle,
+  nonRegistredTitle: globalRecources.nonRegistred,
+  interestedButton: globalRecources.interestingCTA,
+  noPhotoUrl: imageUrlRecources.noPhoto,
 }
 
 export default EventDetail;

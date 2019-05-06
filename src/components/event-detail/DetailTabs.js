@@ -21,14 +21,16 @@ class DetailTabs extends PureComponent {
           rendered,
         } = {},
       } = {},
+      descriptionTabName,
+      howToGetTabName,
     } = this.props;
     const address = `${cities}, ${location}`;
 
     return (
       <Tabs>
         <TabList>
-          <Tab>{detailRecources.description}</Tab>
-          <Tab>{detailRecources.howToGet}</Tab>
+          <Tab>{descriptionTabName}</Tab>
+          <Tab>{howToGetTabName}</Tab>
         </TabList>
         <TabPanel>
           <div className="event_text" dangerouslySetInnerHTML={createMarkupText(rendered)} />
@@ -47,6 +49,11 @@ class DetailTabs extends PureComponent {
       </Tabs>
     );
   }
+}
+
+DetailTabs.defaultProps = {
+  descriptionTabName: detailRecources.description,
+  howToGetTabName: detailRecources.howToGet
 }
 
 export default DetailTabs;

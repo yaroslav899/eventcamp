@@ -1,4 +1,4 @@
-export const free = ["free", "бесплатно", "свободный", "безкоштовний"];
+export const free = ["free", "бесплатно", "свободный", "безкоштовний", "", null, "0"];
 
 export const categories = [
     {

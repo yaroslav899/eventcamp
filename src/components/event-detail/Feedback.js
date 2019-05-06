@@ -1,67 +1,43 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { Fragment } from 'react';
+import EventPhone from './EventPhone';
 import { detailRecources } from '../../resources';
 
-class FeedBackURL extends PureComponent {
-  state = {
-    phoneNumber: detailRecources.showPhone,
-    isPhoneUpdated: false,
-  }
+const FeedBack = (props) => {
+  const { data, writeToAuthorButton, registerButton } = props;
 
-  handlePhoneClick = (event) => {
-    const { isPhoneUpdated } = this.state;
+  if (!data) return <Fragment />;
 
-    if (isPhoneUpdated) {
-      return true;
-    }
+  const {
+    acf: {
+      email,
+      register,
+      phone,
+    },
+    title: {
+      rendered: eventTitle,
+    },
+  } = data;
+  const url = location.href;
+  const emailUrl = `mailto:${email}?subject=${eventTitle}&;body=${url}`;
 
-    const { data } = this.props;
-    const { phone = null } = data.acf;
-
-    if (!phone || !phone.length) {
-      return false;
-    }
-
-    this.setState({
-      phoneNumber: phone,
-      isPhoneUpdated: true,
-    });
-  }
-
-  render() {
-    const { data } = this.props;
-    const { phoneNumber } = this.state;
-
-    if (!data) return <Fragment />;
-
-    const {
-      acf: {
-        email,
-      },
-      title: {
-        rendered,
-      },
-    } = data;
-    const url = location.href;
-    const emailUrl = `mailto:${email}?subject=${rendered}&;body=${url}`;
-
-    return (
-      <div className="feedback-detail-right">
-        <a href={emailUrl} target="_blank" className="write-organisator" title="">
-          {detailRecources.writeAuthor}
+  return (
+    <div className="feedback-detail-right">
+      <a href={emailUrl} target="_blank" className="write-organisator" title={eventTitle}>
+        {writeToAuthorButton}
+      </a>
+      {register &&
+        <a href={register} target="_blank" className="feedback-registration" title={eventTitle}>
+          {registerButton}
         </a>
-        {data.acf.register &&
-          <a href={data.acf.register} target="_blank" className="feedback-registration" title="">
-            {detailRecources.register}
-          </a>
-        }
-        {data.acf.phone &&
-          <a className="feedback-phone" onClick={this.handlePhoneClick}>
-            {phoneNumber}
-          </a>
-        }
-      </div>
-    );
-  }
+      }
+      <EventPhone phone={phone} />
+    </div>
+  );
 }
 
-export default FeedBackURL;
+FeedBack.defaultProps = {
+  writeToAuthorButton: detailRecources.writeAuthor,
+  registerButton: detailRecources.register,
+}
+
+export default FeedBack;

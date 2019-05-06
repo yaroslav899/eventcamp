@@ -1,6 +1,8 @@
 import React, { PureComponent, Fragment } from 'react';
-import moment from 'moment';
 import { NavLink } from 'react-router-dom';
+import EventLocation from '../event-global/EventLocation';
+import EventDate from '../event-global/EventDate';
+import EventPrice from '../event-global/EventPrice';
 import store from '../../store';
 import { request } from '../../api';
 import { getValueFromParams, createMarkupText } from '../../helper';
@@ -61,8 +63,8 @@ class DetailInteresting extends PureComponent {
           rendered: postTitle,
         },
         acf: {
-          picture = imageUrlRecources.noPhoto,
-          price,
+          picture,
+          price = '',
           currency = '',
           cities: postCity,
           location,
@@ -77,17 +79,17 @@ class DetailInteresting extends PureComponent {
         <NavLink onClick={this.handleUpdateDetailPage.bind(this, samePost)} to={eventUrl}>
           <div className="row">
             <div className="col-12">
-              <img src={picture || imageUrlRecources.noPhoto} alt="" />
+              <img src={picture || imageUrlRecources.noPhoto} alt={postTitle} />
               <div className="samePost-info-rightside row">
                 <div className="samePost-title col-7" dangerouslySetInnerHTML={createMarkupText(postTitle)} />
                 <div className="text-right col-5">
-                  {`${price} ${currency}`}
+                  <EventPrice price={price} currency={currency} />
                 </div>
                 <div className="col-7">
-                  {`${postCity} ${location}`}
+                  <EventLocation city={postCity} address={location} />
                 </div>
                 <div className="text-right col-5">
-                  {dateOf ? moment(dateOf, 'YYYY-MM-DD').format('DD MMM YYYY') : ''}
+                  <EventDate date={dateOf} />
                 </div>
               </div>
             </div>

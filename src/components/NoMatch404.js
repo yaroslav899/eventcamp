@@ -1,9 +1,14 @@
 import React from 'react';
-import { globalRecources } from '../resources';
+import { globalRecources } from '../resources/global';
 
-const NoMatch404 = () => (
+const NoMatch404 = (props) => (
   <div className="container">
-    {globalRecources.error404}
+    {props.msg404}
   </div>
 );
+
+NoMatch404.defaultProps = {
+  msg404: globalRecources.error404,
+}
+
 export default NoMatch404;
