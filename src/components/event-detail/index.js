@@ -7,15 +7,6 @@ import DetailPageView from './views/DetailPageView';
 import Loader from '../global/Loader';
 
 class DetailPage extends Component {
-  resetPostAmount = () => {
-    store.dispatch({
-      type: 'UPDATE_DETAIL_POST',
-      post: null,
-    });
-
-    return true;
-  }
-
   componentDidMount() {
     this.resetPostAmount();
 
@@ -28,6 +19,15 @@ class DetailPage extends Component {
 
         document.title = post.title.rendered;
       });
+  }
+
+  resetPostAmount = () => {
+    store.dispatch({
+      type: 'UPDATE_DETAIL_POST',
+      post: null,
+    });
+
+    return true;
   }
 
   render() {
