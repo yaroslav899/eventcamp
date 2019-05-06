@@ -1,8 +1,15 @@
 import React from 'react';
+import { EditorState, ContentState, convertFromHTML } from 'draft-js';
+import { request } from '../../api';
 import AddEvent from './AddEvent';
 import store from '../../store';
+import { global } from '../../resources/profile';
 
 class EditEvent extends AddEvent {
+  constructor(props) {
+    super(props);
+  }
+
   componentDidMount() {
     const { match } = this.props;
     const { id: eventID } = match.params;
@@ -20,6 +27,8 @@ class EditEvent extends AddEvent {
       return false;
     }
 
+    const eventDescription = this.getContentFromHTML(postForEdit.content.rendered);
+
     this.setState({
       title: postForEdit.title.rendered,
       category: postForEdit.categories[0],
@@ -33,7 +42,19 @@ class EditEvent extends AddEvent {
       currency: postForEdit.acf.currency,
       city: postForEdit.acf.city,
       address: postForEdit.acf.address,
+      editorState: EditorState.createWithContent(eventDescription),
+      eventID: postForEdit.id,
     });
+  }
+
+  getContentFromHTML = (contentHtml) => {
+    const blocksFromHTML = convertFromHTML(contentHtml);
+    const content = ContentState.createFromBlockArray(
+      blocksFromHTML.contentBlocks,
+      blocksFromHTML.entityMap
+    );
+
+    return content
   }
 
   handleSubmit = (event) => {
@@ -52,16 +73,27 @@ class EditEvent extends AddEvent {
       return false;
     }
 
+    if (!file) {
+      return request.updateEvent(state, null).then((data) => {
+        this.setState({ isSuccessRegister: true });
+      });
+    }
+
     // ToDo update case without image and when image has cyrillic name
     return request.uploadImage(file)
       .then((response) => {
         const { id } = response.data;
-        return request.createPost(state, id)
+        return request.updateEvent(state, id)
           .then((data) => {
             this.setState({ isSuccessRegister: true });
           });
       });
   };
 }
+
+//Set default props
+EditEvent.defaultProps = {
+  successMsg: global.successEditMsg,
+};
 
 export default EditEvent;

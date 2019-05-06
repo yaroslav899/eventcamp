@@ -26,7 +26,7 @@ export const request = {
     }
 
     setCookie('userData', JSON.stringify(userData), 2);
-    
+
     return {
       success: true,
     };
@@ -44,7 +44,7 @@ export const request = {
     }
 
     const { token, email } = JSON.parse(userData);
-    
+
     return fetch(`${urlRecources.endpointUrl}users/me`,
       {
         headers: {
@@ -249,5 +249,64 @@ export const request = {
         },
       }),
     }).then(response => response.json());
-},
+  },
+
+  updateEvent: (param, imageID) => {
+    const userData = getCookie('userData');
+
+    if (!userData) {
+        return false;
+    }
+
+    const {
+      editorState,
+      title: displayTitle,
+      price: priceValue,
+      currency: currencyValue,
+      category,
+      subcategory,
+      tags: topicTags,
+      city,
+      address,
+      date,
+      time: eventTime,
+      currentTheme,
+      register,
+      phone,
+      email,
+      eventID,
+    } = param;
+    const description = stateToHTML(editorState.getCurrentContent());
+    const { token } = JSON.parse(userData);
+    const url = `${urlRecources.endpointUrl}posts/${eventID}`;
+
+    return fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        title: displayTitle,
+        content: description,
+        featured_media: imageID,
+        categories: category,
+        fields: {
+          topic: currentTheme.label,
+          cities: getValueFromParams(cities, city, 'id', 'name'),
+          picture: imageID,
+          price: priceValue,
+          location: address,
+          dateOf: date,
+          currency: currencyValue,
+          tags: topicTags,
+          time: eventTime,
+          register: register,
+          phone: phone,
+          email: email,
+        },
+      }),
+    }).then(response => response.json());
+  },
 };

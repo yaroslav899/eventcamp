@@ -12,6 +12,7 @@ import { global, addEventFields, addEventPlaceholders, descrFields } from '../..
 
 class AddEvent extends PureComponent {
   state = {
+    eventID: null,
     title: '',
     category: '',
     currentTheme: '',
@@ -182,11 +183,12 @@ class AddEvent extends PureComponent {
       isAddingEvent,
       isSuccessRegister,
     } = this.state;
+    const { sucessMsg } = this.props;
 
     if (isSuccessRegister) {
       return (
         <div className="container">
-          {global.successMsg}
+          {sucessMsg}
         </div>
       )
     }
@@ -387,5 +389,10 @@ class AddEvent extends PureComponent {
     );
   }
 }
+
+//Set default props
+AddEvent.defaultProps = {
+  successMsg: global.successMsg,
+};
 
 export default AddEvent;

@@ -1,6 +1,7 @@
 export const global = {
   addEventButton: 'Добавить событие',
   successMsg: 'Вы успешно добавили событие',
+  successEditMsg: 'Вы успешно изменили событие',
 }
 
 export const profileProperties = {
