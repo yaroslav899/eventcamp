@@ -1,19 +1,23 @@
 import React, { PureComponent } from 'react';
-import moment from 'moment';
-import { request } from '../../api';
+import EventLocation from '../event-global/EventLocation';
+import EventDate from '../event-global/EventDate';
+import EventPrice from '../event-global/EventPrice';
+import EventTags from '../event-global/EventTags';
 import Modal from '../global/Modal';
 import GoogleCalendar from '../event-detail/GoogleCalendar';
 import { NavLink } from 'react-router-dom';
 import store from '../../store';
-import { getUniqueArray, getValueFromParams, updateFilterStore, createMarkupText } from '../../helper';
-import { free, categories, cities } from '../../fixtures';
+import { request } from '../../api';
+import { getValueFromParams, createMarkupText } from '../../helper';
+import { categories, cities } from '../../fixtures';
 import { imageUrlRecources } from '../../resources/url';
 import { globalRecources } from '../../resources/global';
 
 class EventList extends PureComponent {
   state = {
-      showModalBox: false,
-      isSubscribed: false,
+    showModalBox: false,
+    isAuthorized: false,
+    isSubscribed: false,
   }
 
   componentDidMount() {
@@ -43,13 +47,18 @@ class EventList extends PureComponent {
       // TODO send member who will go to the event
       let { countmembers } = event.acf;
       countmembers = isSubscribed ? countmembers.replace(email, '') : `${countmembers},${email}`;
+
       !isSubscribed && this.toggleModal();
+
       this.setState({
         isSubscribed: !isSubscribed,
       });
-      request.updatePostCountMembers(event, userData, countmembers);
+
+      return request.updatePostCountMembers(event, userData, countmembers);
     } else {
       this.toggleModal();
+
+      return true;
     }
   }
 
@@ -60,29 +69,17 @@ class EventList extends PureComponent {
   }
 
   render() {
-    const { event, imgWrapClass, descrWrapClass, actionWrapClass } = this.props;
+    const { event, imgWrapClass, descrWrapClass, actionWrapClass, interestedTitle, nonRegistredTitle, moreInfoButton, interestedButton } = this.props;
+    const { isAuthorized, showModalBox, isSubscribed } = this.state;
     const city = getValueFromParams(cities, event.acf.cities, 'name', 'url');
     const category = getValueFromParams(categories, event.categories[0], 'id', 'url');
-    const price = !free.includes(event.acf.price) ? (event.acf.price + ' ' + event.acf.currency || '') : globalRecources.free;
-    const location = `${event.acf.cities}, ${event.acf.location}`;
-    const date = event.acf.dateOf ? moment(event.acf.dateOf, "YYYY-MM-DD").format("Do MMM YYYY") : '';
-    const modalBody = this.state.isAuthorized ? `Вы подтвердили свое участие в мероприятии. Подробная информация в личном кабинете` :
-      'Необходимо зарегистрироваться, чтобы подтвердить участие';
-
-    let tags = event.acf.tags || '';
-
-    if (tags.length) {
-        tags = getUniqueArray(tags.split(','));
-        tags = tags.map((tag) => <span key={tag} className="events-item-tags__tag">{tag}</span>);
-    }
+    const modalBody = isAuthorized ? interestedTitle : nonRegistredTitle;
     const url = `/events/${city}/${category}/${event.id}`;
 
     return (
       <div className="row">
         <NavLink to={url} className={imgWrapClass}>
-          <img src={event.acf.picture || imageUrlRecources.noPhoto}
-            alt={event.title.rendered}
-            className="events-item__img" />
+          <img src={event.acf.picture || imageUrlRecources.noPhoto} alt={event.title.rendered} className="events-item__img" />
         </NavLink>
         <div className={descrWrapClass}>
           <NavLink to={url} className="events-item__title">
@@ -90,39 +87,46 @@ class EventList extends PureComponent {
           </NavLink>
           <div className="events-item__description" dangerouslySetInnerHTML={createMarkupText(event.excerpt.rendered)} />
           <div className="events-item__tags events-item-tags">
-            {tags}
+            <EventTags tags={event.acf.tags} />
           </div>
         </div>
         <div className={actionWrapClass}>
           <div className="events-item__price">
-            {price}
+            <EventPrice price={event.acf.price} currency={event.acf.currency} />
           </div>
           <div className="events-item__location">
-            {location}
+            <EventLocation city={event.acf.cities} address={event.acf.location} />
           </div>
           <div className="events-item__date">
-            {date}
+            <EventDate date={event.acf.dateOf} />
           </div>
           <div className="events-item__action events-item-action">
             <NavLink to={url} className="events-item-action__button">
-              {globalRecources.moreInfo}
+              {moreInfoButton}
             </NavLink>
-            <span className={`events-item-action__button ${this.state.isSubscribed && 'action-button__active'}`} onClick={this.handleGoToClick}>
-              {globalRecources.interestingCTA}
+            <span className={`events-item-action__button ${isSubscribed && 'action-button__active'}`} onClick={this.handleGoToClick}>
+              {interestedButton}
             </span>
           </div>
         </div>
-        {this.state.showModalBox &&
+        {showModalBox &&
           <Modal
             toggleModal={this.toggleModal}
             title={event.title.rendered}
             body={modalBody}
-            footer={this.state.isAuthorized ? <GoogleCalendar data={event} /> : ''}
+            footer={isAuthorized ? <GoogleCalendar data={event} /> : ''}
           />
         }
       </div>
     )
   }
+}
+
+EventList.defaultProps = {
+  interestedTitle: globalRecources.interestedTitle,
+  nonRegistredTitle: globalRecources.nonRegistred,
+  moreInfoButton: globalRecources.moreInfo,
+  interestedButton: globalRecources.interestingCTA,
 }
 
 export default EventList;

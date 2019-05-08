@@ -1,13 +1,15 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import moment from 'moment';
+import EventLocation from '../event-global/EventLocation';
+import EventDate from '../event-global/EventDate';
+import EventPrice from '../event-global/EventPrice';
+import EventTags from '../event-global/EventTags';
 import store from '../../store';
 import { request } from '../../api';
-import { getValueFromParams, getUniqueArray, createMarkupText } from '../../helper';
-import { categories, cities, free } from '../../fixtures';
+import { getValueFromParams, createMarkupText } from '../../helper';
+import { categories, cities } from '../../fixtures';
 import { listRecources } from '../../resources';
-import { globalRecources } from '../../resources/global';
 
 class LastPosts extends PureComponent {
   componentDidMount() {
@@ -19,7 +21,7 @@ class LastPosts extends PureComponent {
 
     if (list) return;
 
-    request.getLastPosts().then((posts) => {
+    return request.getLastPosts().then((posts) => {
       store.dispatch({
         type: 'UPDATE_LAST_POSTS',
         list: posts,
@@ -34,21 +36,11 @@ class LastPosts extends PureComponent {
       },
     } = this.props;
 
-    if (!list) return <Fragment/>;
+    if (!list) return <Fragment />;
 
     const lastPosts = list.map((post) => {
       let city = getValueFromParams(cities, post.acf.cities, 'name', 'url');
       let category = getValueFromParams(categories, post.categories[0], 'id', 'url');
-      let location = `${post.acf.cities}, ${post.acf.location}`;
-      let date = post.acf.dateOf ? moment(post.acf.dateOf, 'YYYY-MM-DD').format('DD MMM YYYY') : '';
-      let price = !free.includes(post.acf.price) ? (post.acf.price + ' ' + post.acf.currency || '') : globalRecources.free;
-
-      let tags = post.acf.tags || '';
-      if (tags.length) {
-        tags = getUniqueArray(tags.split(','));
-        tags = tags.map(tag => <span key={tag}>{tag}</span>);
-      }
-
 
       return (
         <li key={post.id}>
@@ -59,19 +51,19 @@ class LastPosts extends PureComponent {
               </div>
               <div className="col-8">
                 <div className="last-post-location">
-                  {location}
+                  <EventLocation city={post.acf.cities} address={post.acf.location} />
                 </div>
                 <div className="last-post-date">
-                  {date}
+                  <EventDate date={post.acf.dateOf} />
                 </div>
               </div>
               <div className="col-4">
                 <div className="last-post-price">
-                  {price}
+                  <EventPrice price={post.acf.price} currency={post.acf.currency} />
                 </div>
               </div>
               <div className="col-12 last-post-tags">
-                  {tags}
+                <EventTags tags={post.acf.tags} />
               </div>
             </div>
           </NavLink>
@@ -90,9 +82,9 @@ class LastPosts extends PureComponent {
   }
 }
 
-const mapStateToProps = function (store) {
+const mapStateToProps = function (storeData) {
   return {
-    lastPosts: store.lastPosts,
+    lastPosts: storeData.lastPosts,
   };
 };
 

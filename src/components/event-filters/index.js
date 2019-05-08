@@ -8,4 +8,5 @@ const Filters = () => (
     <SelectFilter />
   </Fragment>
 );
+
 export default Filters;

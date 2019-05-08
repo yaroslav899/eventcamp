@@ -1,48 +1,51 @@
-import React from 'react';
+import React, { PureComponent, Fragment } from 'react';
+import UserInfoData from './UserInfoData';
 import { fieldsRegisterForm } from '../../resources';
 import { profileProperties, addEventFields } from '../../resources/profile';
 
-const UserInfo = (data) => {
-  const { user } = data;
-
-  if (!user) {
-    return null;
+class UserInfo extends PureComponent {
+  state = {
+    isEditMode: false,
   }
 
-  return (
-    <div className="col-6">
-      <h3>{profileProperties.title}</h3>
-      <div className="row">
-        <div className="col-6">
-          <p>
-            {fieldsRegisterForm.firstname}
-            <br />
-            <b>{user.name}</b>
-          </p>
-          <p>
-            {fieldsRegisterForm.email}
-            <br />
-            <b>{user.email}</b>
-          </p>
-          <p>
-            {addEventFields.phoneField}
-            <br />
-            <b>{user.phone}</b>
-          </p>
-        </div>
-        <div className="col-6">
-          <p className="profile__add-button d-none">
-            {profileProperties.editProfileButton}
-          </p>
-          <p>
-            {addEventFields.cityField}
-            <br />
-            <b>{user.city}</b>
-          </p>
+  changeProfileInfo = () => {
+    this.setState({
+      isEditMode: true,
+    });
+
+    return true;
+  }
+
+  render() {
+    const { user } = this.props;
+
+    if (!user) {
+      return <Fragment />;
+    }
+
+    const { isEditMode } = this.state;
+
+    return (
+      <div className="col-6">
+        <h3>{profileProperties.title}</h3>
+        <div className="row">
+          <div className="col-6">
+            <UserInfoData user={user} />
+          </div>
+          <div className="col-6">
+            <button className="profile__add-button" onClick={this.changeProfileInfo} >
+              {profileProperties.editProfileButton}
+            </button>
+            <p>
+              {addEventFields.cityField}
+              <br />
+              <b>{user.city}</b>
+            </p>
+          </div>
         </div>
       </div>
-    </div>
-  )
-};
+    )
+  }
+}
 
 export default UserInfo;

@@ -85,8 +85,14 @@ header .authBlock {
 .header__registration a {
   padding:0 10px;
 }
-.header__registration a + a {
-  border-left: 1px solid #cccccc;
+.header__registration a + a, .header__registration button {
+  border-left: 1px solid #cccccc !important;
+}
+.header__registration button {
+  border: 0;
+  cursor: pointer;
+  background-color: transparent;
+  color: #ffffff;
 }
 .header-registration__login {
   color: #f2c609 !important;
@@ -424,8 +430,7 @@ header .authBlock {
   overflow: hidden;
   font-size: 0.7em;
 }
-
-.events-item-tags__tag {
+.events-item__tags span {
   color: #0367b7;
   background: #ffffff;
   margin-right: 5px;
@@ -433,7 +438,6 @@ header .authBlock {
   border-radius: 5px;
   display: inline-block;
 }
-
 .events-item__price {
   background: #ffffff;
   border-radius: 0 5px 0 0;
@@ -756,7 +760,6 @@ div.calendar-link p {
   margin: 0 0 10px 0;
 }
 div.feedback-detail-right {
-  display: inline-block;
   margin: 10px 0;
   text-align:center;
 }

@@ -64,6 +64,11 @@ export const getLastPostsUrl = () => {
   return `${url}&per_page=5`;
 };
 
+export const fetchData = (url, params) => {
+  return fetch(url, params || { method: "GET" })
+    .then(response =>  response.json());
+};
+
 export const authFetch = param => fetch(urlRecources.jwtRegister, {
   method: 'POST',
   headers: {

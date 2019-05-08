@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import { detailRecources } from '../../resources';
 
 class EventPhone extends PureComponent {

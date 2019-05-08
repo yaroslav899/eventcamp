@@ -4,13 +4,13 @@ import Menu from '../menu';
 import { imageUrlRecources } from '../../resources/url';
 import { globalRecources, titleList } from '../../resources/global';
 
-const Footer = () => (
+const Footer = (props) => (
   <footer className="footer">
     <div className="container">
       <div className="row">
         <div className="col-6 col-md-4 text-justify">
           <NavLink to="/" exact>
-            <img src={imageUrlRecources.logo} alt={titleList.home} title={titleList.home} />
+            <img src={props.logoUrl} alt={titleList.home} title={titleList.home} />
           </NavLink>
         </div>
         <div className="col-6 col-md-8 text-right">
@@ -19,12 +19,17 @@ const Footer = () => (
           </div>
           <div className="clear" />
           <div className="copyright">
-            {globalRecources.copyright}
+            {props.copyrightText}
           </div>
         </div>
       </div>
     </div>
   </footer>
 );
+
+Footer.defaultProps = {
+  logoUrl: imageUrlRecources.logo,
+  copyrightText: globalRecources.copyright,
+}
 
 export default Footer;

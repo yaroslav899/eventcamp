@@ -3,12 +3,7 @@ import { stateToHTML } from 'draft-js-export-html';
 import store from '../store';
 import { setCookie, getCookie } from '../_cookie';
 import { getValueFromParams } from '../helper';
-import {
-  getRequestUrl,
-  getInterestingUrl,
-  getLastPostsUrl,
-  authFetch,
-} from './helpers';
+import { getRequestUrl, getInterestingUrl, getLastPostsUrl, fetchData, authFetch } from './helpers';
 import { adminAccess } from '../credentials';
 import { cities } from '../fixtures';
 import { urlRecources } from '../resources/url';
@@ -44,16 +39,16 @@ export const request = {
     }
 
     const { token, email } = JSON.parse(userData);
+    const url = `${urlRecources.endpointUrl}users/me`;
+    const param = {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    };
 
-    return fetch(`${urlRecources.endpointUrl}users/me`,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then(response => response.json())
+    return fetchData(url, param)
       .then(response => {
         const responseUserData = {
           name: response.name,
@@ -73,8 +68,7 @@ export const request = {
 
   createNewUser: (param) => authFetch(adminAccess).then((user) => {
     const url = `${urlRecources.endpointUrl}users`;
-
-    return fetch(url, {
+    const param = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -89,7 +83,9 @@ export const request = {
         email: param.email,
         password: param.password,
       }),
-    }).then(response => response.json());
+    };
+
+    return fetchData(url, param);
   }),
 
   createPost: (param, imageID) => {
@@ -152,7 +148,7 @@ export const request = {
   getAuthorPosts: (param) => {
     const url = getRequestUrl(param);
 
-    return fetch(url).then(response => response.json());
+    return fetchData(url, null);
   },
 
   getListPosts: (param) => {
@@ -174,39 +170,38 @@ export const request = {
   getPostDetail: (eventID) => {
     const url = `${urlRecources.endpointUrl}posts/${eventID}?_embed`;
 
-    return fetch(url)
-      .then(response => response.json())
+    return fetchData(url, null)
       .then(data => data);
   },
 
   getAddress: (address) => {
     const url = `${urlRecources.geoLookUpUrl}address=${address}&key=${googleApiService.key}`;
 
-    return fetch(url).then(response => response.json());
+    return fetchData(url, null);
   },
 
   getExchangeData: () => {
     const url = urlRecources.exchangeUrl;
 
-    return fetch(url).then(response => response.json());
+    return fetchData(url, null);
   },
 
   getInterestingData: (param, isTagActive) => {
     const url = getInterestingUrl(param, isTagActive);
 
-    return fetch(url).then(response => response.json());
+    return fetchData(url, null);
   },
 
   getLastPosts: () => {
     const url = getLastPostsUrl();
 
-    return fetch(url).then(response => response.json());
+    return fetchData(url, null);
   },
 
   getPage: (pageID) => {
     const url = `${urlRecources.endpointUrl}pages/${pageID}`;
 
-    return fetch(url).then(response => response.json());
+    return fetchData(url, null);
   },
 
   uploadImage: (file) => {

@@ -13,6 +13,9 @@ class AuthHeaderLink extends Component {
       userAuth: {
         name,
       },
+      exitButton,
+      enterButton,
+      registerButton,
     } = this.props;
 
     if (name) {
@@ -21,9 +24,9 @@ class AuthHeaderLink extends Component {
           <ActiveLink to={userMenu.profile} className="header-registration__login" >
             {name}
           </ActiveLink >
-          <a className="header-registration__exit" onClick={this.logoutUser}>
-            {globalRecources.exit}
-          </a>
+          <button onClick={this.logoutUser}>
+            {exitButton}
+          </button>
         </div>
         )
     }
@@ -31,20 +34,26 @@ class AuthHeaderLink extends Component {
     return (
       <div className="header__registration header-registration">
         <ActiveLink to={userMenu.register}>
-          {globalRecources.enter}
+          {enterButton}
         </ActiveLink>
         <ActiveLink to={userMenu.register}>
-          {globalRecources.registr}
+          {registerButton}
         </ActiveLink>
       </div>
     )
   }
 }
 
-const mapStateToProps = function (store) {
+const mapStateToProps = function (storeData) {
   return {
-    userAuth: store.user.data
+    userAuth: storeData.user.data
   }
 };
+
+AuthHeaderLink.defaultProps = {
+  exitButton: globalRecources.exit,
+  enterButton: globalRecources.enter,
+  registerButton: globalRecources.registr,
+}
 
 export default connect(mapStateToProps)(AuthHeaderLink);

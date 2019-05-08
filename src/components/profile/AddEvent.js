@@ -112,15 +112,17 @@ class AddEvent extends PureComponent {
       return false;
     }
 
+    if (!file) {
+      return request.createPost(state, null)
+        .then((data) =>  this.setState({ isSuccessRegister: true }));
+    }
+
     // ToDo update case without image and when image has cyrillic name
     return request.uploadImage(file)
       .then((response) => {
         const { id } = response.data;
         return request.createPost(state, id)
-          .then((data) => {
-              var g = 0;
-              this.setState({ isSuccessRegister: true });
-          });
+          .then((data) => this.setState({ isSuccessRegister: true }));
       });
   };
 

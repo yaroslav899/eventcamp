@@ -13,6 +13,7 @@ class EventDetail extends PureComponent {
   state = {
     showModalBox: false,
     isSubscribed: false,
+    isAuthorized: false,
   }
 
   componentDidMount() {

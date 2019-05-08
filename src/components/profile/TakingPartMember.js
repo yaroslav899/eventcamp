@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import EventView from '../global/EventView';
+import EventView from '../event-global/EventView';
 
 class TakingPartMember extends PureComponent {
   state = {

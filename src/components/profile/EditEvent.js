@@ -1,8 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { EditorState, ContentState, convertFromHTML } from 'draft-js';
 import { request } from '../../api';
 import AddEvent from './AddEvent';
 import store from '../../store';
+import { categories } from '../../fixtures';
 import { global } from '../../resources/profile';
 
 class EditEvent extends AddEvent {
@@ -11,13 +13,8 @@ class EditEvent extends AddEvent {
   }
 
   componentDidMount() {
-    const { match } = this.props;
+    const { match, listPosts } = this.props;
     const { id: eventID } = match.params;
-    const {
-      user: {
-        listPosts
-      }
-    } = store.getState();
 
     const postForEdit = listPosts.find((event) => {
       return event.id === +eventID;
@@ -28,10 +25,19 @@ class EditEvent extends AddEvent {
     }
 
     const eventDescription = this.getContentFromHTML(postForEdit.content.rendered);
+    const categoryID = postForEdit.categories[0];
+    const topicList = categories.find(category => +category.id === categoryID).subcat;
+    const topic = topicList.find(topicElement => topicElement.name === postForEdit.acf.topic);
+    const currentTopic = {
+      label: postForEdit.acf.topic,
+      type: "topics",
+      value: topic.id,
+    }
 
     this.setState({
       title: postForEdit.title.rendered,
-      category: postForEdit.categories[0],
+      category: categoryID,
+      topics: categories.find(category => +category.id === categoryID).subcat,
       date: postForEdit.acf.dateOf,
       time: postForEdit.acf.time,
       register: postForEdit.acf.register,
@@ -44,6 +50,10 @@ class EditEvent extends AddEvent {
       address: postForEdit.acf.address,
       editorState: EditorState.createWithContent(eventDescription),
       eventID: postForEdit.id,
+    }, () => {
+      this.setState({
+        currentTheme: currentTopic,
+      })
     });
   }
 
@@ -96,4 +106,10 @@ EditEvent.defaultProps = {
   successMsg: global.successEditMsg,
 };
 
-export default EditEvent;
+const mapStateToProps = (storeData) => {
+  return {
+    listPosts: storeData.user.listPosts,
+  };
+};
+
+export default connect(mapStateToProps)(EditEvent);

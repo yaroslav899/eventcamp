@@ -15,24 +15,25 @@ class DateRange extends Component {
         return;
     }
 
-    const range = DateUtils.addDayToRange(day, this.props.dateRange);
+    const { dateRange, noFilterResultMsg } = this.props;
+    const range = DateUtils.addDayToRange(day, dateRange);
 
     store.dispatch({
       type: 'UPDATE_FILTER_DATERANGE',
       dateRange: range
     });
 
-    request.getListPosts(range)
+    return request.getListPosts(range)
       .then(posts => {
         if (!posts.length) {
           posts.push({
-            empty: globalRecources.noFilterResult
+            empty: noFilterResultMsg,
           });
         }
 
         store.dispatch({
           type: 'UPDATE_EVENT_LIST',
-          list: posts
+          list: posts,
         });
 
         return range;
@@ -40,17 +41,19 @@ class DateRange extends Component {
   }
 
   handleResetClick = () => {
-    request.getListPosts({})
+    const { noFilterResultMsg } = this.props;
+
+    return request.getListPosts({})
       .then(posts => {
         if (!posts.length) {
           posts.push({
-            empty: globalRecources.noFilterResult
+            empty: noFilterResultMsg,
           });
         }
 
         store.dispatch({
           type: 'UPDATE_EVENT_LIST',
-          list: posts
+          list: posts,
         });
 
         store.dispatch({
@@ -58,20 +61,21 @@ class DateRange extends Component {
           dateRange: {
             from: undefined,
             to: undefined
-          }
+          },
         });
       });
   }
 
   render() {
-    const { from, to } = this.props.dateRange;
+    const { dateRange, locale, resetButton } = this.props;
+    const { from, to } = dateRange;
     const modifiers = { start: from, end: to };
 
     return (
       <div className='date-range'>
         <DayPicker
           localeUtils={MomentLocaleUtils}
-          locale='ru'
+          locale={locale}
           selectedDays={[from, { from, to }]}
           disabledDays={[
           {
@@ -85,8 +89,9 @@ class DateRange extends Component {
         {from && to && (
           <p>
             {from.toLocaleDateString()} по {to.toLocaleDateString()}
-            <br/><button className="link" onClick={this.handleResetClick}>
-              {filterRecources.reset}
+            <br/>
+            <button className="link" onClick={this.handleResetClick}>
+              {resetButton}
             </button>
           </p>
         )}
@@ -95,11 +100,17 @@ class DateRange extends Component {
   }
 }
 
-const dateToProps = function(store) {
-    return {
-        dateRange : store.filterState.dateRange,
-        posts   : store.filterState.list
-    }
+const dateToProps = function(storeData) {
+  return {
+    dateRange: storeData.filterState.dateRange,
+    posts: storeData.filterState.list
+  }
 };
+
+DateRange.defaultProps = {
+  locale: 'ru',
+  resetButton: filterRecources.reset,
+  noFilterResultMsg: globalRecources.noFilterResult,
+}
 
 export default connect(dateToProps)(DateRange);

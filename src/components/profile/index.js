@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import {
   Tab,
@@ -15,7 +15,7 @@ import { request } from '../../api';
 import { mainMenu } from '../../resources/menu';
 import { profileProperties } from '../../resources/profile';
 
-class Profile extends Component {
+class Profile extends PureComponent {
   componentDidMount() {
     const { user: userData } = this.props;
 

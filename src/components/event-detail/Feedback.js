@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import EventPhone from './EventPhone';
-import { detailRecources } from '../../resources';
+import WriteToAuthor from './WriteToAuthor';
+import AddToInteresting from './AddToInteresting';
 
 const FeedBack = (props) => {
   const { data, writeToAuthorButton, registerButton } = props;
@@ -22,22 +23,11 @@ const FeedBack = (props) => {
 
   return (
     <div className="feedback-detail-right">
-      <a href={emailUrl} target="_blank" className="write-organisator" title={eventTitle}>
-        {writeToAuthorButton}
-      </a>
-      {register &&
-        <a href={register} target="_blank" className="feedback-registration" title={eventTitle}>
-          {registerButton}
-        </a>
-      }
+      <WriteToAuthor href={emailUrl} target="_blank" className="write-organisator" title={eventTitle} />
+      <AddToInteresting register={register} target="_blank" className="feedback-registration" title={eventTitle}/>
       <EventPhone phone={phone} />
     </div>
   );
-}
-
-FeedBack.defaultProps = {
-  writeToAuthorButton: detailRecources.writeAuthor,
-  registerButton: detailRecources.register,
 }
 
 export default FeedBack;

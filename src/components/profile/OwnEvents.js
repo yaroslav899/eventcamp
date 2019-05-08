@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import EventView from '../global/EventView';
+import EventView from '../event-global/EventView';
 import { request } from '../../api';
 import store from '../../store';
 

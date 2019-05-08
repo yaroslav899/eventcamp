@@ -20,10 +20,10 @@ class Title extends Component {
   }
 }
 
-const mapStateToProps = function (store) {
+const mapStateToProps = function (storeData) {
   return {
-    category: store.filterState.categories,
-    city: store.filterState.cities,
+    category: storeData.filterState.categories,
+    city: storeData.filterState.cities,
   };
 };
 

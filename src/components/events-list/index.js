@@ -10,7 +10,8 @@ import { globalRecources } from '../../resources/global';
 
 class ListPage extends Component {
   componentDidMount() {
-    const initialParams = this.props.match.params;
+    const { noFilterResultMsg, match } = this.props;
+    const { params:initialParams } = match;
 
     store.dispatch({
       type: 'UPDATE_EVENT_LIST',
@@ -19,10 +20,10 @@ class ListPage extends Component {
 
     updateFilterStore(initialParams);
 
-    request.getListPosts(initialParams).then((posts) => {
+    return request.getListPosts(initialParams).then((posts) => {
       if (!posts.length) {
         posts.push({
-          empty: globalRecources.noFilterResult
+          empty: noFilterResultMsg,
         });
       }
 
@@ -67,10 +68,14 @@ class ListPage extends Component {
   }
 }
 
-const mapStateToProps = function (store) {
+const mapStateToProps = function (storeData) {
   return {
-    posts: store.filterState.list,
+    posts: storeData.filterState.list,
   }
 };
+
+ListPage.defaultProps = {
+  noFilterResultMsg: globalRecources.noFilterResult,
+}
 
 export default connect(mapStateToProps)(ListPage);

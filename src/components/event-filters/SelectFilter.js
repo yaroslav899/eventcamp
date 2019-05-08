@@ -69,7 +69,7 @@ class SelectFilter extends Component {
       params = { [selection.type]: selection ? selection.value : '' };
     }
 
-    request.getListPosts(params)
+    return request.getListPosts(params)
       .then((posts) => {
         if (!posts.length) {
           posts.push({
@@ -203,12 +203,13 @@ class SelectFilter extends Component {
     );
   }
 }
-const mapStateToProps = (store) => {
+
+const mapStateToProps = (storeData) => {
   return {
-    posts: store.filterState.list,
-    categories: store.filterState.categories,
-    topics: store.filterState.topics,
-    cities: store.filterState.cities,
+    posts: storeData.filterState.list,
+    categories: storeData.filterState.categories,
+    topics: storeData.filterState.topics,
+    cities: storeData.filterState.cities,
   };
 };
 
