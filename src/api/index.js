@@ -55,10 +55,23 @@ export const request = {
           email: email,
           token: token,
           userID: response.id,
-          phone: response.acf.phone,
-          city: response.acf.city,
-          imageUrl: response.acf.image,
         }
+
+        const description = response.description;
+        let responseCity = '';
+        let responsePhone = ''
+        let responseImageUrl = ''
+
+        if (description && description.length) {
+          const { city, phone, imageUrl } = JSON.parse(description);
+          responseCity = city || responseCity;
+          responsePhone = phone || responsePhone;
+          responseImageUrl = imageUrl || responseImageUrl;
+        }
+
+        responseUserData.city = responseCity;
+        responseUserData.phone = responsePhone;
+        responseUserData.imageUrl = responseImageUrl;
 
         setCookie('userData', JSON.stringify(responseUserData), 2);
 
@@ -302,6 +315,33 @@ export const request = {
           email: email,
         },
       }),
+    }).then(response => response.json());
+  },
+
+  updateProfile: (param, userID) => {
+    const userData = getCookie('userData');
+
+    if (!userData) {
+        return false;
+    }
+
+    const newUserData = JSON.parse(userData);
+    newUserData.email = param.email;
+    newUserData.name = param.name;
+    setCookie('userData', JSON.stringify(newUserData), 2);
+
+    const { token } = JSON.parse(userData);
+    const url = `${urlRecources.endpointUrl}users/${userID}`;
+
+    //ToDo chack wordpress on email, which he sends when email was changed
+    return fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(param),
     }).then(response => response.json());
   },
 };

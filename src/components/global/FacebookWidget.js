@@ -12,7 +12,7 @@ class FacebookWidget extends PureComponent {
       document.dispatchEvent(new Event('fb_init'));
     };
     document.addEventListener('fb_init', e => FB && FB.XFBML.parse());
-    window.fbAsyncInit && window.fbAsyncInit();
+    window.fbAsyncInit && FB && window.fbAsyncInit();
   }
 
   render() {

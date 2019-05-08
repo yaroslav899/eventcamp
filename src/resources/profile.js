@@ -13,6 +13,7 @@ export const profileProperties = {
   addEventText: 'Добавить событие',
   uploadFile: 'Для смены фотографии загрузите новый файл',
   editProfileButton: 'редактировать профиль',
+  cancelEditProfileButton: 'отменить редактирование',
 };
 
 export const addEventFields = {

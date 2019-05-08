@@ -1,4 +1,4 @@
-import { defaultRules } from './validationRules';
+import { validationRules } from './validationRules';
 
 export const validationMethods = {
   isMandatory: (value) => {
@@ -10,16 +10,16 @@ export const validationMethods = {
   },
   isValidEmail: (value) => {
     const result = {};
-    const { email: { regexp: regexpEmail } = {} } = defaultRules;
+    const { email: { regexp: regexpEmail } = {} } = validationRules;
     const isValid = regexpEmail.test(value);
 
-    result.success = !isValid ? false : true;
+    result.success = isValid;
 
     return result;
   },
   isValidPassword: (value) =>{
     const result = {};
-    const { password: { regexp: regexpPassword } } = defaultRules;
+    const { password: { regexp: regexpPassword } } = validationRules;
     const isValid = regexpPassword.test(value);
 
     result.success = !isValid ? false : true;
