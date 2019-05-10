@@ -13,31 +13,39 @@ class EditEvent extends AddEvent {
   }
 
   componentDidMount() {
-    const { match, listPosts } = this.props;
-    const { id: eventID } = match.params;
+    try {
+      const { match, listPosts } = this.props;
+      const { id: eventID } = match.params;
 
-    const postForEdit = listPosts.find((event) => {
-      return event.id === +eventID;
-    });
+      const postForEdit = listPosts.find((event) => {
+        return event.id === +eventID;
+      });
 
-    if (!postForEdit) {
-      return false;
+      if (!postForEdit) {
+        return false;
+      }
+
+      const eventDescription = this.getContentFromHTML(postForEdit.content.rendered);
+      const categoryID = postForEdit.categories[0];
+      const topicList = categories.find(category => +category.id === categoryID).subcat;
+      const topic = topicList.find(topicElement => topicElement.name === postForEdit.acf.topic);
+      const currentTopic = {};
+
+      if (topic) {
+        currentTopic.label = postForEdit.acf.topic;
+        currentTopic.type = "topics"
+        currentTopic.value = topic.id;
+      }
     }
-
-    const eventDescription = this.getContentFromHTML(postForEdit.content.rendered);
-    const categoryID = postForEdit.categories[0];
-    const topicList = categories.find(category => +category.id === categoryID).subcat;
-    const topic = topicList.find(topicElement => topicElement.name === postForEdit.acf.topic);
-    const currentTopic = {
-      label: postForEdit.acf.topic,
-      type: "topics",
-      value: topic.id,
+    catch(error) {
+      console.log(error);
+      return;
     }
 
     this.setState({
       title: postForEdit.title.rendered,
       category: categoryID,
-      topics: categories.find(category => +category.id === categoryID).subcat,
+      topics: topicList,
       date: postForEdit.acf.dateOf,
       time: postForEdit.acf.time,
       register: postForEdit.acf.register,

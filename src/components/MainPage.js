@@ -23,7 +23,6 @@ const MainPage = () => (
         </div>
         <div className="col-12 col-md-3">
           <LastPosts />
-          <FacebookWidget />
         </div>
       </div>
     </div>

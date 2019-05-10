@@ -5,6 +5,13 @@ import { request } from '../../api';
 import store from '../../store';
 
 class OwnEvents extends PureComponent {
+  componentDidMount() {
+    const { user: { userID }, posts } = this.props;
+    if (userID && !posts.length) {
+        return this.loadOwnEvents(userID);
+    }
+  }
+
   getSnapshotBeforeUpdate(prevProps, prevState) {
     const { user: prevUserData } = prevProps;
     const { user: userData } = this.props;
@@ -48,6 +55,7 @@ class OwnEvents extends PureComponent {
 const mapStateToProps = (storeData) => {
   return {
     posts: storeData.user.listPosts,
+    user: storeData.user.data,
   };
 };
 
