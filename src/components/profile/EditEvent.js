@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { EditorState, ContentState, convertFromHTML } from 'draft-js';
 import { request } from '../../api';
 import AddEvent from './AddEvent';
 import store from '../../store';
 import { categories } from '../../fixtures';
 import { global } from '../../resources/profile';
+import { userMenu } from '../../resources/menu';
 
 class EditEvent extends AddEvent {
   constructor(props) {
@@ -22,6 +24,7 @@ class EditEvent extends AddEvent {
       });
 
       if (!postForEdit) {
+        this.props.history.push(userMenu.profile);
         return false;
       }
 
@@ -36,33 +39,33 @@ class EditEvent extends AddEvent {
         currentTopic.type = "topics"
         currentTopic.value = topic.id;
       }
-    }
-    catch(error) {
-      console.log(error);
-      return;
-    }
 
-    this.setState({
-      title: postForEdit.title.rendered,
-      category: categoryID,
-      topics: topicList,
-      date: postForEdit.acf.dateOf,
-      time: postForEdit.acf.time,
-      register: postForEdit.acf.register,
-      phone: postForEdit.acf.phone,
-      email: postForEdit.acf.email,
-      tags: postForEdit.acf.tags,
-      price: postForEdit.acf.price,
-      currency: postForEdit.acf.currency,
-      city: postForEdit.acf.city,
-      address: postForEdit.acf.address,
-      editorState: EditorState.createWithContent(eventDescription),
-      eventID: postForEdit.id,
-    }, () => {
       this.setState({
-        currentTheme: currentTopic,
-      })
-    });
+        title: postForEdit.title.rendered,
+        category: categoryID,
+        topics: topicList,
+        date: postForEdit.acf.dateOf,
+        time: postForEdit.acf.time,
+        register: postForEdit.acf.register,
+        phone: postForEdit.acf.phone,
+        email: postForEdit.acf.email,
+        tags: postForEdit.acf.tags,
+        price: postForEdit.acf.price,
+        currency: postForEdit.acf.currency,
+        city: postForEdit.acf.city,
+        address: postForEdit.acf.address,
+        editorState: EditorState.createWithContent(eventDescription),
+        eventID: postForEdit.id,
+      }, () => {
+        this.setState({
+          currentTheme: currentTopic,
+        })
+      });
+    }
+    catch (error) {
+      this.props.history.push(userMenu.profile);
+      return false;
+    }
   }
 
   getContentFromHTML = (contentHtml) => {
