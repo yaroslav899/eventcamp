@@ -6,43 +6,42 @@ import {
   TabList,
   TabPanel,
 } from 'react-tabs';
-import store from '../../store';
 import OwnEvents from './OwnEvents';
 import UserImage from './UserImage';
 import UserInfo from './UserInfo';
 import TakingPartMember from './TakingPartMember';
+import { getCookie } from '../../_cookie';
+import { parseJSON } from '../../helper/json';
 import { request } from '../../api';
 import { mainMenu } from '../../resources/menu';
 import { profileProperties } from '../../resources/profile';
 
 class Profile extends PureComponent {
+  state = {
+    profileData: null,
+  }
+
   componentDidMount() {
-    const { user: userData } = this.props;
-
-    if (Object.keys(userData).length) {
-      return false;
-    }
-
-    return request.getUserData().then(response => {
+    return request.getProfileData().then(response => {
       if (!response) {
         return false;
       }
 
-      store.dispatch({
-        type: 'UPDATE_USERDATA',
-        data: response,
-      });
+      this.setState({
+        profileData: response,
+      })
     });
   }
 
   render() {
-    const { user } = this.props;
+    const { userData } = this.props;
+    const { profileData } = this.state;
 
     return (
       <div className="container profile">
         <div className="row">
-          <UserImage user={user} />
-          <UserInfo user={user} />
+          <UserImage user={userData} />
+          <UserInfo user={profileData} />
         </div>
         <div className="row">
           <div className="col-12">
@@ -61,7 +60,7 @@ class Profile extends PureComponent {
               <TabPanel>
                 <div className="row">
                   <div className="col-12">
-                    <TakingPartMember user={user} />
+                    <TakingPartMember user={userData} />
                   </div>
                 </div>
               </TabPanel>
@@ -73,10 +72,8 @@ class Profile extends PureComponent {
   }
 }
 
-const mapStateToProps = (storeData) => {
-  return {
-    user: storeData.user.data,
-  };
-};
+Profile.defaultProps = {
+  userData: parseJSON(getCookie('userData')),
+}
 
-export default connect(mapStateToProps)(Profile);
+export default Profile;

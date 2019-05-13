@@ -6,39 +6,39 @@ import { getValueFromParams } from '../helper';
 import { getRequestUrl, getInterestingUrl, getLastPostsUrl, fetchData, authFetch } from './helpers';
 import { adminAccess } from '../credentials';
 import { cities } from '../fixtures';
+import { parseJSON, stringifyJSON } from '../helper/json';
 import { urlRecources } from '../resources/url';
 import { googleApiService } from '../resources';
 
 export const request = {
-  authUser: (param) => authFetch(param).then((response) => {
-    if ('data' in response && 'status' in response.data && response.data.status === 403) {
-      throw Error(response.data);
+  authUser: (param) => authFetch(param)
+    .then((response) => {
+      if ('data' in response && 'status' in response.data && response.data.status === 403) {
+        throw Error(response.data);
+      }
+
+      const userData = { token: response.token, email: response.user_email };
+
+      setCookie('userData', stringifyJSON(userData), 2);
+
+      return {
+        success: true,
+      };
+    })
+    .catch(error => {
+      return {
+        success: false,
+      };
     }
-
-    const userData = {
-      email: response.user_email,
-      token: response.token,
-    }
-
-    setCookie('userData', JSON.stringify(userData), 2);
-
-    return {
-      success: true,
-    };
-  }).catch(error => {
-    return {
-      success: false,
-    };
-  }),
-
-  getUserData: () => {
+  ),
+  getProfileData: () => {
     const userData = getCookie('userData');
 
     if (!userData) {
       return false;
     }
 
-    const { token, email } = JSON.parse(userData);
+    const { token } = parseJSON(userData);
     const url = `${urlRecources.endpointUrl}users/me`;
     const param = {
       headers: {
@@ -50,32 +50,28 @@ export const request = {
 
     return fetchData(url, param)
       .then(response => {
-        const responseUserData = {
-          name: response.name,
-          email: email,
-          token: token,
-          userID: response.id,
-        }
-
+        const responseProfileData = {}
         const description = response.description;
         let responseCity = '';
         let responsePhone = ''
         let responseImageUrl = ''
 
         if (description && description.length) {
-          const { city, phone, imageUrl } = JSON.parse(description);
+          const { city, phone, imageUrl } = parseJSON(description);
           responseCity = city || responseCity;
           responsePhone = phone || responsePhone;
           responseImageUrl = imageUrl || responseImageUrl;
         }
 
-        responseUserData.city = responseCity;
-        responseUserData.phone = responsePhone;
-        responseUserData.imageUrl = responseImageUrl;
+        responseProfileData.name = response.name;
+        responseProfileData.email = response.email;
+        responseProfileData.city = responseCity;
+        responseProfileData.phone = responsePhone;
+        responseProfileData.imageUrl = responseImageUrl;
 
-        setCookie('userData', JSON.stringify(responseUserData), 2);
+        setCookie('profileData', JSON.stringify(responseProfileData), 2);
 
-        return responseUserData;
+        return responseProfileData;
       });
   },
 

@@ -1,5 +1,6 @@
 import store from '../store';
 import { getCookie, deleteCookie } from '../_cookie';
+import { parseJSON } from './json';
 import { categories, cities } from '../fixtures';
 
 export const getValueFromParams = (values = [], id, searchParam, exitParam) => {
@@ -46,24 +47,28 @@ export const createMarkupText = (text) => {
 
 export const getUserData = () => {
   //ToDo optimize it
-  const {
-    user: {
-      data: {
-        id = null,
-      } = {},
-    } = {},
-  } = store.getState();
-  let userData = getCookie('userData');
+  const userData = parseJSON(getCookie('userData'));
+  const profileData = parseJSON(getCookie('profileData'));
 
-  if (userData && !id) {
-    userData = JSON.parse(userData);
-    store.dispatch({
-      type: 'UPDATE_USERDATA',
-      data: userData
-    });
+  if (!userData) {
+    return false;
   }
 
+  const param = {
+    name: 'name' in action.data ? action.data.name : '',
+    email: 'email' in action.data ? action.data.email : '',
+    phone: 'phone' in action.data ? action.data.phone : '',
+    city: 'city' in action.data ? action.data.city : '',
+    imageUrl: 'imageUrl' in action.data ? action.data.imageUrl : imageUrlRecources.noPhoto,
+  }
+
+  store.dispatch({
+    type: 'UPDATE_USERPROFILE',
+    data: parseJSON(userData),
+  });
+
   return true;
+
 };
 
 export const getUniqueArray = (array) => {
