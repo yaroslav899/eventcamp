@@ -10,38 +10,41 @@ import OwnEvents from './OwnEvents';
 import UserImage from './UserImage';
 import UserInfo from './UserInfo';
 import TakingPartMember from './TakingPartMember';
-import { getCookie } from '../../_cookie';
-import { parseJSON } from '../../helper/json';
+import { setCookie } from '../../_cookie';
+import { parseJSON, stringifyJSON } from '../../helper/json';
 import { request } from '../../api';
 import { mainMenu } from '../../resources/menu';
 import { profileProperties } from '../../resources/profile';
 
 class Profile extends PureComponent {
   state = {
-    profileData: null,
+    profileData: {},
   }
 
   componentDidMount() {
-    return request.getProfileData().then(response => {
-      if (!response) {
-        return false;
-      }
+    return request.getProfileData()
+      .then(response => {
+        if (!response.success) {
+          return false;
+        }
 
-      this.setState({
-        profileData: response,
-      })
-    });
+        setCookie('profileData', stringifyJSON(response.userProfile));
+
+        store.dispatch({
+          type: 'UPDATE_USERPROFILE',
+          data: response.userProfile,
+        });
+      });
   }
 
   render() {
-    const { userData } = this.props;
-    const { profileData } = this.state;
+    const { userProfile } = this.props;
 
     return (
       <div className="container profile">
         <div className="row">
-          <UserImage user={userData} />
-          <UserInfo user={profileData} />
+          <UserImage user={userProfile} />
+          <UserInfo user={userProfile} />
         </div>
         <div className="row">
           <div className="col-12">
@@ -53,14 +56,14 @@ class Profile extends PureComponent {
               <TabPanel>
                 <div className="row">
                   <div className="col-12">
-                    <OwnEvents />
+                    <OwnEvents profile={userProfile} />
                   </div>
                 </div>
               </TabPanel>
               <TabPanel>
                 <div className="row">
                   <div className="col-12">
-                    <TakingPartMember user={userData} />
+                    <TakingPartMember user={userProfile} />
                   </div>
                 </div>
               </TabPanel>
@@ -72,8 +75,10 @@ class Profile extends PureComponent {
   }
 }
 
-Profile.defaultProps = {
-  userData: parseJSON(getCookie('userData')),
-}
+const mapStateToProps = (storeData) => {
+  return {
+    userProfile: storeData.user.data,
+  };
+};
 
-export default Profile;
+export default connect(mapStateToProps)(Profile);

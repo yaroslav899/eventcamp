@@ -38,6 +38,8 @@ export const updateFilterStore = (initialParams) => {
 
 export const logout = () => {
   deleteCookie('userData');
+  deleteCookie('profileData');
+
   location.reload();
 };
 
@@ -46,25 +48,17 @@ export const createMarkupText = (text) => {
 };
 
 export const getUserData = () => {
-  //ToDo optimize it
   const userData = parseJSON(getCookie('userData'));
-  const profileData = parseJSON(getCookie('profileData'));
 
   if (!userData) {
     return false;
   }
 
-  const param = {
-    name: 'name' in action.data ? action.data.name : '',
-    email: 'email' in action.data ? action.data.email : '',
-    phone: 'phone' in action.data ? action.data.phone : '',
-    city: 'city' in action.data ? action.data.city : '',
-    imageUrl: 'imageUrl' in action.data ? action.data.imageUrl : imageUrlRecources.noPhoto,
-  }
+  const profileData = parseJSON(getCookie('profileData'));
 
   store.dispatch({
     type: 'UPDATE_USERPROFILE',
-    data: parseJSON(userData),
+    data: profileData,
   });
 
   return true;

@@ -1,6 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
 import { formValidator } from '../../validator';
 import store from '../../store';
+import { setCookie } from '../../_cookie';
 import { request } from '../../api';
 import { fieldsRegisterForm } from '../../resources';
 import { addEventFields } from '../../resources/profile';
@@ -63,38 +64,20 @@ class UserInfoEdit extends PureComponent {
       description: JSON.stringify({ phone, city })
     };
 
-    return request.updateProfile(param, userID).then((response) => {
-      //ToDo optimize it
-      const description = response.description;
-      let responseCity = null;
-      let responsePhone = null
-      let responseImageUrl = null
+    return request.updateProfile(param, userID)
+      .then((response) => {
+        if (response.success) {
+          setCookie('profileData', JSON.stringify(response.userProfile));
 
-      if (description && description.length) {
-        const { city, phone, imageUrl } = JSON.parse(description);
-        responseCity = city || responseCity;
-        responsePhone = phone || responsePhone;
-        responseImageUrl = imageUrl || responseImageUrl;
-      }
+          store.dispatch({
+            type: 'UPDATE_USERPROFILE',
+            data: response.userProfile,
+          });
+        }
 
-      const responseUserData = {
-        name: response.name || name,
-        email: response.email || email,
-        token: token,
-        userID: response.id || userID,
-        phone: responsePhone || phone,
-        city: responseCity || city,
-        imageUrl: responseImageUrl || imageUrl,
-      }
+        changeProfileInfo();
 
-      store.dispatch({
-        type: 'UPDATE_USERDATA',
-        data: responseUserData,
-      });
-
-      changeProfileInfo();
-
-      return true;
+        return true;
     })
   }
 

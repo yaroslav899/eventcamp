@@ -6,18 +6,19 @@ import store from '../../store';
 
 class OwnEvents extends PureComponent {
   componentDidMount() {
-    const { user: { userID }, posts } = this.props;
+    const { profile: { userID }, posts } = this.props;
     if (userID && !posts.length) {
         return this.loadOwnEvents(userID);
     }
   }
 
   getSnapshotBeforeUpdate(prevProps, prevState) {
-    const { user: prevUserData } = prevProps;
-    const { user: userData } = this.props;
-    if (Object.keys(prevUserData).length < Object.keys(userData).length) {
-      return userData;
+    const { profile: prevProfileData } = prevProps;
+    const { profile: profileData } = this.props;
+    if (Object.keys(prevProfileData).length < Object.keys(profileData).length) {
+      return profileData;
     }
+
     return null;
   }
 
@@ -30,12 +31,13 @@ class OwnEvents extends PureComponent {
   }
 
   loadOwnEvents = (userID) => {
-    return request.getAuthorPosts({ author: userID }).then((posts) => {
-      store.dispatch({
-        type: 'UPDATE_USER_POSTS',
-        listPosts: posts,
+    return request.getAuthorPosts({ author: userID })
+      .then((posts) => {
+        store.dispatch({
+          type: 'UPDATE_USER_POSTS',
+          listPosts: posts,
+        });
       });
-    });
   }
 
   render() {
@@ -55,7 +57,6 @@ class OwnEvents extends PureComponent {
 const mapStateToProps = (storeData) => {
   return {
     posts: storeData.user.listPosts,
-    user: storeData.user.data,
   };
 };
 

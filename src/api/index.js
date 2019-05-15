@@ -17,11 +17,12 @@ export const request = {
         throw Error(response.data);
       }
 
-      const userData = { token: response.token, email: response.user_email };
-
-      setCookie('userData', stringifyJSON(userData), 2);
+      const userData = { token: response.token };
+      const profileData = { name: response.user_display_name, email: response.user_email };
 
       return {
+        userData,
+        profileData,
         success: true,
       };
     })
@@ -31,6 +32,56 @@ export const request = {
       };
     }
   ),
+
+  updateProfile: (bodyParam, userID) => {
+    const userData = getCookie('userData');
+
+    if (!userData) {
+        return false;
+    }
+
+    const { token } = parseJSON(userData);
+    const url = `${urlRecources.endpointUrl}users/${userID}`;
+    const param = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: stringifyJSON(body),
+    };
+
+    //ToDo chack wordpress on email, which he sends when email was changed
+    return fetch(url, param)
+      .then(response => {
+        const responseProfileData = {}
+        const description = response.description;
+        let responseCity = '';
+        let responsePhone = '';
+        let responseImageUrl = '';
+
+        if (description && description.length) {
+          const { city, phone, imageUrl } = parseJSON(description);
+          responseCity = city || responseCity;
+          responsePhone = phone || responsePhone;
+          responseImageUrl = imageUrl || responseImageUrl;
+        }
+
+        responseProfileData.name = response.name;
+        responseProfileData.userID = response.id;
+        responseProfileData.email = response.email;
+        responseProfileData.city = responseCity;
+        responseProfileData.phone = responsePhone;
+        responseProfileData.imageUrl = responseImageUrl;
+
+        return {
+          userProfile: responseProfileData,
+          success: true,
+        }
+      });
+  },
+
   getProfileData: () => {
     const userData = getCookie('userData');
 
@@ -53,8 +104,8 @@ export const request = {
         const responseProfileData = {}
         const description = response.description;
         let responseCity = '';
-        let responsePhone = ''
-        let responseImageUrl = ''
+        let responsePhone = '';
+        let responseImageUrl = '';
 
         if (description && description.length) {
           const { city, phone, imageUrl } = parseJSON(description);
@@ -63,15 +114,24 @@ export const request = {
           responseImageUrl = imageUrl || responseImageUrl;
         }
 
+        const profileData = getCookie('profileData');
+        let responseEmail = '';
+        if (profileData) {
+          const { email = '' } = parseJSON(profileData);
+          responseEmail = email;
+        }
+
         responseProfileData.name = response.name;
-        responseProfileData.email = response.email;
+        responseProfileData.userID = response.id;
+        responseProfileData.email = responseEmail;
         responseProfileData.city = responseCity;
         responseProfileData.phone = responsePhone;
         responseProfileData.imageUrl = responseImageUrl;
 
-        setCookie('profileData', JSON.stringify(responseProfileData), 2);
-
-        return responseProfileData;
+        return {
+          userProfile: responseProfileData,
+          success: true,
+        }
       });
   },
 
@@ -332,33 +392,6 @@ export const request = {
           email: email,
         },
       }),
-    }).then(response => response.json());
-  },
-
-  updateProfile: (param, userID) => {
-    const userData = getCookie('userData');
-
-    if (!userData) {
-        return false;
-    }
-
-    const newUserData = JSON.parse(userData);
-    newUserData.email = param.email;
-    newUserData.name = param.name;
-    setCookie('userData', JSON.stringify(newUserData), 2);
-
-    const { token } = JSON.parse(userData);
-    const url = `${urlRecources.endpointUrl}users/${userID}`;
-
-    //ToDo chack wordpress on email, which he sends when email was changed
-    return fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(param),
     }).then(response => response.json());
   },
 };

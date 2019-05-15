@@ -1,4 +1,4 @@
-export const parseJSON = (data, defaultValue = null) => {
+export const parseJSON = (data, defaultValue = {}) => {
   let valueObject = defaultValue;
 
   if (!data) {

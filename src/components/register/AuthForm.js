@@ -1,6 +1,9 @@
 import React, { PureComponent } from 'react';
 import { Redirect } from 'react-router-dom';
 import { request } from '../../api';
+import store from '../../store';
+import { setCookie } from '../../_cookie';
+import { stringifyJSON } from '../../helper/json';
 import { fieldsRegisterForm } from '../../resources';
 import { globalRecources, titleList } from '../../resources/global';
 
@@ -29,10 +32,17 @@ class AuthForm extends PureComponent {
 
           return false;
         }
-        
+
+        setCookie('userData', stringifyJSON(userData), 2);
+        setCookie('profileData', stringifyJSON(profileData));
+
+        store.dispatch({
+          type: 'UPDATE_USERPROFILE',
+          data: profileData,
+        });
+
         this.setState({
           isSuccessAuth: true,
-          isValidForm: true,
         });
       });
   }
