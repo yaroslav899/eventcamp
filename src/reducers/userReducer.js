@@ -10,6 +10,7 @@ export default function (userReducer = initialFilterState, action) {
     case 'UPDATE_USERPROFILE': {
       const data = {
         name: 'name' in action.data ? action.data.name : '',
+        userID: 'userID' in action.data ? action.data.userID : '',
         email: 'email' in action.data ? action.data.email : '',
         phone: 'phone' in action.data ? action.data.phone : '',
         city: 'city' in action.data ? action.data.city : '',

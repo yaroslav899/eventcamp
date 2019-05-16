@@ -5,16 +5,9 @@ import { request } from '../../api';
 import store from '../../store';
 
 class OwnEvents extends PureComponent {
-  componentDidMount() {
-    const { profile: { userID }, posts } = this.props;
-    if (userID && !posts.length) {
-        return this.loadOwnEvents(userID);
-    }
-  }
-
   getSnapshotBeforeUpdate(prevProps, prevState) {
-    const { profile: prevProfileData } = prevProps;
-    const { profile: profileData } = this.props;
+    const { userProfile: prevProfileData } = prevProps;
+    const { userProfile: profileData } = this.props;
     if (Object.keys(prevProfileData).length < Object.keys(profileData).length) {
       return profileData;
     }
@@ -57,6 +50,7 @@ class OwnEvents extends PureComponent {
 const mapStateToProps = (storeData) => {
   return {
     posts: storeData.user.listPosts,
+    userProfile: storeData.user.data,
   };
 };
 

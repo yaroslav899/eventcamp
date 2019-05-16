@@ -2,6 +2,7 @@ import store from '../store';
 import { getCookie, deleteCookie } from '../_cookie';
 import { parseJSON } from './json';
 import { categories, cities } from '../fixtures';
+import { imageUrlRecources } from '../resources/url';
 
 export const getValueFromParams = (values = [], id, searchParam, exitParam) => {
   const value = values.find(item => item[searchParam] === String(id));
@@ -67,4 +68,22 @@ export const getUserData = () => {
 
 export const getUniqueArray = (array) => {
     return [...new Set(array)];
+}
+
+export const setProfileData = (data) => {
+  const profileData = {};
+  profileData.city = '';
+  profileData.phone = '';
+  profileData.imageUrl = imageUrlRecources.noPhoto;
+
+  if (!data || !data.length) {
+    return profileData;
+  }
+
+  const { city, phone, imageUrl } = parseJSON(data);
+  profileData.city = city || profileData.city;
+  profileData.phone = phone || profileData.phone;
+  profileData.imageUrl = imageUrl || profileData.imageUrl;
+
+  return profileData;
 }

@@ -73,9 +73,9 @@ class UserInfoEdit extends PureComponent {
             type: 'UPDATE_USERPROFILE',
             data: response.userProfile,
           });
-        }
 
-        changeProfileInfo();
+          changeProfileInfo();
+        }
 
         return true;
     })

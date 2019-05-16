@@ -2,7 +2,7 @@ import axios from 'axios';
 import { stateToHTML } from 'draft-js-export-html';
 import store from '../store';
 import { setCookie, getCookie } from '../_cookie';
-import { getValueFromParams } from '../helper';
+import { getValueFromParams, setProfileData } from '../helper';
 import { getRequestUrl, getInterestingUrl, getLastPostsUrl, fetchData, authFetch } from './helpers';
 import { adminAccess } from '../credentials';
 import { cities } from '../fixtures';
@@ -49,31 +49,16 @@ export const request = {
         Accept: 'application/json',
         Authorization: `Bearer ${token}`,
       },
-      body: stringifyJSON(body),
+      body: stringifyJSON(bodyParam),
     };
 
     //ToDo chack wordpress on email, which he sends when email was changed
-    return fetch(url, param)
+    return fetchData(url, param)
       .then(response => {
-        const responseProfileData = {}
-        const description = response.description;
-        let responseCity = '';
-        let responsePhone = '';
-        let responseImageUrl = '';
-
-        if (description && description.length) {
-          const { city, phone, imageUrl } = parseJSON(description);
-          responseCity = city || responseCity;
-          responsePhone = phone || responsePhone;
-          responseImageUrl = imageUrl || responseImageUrl;
-        }
-
+        const responseProfileData = setProfileData(response.description);
         responseProfileData.name = response.name;
         responseProfileData.userID = response.id;
         responseProfileData.email = response.email;
-        responseProfileData.city = responseCity;
-        responseProfileData.phone = responsePhone;
-        responseProfileData.imageUrl = responseImageUrl;
 
         return {
           userProfile: responseProfileData,
@@ -101,21 +86,10 @@ export const request = {
 
     return fetchData(url, param)
       .then(response => {
-        const responseProfileData = {}
-        const description = response.description;
-        let responseCity = '';
-        let responsePhone = '';
-        let responseImageUrl = '';
-
-        if (description && description.length) {
-          const { city, phone, imageUrl } = parseJSON(description);
-          responseCity = city || responseCity;
-          responsePhone = phone || responsePhone;
-          responseImageUrl = imageUrl || responseImageUrl;
-        }
-
+        const responseProfileData = setProfileData(response.description);
         const profileData = getCookie('profileData');
         let responseEmail = '';
+
         if (profileData) {
           const { email = '' } = parseJSON(profileData);
           responseEmail = email;
@@ -124,9 +98,6 @@ export const request = {
         responseProfileData.name = response.name;
         responseProfileData.userID = response.id;
         responseProfileData.email = responseEmail;
-        responseProfileData.city = responseCity;
-        responseProfileData.phone = responsePhone;
-        responseProfileData.imageUrl = responseImageUrl;
 
         return {
           userProfile: responseProfileData,

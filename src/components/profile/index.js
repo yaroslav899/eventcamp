@@ -56,7 +56,7 @@ class Profile extends PureComponent {
               <TabPanel>
                 <div className="row">
                   <div className="col-12">
-                    <OwnEvents profile={userProfile} />
+                    <OwnEvents />
                   </div>
                 </div>
               </TabPanel>
