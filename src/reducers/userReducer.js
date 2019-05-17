@@ -15,6 +15,7 @@ export default function (userReducer = initialFilterState, action) {
         phone: 'phone' in action.data ? action.data.phone : '',
         city: 'city' in action.data ? action.data.city : '',
         imageUrl: 'imageUrl' in action.data ? action.data.imageUrl : imageUrlRecources.noPhoto,
+        subscribed: 'subscribed' in action.data ? action.data.subscribed : '',
       };
 
       return { ...userReducer, data };

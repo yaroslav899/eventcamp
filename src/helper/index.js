@@ -74,16 +74,18 @@ export const setProfileData = (data) => {
   const profileData = {};
   profileData.city = '';
   profileData.phone = '';
+  profileData.subscribed = '';
   profileData.imageUrl = imageUrlRecources.noPhoto;
 
   if (!data || !data.length) {
     return profileData;
   }
 
-  const { city, phone, imageUrl } = parseJSON(data);
+  const { city, phone, imageUrl, subscribed } = parseJSON(data);
   profileData.city = city || profileData.city;
   profileData.phone = phone || profileData.phone;
   profileData.imageUrl = imageUrl || profileData.imageUrl;
+  profileData.subscribed = subscribed || profileData.subscribed;
 
   return profileData;
 }

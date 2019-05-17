@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 import EventLocation from '../event-global/EventLocation';
 import EventDate from '../event-global/EventDate';
 import EventPrice from '../event-global/EventPrice';
@@ -6,8 +7,9 @@ import EventTags from '../event-global/EventTags';
 import Modal from '../global/Modal';
 import GoogleCalendar from '../event-detail/GoogleCalendar';
 import { NavLink } from 'react-router-dom';
-import store from '../../store';
 import { request } from '../../api';
+import store from '../../store';
+import { setCookie } from '../../_cookie';
 import { getValueFromParams, createMarkupText } from '../../helper';
 import { categories, cities } from '../../fixtures';
 import { imageUrlRecources } from '../../resources/url';
@@ -21,32 +23,41 @@ class EventList extends PureComponent {
   }
 
   componentDidMount() {
-    const { event } = this.props;
-    const { countmembers } = event.acf;
-    const { user } = store.getState();
-    const { data: userData } = user;
+    const { userProfile } = this.props;
+    const { name, email } = userProfile;
 
-    if (Object.keys(userData).length) {
+    if (name.length && email.length) {
+      const { event: { id: eventID } } = this.props;
+      const { subscribed } = userProfile;
+
       this.setState({
-        isSubscribed: countmembers && countmembers.includes(userData.email),
+        isSubscribed: subscribed.split(',').includes(String(eventID)),
         isAuthorized: true,
       });
     }
   }
 
-  handleGoToClick = (e) => {
+  subscribe = (e) => {
     e.preventDefault();
 
-    const { event } = this.props;
-    const { isSubscribed } = this.state;
-    const { user } = store.getState();
-    const { data: userData } = user;
-    const { email } = userData;
+    const {
+      userProfile: {
+        name: userName,
+        email: userEmail,
+        userID,
+        subscribed,
+      },
+    } = this.props;
 
-    if (Object.keys(userData).length) {
-      // TODO send member who will go to the event
-      let { countmembers } = event.acf;
-      countmembers = isSubscribed ? countmembers.replace(email, '') : `${countmembers},${email}`;
+    if (userName, userEmail) {
+      const { userProfile, event: { id: eventID } } = this.props;
+      const { isSubscribed } = this.state;
+
+      if (isSubscribed){
+        userProfile.subscribed = subscribed.replace(eventID, '');
+      } else {
+        userProfile.subscribed = subscribed.length ? `${subscribed},${eventID}` : `${eventID}`;
+      }
 
       !isSubscribed && this.toggleModal();
 
@@ -54,7 +65,23 @@ class EventList extends PureComponent {
         isSubscribed: !isSubscribed,
       });
 
-      return request.updatePostCountMembers(event, userData, countmembers);
+      const param = {
+        description: JSON.stringify(userProfile)
+      };
+
+      return request.updateProfile(param, userID)
+        .then((response) => {
+            if (response.success) {
+              setCookie('profileData', JSON.stringify(response.userProfile));
+
+              store.dispatch({
+                type: 'UPDATE_USERPROFILE',
+                data: response.userProfile,
+              });
+            }
+
+            return true;
+        });
     } else {
       this.toggleModal();
 
@@ -104,7 +131,7 @@ class EventList extends PureComponent {
             <NavLink to={url} className="events-item-action__button">
               {moreInfoButton}
             </NavLink>
-            <span className={`events-item-action__button ${isSubscribed && 'action-button__active'}`} onClick={this.handleGoToClick}>
+            <span className={`events-item-action__button ${isSubscribed && 'action-button__active'}`} onClick={this.subscribe}>
               {interestedButton}
             </span>
           </div>
@@ -129,4 +156,10 @@ EventList.defaultProps = {
   interestedButton: globalRecources.interestingCTA,
 }
 
-export default EventList;
+const mapStateToProps = function (storeData) {
+  return {
+    userProfile: storeData.user.data,
+  }
+};
+
+export default connect(mapStateToProps)(EventList);

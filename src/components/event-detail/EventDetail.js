@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 import Modal from '../global/Modal';
 import GoogleCalendar from './GoogleCalendar';
 import EventLocation from '../event-global/EventLocation';
@@ -6,6 +7,7 @@ import EventPrice from '../event-global/EventPrice';
 import EventTags from '../event-global/EventTags';
 import { request } from '../../api';
 import store from '../../store';
+import { setCookie } from '../../_cookie';
 import { globalRecources } from '../../resources/global';
 import { imageUrlRecources } from '../../resources/url';
 
@@ -17,39 +19,69 @@ class EventDetail extends PureComponent {
   }
 
   componentDidMount() {
-    const { event } = this.props;
-    const { countmembers } = event.acf;
-    const { user } = store.getState();
-    const { data: userData } = user;
+    const { userProfile } = this.props;
+    const { name, email } = userProfile;
 
-    if (Object.keys(userData).length) {
+    if (name.length && email.length) {
+      const { event: { id: eventID } } = this.props;
+      const { subscribed } = userProfile;
+
       this.setState({
-        isSubscribed: countmembers && countmembers.includes(userData.email),
+        isSubscribed: subscribed.split(',').includes(String(eventID)),
         isAuthorized: true,
       });
     }
   }
 
-  handleGoToClick = (e) => {
+  subscribe = (e) => {
     e.preventDefault();
 
-    const { event } = this.props;
-    const { isSubscribed } = this.state;
-    const { user } = store.getState();
-    const { data: userData } = user;
-    const { email } = userData;
+    const {
+      userProfile: {
+        name: userName,
+        email: userEmail,
+        userID,
+        subscribed,
+      },
+    } = this.props;
 
-    if (Object.keys(userData).length) {
-      // TODO send member who will go to the event
-      let { countmembers } = event.acf;
-      countmembers = isSubscribed ? countmembers.replace(email, '') : `${countmembers},${email}`;
+    if (userName, userEmail) {
+      const { userProfile, event: { id: eventID } } = this.props;
+      const { isSubscribed } = this.state;
+
+      if (isSubscribed){
+        userProfile.subscribed = subscribed.replace(eventID, '');
+      } else {
+        userProfile.subscribed = subscribed.length ? `${subscribed},${eventID}` : `${eventID}`;
+      }
+
       !isSubscribed && this.toggleModal();
+
       this.setState({
         isSubscribed: !isSubscribed,
       });
-      request.updatePostCountMembers(event, userData, countmembers);
+
+      const param = {
+        description: JSON.stringify(userProfile)
+      };
+
+      return request.updateProfile(param, userID)
+        .then((response) => {
+            if (response.success) {
+              setCookie('profileData', JSON.stringify(response.userProfile));
+
+              store.dispatch({
+                type: 'UPDATE_USERPROFILE',
+                data: response.userProfile,
+              });
+            }
+
+            return true;
+        });
     } else {
       this.toggleModal();
+
+      return true;
     }
   }
 
@@ -85,7 +117,7 @@ class EventDetail extends PureComponent {
               <EventLocation city={event.acf.cities} address={event.acf.location} />
             </p>
             <p className="area-1_interesting">
-              <span className={this.state.isSubscribed ? 'm-active' : ''} onClick={this.handleGoToClick}>
+              <span className={this.state.isSubscribed ? 'm-active' : ''} onClick={this.subscribe}>
                 {interestedButton}
               </span>
             </p>
@@ -111,4 +143,10 @@ EventDetail.defaultProps = {
   noPhotoUrl: imageUrlRecources.noPhoto,
 }
 
-export default EventDetail;
+const mapStateToProps = function (storeData) {
+  return {
+    userProfile: storeData.user.data,
+  }
+};
+
+export default connect(mapStateToProps)(EventDetail);

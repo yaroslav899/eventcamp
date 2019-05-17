@@ -261,52 +261,6 @@ export const request = {
     });
   },
 
-  updatePostCountMembers: (event, userInfo, countmembers) => {
-    const userData = getCookie('userData');
-
-    if (!userData) {
-      return false;
-    }
-
-    //ToDo separate profile data from description to another store
-    const { token, userID, city, phone, imageUrl, subscribedEvents = '' } = JSON.parse(userData);
-    const { id: eventID } = event;
-
-    const url = `${urlRecources.endpointUrl}users/${userID}`;
-
-    const param = {
-      description: JSON.stringify({
-        phone,
-        city,
-        subscribedEvents: `${subscribedEvents},${eventID}`,
-      }),
-    };
-
-    return fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(param),
-    }).then(response => response.json());
-
-    /*return fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        fields: {
-          countmembers: countmembers,
-        },
-      }),
-    }).then(response => response.json());*/
-  },
-
   updateEvent: (param, imageID) => {
     const userData = getCookie('userData');
 

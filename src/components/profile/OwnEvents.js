@@ -8,7 +8,7 @@ class OwnEvents extends PureComponent {
   getSnapshotBeforeUpdate(prevProps, prevState) {
     const { userProfile: prevProfileData } = prevProps;
     const { userProfile: profileData } = this.props;
-    if (Object.keys(prevProfileData).length < Object.keys(profileData).length) {
+    if ((prevProfileData.userID !== profileData.userID) && profileData.userID) {
       return profileData;
     }
 

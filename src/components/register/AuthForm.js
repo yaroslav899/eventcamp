@@ -33,12 +33,12 @@ class AuthForm extends PureComponent {
           return false;
         }
 
-        setCookie('userData', stringifyJSON(userData), 2);
-        setCookie('profileData', stringifyJSON(profileData));
+        setCookie('userData', stringifyJSON(response.userData), 2);
+        setCookie('profileData', stringifyJSON(response.profileData));
 
         store.dispatch({
           type: 'UPDATE_USERPROFILE',
-          data: profileData,
+          data: response.profileData,
         });
 
         this.setState({
