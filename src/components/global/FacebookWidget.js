@@ -3,16 +3,20 @@ import React, { PureComponent } from 'react';
 class FacebookWidget extends PureComponent {
   componentDidMount() {
     // ToDo update this approach
-    window.fbAsyncInit = function () {
-      FB && FB.init({
+    new Promise(() => {
+      document.addEventListener('fb_init', e => FB && FB.XFBML.parse());
+      window.fbAsyncInit = function () {
+        FB && FB.init({
           appId: '652873901800006',
           xfbml: false,
           version: 'v2.6'
-      });
+        });
+      };
+    }).then(() => {
       document.dispatchEvent(new Event('fb_init'));
-    };
-    document.addEventListener('fb_init', e => FB && FB.XFBML.parse());
-    window.fbAsyncInit && FB && window.fbAsyncInit();
+    }).then(() => {
+      window.fbAsyncInit && FB && window.fbAsyncInit();
+    });
   }
 
   render() {

@@ -1,4 +1,4 @@
-export const free = ["free", "бесплатно", "свободный", "безкоштовний", "", null, "0"];
+export const free = ["free", "бесплатно", "свободный", "безкоштовний", "", null, "0", "-", " "];
 
 export const categories = [
     {
@@ -85,7 +85,12 @@ export const categories = [
                 "id": "1_16",
                 "url": "hakaton",
                 "name": "Хакатон"
-            }]
+          },
+          {
+            "id": "1_17",
+            "url": "another-it",
+            "name": "Другое"
+          }]
     },
     {
         "id": "10",
@@ -117,7 +122,12 @@ export const categories = [
                 "id": "10_5",
                 "url": "exhibitions",
                 "name": "Выставки"
-            }]
+          },
+          {
+            "id": "10_6",
+            "url": "sport-another",
+            "name": "Другое"
+          }]
     },
     {
         "id": "7",
@@ -126,12 +136,12 @@ export const categories = [
         "img": "/img/robot.png",
         "subcat": [
             {
-                "id": "8_1",
+                "id": "7_1",
                 "url": "chinese",
                 "name": "Chinese, Mandarin"
             },
             {
-                "id": "8_2",
+                "id": "7_2",
                 "url": "english",
                 "name": "English"
             }]
@@ -143,12 +153,12 @@ export const categories = [
         "img": "/img/nature.png",
         "subcat": [
             {
-                "id": "8_1",
+                "id": "15_1",
                 "url": "chinese",
                 "name": "Chinese, Mandarin"
             },
             {
-                "id": "8_2",
+                "id": "15_2",
                 "url": "english",
                 "name": "English"
             }]
@@ -160,12 +170,12 @@ export const categories = [
         "img": "/img/learning.png",
         "subcat": [
             {
-                "id": "8_1",
+                "id": "11_1",
                 "url": "chinese",
                 "name": "Chinese, Mandarin"
             },
             {
-                "id": "8_2",
+                "id": "11_2",
                 "url": "english",
                 "name": "English"
             }]
@@ -177,12 +187,12 @@ export const categories = [
         "img": "/img/science.png",
         "subcat": [
             {
-                "id": "8_1",
+                "id": "12_1",
                 "url": "chinese",
                 "name": "Chinese, Mandarin"
             },
             {
-                "id": "8_2",
+                "id": "13_2",
                 "url": "english",
                 "name": "English"
             }]
@@ -194,12 +204,12 @@ export const categories = [
         "img": "/img/fashion.png",
         "subcat": [
             {
-                "id": "8_1",
+                "id": "16_1",
                 "url": "chinese",
                 "name": "Chinese, Mandarin"
             },
             {
-                "id": "8_2",
+                "id": "16_2",
                 "url": "english",
                 "name": "English"
             }]
@@ -211,12 +221,12 @@ export const categories = [
         "img": "/img/family.png",
         "subcat": [
             {
-                "id": "8_1",
+                "id": "9_1",
                 "url": "chinese",
                 "name": "Chinese, Mandarin"
             },
             {
-                "id": "8_2",
+                "id": "9_2",
                 "url": "english",
                 "name": "English"
             }]
@@ -307,12 +317,12 @@ export const categories = [
         "img": "/img/turizm.png",
         "subcat": [
             {
-                "id": "8_1",
+                "id": "2_1",
                 "url": "chinese",
                 "name": "Chinese, Mandarin"
             },
             {
-                "id": "8_2",
+                "id": "2_2",
                 "url": "english",
                 "name": "English"
             }]
@@ -324,12 +334,12 @@ export const categories = [
         "img": "/img/action.png",
         "subcat": [
             {
-                "id": "8_1",
+                "id": "14_1",
                 "url": "chinese",
                 "name": "Chinese, Mandarin"
             },
             {
-                "id": "8_2",
+                "id": "14_2",
                 "url": "english",
                 "name": "English"
             }]
@@ -338,40 +348,60 @@ export const categories = [
 
 export const cities = [
     {
-        "id": "1",
-        "url": "kiev",
-        "name": "Киев"
+      "id": "1",
+      "url": "kiev",
+      "name": "Киев"
     },
     {
-        "id": "2",
-        "url": "odessa",
-        "name": "Одесса"
+      "id": "2",
+      "url": "odessa",
+      "name": "Одесса",
     },
     {
-        "id": "3",
-        "url": "kharkiv",
-        "name": "Харьков"
+      "id": "3",
+      "url": "kharkiv",
+      "name": "Харьков",
     },
     {
-        "id": "4",
-        "url": "dnepr",
-        "name": "Днепр"
+      "id": "4",
+      "url": "dnepr",
+      "name": "Днепр",
     },
     {
-        "id": "5",
-        "url": "lviv",
-        "name": "Львов"
+      "id": "5",
+      "url": "lviv",
+      "name": "Львов",
     },
     {
-        "id": "6",
-        "url": "vinnica",
-        "name": "Винница"
+      "id": "6",
+      "url": "vinnica",
+      "name": "Винница",
     },
     {
-        "id": "7",
-        "url": "zaporozhie",
-        "name": "Запорожье"
-    }
+      "id": "7",
+      "url": "zaporozhie",
+      "name": "Запорожье",
+    },
+    {
+      "id": "8",
+      "url": "poltava",
+      "name": "Полтава",
+    },
+    {
+      "id": "9",
+      "url": "uzhgorod",
+      "name": "Ужгород",
+    },
+    {
+      "id": "10",
+      "url": "chernihiv",
+      "name": "Чернигов",
+    },
+    {
+      "id": "11",
+      "url": "luck",
+      "name": "Луцк",
+    },
 ];
 
 export const defaultTopic = [{
