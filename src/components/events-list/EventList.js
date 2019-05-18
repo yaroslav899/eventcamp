@@ -5,6 +5,7 @@ import EventDate from '../event-global/EventDate';
 import EventPrice from '../event-global/EventPrice';
 import EventTags from '../event-global/EventTags';
 import Modal from '../global/Modal';
+import Button from '../global/Button';
 import GoogleCalendar from '../event-detail/GoogleCalendar';
 import { NavLink } from 'react-router-dom';
 import { request } from '../../api';
@@ -113,24 +114,14 @@ class EventList extends PureComponent {
             <span dangerouslySetInnerHTML={createMarkupText(event.title.rendered)} />
           </NavLink>
           <div className="events-item__description" dangerouslySetInnerHTML={createMarkupText(event.excerpt.rendered)} />
-          <div className="events-item__tags events-item-tags">
-            <EventTags tags={event.acf.tags} />
-          </div>
+          <EventTags className="events-item__tags events-item-tags" tags={event.acf.tags} />
         </div>
         <div className={actionWrapClass}>
-          <div className="events-item__price">
-            <EventPrice price={event.acf.price} currency={event.acf.currency} />
-          </div>
-          <div className="events-item__location">
-            <EventLocation city={event.acf.cities} address={event.acf.location} />
-          </div>
-          <div className="events-item__date">
-            <EventDate date={event.acf.dateOf} />
-          </div>
+          <EventPrice className="events-item__price" price={event.acf.price} currency={event.acf.currency} />
+          <EventLocation className="events-item__location" city={event.acf.cities} address={event.acf.location} />
+          <EventDate className="events-item__date" date={event.acf.dateOf} />
           <div className="events-item__action events-item-action">
-            <NavLink to={url} className="events-item-action__button">
-              {moreInfoButton}
-            </NavLink>
+            <Button text={moreInfoButton} to={url} className="events-item-action__button" />
             <span className={`events-item-action__button ${isSubscribed && 'action-button__active'}`} onClick={this.subscribe}>
               {interestedButton}
             </span>

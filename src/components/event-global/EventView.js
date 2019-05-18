@@ -2,10 +2,10 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import EventLocation from '../event-global/EventLocation';
 import EventDate from '../event-global/EventDate';
-import EventMoreCTA from '../event-global/EventMoreCTA';
-import EventChangeCTA from '../event-global/EventChangeCTA';
+import Button from '../global/Button';
 import { categories, cities } from '../../fixtures';
 import { getValueFromParams, createMarkupText } from '../../helper';
+import { globalRecources } from '../../resources/global';
 
 const EventView = (data) => {
   const { event, isOwner, changeButton, moreInfoButton } = data;
@@ -21,14 +21,14 @@ const EventView = (data) => {
         <NavLink to={eventUrl} className="events-item__title">
           <span dangerouslySetInnerHTML={createMarkupText(title.rendered)} />
         </NavLink>
-        <div>
-          <EventLocation city={acf.cities} address={acf.location} /> - <EventDate date={acf.dateOf} />
-        </div>
-      </div>
+        <EventLocation className="" city={acf.cities} address={acf.location} /> - <EventDate className="" date={acf.dateOf} />
+       </div>
       <div className="col-3 text-right">
         <div className="events-item__action events-item-action">
-          <EventMoreCTA to={eventUrl} target="_blank" />
-          <EventChangeCTA url={editEventUrl} isOwner={isOwner} />
+          <Button text={globalRecources.moreInfo} to={eventUrl} target="_blank" />
+          {isOwner &&
+            <Button text={globalRecources.change} to={editEventUrl} />
+          }
         </div>
       </div>
     </div>

@@ -47,24 +47,16 @@ class LastPosts extends PureComponent {
           <NavLink to={`/events/${city}/${category}/${post.id}`}>
             <div className="row">
               <div className="col-12">
-                <div className="last-post-title" dangerouslySetInnerHTML={createMarkupText(post.title.rendered)}></div>
+                <div className="last-post-title" dangerouslySetInnerHTML={createMarkupText(post.title.rendered)} />
               </div>
               <div className="col-8">
-                <div className="last-post-location">
-                  <EventLocation city={post.acf.cities} address={post.acf.location} />
-                </div>
-                <div className="last-post-date">
-                  <EventDate date={post.acf.dateOf} />
-                </div>
+                <EventLocation className="last-post-location" city={post.acf.cities} address={post.acf.location} />
+                <EventDate className="last-post-date" date={post.acf.dateOf} />
               </div>
               <div className="col-4">
-                <div className="last-post-price">
-                  <EventPrice price={post.acf.price} currency={post.acf.currency} />
-                </div>
+                <EventPrice className="last-post-price" price={post.acf.price} currency={post.acf.currency} />
               </div>
-              <div className="col-12 last-post-tags">
-                <EventTags tags={post.acf.tags} />
-              </div>
+              <EventTags className="col-12 last-post-tags" tags={post.acf.tags} />
             </div>
           </NavLink>
         </li>

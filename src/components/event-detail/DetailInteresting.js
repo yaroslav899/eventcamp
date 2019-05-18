@@ -63,7 +63,7 @@ class DetailInteresting extends PureComponent {
           rendered: postTitle,
         },
         acf: {
-          picture,
+          picture = imageUrlRecources.noPhoto,
           price = '',
           currency = '',
           cities: postCity,
@@ -79,18 +79,12 @@ class DetailInteresting extends PureComponent {
         <NavLink onClick={this.handleUpdateDetailPage.bind(this, samePost)} to={eventUrl}>
           <div className="row">
             <div className="col-12">
-              <img src={picture || imageUrlRecources.noPhoto} alt={postTitle} />
+              <img src={picture} alt={postTitle} />
               <div className="samePost-info-rightside row">
                 <div className="samePost-title col-7" dangerouslySetInnerHTML={createMarkupText(postTitle)} />
-                <div className="text-right col-5">
-                  <EventPrice price={price} currency={currency} />
-                </div>
-                <div className="col-7">
-                  <EventLocation city={postCity} address={location} />
-                </div>
-                <div className="text-right col-5">
-                  <EventDate date={dateOf} />
-                </div>
+                <EventPrice className="text-right col-5" price={price} currency={currency} />
+                <EventLocation className="col-7" city={postCity} address={location} />
+                <EventDate className="text-right col-5" date={dateOf} />
               </div>
             </div>
           </div>

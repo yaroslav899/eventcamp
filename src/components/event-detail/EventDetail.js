@@ -102,20 +102,14 @@ class EventDetail extends PureComponent {
           <img src={event.acf.picture || noPhotoUrl} alt={event.title.rendered} className="detail-picture" />
         </div>
         <div className="col-12 col-md-6 area-1_text">
-          <div className="text-right area-1_price">
-            <EventPrice price={event.acf.price} currency={event.acf.currency} />
-          </div>
+          <EventPrice className="text-right area-1_price" price={event.acf.price} currency={event.acf.currency} />
           <div className="area-1_info">
             <span className="day">{date[0]}</span>
             <span className="month">{date[1]}</span>
             <span className="time">{event.acf.time}</span>
             <p>{dateDay}</p>
-            <p className="area-1_tags">
-              <EventTags tags={event.acf.tags} />
-            </p>
-            <p className="area-1_location">
-              <EventLocation city={event.acf.cities} address={event.acf.location} />
-            </p>
+            <EventTags className="area-1_tags" tags={event.acf.tags} />
+            <EventLocation className="area-1_location" city={event.acf.cities} address={event.acf.location} />
             <p className="area-1_interesting">
               <span className={this.state.isSubscribed ? 'm-active' : ''} onClick={this.subscribe}>
                 {interestedButton}

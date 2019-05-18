@@ -1,13 +1,9 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
-const EventLocation = (data) => {
-  const { city, address } = data;
-
-  return (
-    <Fragment>
-      {`${city}, ${address}`}
-    </Fragment>
-  );
-}
+const EventLocation = ({ className = '', city = '', address = '' }) => (
+  <div className={className}>
+    {`${city}, ${address}`}
+  </div>
+);
 
 export default EventLocation;
