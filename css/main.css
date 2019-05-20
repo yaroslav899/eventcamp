@@ -57,6 +57,9 @@ a:hover {
 .article-appear {
   margin-bottom: 20px;
 }
+.inline{
+  display:inline;
+}
 
 /**
 *  Header
@@ -361,6 +364,9 @@ header .authBlock {
 }
 .own-events-item__title {
   font-weight:bold;
+}
+.own-events-item .events-item__title{
+  display:block;
 }
 .own-events__item .events-item__description,
 .own-events__item .events-item__price,
@@ -672,11 +678,13 @@ div.area-1 div.area-1_info span.time {
   font-size: 0.9em;
   margin-left: 1%;
 }
-div.area-1 div.area-1_info p.area-1_location {
+div.area-1 div.area-1_info div.area-1_location {
   background: url(http://board.it-mir.net.ua/wp-content/uploads/2018/05/locator.png) no-repeat left center;
   padding-left: 20px;
+  margin-top: 10px;
+  font-size: 0.9em;
 }
-div.area-1 div.area-1_info p.area-1_tags span {
+div.area-1 div.area-1_info div.area-1_tags span {
   background: #ffffff;
   color: #0367b7;
   font-size: 0.7em;

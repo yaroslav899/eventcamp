@@ -21,15 +21,18 @@ class UserImage extends PureComponent {
         const responseUserData = {
           name,
           email,
-          token,
           userID,
           phone,
           city,
           imageUrl: response.data.media_details.sizes.medium.source_url,
         }
 
+        request.updateProfile(responseUserData, userID);
+
+        responseUserData.token = token;
+
         store.dispatch({
-          type: 'UPDATE_USERDATA',
+          type: 'UPDATE_USERPROFILE',
           data: responseUserData,
         });
       });

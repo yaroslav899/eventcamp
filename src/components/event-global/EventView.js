@@ -21,7 +21,7 @@ const EventView = (data) => {
         <NavLink to={eventUrl} className="events-item__title">
           <span dangerouslySetInnerHTML={createMarkupText(title.rendered)} />
         </NavLink>
-        <EventLocation className="" city={acf.cities} address={acf.location} /> - <EventDate className="" date={acf.dateOf} />
+        <EventLocation className="inline" city={acf.cities} address={acf.location} /> - <EventDate className="inline" date={acf.dateOf} />
        </div>
       <div className="col-3 text-right">
         <div className="events-item__action events-item-action">

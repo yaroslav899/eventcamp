@@ -2,7 +2,7 @@ import axios from 'axios';
 import { stateToHTML } from 'draft-js-export-html';
 import store from '../store';
 import { setCookie, getCookie } from '../_cookie';
-import { getValueFromParams, setProfileData } from '../helper';
+import { getValueFromParams, setProfileData, getUniqueArray } from '../helper';
 import { getRequestUrl, getInterestingUrl, getLastPostsUrl, fetchData, authFetch } from './helpers';
 import { adminAccess } from '../credentials';
 import { cities } from '../fixtures';
@@ -319,4 +319,17 @@ export const request = {
       }),
     }).then(response => response.json());
   },
+
+  getTakingPartMemberEvents: (subscribed) => {
+    let postIDs = getUniqueArray(subscribed.split(',')).join(',');
+    const lastSymbol = postIDs.slice(-1);
+
+    if (lastSymbol === ',') {
+      postIDs = postIDs.replace(lastSymbol, '');
+    }
+
+    const url = `${urlRecources.endpointUrl}posts/?include=${postIDs}`;
+
+    return fetchData(url, null);
+  }
 };

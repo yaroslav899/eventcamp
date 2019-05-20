@@ -5,9 +5,18 @@ import { request } from '../../api';
 import store from '../../store';
 
 class OwnEvents extends PureComponent {
+  componentDidMount() {
+    const { userProfile } = this.props;
+
+    if (userProfile.userID && userProfile.userID.length) {
+      return this.loadOwnEvents(userID);
+    }
+  }
+
   getSnapshotBeforeUpdate(prevProps, prevState) {
     const { userProfile: prevProfileData } = prevProps;
     const { userProfile: profileData } = this.props;
+
     if ((prevProfileData.userID !== profileData.userID) && profileData.userID) {
       return profileData;
     }

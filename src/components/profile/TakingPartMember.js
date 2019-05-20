@@ -1,22 +1,22 @@
 import React, { PureComponent } from 'react';
+import { urlRecources } from '../../resources/url';
+import { getUniqueArray } from '../../helper';
 import EventView from '../event-global/EventView';
+import { request } from '../../api';
 
 class TakingPartMember extends PureComponent {
   state = {
-    events: null
+    events: null,
   }
 
   componentDidMount() {
-    const { user } = this.props;
+    const { user : { subscribed } = {} } = this.props;
 
-    if (!user) {
+    if (!subscribed || !subscribed.length) {
       return true;
     }
 
-    const url = `http://board.it-mir.net.ua/wp-json/wp/v2/posts?filter[meta_key]=countmembers&filter[meta_compare]=LIKE&filter[meta_value]=${user.email}`;
-
-    return fetch(url)
-      .then(response => response.json())
+    return request.getTakingPartMemberEvents(subscribed)
       .then((data) => {
         this.setState({
           events: data,
