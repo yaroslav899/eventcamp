@@ -6,9 +6,9 @@ import store from '../../store';
 
 class OwnEvents extends PureComponent {
   componentDidMount() {
-    const { userProfile } = this.props;
+    const { userProfile: { userID } } = this.props;
 
-    if (userProfile.userID && userProfile.userID.length) {
+    if (userID) {
       return this.loadOwnEvents(userID);
     }
   }

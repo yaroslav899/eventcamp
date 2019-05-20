@@ -78,7 +78,7 @@ class UserInfoEdit extends PureComponent {
         }
 
         return true;
-    })
+    });
   }
 
   validator = () => {
