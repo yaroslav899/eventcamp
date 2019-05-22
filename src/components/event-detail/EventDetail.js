@@ -67,16 +67,16 @@ class EventDetail extends PureComponent {
 
       return request.updateProfile(param, userID)
         .then((response) => {
-            if (response.success) {
-              setCookie('profileData', JSON.stringify(response.userProfile));
+          if (response.success) {
+            setCookie('profileData', JSON.stringify(response.userProfile));
 
-              store.dispatch({
-                type: 'UPDATE_USERPROFILE',
-                data: response.userProfile,
-              });
-            }
+            store.dispatch({
+              type: 'UPDATE_USERPROFILE',
+              data: response.userProfile,
+            });
+          }
 
-            return true;
+          return true;
         });
     } else {
       this.toggleModal();

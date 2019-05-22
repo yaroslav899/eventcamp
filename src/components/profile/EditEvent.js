@@ -61,8 +61,7 @@ class EditEvent extends AddEvent {
           currentTheme: currentTopic,
         })
       });
-    }
-    catch (error) {
+    } catch (error) {
       this.props.history.push(userMenu.profile);
       return false;
     }

@@ -19,7 +19,9 @@ class LastPosts extends PureComponent {
       },
     } = this.props;
 
-    if (list) return;
+    if (list) {
+      return false;
+    }
 
     return request.getLastPosts().then((posts) => {
       store.dispatch({
@@ -39,8 +41,8 @@ class LastPosts extends PureComponent {
     if (!list) return <Fragment />;
 
     const lastPosts = list.map((post) => {
-      let city = getValueFromParams(cities, post.acf.cities, 'name', 'url');
-      let category = getValueFromParams(categories, post.categories[0], 'id', 'url');
+      const city = getValueFromParams(cities, post.acf.cities, 'name', 'url');
+      const category = getValueFromParams(categories, post.categories[0], 'id', 'url');
 
       return (
         <li key={post.id}>

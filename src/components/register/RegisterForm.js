@@ -3,7 +3,7 @@ import ReCAPTCHA from 'react-google-recaptcha';
 import { reCaptcha } from '../../credentials';
 import { formValidator } from '../../validator';
 import { request } from '../../api';
-import { fieldsRegisterForm } from '../../resources';
+import { fieldsRegisterForm, detailRecources } from '../../resources';
 import { titleList, globalRecources } from '../../resources/global';
 
 class RegisterForm extends Component {
@@ -106,7 +106,8 @@ class RegisterForm extends Component {
   }
 
   render() {
-    const { isSuccessRegister, errorMsg } = this.state;
+    const { isSuccessRegister } = this.state;
+
     if (isSuccessRegister) {
       return (
         <Fragment>
@@ -114,17 +115,15 @@ class RegisterForm extends Component {
         </Fragment>
       );
     }
+
+    const { errorMsg } = this.state;
     const fields = Object.keys(fieldsRegisterForm).map((field) => {
       let fieldValue = fieldsRegisterForm[field];
       let fieldType = this.fieldTypes[field] || this.fieldTypes.text;
 
       return (
         <div className="form-row" key={field}>
-          <label
-            htmlFor={field}
-            key={fieldValue}
-            className="registration-form__label col-sm-4"
-          >
+          <label htmlFor={field} key={fieldValue} className="registration-form__label col-sm-4">
             {fieldValue}
           </label>
           <input
@@ -149,7 +148,7 @@ class RegisterForm extends Component {
           {globalRecources.privacy}
           <ReCAPTCHA sitekey={reCaptcha.siteKey} onChange={this.reCaptchaHandler} />
           <span className="error-message">{errorMsg}</span>
-          <input type="submit" value="Зарегистрироваться" className="btn btn-secondary" />
+          <input type="submit" value={detailRecources.register} className="btn btn-secondary submit" />
         </form>
       </Fragment>
     );

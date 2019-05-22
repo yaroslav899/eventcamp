@@ -32,12 +32,15 @@ export const advantRecources = {
 export const fieldsRegisterForm = {
   firstname: 'Имя:',
   secondname: 'Фамилия:',
-  email: 'Email:',
-  login: 'Логин:',
-  password: 'Пароль:',
-  duplicatepassword: 'Повторите пароль:',
-  errorMsg: 'Неправильный логин или пароль',
+  email: 'Email: *',
+  login: 'Логин: *',
+  password: 'Пароль: *',
+  duplicatepassword: 'Повторите пароль: *',
 };
+
+export const fieldsMsg = {
+    errorMsg: 'Неправильный логин или пароль',
+  };
 
 export const googleApiService = {
   key: 'AIzaSyCM7IwnppmyEPSZPDZIoTW8VKOMlS5peN4',

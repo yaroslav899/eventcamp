@@ -99,31 +99,38 @@ class AddEvent extends PureComponent {
   handleSubmit = (event) => {
     event.preventDefault();
 
-    this.setState({
-      isAddingEvent: true,
+    this.setState({ isAddingEvent: true }, () => {
+      const file = this.fileInput.current.files[0];
+      const { state } = this;
+      const checkValidForm = this.validator();
+
+      if (!checkValidForm.success) {
+        this.setState({
+          errorMsg: checkValidForm.errorMsg,
+          isAddingEvent: false,
+        });
+        return false;
+      }
+
+      if (!file) {
+        return request.createPost(state, null)
+          .then((data) =>  this.setState({
+            isSuccessRegister: true,
+            isAddingEvent: false,
+          }));
+      }
+
+      // ToDo update case without image and when image has cyrillic name
+      return request.uploadImage(file)
+        .then((response) => {
+          const { id } = response.data;
+          return request.createPost(state, id)
+            .then((data) => this.setState({
+              isSuccessRegister: true,
+              isAddingEvent: false,
+            }));
+        });
     });
-
-    const file = this.fileInput.current.files[0];
-    const { state } = this;
-    const checkValidForm = this.validator();
-
-    if (!checkValidForm.success) {
-      this.setState({ errorMsg: checkValidForm.errorMsg });
-      return false;
-    }
-
-    if (!file) {
-      return request.createPost(state, null)
-        .then((data) =>  this.setState({ isSuccessRegister: true }));
-    }
-
-    // ToDo update case without image and when image has cyrillic name
-    return request.uploadImage(file)
-      .then((response) => {
-        const { id } = response.data;
-        return request.createPost(state, id)
-          .then((data) => this.setState({ isSuccessRegister: true }));
-      });
   };
 
   validator = () => {
@@ -185,12 +192,12 @@ class AddEvent extends PureComponent {
       isAddingEvent,
       isSuccessRegister,
     } = this.state;
-    const { sucessMsg } = this.props;
+    const { successMsg } = this.props;
 
     if (isSuccessRegister) {
       return (
         <div className="container">
-          {sucessMsg}
+          {successMsg}
         </div>
       )
     }
@@ -198,7 +205,7 @@ class AddEvent extends PureComponent {
     return (
       <div className="container">
         <h1>{global.addEventButton}</h1>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit} className="event-editor">
           <div className="form-row">
             <div className="col-md-6">
               <div className="row">
@@ -385,7 +392,10 @@ class AddEvent extends PureComponent {
           />
           <div className="border-separate" />
           <span className="error-message">{errorMsg}</span>
-          <input type="submit" value={global.addEventButton} className="btn btn-secondary" />
+          <button type="submit" className="btn btn-secondary submit" disabled={isAddingEvent}>
+            {global.addEventButton}
+            {isAddingEvent && <Loader/>}
+          </button>
         </form>
       </div>
     );

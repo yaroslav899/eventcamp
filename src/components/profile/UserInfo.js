@@ -34,14 +34,14 @@ class UserInfo extends PureComponent {
             <h3>{profileProperties.title}</h3>
           </div>
           <div className="col-6">
-            <button className="profile__add-button" onClick={this.changeProfileInfo} >
+            <button type="button" className="profile__add-button" onClick={this.changeProfileInfo}>
               {!isEditMode ? profileProperties.editProfileButton : profileProperties.cancelEditProfileButton}
             </button>
           </div>
         </div>
         {isEditMode ? <UserInfoEdit user={user} changeProfileInfo={this.changeProfileInfo} /> : <UserInfoData user={user} />}
       </div>
-    )
+    );
   }
 }
 

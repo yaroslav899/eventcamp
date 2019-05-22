@@ -15,7 +15,7 @@ class UserInfoEdit extends PureComponent {
     errorMsg: '',
   };
 
-  //ToDo check what the better, create getDerivedStateFromProps and change state isUpdated or that
+  // ToDo check what the better, create getDerivedStateFromProps and change state isUpdated or that
   componentDidMount() {
     const {
       user: {
@@ -23,7 +23,7 @@ class UserInfoEdit extends PureComponent {
         email,
         phone,
         city,
-      }
+      },
     } = this.props;
 
     this.setState({
@@ -52,8 +52,6 @@ class UserInfoEdit extends PureComponent {
     const { name, email, phone, city } = this.state;
     const {
       user: {
-        imageUrl,
-        token,
         userID,
       },
       changeProfileInfo,
@@ -61,7 +59,7 @@ class UserInfoEdit extends PureComponent {
     const param = {
       name,
       email,
-      description: JSON.stringify({ phone, city })
+      description: JSON.stringify({ phone, city }),
     };
 
     return request.updateProfile(param, userID)
@@ -140,7 +138,7 @@ class UserInfoEdit extends PureComponent {
           </div>
         </div>
       </form>
-    )
+    );
   }
 }
 

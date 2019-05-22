@@ -1,6 +1,9 @@
 import moment from 'moment';
+import { stateToHTML } from 'draft-js-export-html';
 import { cities } from '../../fixtures';
 import { urlRecources } from '../../resources/url';
+import { getValueFromParams } from '../../helper';
+import { parseJSON, stringifyJSON } from '../../helper/json';
 import store from '../../store';
 
 export const getRequestUrl = (param) => {
@@ -65,7 +68,7 @@ export const getLastPostsUrl = () => {
 };
 
 export const fetchData = (url, params) => {
-  return fetch(url, params || { method: "GET" })
+  return fetch(url, params || { method: 'GET' })
     .then(response =>  response.json());
 };
 
@@ -82,3 +85,56 @@ export const authFetch = param => fetch(urlRecources.jwtRegister, {
   }),
 }).then(response =>  response.json());
 
+
+export const eventRequest = (param, imageID, userData) => {
+  const {
+    editorState,
+    title: displayTitle,
+    price: priceValue,
+    currency: currencyValue,
+    category,
+    subcategory,
+    tags: topicTags,
+    city,
+    address,
+    date,
+    time: eventTime,
+    currentTheme,
+    register,
+    phone,
+    email,
+    eventID = null,
+  } = param;
+  const description = stateToHTML(editorState.getCurrentContent());
+  const { token } = parseJSON(userData);
+  const url = `${urlRecources.endpointUrl}posts/${eventID || ''}`;
+
+  return fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: stringifyJSON({
+      title: displayTitle,
+      content: description,
+      featured_media: imageID,
+      categories: category,
+      fields: {
+        topic: currentTheme.label,
+        cities: getValueFromParams(cities, city, 'id', 'name'),
+        picture: imageID,
+        price: priceValue,
+        location: address,
+        dateOf: date,
+        currency: currencyValue,
+        tags: topicTags,
+        time: eventTime,
+        register,
+        phone,
+        email,
+      },
+    }),
+  }).then(response => response.json());
+};

@@ -1,10 +1,10 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import { Redirect } from 'react-router-dom';
 import { request } from '../../api';
 import store from '../../store';
 import { setCookie } from '../../_cookie';
 import { stringifyJSON } from '../../helper/json';
-import { fieldsRegisterForm } from '../../resources';
+import { fieldsRegisterForm, fieldsMsg } from '../../resources';
 import { globalRecources, titleList } from '../../resources/global';
 
 class AuthForm extends PureComponent {
@@ -26,9 +26,7 @@ class AuthForm extends PureComponent {
     request.authUser(this.state)
       .then((response) => {
         if (!response.success) {
-          this.setState({
-            isValidForm: false,
-          });
+          this.setState({ isValidForm: false });
 
           return false;
         }
@@ -44,6 +42,8 @@ class AuthForm extends PureComponent {
         this.setState({
           isSuccessAuth: true,
         });
+
+        return true;
       });
   }
 
@@ -55,7 +55,7 @@ class AuthForm extends PureComponent {
     }
 
     return (
-      <div>
+      <Fragment>
         <h3>{titleList.authorization}</h3>
         <form onSubmit={this.handleSubmit} className="registration__form registration-form">
           <div className="form-row">
@@ -70,12 +70,12 @@ class AuthForm extends PureComponent {
             </label>
             <input type="password" className="form-control col-sm-6" name="password" value={password} onChange={this.handleChange} required />
           </div>
-          <div className={isValidForm ? 'd-none' : ''}>
-            {fieldsRegisterForm.errorMsg}
+          <div className={isValidForm ? 'd-none' : 'error-message'}>
+            {fieldsMsg.errorMsg}
           </div>
-          <input type="submit" value={globalRecources.sendText} className="btn btn-secondary" />
+          <input type="submit" value={globalRecources.sendText} className="btn btn-secondary submit" />
         </form>
-      </div>
+      </Fragment>
     );
   }
 }

@@ -5,7 +5,7 @@ const AddToInteresting = (props) => {
   const { register, target, className, title, registerButton } = props;
 
   if (!register) {
-    return <Fragment />
+    return <Fragment />;
   }
 
   return (
@@ -13,10 +13,10 @@ const AddToInteresting = (props) => {
       {registerButton}
     </a>
   );
-}
+};
 
 AddToInteresting.defaultProps = {
   registerButton: detailRecources.register,
-}
+};
 
 export default AddToInteresting;

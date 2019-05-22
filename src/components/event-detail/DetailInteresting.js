@@ -56,7 +56,7 @@ class DetailInteresting extends PureComponent {
     if (!posts) return <Fragment />;
 
     const samePosts = posts.map(samePost => {
-      let {
+      const {
         id: postID,
         categories: postCategories = ['it'],
         title: {
@@ -71,9 +71,9 @@ class DetailInteresting extends PureComponent {
           dateOf,
         },
       } = samePost;
-      let city = getValueFromParams(cities, postCity, 'name', 'url');
-      let category = getValueFromParams(categories, postCategories[0], 'id', 'url');
-      let eventUrl = `/events/${city}/${category}/${postID}`;
+      const city = getValueFromParams(cities, postCity, 'name', 'url');
+      const category = getValueFromParams(categories, postCategories[0], 'id', 'url');
+      const eventUrl = `/events/${city}/${category}/${postID}`;
 
       return <li key={postID} className="same-post-rightside">
         <NavLink onClick={this.handleUpdateDetailPage.bind(this, samePost)} to={eventUrl}>

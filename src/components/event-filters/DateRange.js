@@ -3,8 +3,8 @@ import DayPicker, { DateUtils } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import MomentLocaleUtils from 'react-day-picker/moment';
 import 'moment/locale/ru';
-import store from '../../store'
 import { connect } from 'react-redux';
+import store from '../../store';
 import { request } from '../../api';
 import { filterRecources } from '../../resources';
 import { globalRecources } from '../../resources/global';
@@ -12,7 +12,7 @@ import { globalRecources } from '../../resources/global';
 class DateRange extends Component {
   handleDayClick = (day) => {
     if (new Date(day).toLocaleDateString() < new Date().toLocaleDateString()) {
-        return;
+      return false;
     }
 
     const { dateRange, noFilterResultMsg } = this.props;
@@ -20,7 +20,7 @@ class DateRange extends Component {
 
     store.dispatch({
       type: 'UPDATE_FILTER_DATERANGE',
-      dateRange: range
+      dateRange: range,
     });
 
     return request.getListPosts(range)
@@ -29,6 +29,8 @@ class DateRange extends Component {
           posts.push({
             empty: noFilterResultMsg,
           });
+
+          return false;
         }
 
         store.dispatch({

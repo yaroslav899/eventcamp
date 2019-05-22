@@ -7,7 +7,7 @@ class EventPhone extends PureComponent {
     isPhoneUpdated: false,
   }
 
-  handlePhoneClick = (event) => {
+  handlePhoneClick = () => {
     const { isPhoneUpdated } = this.state;
 
     if (isPhoneUpdated) {
@@ -24,6 +24,8 @@ class EventPhone extends PureComponent {
       phoneNumber: phone,
       isPhoneUpdated: true,
     });
+
+    return true;
   }
 
   render() {
@@ -38,6 +40,6 @@ class EventPhone extends PureComponent {
       </a>
     )
   }
-}
+};
 
 export default EventPhone;

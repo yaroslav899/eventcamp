@@ -50,9 +50,6 @@ class SelectFilter extends Component {
     this.changeSelection('topics', selection);
 
     const { topics } = this.state;
-    if (selection) {
-      const param = topics.filter(topic => topic.name === selection.label);
-    }
 
     this.setState({
       currentTheme: selection || defaultTopic,
@@ -73,7 +70,7 @@ class SelectFilter extends Component {
       .then((posts) => {
         if (!posts.length) {
           posts.push({
-            empty: globalRecources.noFilterResult
+            empty: globalRecources.noFilterResult,
           });
         }
 

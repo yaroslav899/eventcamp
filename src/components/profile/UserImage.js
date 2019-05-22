@@ -11,7 +11,7 @@ class UserImage extends PureComponent {
 
   handleUploadImage = () => {
     const { user } = this.props;
-    const { name, email, token, city, phone, userID, subscribed } = user;
+    const { name, email, city, phone, userID, subscribed } = user;
 
     const file = this.fileInput.current.files[0];
     const fileNameArray = file.name.split('.');
@@ -38,28 +38,28 @@ class UserImage extends PureComponent {
       .then(response => {
         const param = {
           description: stringifyJSON({
-              name,
-              userID,
-              email,
-              phone,
-              city,
-              imageUrl: response.data.media_details.sizes.medium.source_url,
-              subscribed,
-          })
+            name,
+            userID,
+            email,
+            phone,
+            city,
+            imageUrl: response.data.media_details.sizes.medium.source_url,
+            subscribed,
+          }),
         };
 
         return request.updateProfile(param, userID)
-          .then((response) => {
-            if (response.success) {
-                setCookie('profileData', JSON.stringify(response.userProfile));
+          .then((responseProfile) => {
+            if (responseProfile.success) {
+              setCookie('profileData', JSON.stringify(responseProfile.userProfile));
 
-                store.dispatch({
-                  type: 'UPDATE_USERPROFILE',
-                  data: response.userProfile,
-                });
-              }
+              store.dispatch({
+                type: 'UPDATE_USERPROFILE',
+                data: responseProfile.userProfile,
+              });
+            }
 
-              return true;
+            return true;
           });
       });
   };
@@ -86,7 +86,7 @@ class UserImage extends PureComponent {
         <div className="col-3 profile__add-photo">
           <p>
             {profileProperties.uploadFile}
-            <br/>
+            <br />
             <input type="file" ref={this.fileInput} onChange={this.handleUploadImage} />
           </p>
         </div>

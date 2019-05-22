@@ -1,11 +1,9 @@
 import axios from 'axios';
-import { stateToHTML } from 'draft-js-export-html';
 import store from '../store';
-import { setCookie, getCookie } from '../_cookie';
-import { getValueFromParams, setProfileData, getUniqueArray } from '../helper';
-import { getRequestUrl, getInterestingUrl, getLastPostsUrl, fetchData, authFetch } from './helpers';
+import { getCookie } from '../_cookie';
+import { setProfileData, getUniqueArray } from '../helper';
+import { getRequestUrl, getInterestingUrl, getLastPostsUrl, fetchData, authFetch, eventRequest } from './helpers';
 import { adminAccess } from '../credentials';
-import { cities } from '../fixtures';
 import { parseJSON, stringifyJSON } from '../helper/json';
 import { urlRecources } from '../resources/url';
 import { googleApiService } from '../resources';
@@ -135,54 +133,17 @@ export const request = {
         return false;
     }
 
-    const {
-      editorState,
-      title: displayTitle,
-      price: priceValue,
-      currency: currencyValue,
-      category,
-      subcategory,
-      tags: topicTags,
-      city,
-      address,
-      date,
-      time: eventTime,
-      currentTheme,
-      register,
-      phone,
-      email,
-    } = param;
-    const description = stateToHTML(editorState.getCurrentContent());
-    const { token } = JSON.parse(userData);
+    return eventRequest(param, imageID, userData);
+  },
 
-    return fetch(`${urlRecources.endpointUrl}posts/`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        title: displayTitle,
-        content: description,
-        featured_media: imageID,
-        categories: category,
-        fields: {
-          topic: currentTheme.label,
-          cities: getValueFromParams(cities, city, 'id', 'name'),
-          picture: imageID,
-          price: priceValue,
-          location: address,
-          dateOf: date,
-          currency: currencyValue,
-          tags: topicTags,
-          time: eventTime,
-          register: register,
-          phone: phone,
-          email: email,
-        },
-      }),
-    }).then(response => response.json());
+  updateEvent: (param, imageID) => {
+    const userData = getCookie('userData');
+
+    if (!userData) {
+        return false;
+    }
+
+    return eventRequest(param, imageID, userData);
   },
 
   getAuthorPosts: (param) => {
@@ -196,6 +157,7 @@ export const request = {
     const myHeaders = { cache: "force-cache" };
 
     return fetch(url, myHeaders).then((response) => {
+      //ToDo change this approach, since api is not a good place for it
       store.dispatch({
         type: 'UPDATE_PAGINATION',
         count: response.headers.get('x-wp-totalpages'),
@@ -259,65 +221,6 @@ export const request = {
         'Cache-Control': 'no-cache',
       }
     });
-  },
-
-  updateEvent: (param, imageID) => {
-    const userData = getCookie('userData');
-
-    if (!userData) {
-        return false;
-    }
-
-    const {
-      editorState,
-      title: displayTitle,
-      price: priceValue,
-      currency: currencyValue,
-      category,
-      subcategory,
-      tags: topicTags,
-      city,
-      address,
-      date,
-      time: eventTime,
-      currentTheme,
-      register,
-      phone,
-      email,
-      eventID,
-    } = param;
-    const description = stateToHTML(editorState.getCurrentContent());
-    const { token } = JSON.parse(userData);
-    const url = `${urlRecources.endpointUrl}posts/${eventID}`;
-
-    return fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        title: displayTitle,
-        content: description,
-        featured_media: imageID,
-        categories: category,
-        fields: {
-          topic: currentTheme.label,
-          cities: getValueFromParams(cities, city, 'id', 'name'),
-          picture: imageID,
-          price: priceValue,
-          location: address,
-          dateOf: date,
-          currency: currencyValue,
-          tags: topicTags,
-          time: eventTime,
-          register: register,
-          phone: phone,
-          email: email,
-        },
-      }),
-    }).then(response => response.json());
   },
 
   getTakingPartMemberEvents: (subscribed) => {

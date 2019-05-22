@@ -47,11 +47,11 @@ const DetailTabs = (props) => {
       </TabPanel>
     </Tabs>
   );
-}
+};
 
 DetailTabs.defaultProps = {
   descriptionTabName: detailRecources.description,
-  howToGetTabName: detailRecources.howToGet
-}
+  howToGetTabName: detailRecources.howToGet,
+};
 
 export default DetailTabs;
