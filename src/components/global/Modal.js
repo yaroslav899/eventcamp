@@ -6,7 +6,7 @@ const Modal = (props) => {
   const closeModal = (e) => {
     e.preventDefault();
     toggleModal();
-  }
+  };
 
   return (
     <div className="modal" tabIndex="-1" role="dialog">
@@ -27,7 +27,7 @@ const Modal = (props) => {
         </div>
       </div>
     </div>
-  )
+  );
 };
 
 export default Modal;

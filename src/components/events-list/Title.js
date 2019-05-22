@@ -20,7 +20,7 @@ class Title extends Component {
   }
 }
 
-const mapStateToProps = function (storeData) {
+const mapStateToProps = storeData => {
   return {
     category: storeData.filterState.categories,
     city: storeData.filterState.cities,

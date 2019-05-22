@@ -9,8 +9,7 @@ class Menu extends Component {
   render() {
     const menuLinks = mainMenu.map((item) => <li key={item.id} className="menu-item">
       <ActiveLink to={item.url}>{item.name}</ActiveLink>
-    </li>
-    );
+    </li>);
 
     return (
       <nav className="navbar navbar-expand-lg navbar-light" role="navigation">
@@ -24,7 +23,7 @@ class Menu extends Component {
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <span className="navbar-toggler-icon"></span>
+            <span className="navbar-toggler-icon" />
           </button>
           <NavLink to="/" className="navbar-brand d-md-none" exact>
             <img src={imageUrlRecources.logo} alt={titleList.home} title={titleList.home} />

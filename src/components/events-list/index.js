@@ -11,7 +11,7 @@ import { globalRecources } from '../../resources/global';
 class ListPage extends Component {
   componentDidMount() {
     const { noFilterResultMsg, match } = this.props;
-    const { params:initialParams } = match;
+    const { params: initialParams } = match;
 
     store.dispatch({
       type: 'UPDATE_EVENT_LIST',
@@ -31,6 +31,8 @@ class ListPage extends Component {
         type: 'UPDATE_EVENT_LIST',
         list: posts,
       });
+
+      return true;
     });
 
   }
@@ -39,9 +41,7 @@ class ListPage extends Component {
     const { posts } = this.props;
 
     if (!posts.length) {
-      return (
-        <Loader/>
-      )
+      return <Loader />;
     }
 
     let eventsElement = null;
@@ -68,14 +68,10 @@ class ListPage extends Component {
   }
 }
 
-const mapStateToProps = function (storeData) {
-  return {
-    posts: storeData.filterState.list,
-  }
+const mapStateToProps = storeData => {
+  return { posts: storeData.filterState.list }
 };
 
-ListPage.defaultProps = {
-  noFilterResultMsg: globalRecources.noFilterResult,
-}
+ListPage.defaultProps = { noFilterResultMsg: globalRecources.noFilterResult }
 
 export default connect(mapStateToProps)(ListPage);

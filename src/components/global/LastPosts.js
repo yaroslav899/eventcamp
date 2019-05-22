@@ -13,11 +13,7 @@ import { listRecources } from '../../resources';
 
 class LastPosts extends PureComponent {
   componentDidMount() {
-    const {
-      lastPosts: {
-        list,
-      },
-    } = this.props;
+    const { lastPosts: { list } } = this.props;
 
     if (list) {
       return false;
@@ -32,11 +28,7 @@ class LastPosts extends PureComponent {
   }
 
   render() {
-    const {
-      lastPosts: {
-        list,
-      },
-    } = this.props;
+    const { lastPosts: { list } } = this.props;
 
     if (!list) return <Fragment />;
 
@@ -62,7 +54,7 @@ class LastPosts extends PureComponent {
             </div>
           </NavLink>
         </li>
-      )
+      );
     });
 
     return (
@@ -76,10 +68,8 @@ class LastPosts extends PureComponent {
   }
 }
 
-const mapStateToProps = function (storeData) {
-  return {
-    lastPosts: storeData.lastPosts,
-  };
+const mapStateToProps = storeData => {
+  return { lastPosts: storeData.lastPosts };
 };
 
 export default connect(mapStateToProps)(LastPosts);

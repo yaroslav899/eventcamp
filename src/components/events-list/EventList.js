@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import EventLocation from '../event-global/EventLocation';
 import EventDate from '../event-global/EventDate';
 import EventPrice from '../event-global/EventPrice';
@@ -7,7 +8,6 @@ import EventTags from '../event-global/EventTags';
 import Modal from '../global/Modal';
 import Button from '../global/Button';
 import GoogleCalendar from '../event-detail/GoogleCalendar';
-import { NavLink } from 'react-router-dom';
 import { request } from '../../api';
 import store from '../../store';
 import { setCookie } from '../../_cookie';
@@ -50,11 +50,11 @@ class EventList extends PureComponent {
       },
     } = this.props;
 
-    if (userName, userEmail) {
+    if (userName && userEmail) {
       const { userProfile, event: { id: eventID } } = this.props;
       const { isSubscribed } = this.state;
 
-      if (isSubscribed){
+      if (isSubscribed) {
         userProfile.subscribed = subscribed.replace(eventID, '');
       } else {
         userProfile.subscribed = subscribed.length ? `${subscribed},${eventID}` : `${eventID}`;
@@ -62,13 +62,9 @@ class EventList extends PureComponent {
 
       !isSubscribed && this.toggleModal();
 
-      this.setState({
-        isSubscribed: !isSubscribed,
-      });
+      this.setState({ isSubscribed: !isSubscribed });
 
-      const param = {
-        description: JSON.stringify(userProfile)
-      };
+      const param = { description: JSON.stringify(userProfile) };
 
       return request.updateProfile(param, userID)
         .then((response) => {
@@ -83,17 +79,16 @@ class EventList extends PureComponent {
 
             return true;
         });
-    } else {
-      this.toggleModal();
-
-      return true;
     }
+
+    this.toggleModal();
+
+    return true;
   }
 
-  toggleModal = (data) => {
-    this.setState(state => ({
-      showModalBox: !state.showModalBox,
-    }));
+  toggleModal = () => {
+    this.setState(state => ({ showModalBox: !state.showModalBox }));
+    return true;
   }
 
   render() {

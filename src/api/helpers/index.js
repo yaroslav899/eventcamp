@@ -69,7 +69,7 @@ export const getLastPostsUrl = () => {
 
 export const fetchData = (url, params) => {
   return fetch(url, params || { method: 'GET' })
-    .then(response =>  response.json());
+    .then(response => response.json());
 };
 
 export const authFetch = param => fetch(urlRecources.jwtRegister, {
@@ -83,7 +83,7 @@ export const authFetch = param => fetch(urlRecources.jwtRegister, {
     password: param.password,
     jwt_auth_expire: '10',
   }),
-}).then(response =>  response.json());
+}).then(response => response.json());
 
 
 export const eventRequest = (param, imageID, userData) => {
@@ -93,7 +93,6 @@ export const eventRequest = (param, imageID, userData) => {
     price: priceValue,
     currency: currencyValue,
     category,
-    subcategory,
     tags: topicTags,
     city,
     address,

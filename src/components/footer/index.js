@@ -30,6 +30,6 @@ const Footer = (props) => (
 Footer.defaultProps = {
   logoUrl: imageUrlRecources.logo,
   copyrightText: globalRecources.copyright,
-}
+};
 
 export default Footer;

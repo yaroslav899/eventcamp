@@ -10,9 +10,7 @@ class AuthHeaderLink extends Component {
 
   render() {
     const {
-      userAuth: {
-        name,
-      },
+      userAuth: { name },
       exitButton,
       enterButton,
       registerButton,
@@ -21,14 +19,14 @@ class AuthHeaderLink extends Component {
     if (name) {
       return (
         <div className="header__registration">
-          <ActiveLink to={userMenu.profile} className="header-registration__login" >
+          <ActiveLink to={userMenu.profile} className="header-registration__login">
             {name}
-          </ActiveLink >
-          <button onClick={this.logoutUser}>
+          </ActiveLink>
+          <button type="button" onClick={this.logoutUser}>
             {exitButton}
           </button>
         </div>
-        )
+      );
     }
 
     return (
@@ -40,20 +38,18 @@ class AuthHeaderLink extends Component {
           {registerButton}
         </ActiveLink>
       </div>
-    )
+    );
   }
 }
 
-const mapStateToProps = function (storeData) {
-  return {
-    userAuth: storeData.user.data
-  }
+const mapStateToProps = storeData => {
+  return { userAuth: storeData.user.data };
 };
 
 AuthHeaderLink.defaultProps = {
   exitButton: globalRecources.exit,
   enterButton: globalRecources.enter,
   registerButton: globalRecources.registr,
-}
+};
 
 export default connect(mapStateToProps)(AuthHeaderLink);

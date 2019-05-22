@@ -4,9 +4,7 @@ import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
 import { googleApiService } from '../../credentials';
 
 export class GoogleMap extends PureComponent {
-  state = {
-    googleAddress: null,
-  };
+  state = { googleAddress: null };
 
   componentDidMount () {
     const { address: eventAddress } = this.props;
@@ -19,11 +17,19 @@ export class GoogleMap extends PureComponent {
   }
 
   render() {
-    const { loaded, address, google, zoomLvl, mapWidth, mapHeight, mapPosition } = this.props;
+    const {
+      loaded,
+      address,
+      google,
+      zoomLvl,
+      mapWidth,
+      mapHeight,
+      mapPosition,
+    } = this.props;
     const { googleAddress } = this.state;
 
     if (!loaded || !address || !googleAddress) {
-      return <Fragment />
+      return <Fragment />;
     }
 
     const {
@@ -40,10 +46,10 @@ export class GoogleMap extends PureComponent {
         <Map
           google={google}
           zoom={zoomLvl}
-          style={{width: mapWidth, height: mapHeight, position: mapPosition}}
-          initialCenter = {{ lat: locationLat, lng: locationLng }}
+          style={ {width: mapWidth, height: mapHeight, position: mapPosition} }
+          initialCenter={{ lat: locationLat, lng: locationLng }}
         >
-          <Marker position = {{ lat: locationLat, lng: locationLng }} />
+          <Marker position={{ lat: locationLat, lng: locationLng }} />
         </Map>
       </Fragment>
     );
@@ -55,9 +61,9 @@ GoogleMap.defaultProps = {
   mapWidth: '100%',
   mapHeight: '400px',
   mapPosition: 'relative',
-}
+};
 
 export default GoogleApiWrapper({
   apiKey: googleApiService.ru.key,
   language: googleApiService.ru.lang,
-})(GoogleMap)
+})(GoogleMap);

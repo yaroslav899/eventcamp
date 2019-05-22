@@ -1,27 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import { EditorState, ContentState, convertFromHTML } from 'draft-js';
 import { request } from '../../api';
 import AddEvent from './AddEvent';
-import store from '../../store';
 import { categories } from '../../fixtures';
 import { global } from '../../resources/profile';
 import { userMenu } from '../../resources/menu';
 
 class EditEvent extends AddEvent {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     try {
       const { match, listPosts } = this.props;
       const { id: eventID } = match.params;
-
-      const postForEdit = listPosts.find((event) => {
-        return event.id === +eventID;
-      });
+      const postForEdit = listPosts.find(event => event.id === +eventID);
 
       if (!postForEdit) {
         this.props.history.push(userMenu.profile);
@@ -36,7 +27,7 @@ class EditEvent extends AddEvent {
 
       if (topic) {
         currentTopic.label = postForEdit.acf.topic;
-        currentTopic.type = "topics"
+        currentTopic.type = 'topics';
         currentTopic.value = topic.id;
       }
 
@@ -57,32 +48,31 @@ class EditEvent extends AddEvent {
         editorState: EditorState.createWithContent(eventDescription),
         eventID: postForEdit.id,
       }, () => {
-        this.setState({
-          currentTheme: currentTopic,
-        })
+        this.setState({ currentTheme: currentTopic });
       });
     } catch (error) {
       this.props.history.push(userMenu.profile);
+
       return false;
     }
+
+    return true;
   }
 
   getContentFromHTML = (contentHtml) => {
     const blocksFromHTML = convertFromHTML(contentHtml);
     const content = ContentState.createFromBlockArray(
       blocksFromHTML.contentBlocks,
-      blocksFromHTML.entityMap
+      blocksFromHTML.entityMap,
     );
 
-    return content
+    return content;
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
 
-    this.setState({
-      isAddingEvent: true,
-    });
+    this.setState({ isAddingEvent: true });
 
     const file = this.fileInput.current.files[0];
     const { state } = this;
@@ -94,7 +84,7 @@ class EditEvent extends AddEvent {
     }
 
     if (!file) {
-      return request.updateEvent(state, null).then((data) => {
+      return request.updateEvent(state, null).then(() => {
         this.setState({ isSuccessRegister: true });
       });
     }
@@ -104,22 +94,17 @@ class EditEvent extends AddEvent {
       .then((response) => {
         const { id } = response.data;
         return request.updateEvent(state, id)
-          .then((data) => {
+          .then(() => {
             this.setState({ isSuccessRegister: true });
           });
       });
   };
 }
 
-//Set default props
-EditEvent.defaultProps = {
-  successMsg: global.successEditMsg,
-};
+EditEvent.defaultProps = { successMsg: global.successEditMsg };
 
-const mapStateToProps = (storeData) => {
-  return {
-    listPosts: storeData.user.listPosts,
-  };
+const mapStateToProps = storeData => {
+  return { listPosts: storeData.user.listPosts };
 };
 
 export default connect(mapStateToProps)(EditEvent);

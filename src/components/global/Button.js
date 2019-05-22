@@ -5,6 +5,6 @@ const Button = ({ text, ...props }) => (
   <NavLink {...props}>
     {text}
   </NavLink>
-)
+);
 
 export default Button;

@@ -9,15 +9,15 @@ const Pagination = ({ pageNumber, classNameItem, handler }) => {
     if (pageNumberCta.textContent) {
       handler(pageNumberCta.textContent);
     }
-  }
+  };
 
   return (
     <li key={pageNumber} className={classNameItem}>
-      <button onClick={onClick} ref={(button) => { pageNumberCta = button; }}>
+      <button onClick={onClick} type="button" ref={(button) => { pageNumberCta = button; }}>
         {pageNumber}
       </button>
     </li>
-  )
+  );
 };
 
 export default Pagination;

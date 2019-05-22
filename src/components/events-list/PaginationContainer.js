@@ -66,9 +66,7 @@ class PaginationContainer extends PureComponent {
     const updatedTotalPages = [...totalPages].splice(activePage-1, maxPageNumber);
 
     if (updatedTotalPages.length >= maxPageNumber ) {
-      this.setState({
-        updatedTotalPages: updatedTotalPages,
-      });
+      this.setState({ updatedTotalPages: updatedTotalPages });
     }
 
     request.getListPosts(initialParams).then((posts) => {
@@ -104,30 +102,24 @@ class PaginationContainer extends PureComponent {
       <Fragment>
         <button className="events-pagination__navButton events-pagination__prev-button" onClick={this.goToPreviousPage} />
         <ul className="events__pagination events-pagination ">
-          {isShowDotsBefore &&
-            <li className="events-pagination__item events-pagination-item">...</li>
+          {isShowDotsBefore
+            && <li className="events-pagination__item events-pagination-item">...</li>
           }
-
           {pageNavigation}
-
-          {isShowDotsAfter &&
-            <li className="events-pagination__item events-pagination-item">...</li>
+          {isShowDotsAfter
+            && <li className="events-pagination__item events-pagination-item">...</li>
           }
         </ul>
-        <button className="events-pagination__navButton events-pagination__next-button" onClick={this.goToNextPage} />
+        <button type="button" className="events-pagination__navButton events-pagination__next-button" onClick={this.goToNextPage} />
       </Fragment>
     );
   }
 }
 
-const mapTotalPagesToProps = function (store) {
-  return {
-    totalPages: store.totalPages.count,
-  };
+const mapTotalPagesToProps = storeData => {
+  return { totalPages: storeData.totalPages.count };
 };
 
-PaginationContainer.defaultProps = {
-  maxPageNumber: 10,
-}
+PaginationContainer.defaultProps = { maxPageNumber: 10 };
 
 export default connect(mapTotalPagesToProps)(PaginationContainer);

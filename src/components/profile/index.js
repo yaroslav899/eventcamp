@@ -11,19 +11,15 @@ import UserImage from './UserImage';
 import UserInfo from './UserInfo';
 import TakingPartMember from './TakingPartMember';
 import { setCookie } from '../../_cookie';
-import { parseJSON, stringifyJSON } from '../../helper/json';
+import store from '../../store';
+import { stringifyJSON } from '../../helper/json';
 import { request } from '../../api';
-import { mainMenu } from '../../resources/menu';
 import { profileProperties } from '../../resources/profile';
 
 class Profile extends PureComponent {
-  state = {
-    profileData: {},
-  }
-
   componentDidMount() {
     return request.getProfileData()
-      .then(response => {
+      .then((response) => {
         if (!response.success) {
           return false;
         }
@@ -34,6 +30,8 @@ class Profile extends PureComponent {
           type: 'UPDATE_USERPROFILE',
           data: response.userProfile,
         });
+
+        return true;
       });
   }
 
@@ -75,10 +73,8 @@ class Profile extends PureComponent {
   }
 }
 
-const mapStateToProps = (storeData) => {
-  return {
-    userProfile: storeData.user.data,
-  };
+const mapStateToProps = storeData => {
+  return { userProfile: storeData.user.data };
 };
 
 export default connect(mapStateToProps)(Profile);

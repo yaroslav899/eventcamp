@@ -10,29 +10,27 @@ class InfoPage extends PureComponent {
   componentDidMount() {
     const {
       text,
-      location: {
-        pathname,
-      },
+      location: { pathname },
     } = this.props;
 
     if (text) {
-      return null;
+      return false;
     }
 
     const infoPageID = getValueFromParams(mainMenu, pathname, 'url', 'id');
 
-    request.getPage(infoPageID).then((data) => {
+    return request.getPage(infoPageID).then((data) => {
       if (!data) {
-        return null;
+        return false;
       }
 
       store.dispatch({
         type: 'UPDATE_INFO_PAGE',
         info: data.content.rendered,
       });
-    });
 
-    return true;
+      return true;
+    });
   }
 
   render() {
@@ -40,7 +38,7 @@ class InfoPage extends PureComponent {
 
     return (
       <div className="container">
-        <Adventages/>
+        <Adventages />
         <div className="row">
           <div className="col-12" dangerouslySetInnerHTML={createMarkupText(text)} />
         </div>
@@ -49,10 +47,8 @@ class InfoPage extends PureComponent {
   }
 }
 
-const mapStateToProps = function (store) {
-  return {
-    text: store.page.info,
-  };
+const mapStateToProps = storeData => {
+  return { text: storeData.page.info };
 };
 
 export default connect(mapStateToProps)(InfoPage);

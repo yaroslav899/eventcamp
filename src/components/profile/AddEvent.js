@@ -12,7 +12,6 @@ import { global, addEventFields, addEventPlaceholders, descrFields } from '../..
 
 class AddEvent extends PureComponent {
   state = {
-    eventID: null,
     title: '',
     category: '',
     currentTheme: '',
@@ -43,6 +42,8 @@ class AddEvent extends PureComponent {
     }
 
     this.setState({ [event.target.name]: event.target.value });
+
+    return true;
   }
 
   handleSelectChange = (event) => {
@@ -53,6 +54,8 @@ class AddEvent extends PureComponent {
     }
 
     this.setState({ [event.type]: event.value });
+
+    return true;
   }
 
   changeCategory = (event) => {
@@ -66,22 +69,20 @@ class AddEvent extends PureComponent {
       [event.type]: event.value,
       topics: categories.find(category => category.id === event.value).subcat,
     });
+
+    return true;
   }
 
   changeTheme = (selection) => {
-    const { topics, isAddingEvent } = this.state;
+    const { isAddingEvent } = this.state;
 
     if (isAddingEvent) {
       return false;
     }
 
-    if (selection) {
-      const param = topics.filter(topic => topic.name === selection.label);
-    }
+    this.setState({ currentTheme: selection || defaultTopic });
 
-    this.setState({
-      currentTheme: selection || defaultTopic,
-    });
+    return true;
   };
 
   onEditorStateChange = (editorState) => {
@@ -91,9 +92,9 @@ class AddEvent extends PureComponent {
       return false;
     }
 
-    this.setState({
-      editorState,
-    });
+    this.setState({ editorState });
+
+    return true;
   };
 
   handleSubmit = (event) => {
@@ -114,7 +115,7 @@ class AddEvent extends PureComponent {
 
       if (!file) {
         return request.createPost(state, null)
-          .then((data) =>  this.setState({
+          .then(() =>  this.setState({
             isSuccessRegister: true,
             isAddingEvent: false,
           }));
@@ -199,7 +200,7 @@ class AddEvent extends PureComponent {
         <div className="container">
           {successMsg}
         </div>
-      )
+      );
     }
 
     return (
@@ -310,7 +311,8 @@ class AddEvent extends PureComponent {
               <label htmlFor="tags">
                 {addEventFields.tagsField}
               </label>
-              <input type="text"
+              <input
+                type="text"
                 className="form-control"
                 name="tags"
                 value={tags}
@@ -344,9 +346,9 @@ class AddEvent extends PureComponent {
               <Select
                 name="form-field-currency"
                 label="currency"
-                options={currencies.map(currency => ({
-                  label: currency.name,
-                  value: currency.name,
+                options={currencies.map(currencyValue => ({
+                  label: currencyValue.name,
+                  value: currencyValue.name,
                   type: 'currency',
                 }))}
                 value={currency}
@@ -363,9 +365,9 @@ class AddEvent extends PureComponent {
               <Select
                 name="form-field-cities"
                 label="city"
-                options={cities.map(city => ({
-                  label: city.name,
-                  value: city.id,
+                options={cities.map(cityValue => ({
+                  label: cityValue.name,
+                  value: cityValue.id,
                   type: 'city',
                 }))}
                 value={city}
@@ -394,7 +396,7 @@ class AddEvent extends PureComponent {
           <span className="error-message">{errorMsg}</span>
           <button type="submit" className="btn btn-secondary submit" disabled={isAddingEvent}>
             {global.addEventButton}
-            {isAddingEvent && <Loader/>}
+            {isAddingEvent && <Loader />}
           </button>
         </form>
       </div>
@@ -402,9 +404,6 @@ class AddEvent extends PureComponent {
   }
 }
 
-//Set default props
-AddEvent.defaultProps = {
-  successMsg: global.successMsg,
-};
+AddEvent.defaultProps = { successMsg: global.successMsg };
 
 export default AddEvent;

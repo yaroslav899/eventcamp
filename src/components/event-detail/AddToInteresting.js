@@ -2,7 +2,13 @@ import React, { Fragment } from 'react';
 import { detailRecources } from '../../resources';
 
 const AddToInteresting = (props) => {
-  const { register, target, className, title, registerButton } = props;
+  const {
+    register,
+    target,
+    className,
+    title,
+    registerButton,
+  } = props;
 
   if (!register) {
     return <Fragment />;
@@ -15,8 +21,6 @@ const AddToInteresting = (props) => {
   );
 };
 
-AddToInteresting.defaultProps = {
-  registerButton: detailRecources.register,
-};
+AddToInteresting.defaultProps = { registerButton: detailRecources.register };
 
 export default AddToInteresting;

@@ -11,9 +11,7 @@ import { detailRecources } from '../../resources';
 import { imageUrlRecources } from '../../resources/url';
 
 class DetailInteresting extends PureComponent {
-  state = {
-    posts: null,
-  };
+  state = { posts: null };
 
   componentDidMount() {
     const { data } = this.props;
@@ -43,9 +41,7 @@ class DetailInteresting extends PureComponent {
   updateDetailInterestingPosts = (posts, data) => {
     if (!posts) return false;
 
-    this.setState({
-      posts: posts.filter(post => post.id !== data.id),
-    });
+    this.setState({ posts: posts.filter(post => post.id !== data.id) });
 
     return true;
   }
@@ -55,13 +51,11 @@ class DetailInteresting extends PureComponent {
 
     if (!posts) return <Fragment />;
 
-    const samePosts = posts.map(samePost => {
+    const samePosts = posts.map((samePost) => {
       const {
         id: postID,
         categories: postCategories = ['it'],
-        title: {
-          rendered: postTitle,
-        },
+        title: { rendered: postTitle },
         acf: {
           picture,
           price = '',
@@ -89,7 +83,7 @@ class DetailInteresting extends PureComponent {
             </div>
           </div>
         </NavLink>
-      </li>
+      </li>;
     });
 
     return (
