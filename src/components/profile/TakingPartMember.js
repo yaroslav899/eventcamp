@@ -1,16 +1,12 @@
 import React, { PureComponent } from 'react';
-import { urlRecources } from '../../resources/url';
-import { getUniqueArray } from '../../helper';
 import EventView from '../event-global/EventView';
 import { request } from '../../api';
 
 class TakingPartMember extends PureComponent {
-  state = {
-    events: null,
-  }
+  state = { events: null }
 
   componentDidMount() {
-    const { user : { subscribed } = {} } = this.props;
+    const { user: { subscribed } = {} } = this.props;
 
     if (!subscribed || !subscribed.length) {
       return true;
@@ -18,9 +14,7 @@ class TakingPartMember extends PureComponent {
 
     return request.getTakingPartMemberEvents(subscribed)
       .then((data) => {
-        this.setState({
-          events: data,
-        });
+        this.setState({ events: data });
       });
   }
 

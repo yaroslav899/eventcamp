@@ -11,9 +11,21 @@ class OwnEvents extends PureComponent {
     if (userID) {
       return this.loadOwnEvents(userID);
     }
+
+    return false;
   }
 
-  getSnapshotBeforeUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (snapshot !== null) {
+      const { userID } = snapshot;
+
+      return this.loadOwnEvents(userID);
+    }
+
+    return null;
+  }
+
+  getSnapshotBeforeUpdate(prevProps) {
     const { userProfile: prevProfileData } = prevProps;
     const { userProfile: profileData } = this.props;
 
@@ -24,28 +36,18 @@ class OwnEvents extends PureComponent {
     return null;
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (snapshot !== null) {
-      const { userID } = snapshot;
-
-      return this.loadOwnEvents(userID);
-    }
-  }
-
-  loadOwnEvents = (userID) => {
-    return request.getAuthorPosts({ author: userID })
-      .then((posts) => {
-        store.dispatch({
-          type: 'UPDATE_USER_POSTS',
-          listPosts: posts,
-        });
+  loadOwnEvents = userID => request.getAuthorPosts({ author: userID })
+    .then((posts) => {
+      store.dispatch({
+        type: 'UPDATE_USER_POSTS',
+        listPosts: posts,
       });
-  }
+    });
 
   render() {
     const { posts } = this.props;
     const userPosts = !posts.length ? '---' : posts.map(article => <li key={article.id} className="own-events__item own-events-item">
-      <EventView event={article} isOwner={true} />
+      <EventView event={article} isOwner />
     </li>);
 
     return (
@@ -56,11 +58,9 @@ class OwnEvents extends PureComponent {
   }
 }
 
-const mapStateToProps = (storeData) => {
-  return {
-    posts: storeData.user.listPosts,
-    userProfile: storeData.user.data,
-  };
-};
+const mapStateToProps = storeData => ({
+  posts: storeData.user.listPosts,
+  userProfile: storeData.user.data,
+});
 
 export default connect(mapStateToProps)(OwnEvents);

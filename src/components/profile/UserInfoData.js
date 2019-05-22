@@ -21,7 +21,7 @@ const UserInfoData = (props) => {
         <Field label={addEventFields.cityField} text={user.city} />
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default UserInfoData;

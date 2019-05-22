@@ -4,16 +4,10 @@ import UserInfoEdit from './UserInfoEdit';
 import { profileProperties } from '../../resources/profile';
 
 class UserInfo extends PureComponent {
-  state = {
-    isEditMode: false,
-  }
+  state = { isEditMode: false }
 
   changeProfileInfo = () => {
-    const { isEditMode } = this.state;
-
-    this.setState((prevState) => ({
-      isEditMode: !prevState.isEditMode,
-    }));
+    this.setState(prevState => ({ isEditMode: !prevState.isEditMode }));
 
     return true;
   }

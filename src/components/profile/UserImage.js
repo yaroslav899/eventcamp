@@ -35,7 +35,7 @@ class UserImage extends PureComponent {
     setCookie('profileData', stringifyJSON(userData));
 
     return request.uploadImage(updatedFile)
-      .then(response => {
+      .then((response) => {
         const param = {
           description: stringifyJSON({
             name,

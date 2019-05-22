@@ -51,9 +51,7 @@ class UserInfoEdit extends PureComponent {
 
     const { name, email, phone, city } = this.state;
     const {
-      user: {
-        userID,
-      },
+      user: { userID },
       changeProfileInfo,
     } = this.props;
     const param = {
@@ -76,7 +74,7 @@ class UserInfoEdit extends PureComponent {
         }
 
         return true;
-    });
+      });
   }
 
   validator = () => {
@@ -105,7 +103,13 @@ class UserInfoEdit extends PureComponent {
     }
 
     const { nameLabel, emailLabel, phoneLabel, cityLabel } = this.props;
-    const { name, email, phone, city, errorMsg } = this.state;
+    const {
+      name,
+      email,
+      phone,
+      city,
+      errorMsg,
+    } = this.state;
 
     return (
       <form onSubmit={this.handleSubmit}>
@@ -147,6 +151,6 @@ UserInfoEdit.defaultProps = {
   emailLabel: fieldsRegisterForm.email,
   phoneLabel: addEventFields.phoneField,
   cityLabel: addEventFields.cityField,
-}
+};
 
 export default UserInfoEdit;

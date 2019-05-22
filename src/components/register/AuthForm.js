@@ -39,9 +39,7 @@ class AuthForm extends PureComponent {
           data: response.profileData,
         });
 
-        this.setState({
-          isSuccessAuth: true,
-        });
+        this.setState({ isSuccessAuth: true });
 
         return true;
       });

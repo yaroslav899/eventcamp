@@ -21,7 +21,9 @@ module.exports = {
   "rules": {
         "react/jsx-wrap-multilines": false,
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+        "object-curly-newline": ["error", {"multiline": true, "minProperties": 7}],
         "no-param-reassign": [2, { "props": false }],
+        'max-len': "off",
         "no-class-assign": "off",
         "jsx-a11y/label-has-for": [2, {
           "required": {

@@ -5,9 +5,7 @@ import Adventages from '../global/Adventages';
 import { globalRecources } from '../../resources/global';
 
 class RegistrationPage extends PureComponent {
-  state = {
-    isSuccessRegister: false,
-  };
+  state = { isSuccessRegister: false };
 
   render() {
     const { isSuccessRegister } = this.state;

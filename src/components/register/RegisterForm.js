@@ -81,21 +81,11 @@ class RegisterForm extends Component {
     } = this;
 
     const fields = {
-      captcha: {
-        value: captcha,
-      },
-      privacyChecked: {
-        value: privacyChecked,
-      },
-      email: {
-        value: email,
-      },
-      login: {
-        value: login,
-      },
-      password: {
-        value: password,
-      },
+      captcha: { value: captcha },
+      privacyChecked: { value: privacyChecked },
+      email: { value: email },
+      login: { value: login },
+      password: { value: password },
       duplicatepassword: {
         value: duplicatepassword,
         duplicate: password,
@@ -118,8 +108,8 @@ class RegisterForm extends Component {
 
     const { errorMsg } = this.state;
     const fields = Object.keys(fieldsRegisterForm).map((field) => {
-      let fieldValue = fieldsRegisterForm[field];
-      let fieldType = this.fieldTypes[field] || this.fieldTypes.text;
+      const fieldValue = fieldsRegisterForm[field];
+      const fieldType = this.fieldTypes[field] || this.fieldTypes.text;
 
       return (
         <div className="form-row" key={field}>
