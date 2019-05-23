@@ -104,27 +104,29 @@ export const request = {
       });
   },
 
-  createNewUser: (param) => authFetch(adminAccess).then((user) => {
-    const url = `${urlRecources.endpointUrl}users`;
-    const param = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: `Bearer ${user.token}`,
-      },
-      body: JSON.stringify({
-        username: param.login,
-        first_name: param.firstname || '',
-        last_name: param.secondname || '',
-        nickname: param.login,
-        email: param.email,
-        password: param.password,
-      }),
-    };
+  createNewUser: (profileData) => authFetch(adminAccess)
+    .then((user) => {
+      const url = `${urlRecources.endpointUrl}users`;
+      const param = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: `Bearer ${user.token}`,
+        },
+        body: JSON.stringify({
+          username: profileData.login,
+          first_name: profileData.firstname || '',
+          last_name: profileData.secondname || '',
+          nickname: profileData.login,
+          email: profileData.email,
+          password: profileData.password,
+        }),
+      };
 
-    return fetchData(url, param);
-  }),
+      return fetchData(url, param);
+    }
+  ),
 
   createPost: (param, imageID) => {
     const userData = getCookie('userData');

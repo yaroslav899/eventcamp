@@ -2,6 +2,7 @@ import React, { PureComponent, Fragment } from 'react';
 import { Redirect } from 'react-router-dom';
 import { request } from '../../api';
 import store from '../../store';
+import Loader from '../global/Loader';
 import { setCookie } from '../../_cookie';
 import { stringifyJSON } from '../../helper/json';
 import { fieldsRegisterForm, fieldsMsg } from '../../resources';
@@ -11,42 +12,53 @@ class AuthForm extends PureComponent {
   state = {
     login: '',
     password: '',
+    isSubmit: false,
     isSuccessAuth: false,
     isValidForm: true,
   };
 
   handleChange = (event) => {
-    this.setState({ isValidForm: true });
-    this.setState({ [event.target.name]: event.target.value });
+    this.setState({
+      isValidForm: true,
+      [event.target.name]: event.target.value,
+    });
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
 
-    request.authUser(this.state)
-      .then((response) => {
-        if (!response.success) {
-          this.setState({ isValidForm: false });
+    this.setState({ isSubmit: true }, () => {
+      return request.authUser(this.state)
+        .then((response) => {
+          if (!response.success) {
+            this.setState({
+              isValidForm: false,
+              isSubmit: false,
+            });
 
-          return false;
-        }
+            return false;
+          }
 
-        setCookie('userData', stringifyJSON(response.userData), 2);
-        setCookie('profileData', stringifyJSON(response.profileData));
+          setCookie('userData', stringifyJSON(response.userData), 2);
+          setCookie('profileData', stringifyJSON(response.profileData));
 
-        store.dispatch({
-          type: 'UPDATE_USERPROFILE',
-          data: response.profileData,
+          store.dispatch({
+            type: 'UPDATE_USERPROFILE',
+            data: response.profileData,
+          });
+
+          this.setState({
+            isSuccessAuth: true,
+            isSubmit: false,
+          });
+
+          return true;
         });
-
-        this.setState({ isSuccessAuth: true });
-
-        return true;
-      });
+    });
   }
 
   render() {
-    const { login, password, isSuccessAuth, isValidForm } = this.state;
+    const { login, password, isSuccessAuth, isValidForm, isSubmit } = this.state;
 
     if (isSuccessAuth) {
       return <Redirect to="/profile" />;
@@ -71,7 +83,10 @@ class AuthForm extends PureComponent {
           <div className={isValidForm ? 'd-none' : 'error-message'}>
             {fieldsMsg.errorMsg}
           </div>
-          <input type="submit" value={globalRecources.sendText} className="btn btn-secondary submit" />
+          <button type="submit" className="btn btn-secondary submit" disabled={isSubmit}>
+            {globalRecources.sendText}
+            {isSubmit && <Loader />}
+          </button>
         </form>
       </Fragment>
     );

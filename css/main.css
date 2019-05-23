@@ -559,13 +559,14 @@ no-scroll {
   -webkit-animation-delay: -0.8s;
   animation-delay: -0.8s;
 }
-.event-editor .spinner {
+.submit .spinner {
   display: inline-block;
   margin: 0 0 0 20px;
   height: 17px;
   width: auto;
+  overflow: hidden;
 }
-.event-editor .spinner > div {
+.submit .spinner > div {
   background-color: #ffffff;
 }
 

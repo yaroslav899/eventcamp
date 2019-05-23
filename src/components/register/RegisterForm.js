@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
+import Loader from '../global/Loader';
 import { reCaptcha } from '../../credentials';
 import { formValidator } from '../../validator';
 import { request } from '../../api';
@@ -25,6 +26,7 @@ class RegisterForm extends Component {
       password: '',
       duplicatepassword: '',
       isSuccessRegister: false,
+      isSubmit: false,
       captcha: false,
       privacyChecked: false,
       errorMsg: '',
@@ -50,21 +52,32 @@ class RegisterForm extends Component {
   submitHandler = (event) => {
     event.preventDefault();
 
-    const checkValidForm = this.validator();
+    this.setState({ isSubmit: true }, () => {
+      const checkValidForm = this.validator();
 
-    if (!checkValidForm.success) {
-      this.setState({ errorMsg: checkValidForm.errorMsg });
-      return false;
-    }
-
-    return request.createNewUser(this.state).then((response) => {
-      const { message = null } = response;
-
-      if (message) {
-        this.setState({ errorMsg: response.message });
-      } else {
-        this.setState({ isSuccessRegister: true });
+      if (!checkValidForm.success) {
+        this.setState({
+          errorMsg: checkValidForm.errorMsg,
+          isSubmit: false,
+        });
+        return false;
       }
+
+      return request.createNewUser(this.state).then((response) => {
+        const { message = null } = response;
+
+        if (message) {
+          this.setState({
+            errorMsg: response.message,
+            isSubmit: false,
+          });
+        } else {
+          this.setState({
+            isSuccessRegister: true,
+            isSubmit: false,
+          });
+        }
+      });
     });
   }
 
@@ -96,7 +109,7 @@ class RegisterForm extends Component {
   }
 
   render() {
-    const { isSuccessRegister } = this.state;
+    const { isSuccessRegister, isSubmit } = this.state;
 
     if (isSuccessRegister) {
       return (
@@ -138,7 +151,10 @@ class RegisterForm extends Component {
           {globalRecources.privacy}
           <ReCAPTCHA sitekey={reCaptcha.siteKey} onChange={this.reCaptchaHandler} />
           <span className="error-message">{errorMsg}</span>
-          <input type="submit" value={detailRecources.register} className="btn btn-secondary submit" />
+          <button type="submit" className="btn btn-secondary submit" disabled={isSubmit}>
+            {detailRecources.register}
+            {isSubmit && <Loader />}
+          </button>
         </form>
       </Fragment>
     );

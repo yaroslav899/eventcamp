@@ -35,36 +35,18 @@ class AddEvent extends PureComponent {
   fileInput = React.createRef();
 
   handleInputChange = (event) => {
-    const { isAddingEvent } = this.state;
-
-    if (isAddingEvent) {
-      return false;
-    }
-
     this.setState({ [event.target.name]: event.target.value });
 
     return true;
   }
 
   handleSelectChange = (event) => {
-    const { isAddingEvent } = this.state;
-
-    if (isAddingEvent) {
-      return false;
-    }
-
     this.setState({ [event.type]: event.value });
 
     return true;
   }
 
   changeCategory = (event) => {
-    const { isAddingEvent } = this.state;
-
-    if (isAddingEvent) {
-      return false;
-    }
-
     this.setState({
       [event.type]: event.value,
       topics: categories.find(category => category.id === event.value).subcat,
@@ -74,24 +56,12 @@ class AddEvent extends PureComponent {
   }
 
   changeTheme = (selection) => {
-    const { isAddingEvent } = this.state;
-
-    if (isAddingEvent) {
-      return false;
-    }
-
     this.setState({ currentTheme: selection || defaultTopic });
 
     return true;
   };
 
   onEditorStateChange = (editorState) => {
-    const { isAddingEvent } = this.state;
-
-    if (isAddingEvent) {
-      return false;
-    }
-
     this.setState({ editorState });
 
     return true;
