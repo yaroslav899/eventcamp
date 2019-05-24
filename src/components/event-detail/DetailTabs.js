@@ -16,9 +16,7 @@ const DetailTabs = (props) => {
         cities,
         location,
       } = {},
-      content: {
-        rendered,
-      } = {},
+      content: { rendered } = {},
     } = {},
     descriptionTabName,
     howToGetTabName,

@@ -43,14 +43,12 @@ class DateRange extends Component {
   }
 
   handleResetClick = () => {
-    const { noFilterResultMsg } = this.props;
-
     return request.getListPosts({})
       .then(posts => {
         if (!posts.length) {
-          posts.push({
-            empty: noFilterResultMsg,
-          });
+          const { noFilterResultMsg } = this.props;
+
+          posts.push({ empty: noFilterResultMsg });
         }
 
         store.dispatch({
@@ -80,10 +78,10 @@ class DateRange extends Component {
           locale={locale}
           selectedDays={[from, { from, to }]}
           disabledDays={[
-          {
+            {
               after: new Date(false),
-              before: new Date()
-          }
+              before: new Date(),
+            },
         ]}
           modifiers={modifiers}
           onDayClick={this.handleDayClick}

@@ -4,7 +4,7 @@ import WriteToAuthor from './WriteToAuthor';
 import AddToInteresting from './AddToInteresting';
 
 const FeedBack = (props) => {
-  const { data, writeToAuthorButton, registerButton } = props;
+  const { data } = props;
 
   if (!data) return <Fragment />;
 
@@ -14,11 +14,9 @@ const FeedBack = (props) => {
       register,
       phone,
     },
-    title: {
-      rendered: eventTitle,
-    },
+    title: { rendered: eventTitle },
   } = data;
-  const url = location.href;
+  const url = window.location.href;
   const emailUrl = `mailto:${email}?subject=${eventTitle}&;body=${url}`;
 
   return (
@@ -28,6 +26,6 @@ const FeedBack = (props) => {
       <EventPhone phone={phone} />
     </div>
   );
-}
+};
 
 export default FeedBack;

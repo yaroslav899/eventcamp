@@ -1,9 +1,12 @@
 import React, { PureComponent, Fragment } from 'react';
 import { formValidator } from '../../validator';
 import store from '../../store';
-import { setCookie } from '../../_cookie';
+import Loader from '../global/Loader';
+import { setCookie, getCookie } from '../../_cookie';
+import { stringifyJSON, parseJSON } from '../../helper/json';
 import { request } from '../../api';
 import { fieldsRegisterForm } from '../../resources';
+import { globalRecources } from '../../resources/global';
 import { addEventFields } from '../../resources/profile';
 
 class UserInfoEdit extends PureComponent {
@@ -13,6 +16,7 @@ class UserInfoEdit extends PureComponent {
     phone: '',
     city: '',
     errorMsg: '',
+    isSubmit: false,
   };
 
   // ToDo check what the better, create getDerivedStateFromProps and change state isUpdated or that
@@ -42,39 +46,48 @@ class UserInfoEdit extends PureComponent {
   handleSubmit = (event) => {
     event.preventDefault();
 
-    const checkValidForm = this.validator();
+    this.setState({ isSubmit: true }, () => {
+      const checkValidForm = this.validator();
 
-    if (!checkValidForm.success) {
-      this.setState({ errorMsg: checkValidForm.errorMsg });
-      return false;
-    }
+      if (!checkValidForm.success) {
+        this.setState({ errorMsg: checkValidForm.errorMsg });
+        return false;
+      }
 
-    const { name, email, phone, city } = this.state;
-    const {
-      user: { userID },
-      changeProfileInfo,
-    } = this.props;
-    const param = {
-      name,
-      email,
-      description: JSON.stringify({ phone, city }),
-    };
+      const profileData = parseJSON(getCookie('profileData'));
+      const { name, email, phone, city } = this.state;
+      const {
+        user: { userID },
+        changeProfileInfo,
+      } = this.props;
 
-    return request.updateProfile(param, userID)
-      .then((response) => {
-        if (response.success) {
-          setCookie('profileData', JSON.stringify(response.userProfile));
+      profileData.name = name;
+      profileData.email = email;
+      profileData.city = city;
+      profileData.phone = phone;
 
-          store.dispatch({
-            type: 'UPDATE_USERPROFILE',
-            data: response.userProfile,
-          });
+      const param = {
+        name,
+        email,
+        description: stringifyJSON(profileData),
+      };
 
-          changeProfileInfo();
-        }
+      return request.updateProfile(param, userID)
+        .then((response) => {
+          if (response.success) {
+            setCookie('profileData', stringifyJSON(response.userProfile));
 
-        return true;
-      });
+            store.dispatch({
+              type: 'UPDATE_USERPROFILE',
+              data: response.userProfile,
+            });
+
+            changeProfileInfo();
+          }
+
+          return true;
+        });
+    });
   }
 
   validator = () => {
@@ -109,6 +122,7 @@ class UserInfoEdit extends PureComponent {
       phone,
       city,
       errorMsg,
+      isSubmit,
     } = this.state;
 
     return (
@@ -138,7 +152,10 @@ class UserInfoEdit extends PureComponent {
             <span className="error-message">{errorMsg}</span>
           </div>
           <div className="col-12">
-            <input type="submit" value="Сохранить" className="btn btn-secondary" />
+            <button type="submit" className="btn btn-secondary submit" disabled={isSubmit}>
+              {globalRecources.change}
+              {isSubmit && <Loader />}
+            </button>
           </div>
         </div>
       </form>

@@ -15,18 +15,45 @@ class PaginationContainer extends PureComponent {
   componentDidMount() {
     const { activePage } = this.state;
     const { totalPages, maxPageNumber } = this.props;
-    const updatedTotalPages = [...totalPages].splice(activePage-1, maxPageNumber);
 
-    this.setState({
-      updatedTotalPages: updatedTotalPages,
-      lastPage: [...updatedTotalPages].pop(),
-    });
+    return this.updatePaginationPages(totalPages, activePage, maxPageNumber);
   }
 
-  handlePaginationClick = (pageNumber) => {
-    const initialParams = {
-      page: pageNumber,
-    };
+  componentDidUpdate(prevProps, prevState, totalPages) {
+    if (totalPages !== null) {
+      const { activePage } = this.state;
+      const { maxPageNumber } = this.props;
+
+      return this.updatePaginationPages(totalPages, activePage, maxPageNumber);
+    }
+
+    return null;
+  }
+
+  getSnapshotBeforeUpdate(prevProps) {
+    const { totalPages: prevTotalPages } = prevProps;
+    const { totalPages } = this.props;
+
+    if (prevTotalPages.length !== totalPages.length) {
+      return totalPages;
+    }
+
+    return null;
+  }
+
+  updatePaginationPages = (totalPages, activePage, maxPageNumber) => {
+    const updatedTotalPages = [...totalPages].splice(activePage - 1, maxPageNumber);
+
+    this.setState({
+      updatedTotalPages,
+      lastPage: [...updatedTotalPages].pop(),
+    });
+
+    return true;
+  }
+
+  handlePaginationClick = (page) => {
+    const initialParams = { page };
 
     this.updateEventList(initialParams);
   }
@@ -38,11 +65,12 @@ class PaginationContainer extends PureComponent {
       return false;
     }
 
-    const initialParams = {
-      page: activePage - 1,
-    };
+    const page = activePage - 1;
+    const initialParams = { page };
 
     this.updateEventList(initialParams);
+
+    return true;
   }
 
   goToNextPage = () => {
@@ -53,20 +81,21 @@ class PaginationContainer extends PureComponent {
       return false;
     }
 
-    const initialParams = {
-      page: +activePage + 1,
-    };
+    const page = +activePage + 1;
+    const initialParams = { page };
 
     this.updateEventList(initialParams);
+
+    return true;
   }
 
   updateEventList = (initialParams) => {
     const { totalPages, maxPageNumber } = this.props;
     const activePage = initialParams.page;
-    const updatedTotalPages = [...totalPages].splice(activePage-1, maxPageNumber);
+    const updatedTotalPages = [...totalPages].splice(activePage - 1, maxPageNumber);
 
-    if (updatedTotalPages.length >= maxPageNumber ) {
-      this.setState({ updatedTotalPages: updatedTotalPages });
+    if (updatedTotalPages.length >= maxPageNumber) {
+      this.setState({ updatedTotalPages });
     }
 
     request.getListPosts(initialParams).then((posts) => {
@@ -77,7 +106,7 @@ class PaginationContainer extends PureComponent {
     });
 
     this.setState({
-      activePage: activePage,
+      activePage,
       lastPage: [...updatedTotalPages].pop(),
     });
 
@@ -86,7 +115,7 @@ class PaginationContainer extends PureComponent {
 
   render() {
     const { updatedTotalPages, activePage, lastPage } = this.state;
-    const { totalPages, maxPageNumber } = this.props;
+    const { totalPages } = this.props;
     const isShowDotsBefore = ([...updatedTotalPages].shift() !== [...totalPages].shift());
     const isShowDotsAfter = (lastPage < totalPages.length);
     const pageNavigation = updatedTotalPages.map((pageNumber) => (
@@ -98,9 +127,13 @@ class PaginationContainer extends PureComponent {
       />
     ));
 
+    if (!totalPages.length) {
+      return <Fragment />;
+    }
+
     return (
       <Fragment>
-        <button className="events-pagination__navButton events-pagination__prev-button" onClick={this.goToPreviousPage} />
+        <button type="button" className="events-pagination__navButton events-pagination__prev-button" onClick={this.goToPreviousPage} />
         <ul className="events__pagination events-pagination ">
           {isShowDotsBefore
             && <li className="events-pagination__item events-pagination-item">...</li>

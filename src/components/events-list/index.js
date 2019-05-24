@@ -22,9 +22,7 @@ class ListPage extends Component {
 
     return request.getListPosts(initialParams).then((posts) => {
       if (!posts.length) {
-        posts.push({
-          empty: noFilterResultMsg,
-        });
+        posts.push({ empty: noFilterResultMsg });
       }
 
       store.dispatch({
@@ -34,7 +32,6 @@ class ListPage extends Component {
 
       return true;
     });
-
   }
 
   render() {
@@ -50,28 +47,27 @@ class ListPage extends Component {
       eventsElement = posts[0].empty;
     } else {
       eventsElement = posts.map((event) => {
-        return <li key={event.id} className='events__item events-item'>
-            <EventList
-              event={event}
-              imgWrapClass="col-12 col-md-3"
-              descrWrapClass="col-12 col-md-6"
-              actionWrapClass="col-12 col-md-3"
-              isOwner={false}
-            />
-        </li>
+        return <li key={event.id} className="events__item events-item">
+          <EventList
+            event={event}
+            imgWrapClass="col-12 col-md-3"
+            descrWrapClass="col-12 col-md-6"
+            actionWrapClass="col-12 col-md-3"
+            isOwner={false}
+          />
+        </li>;
       });
     }
 
-    return (
-      <ListPageView eventsElement={eventsElement} />
-    )
+    return <ListPageView eventsElement={eventsElement} />;
   }
 }
 
 const mapStateToProps = storeData => {
-  return { posts: storeData.filterState.list }
+  return { posts: storeData.filterState.list };
+
 };
 
-ListPage.defaultProps = { noFilterResultMsg: globalRecources.noFilterResult }
+ListPage.defaultProps = { noFilterResultMsg: globalRecources.noFilterResult };
 
 export default connect(mapStateToProps)(ListPage);

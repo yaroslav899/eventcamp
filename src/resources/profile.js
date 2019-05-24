@@ -2,6 +2,7 @@ export const global = {
   addEventButton: 'Добавить событие',
   successMsg: 'Вы успешно добавили событие',
   successEditMsg: 'Вы успешно изменили событие',
+  successRegisterMsg: 'Вы успешно зарегестрировались. Можете выполнить вход.',
 }
 
 export const profileProperties = {

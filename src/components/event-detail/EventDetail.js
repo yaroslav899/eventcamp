@@ -45,25 +45,23 @@ class EventDetail extends PureComponent {
       },
     } = this.props;
 
-    if (userName, userEmail) {
+    if (userName && userEmail) {
       const { userProfile, event: { id: eventID } } = this.props;
       const { isSubscribed } = this.state;
 
-      if (isSubscribed){
+      if (isSubscribed) {
         userProfile.subscribed = subscribed.replace(eventID, '');
       } else {
         userProfile.subscribed = subscribed.length ? `${subscribed},${eventID}` : `${eventID}`;
       }
 
-      !isSubscribed && this.toggleModal();
+      if (!isSubscribed) {
+        this.toggleModal();
+      }
 
-      this.setState({
-        isSubscribed: !isSubscribed,
-      });
+      this.setState({ isSubscribed: !isSubscribed });
 
-      const param = {
-        description: JSON.stringify(userProfile)
-      };
+      const param = { description: JSON.stringify(userProfile) };
 
       return request.updateProfile(param, userID)
         .then((response) => {
@@ -78,21 +76,26 @@ class EventDetail extends PureComponent {
 
           return true;
         });
-    } else {
-      this.toggleModal();
-
-      return true;
     }
+    this.toggleModal();
+
+    return true;
   }
 
   toggleModal = () => {
-    this.setState(state => ({
-      showModalBox: !state.showModalBox,
-    }));
+    this.setState(state => ({ showModalBox: !state.showModalBox }));
   }
 
   render() {
-    const { event, date, dateDay, interestedTitle, nonRegistredTitle, interestedButton, noPhotoUrl } = this.props;
+    const {
+      event,
+      date,
+      dateDay,
+      interestedTitle,
+      nonRegistredTitle,
+      interestedButton,
+      noPhotoUrl
+    } = this.props;
     const { isAuthorized, showModalBox } = this.state;
     const modalBody = isAuthorized ? interestedTitle : nonRegistredTitle;
 

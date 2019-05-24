@@ -10,14 +10,12 @@ const GoogleCalendar = (props) => {
   }
 
   const {
-    title: {
-      rendered: eventTitle,
-    },
+    title: { rendered: eventTitle },
     acf: {
       dateOf,
       cities,
       location: address,
-    }
+    },
   } = data;
   const date = dateOf.replace(/-/ig, '');
   const location = `${cities},${address}`;
@@ -26,7 +24,7 @@ const GoogleCalendar = (props) => {
   return (
     <div className="calendar-link">
       <p>{addToCalendarMsg}</p>
-      <a href={addToGoogleCalendarUrl} target="_blank">
+      <a href={addToGoogleCalendarUrl} target="_blank" rel="noopener noreferrer">
         <img src={googleCalendarImage} alt={eventTitle} />
       </a>
     </div>
@@ -36,6 +34,6 @@ const GoogleCalendar = (props) => {
 GoogleCalendar.defaultProps = {
   addToCalendarMsg: detailRecources.addToCalendar,
   googleCalendarImage: imageUrlRecources.google,
-}
+};
 
 export default GoogleCalendar;

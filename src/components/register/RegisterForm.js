@@ -6,6 +6,7 @@ import { formValidator } from '../../validator';
 import { request } from '../../api';
 import { fieldsRegisterForm, detailRecources } from '../../resources';
 import { titleList, globalRecources } from '../../resources/global';
+import { global } from '../../resources/profile';
 
 class RegisterForm extends Component {
   constructor(props) {
@@ -114,7 +115,7 @@ class RegisterForm extends Component {
     if (isSuccessRegister) {
       return (
         <Fragment>
-          Вы успешно зарегестрировались. Можете выполнить вход.
+          {global.successRegisterMsg}
         </Fragment>
       );
     }

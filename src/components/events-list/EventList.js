@@ -68,16 +68,16 @@ class EventList extends PureComponent {
 
       return request.updateProfile(param, userID)
         .then((response) => {
-            if (response.success) {
-              setCookie('profileData', JSON.stringify(response.userProfile));
+          if (response.success) {
+            setCookie('profileData', JSON.stringify(response.userProfile));
 
-              store.dispatch({
-                type: 'UPDATE_USERPROFILE',
-                data: response.userProfile,
-              });
-            }
+            store.dispatch({
+              type: 'UPDATE_USERPROFILE',
+              data: response.userProfile,
+            });
+          }
 
-            return true;
+          return true;
         });
     }
 
@@ -92,7 +92,16 @@ class EventList extends PureComponent {
   }
 
   render() {
-    const { event, imgWrapClass, descrWrapClass, actionWrapClass, interestedTitle, nonRegistredTitle, moreInfoButton, interestedButton } = this.props;
+    const {
+      event,
+      imgWrapClass,
+      descrWrapClass,
+      actionWrapClass,
+      interestedTitle,
+      nonRegistredTitle,
+      moreInfoButton,
+      interestedButton,
+    } = this.props;
     const { isAuthorized, showModalBox, isSubscribed } = this.state;
     const city = getValueFromParams(cities, event.acf.cities, 'name', 'url');
     const category = getValueFromParams(categories, event.categories[0], 'id', 'url');
@@ -122,16 +131,16 @@ class EventList extends PureComponent {
             </span>
           </div>
         </div>
-        {showModalBox &&
-          <Modal
-            toggleModal={this.toggleModal}
-            title={event.title.rendered}
-            body={modalBody}
-            footer={isAuthorized ? <GoogleCalendar data={event} /> : ''}
-          />
+        {showModalBox
+          && <Modal
+              toggleModal={this.toggleModal}
+              title={event.title.rendered}
+              body={modalBody}
+              footer={isAuthorized ? <GoogleCalendar data={event} /> : ''}
+            />
         }
       </div>
-    )
+    );
   }
 }
 
@@ -140,12 +149,10 @@ EventList.defaultProps = {
   nonRegistredTitle: globalRecources.nonRegistred,
   moreInfoButton: globalRecources.moreInfo,
   interestedButton: globalRecources.interestingCTA,
-}
+};
 
-const mapStateToProps = function (storeData) {
-  return {
-    userProfile: storeData.user.data,
-  }
+const mapStateToProps = (storeData) => {
+  return { userProfile: storeData.user.data };
 };
 
 export default connect(mapStateToProps)(EventList);

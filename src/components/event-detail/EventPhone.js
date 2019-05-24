@@ -38,8 +38,8 @@ class EventPhone extends PureComponent {
       <a className="feedback-phone" onClick={this.handlePhoneClick}>
         {phoneNumber}
       </a>
-    )
+    );
   }
-};
+}
 
 export default EventPhone;

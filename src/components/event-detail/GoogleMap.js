@@ -1,6 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
-import { request } from '../../api';
 import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
+import { request } from '../../api';
 import { googleApiService } from '../../credentials';
 
 export class GoogleMap extends PureComponent {
@@ -40,13 +40,18 @@ export class GoogleMap extends PureComponent {
         },
       },
     } = googleAddress;
+    const mapStyle = {
+      width: mapWidth,
+      height: mapHeight,
+      position: mapPosition
+    }
 
     return (
       <Fragment>
         <Map
           google={google}
           zoom={zoomLvl}
-          style={ {width: mapWidth, height: mapHeight, position: mapPosition} }
+          style={mapStyle}
           initialCenter={{ lat: locationLat, lng: locationLng }}
         >
           <Marker position={{ lat: locationLat, lng: locationLng }} />
