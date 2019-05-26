@@ -376,6 +376,10 @@ header .authBlock {
 .own-events-item .events-item__action a+a{
   margin-left:10px;
 }
+.own-events-item .events-item__action a:hover{
+  background-color:transparent;
+  text-decoration:underline;
+}
 .descr-label {
   font-size:0.8em;
 }
@@ -794,6 +798,51 @@ div.right-side li.same-post-rightside div.samePost-info-rightside div.samePost-t
   }
 }
 
+@media only screen and (min-device-width: 768px) and (max-device-width: 1199px) {
+  .advant {
+    height: 40px;
+  }
+  .advant div {
+    height: 35px;
+    margin: 0;
+  }
+  .advant img {
+    margin: 2% 12px 0 0;
+  }
+  .advant span {
+    width: 65%;
+    font-size: 0.5em;
+    margin-top: 5px;
+  }
+  .events-item__title, .events-item__description, .events-item-tags {
+    padding-left: 10px;
+  }
+  .events-item__tags {
+    position: initial;
+  }
+  .events-item .events-item__action {
+    top: 18px;
+    position: inherit;
+    bottom: 0;
+    font-size: 0.9em;
+  }
+    .events-item .events-item__action a {
+      display: inline;
+    }
+  .events-item .events-item__action span {
+  }
+  .DayPicker-wrapper {
+    font-size: 0.8em !important;
+  }
+  .DayPicker-Month {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .DayPicker-Day {
+    padding: 0.2rem !important;
+  }
+}
+
 @media (max-width: 767.98px) {
   .advant {
     display: none;
@@ -848,7 +897,10 @@ div.right-side li.same-post-rightside div.samePost-info-rightside div.samePost-t
     border: 0;
     border-radius: 0;
   }
-  .event-filter-option p{
+  .event-detail .area-1_text .area-1_tags {
+    display: none;
+  }
+  .event-filter-option p {
     padding: 10px 0 0 0;
   }
   .events__item{

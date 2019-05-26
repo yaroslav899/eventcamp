@@ -9,33 +9,28 @@ import { urlRecources } from '../resources/url';
 import { googleApiService } from '../resources';
 
 export const request = {
-  authUser: (param) => authFetch(param)
-    .then((response) => {
-      if ('data' in response && 'status' in response.data && response.data.status === 403) {
-        throw Error(response.data);
-      }
-
-      const userData = { token: response.token };
-      const profileData = { name: response.user_display_name, email: response.user_email };
-
-      return {
-        userData,
-        profileData,
-        success: true,
-      };
-    })
-    .catch(error => {
-      return {
-        success: false,
-      };
+  authUser: (param) => authFetch(param).then((response) => {
+    if ('data' in response && 'status' in response.data && response.data.status === 403) {
+      throw Error(response.data);
     }
-  ),
+
+    const userData = { token: response.token };
+    const profileData = { name: response.user_display_name, email: response.user_email };
+
+    return {
+      userData,
+      profileData,
+      success: true,
+    };
+  }).catch(() => {
+    return { success: false };
+  }),
 
   updateProfile: (bodyParam, userID) => {
     const userData = getCookie('userData');
 
     if (!userData) {
-        return false;
+      return new Promise((resolve, reject) => reject({ success: false }));
     }
 
     const { token } = parseJSON(userData);
@@ -62,6 +57,8 @@ export const request = {
           userProfile: responseProfileData,
           success: true,
         }
+      }).catch(error => {
+        return { success: false };
       });
   },
 
@@ -69,7 +66,7 @@ export const request = {
     const userData = getCookie('userData');
 
     if (!userData) {
-      return false;
+      return new Promise((resolve, reject) => reject({ success: false }));
     }
 
     const { token } = parseJSON(userData);
@@ -101,48 +98,54 @@ export const request = {
           userProfile: responseProfileData,
           success: true,
         }
+      }).catch(error => {
+        return { success: false };
       });
   },
 
-  createNewUser: (profileData) => authFetch(adminAccess)
-    .then((user) => {
-      const url = `${urlRecources.endpointUrl}users`;
-      const param = {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-          Authorization: `Bearer ${user.token}`,
-        },
-        body: JSON.stringify({
-          username: profileData.login,
-          first_name: profileData.firstname || '',
-          last_name: profileData.secondname || '',
-          nickname: profileData.login,
-          email: profileData.email,
-          password: profileData.password,
-        }),
-      };
+  createNewUser: (profileData) => authFetch(adminAccess).then((user) => {
+    const url = `${urlRecources.endpointUrl}users`;
+    const param = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${user.token}`,
+      },
+      body: stringifyJSON({
+        username: profileData.login,
+        first_name: profileData.firstname || '',
+        last_name: profileData.secondname || '',
+        nickname: profileData.login,
+        email: profileData.email,
+        password: profileData.password,
+      }),
+    };
 
-      return fetchData(url, param);
-    }
-  ),
+    return fetchData(url, param).catch(error => {
+      return { success: false };
+    });
+  }).catch(error => {
+    return { success: false };
+  }),
 
   createPost: (param, imageID) => {
     const userData = getCookie('userData');
 
     if (!userData) {
-        return false;
+      return new Promise((resolve, reject) => reject({ success: false }));
     }
 
-    return eventRequest(param, imageID, userData);
+    return eventRequest(param, imageID, userData).catch(error => {
+      return { success: false };
+    });
   },
 
   updateEvent: (param, imageID) => {
     const userData = getCookie('userData');
 
     if (!userData) {
-        return false;
+      return new Promise((resolve, reject) => reject({ success: false }));
     }
 
     return eventRequest(param, imageID, userData);
@@ -151,7 +154,9 @@ export const request = {
   getAuthorPosts: (param) => {
     const url = getRequestUrl(param);
 
-    return fetchData(url, null);
+    return fetchData(url, null).catch(error => {
+      return { success: false };
+    });
   },
 
   getListPosts: (param) => {
@@ -168,14 +173,19 @@ export const request = {
       return response.json();
     }).then(data => {
       return data;
+    }).catch(error => {
+      return { success: false };
     });
   },
 
   getPostDetail: (eventID) => {
     const url = `${urlRecources.endpointUrl}posts/${eventID}?_embed`;
 
-    return fetchData(url, null)
-      .then(data => data);
+    return fetchData(url, null).then(data => {
+      return data;
+    }).catch(error => {
+      return { success: false };
+    });
   },
 
   getAddress: (address) => {
@@ -187,33 +197,41 @@ export const request = {
   getExchangeData: () => {
     const url = urlRecources.exchangeUrl;
 
-    return fetchData(url, null);
+    return fetchData(url, null).catch(error => {
+      return { success: false };
+    });
   },
 
   getInterestingData: (param, isTagActive) => {
     const url = getInterestingUrl(param, isTagActive);
 
-    return fetchData(url, null);
+    return fetchData(url, null).catch(error => {
+      return { success: false };
+    });
   },
 
   getLastPosts: () => {
     const url = getLastPostsUrl();
 
-    return fetchData(url, null);
+    return fetchData(url, null).catch(error => {
+      return { success: false };
+    });
   },
 
   getPage: (pageID) => {
     const url = `${urlRecources.endpointUrl}pages/${pageID}`;
 
-    return fetchData(url, null);
+    return fetchData(url, null).catch(error => {
+      return { success: false };
+    });
   },
 
   uploadImage: (file) => {
     if (!file) {
-      return new Promise();
+      return new Promise((resolve, reject) => reject({ success: false }));
     }
 
-    const { token } = JSON.parse(getCookie('userData'));
+    const { token } = parseJSON(getCookie('userData'));
 
     return axios.post(urlRecources.mediaResources, file, {
       headers: {
@@ -222,11 +240,18 @@ export const request = {
         'Authorization': 'Bearer' + token,
         'Cache-Control': 'no-cache',
       }
+    }).catch(error => {
+      return { success: false };
     });
   },
 
   getTakingPartMemberEvents: (subscribed) => {
     let postIDs = getUniqueArray(subscribed.split(',')).join(',');
+
+    if (!postIDs || !postIDs.length) {
+      return new Promise((resolve, reject) => reject({ success: false }));
+    }
+
     const lastSymbol = postIDs.slice(-1);
 
     if (lastSymbol === ',') {
@@ -235,6 +260,8 @@ export const request = {
 
     const url = `${urlRecources.endpointUrl}posts/?include=${postIDs}`;
 
-    return fetchData(url, null);
+    return fetchData(url, null).catch(error => {
+      return { success: false };
+    });
   }
 };

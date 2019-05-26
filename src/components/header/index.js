@@ -18,7 +18,7 @@ const Header = () => (
     </div>
     <div className="container">
       <div className="row">
-        <div className="col-2 d-none d-sm-block header__logo">
+        <div className="col-2 d-none d-sm-block d-md-none d-lg-block header__logo">
           <NavLink to="/" exact>
             <img src={imageUrlRecources.logo} alt={titleList.home} title={titleList.home} />
           </NavLink>

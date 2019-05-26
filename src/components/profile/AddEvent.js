@@ -50,6 +50,7 @@ class AddEvent extends PureComponent {
     this.setState({
       [event.type]: event.value,
       topics: categories.find(category => category.id === event.value).subcat,
+      currentTheme: defaultTopic,
     });
 
     return true;
@@ -181,15 +182,11 @@ class AddEvent extends PureComponent {
             <div className="col-md-6">
               <div className="row">
                 <div className="form-group col-md-12">
-                  <label htmlFor="title">
-                    {addEventFields.titleField}
-                  </label>
+                  <label htmlFor="title">{addEventFields.titleField}</label>
                   <input type="text" className="form-control" name="title" value={title} onChange={this.handleInputChange} placeholder={addEventPlaceholders.titleField} />
                 </div>
                 <div className="form-group col-md-6">
-                  <label htmlFor="category">
-                    {addEventFields.categoryField}
-                  </label>
+                  <label htmlFor="category">{addEventFields.categoryField}</label>
                   <Select
                     name="form-field-category"
                     label="category"
@@ -203,9 +200,7 @@ class AddEvent extends PureComponent {
                   />
                 </div>
                 <div className="form-group col-md-6">
-                  <label htmlFor="topics">
-                    {addEventFields.topicField}
-                  </label>
+                  <label htmlFor="topics">{addEventFields.topicField}</label>
                   <Select
                     name="form-field-topics"
                     label="topics"
@@ -227,9 +222,7 @@ class AddEvent extends PureComponent {
           <div className="border-separate" />
           <div className="form-row">
             <div className="form-group col-md-2">
-              <label htmlFor="date">
-                {addEventFields.dateField}
-              </label>
+              <label htmlFor="date">{addEventFields.dateField}</label>
               <input type="date" className="form-control" name="date" value={date} onChange={this.handleInputChange} />
             </div>
             <div className="form-group col-md-2">
@@ -242,9 +235,7 @@ class AddEvent extends PureComponent {
           <div className="border-separate" />
           <div className="form-row">
             <div className="form-group col-md-4">
-              <label htmlFor="register">
-                {addEventFields.linkField}
-              </label>
+              <label htmlFor="register">{addEventFields.linkField}</label>
               <input type="text" className="form-control" name="register" value={register} onChange={this.handleInputChange} placeholder={addEventPlaceholders.linkField} />
             </div>
             <div className="form-group col-md-6 offset-md-2 descr-label">
@@ -254,9 +245,7 @@ class AddEvent extends PureComponent {
           <div className="border-separate" />
           <div className="form-row">
             <div className="form-group col-md-4">
-              <label htmlFor="phone">
-                {addEventFields.phoneField}
-              </label>
+              <label htmlFor="phone">{addEventFields.phoneField}</label>
               <input type="text" className="form-control" name="phone" value={phone} onChange={this.handleInputChange} placeholder={addEventPlaceholders.phoneField} />
             </div>
             <div className="form-group col-md-6 offset-md-2 descr-label">
@@ -266,9 +255,7 @@ class AddEvent extends PureComponent {
           <div className="border-separate" />
           <div className="form-row">
             <div className="form-group col-md-4">
-              <label htmlFor="email">
-                {addEventFields.emailField}
-              </label>
+              <label htmlFor="email">{addEventFields.emailField}</label>
               <input type="text" className="form-control" name="email" value={email} onChange={this.handleInputChange} placeholder={addEventPlaceholders.emailField} />
             </div>
             <div className="form-group col-md-6 offset-md-2 descr-label">
@@ -278,9 +265,7 @@ class AddEvent extends PureComponent {
           <div className="border-separate" />
           <div className="form-row">
             <div className="form-group col-md-4">
-              <label htmlFor="tags">
-                {addEventFields.tagsField}
-              </label>
+              <label htmlFor="tags">{addEventFields.tagsField}</label>
               <input
                 type="text"
                 className="form-control"
@@ -297,9 +282,7 @@ class AddEvent extends PureComponent {
           <div className="border-separate" />
           <div className="form-row">
             <div className="form-group col-md-2">
-              <label htmlFor="price">
-                {addEventFields.priceField}
-              </label>
+              <label htmlFor="price">{addEventFields.priceField}</label>
               <input
                 type="number"
                 className="form-control"
@@ -310,9 +293,7 @@ class AddEvent extends PureComponent {
               />
             </div>
             <div className="form-group col-md-2">
-              <label htmlFor="currency">
-                {addEventFields.curriencesField}
-              </label>
+              <label htmlFor="currency">{addEventFields.curriencesField}</label>
               <Select
                 name="form-field-currency"
                 label="currency"
@@ -329,9 +310,7 @@ class AddEvent extends PureComponent {
           <div className="border-separate" />
           <div className="form-row">
             <div className="form-group col-md-3">
-              <label htmlFor="city">
-                {addEventFields.cityField}
-              </label>
+              <label htmlFor="city">{addEventFields.cityField}</label>
               <Select
                 name="form-field-cities"
                 label="city"
@@ -345,9 +324,7 @@ class AddEvent extends PureComponent {
               />
             </div>
             <div className="form-group col-md-5">
-              <label htmlFor="address">
-                {addEventFields.addressField}
-              </label>
+              <label htmlFor="address">{addEventFields.addressField}</label>
               <input type="text" className="form-control" name="address" value={address} onChange={this.handleInputChange} placeholder={addEventPlaceholders.addressField} />
             </div>
           </div>

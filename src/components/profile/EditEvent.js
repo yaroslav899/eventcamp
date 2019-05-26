@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { EditorState, ContentState, convertFromHTML } from 'draft-js';
 import { request } from '../../api';
 import AddEvent from './AddEvent';
-import { categories } from '../../fixtures';
+import { categories, cities } from '../../fixtures';
 import { global } from '../../resources/profile';
 import { userMenu } from '../../resources/menu';
 
@@ -22,6 +22,7 @@ class EditEvent extends AddEvent {
       const eventDescription = this.getContentFromHTML(postForEdit.content.rendered);
       const categoryID = postForEdit.categories[0];
       const topicList = categories.find(category => +category.id === categoryID).subcat;
+      const city = cities.find(cityValue => cityValue.name === postForEdit.acf.cities);
       const topic = topicList.find(topicElement => topicElement.name === postForEdit.acf.topic);
       const currentTopic = {};
 
@@ -43,8 +44,8 @@ class EditEvent extends AddEvent {
         tags: postForEdit.acf.tags,
         price: postForEdit.acf.price,
         currency: postForEdit.acf.currency,
-        city: postForEdit.acf.city,
-        address: postForEdit.acf.address,
+        city: city ? city.id : 1,
+        address: postForEdit.acf.location,
         editorState: EditorState.createWithContent(eventDescription),
         eventID: postForEdit.id,
       }, () => {

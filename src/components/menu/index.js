@@ -25,7 +25,7 @@ class Menu extends Component {
           >
             <span className="navbar-toggler-icon" />
           </button>
-          <NavLink to="/" className="navbar-brand d-md-none" exact>
+          <NavLink to="/" className="navbar-brand d-lg-none" exact>
             <img src={imageUrlRecources.logo} alt={titleList.home} title={titleList.home} />
           </NavLink>
         </div>
