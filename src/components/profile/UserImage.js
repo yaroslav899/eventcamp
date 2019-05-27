@@ -75,15 +75,15 @@ class UserImage extends PureComponent {
 
     return (
       <Fragment>
-        <div className="col-6">
+        <div className="col-6 d-none d-sm-block">
           <h1>{profileProperties.title}</h1>
         </div>
-        <div className="col-6 text-right" />
-        <div className="col-3 text-center">
+        <div className="col-6 d-none d-sm-block text-right" />
+        <div className="col-3 d-none d-sm-block text-center">
           <h3>{profileProperties.photoUser}</h3>
           <img src={imageUrl || imageUrlRecources.noPhoto} alt="profile" className="img-fluid rounded-circle profile__photo" />
         </div>
-        <div className="col-3 profile__add-photo">
+        <div className="col-3 d-none d-sm-block profile__add-photo">
           <p>
             {profileProperties.uploadFile}
             <br />

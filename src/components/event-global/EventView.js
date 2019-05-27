@@ -17,13 +17,13 @@ const EventView = (data) => {
 
   return (
     <div className="row">
-      <div className="col-9">
+      <div className="col-8 col-sm-9">
         <NavLink to={eventUrl} className="events-item__title">
           <span dangerouslySetInnerHTML={createMarkupText(title.rendered)} />
         </NavLink>
         <EventLocation className="inline" city={acf.cities} address={acf.location} /> - <EventDate className="inline" date={acf.dateOf} />
       </div>
-      <div className="col-3 text-right">
+      <div className="col-4 co-sm-8 text-right">
         <div className="events-item__action events-item-action">
           <Button text={globalRecources.moreInfo} to={eventUrl} target="_blank" />
           {isOwner

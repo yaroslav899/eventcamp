@@ -22,7 +22,7 @@ class UserInfo extends PureComponent {
     const { isEditMode } = this.state;
 
     return (
-      <div className="col-6">
+      <div className="col-12 col-sm-6">
         <div className="row">
           <div className="col-6">
             <h3>{profileProperties.title}</h3>

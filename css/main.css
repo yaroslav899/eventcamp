@@ -979,12 +979,27 @@ div.right-side li.same-post-rightside div.samePost-info-rightside div.samePost-t
     margin:0;
     border:0;
   }
-    ul.react-tabs__tab-list li {
-      padding: 5px 0;
-      text-align: center;
-      width: 50%;
-      margin: 10px 0;
-    }
+  .profile {
+    font-size:0.9em;
+  }
+  .profile__add-button{
+    padding: 5px 10px;
+    font-size: 0.75em;
+  }
+  .own-events-item .events-item__title{
+    padding: 0 0 5px 0;
+    margin: 0;
+  }
+  .own-events-item .events-item-action a{
+    display:block;
+    margin-bottom:10px;
+  }
+  ul.react-tabs__tab-list li {
+    padding: 5px 0;
+    text-align: center;
+    width: 50%;
+    margin: 10px 0;
+  }
   .footer {
     height: 60px;
     padding: 10px 0 0 0;
