@@ -20,8 +20,8 @@ export const mainMenu = [{
 },
 {
   name: 'Обратная связь',
-  id: '4',
-  url: '/info',
+  id: '748',
+  url: '/callback',
 }];
 
 export const userMenu = {

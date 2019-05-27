@@ -11,6 +11,7 @@ import MainPage from './components/MainPage';
 import ListPage from './components/events-list';
 import DetailPage from './components/event-detail';
 import InfoPage from './components/info';
+import CallBack from './components/callback';
 import RegistrationPage from './components/register';
 import Profile from './components/profile/';
 import AddEvent from './components/profile/AddEvent';
@@ -35,6 +36,7 @@ class App extends Component {
               <Route path='/events/:cities/:categories' component={ListPage} exact />
               <Route path='/events/:cities/:categories/:id' component={withRouter(DetailPage)} exact />
               <Route path='/info' component={InfoPage} />
+              <Route path='/callback' component={CallBack} />
               <Route path='/register' component={RegistrationPage} />
               <PrivateRoute path="/profile" redirectTo="/register" component={Profile} />
               <PrivateRoute path="/add-event" redirectTo="/register" component={AddEvent} />
