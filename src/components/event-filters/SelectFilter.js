@@ -36,25 +36,13 @@ class SelectFilter extends Component {
 
   changeCategory = (selection) => {
     this.changeSelection('categories', selection);
-
-    if (!selection) {
-      this.setState({
-        topics: defaultTopic,
-      });
-    }
-
+    this.setState({ currentTheme: defaultTopic });
     this.addToHistory('categories', selection);
   };
 
   changeTopic = (selection) => {
     this.changeSelection('topics', selection);
-
-    const { topics } = this.state;
-
-    this.setState({
-      currentTheme: selection || defaultTopic,
-    });
-
+    this.setState({ currentTheme: selection || defaultTopic });
     this.addToHistory('topics', selection);
   };
 
@@ -69,9 +57,7 @@ class SelectFilter extends Component {
     return request.getListPosts(params)
       .then((posts) => {
         if (!posts.length) {
-          posts.push({
-            empty: globalRecources.noFilterResult,
-          });
+          posts.push({ empty: globalRecources.noFilterResult });
         }
 
         store.dispatch({

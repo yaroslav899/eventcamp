@@ -67,7 +67,8 @@ export const getUserData = () => {
 };
 
 export const getUniqueArray = (array) => {
-    return [...new Set(array)];
+  const uniqueArray = array.filter(el => (el !== null && el !== ''));
+  return [...new Set(uniqueArray)];
 }
 
 export const setProfileData = (data) => {

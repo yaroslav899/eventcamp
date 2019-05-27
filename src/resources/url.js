@@ -21,9 +21,10 @@ export const urlRecources = {
 };
 
 export const socialUrl = {
-  facebookUrl: 'https://www.facebook.com/sharer/sharer.php?u=',
-  twitterUrl: 'https://twitter.com/intent/tweet/?url=',
-  pinterestUrl: 'https://www.pinterest.com/pin/create/button/?url=',
+  fb: 'https://www.facebook.com/sharer/sharer.php?u={url}',
+  tw: 'https://twitter.com/intent/tweet/?url={url}',
+  pt: 'https://www.pinterest.com/pin/create/button/?url={url}',
+  lin: 'https://www.linkedin.com/shareArticle/?mini=true&url={url}',
 };
 
 export const advantageImageUrl = {

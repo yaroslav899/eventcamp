@@ -4,6 +4,7 @@ import Loader from '../global/Loader';
 import { reCaptcha } from '../../credentials';
 import { formValidator } from '../../validator';
 import { request } from '../../api';
+import { createMarkupText } from '../../helper';
 import { fieldsRegisterForm, detailRecources } from '../../resources';
 import { titleList, globalRecources } from '../../resources/global';
 import { global } from '../../resources/profile';
@@ -151,7 +152,7 @@ class RegisterForm extends Component {
           <input type="checkbox" onChange={this.privacyHandler} />
           {globalRecources.privacy}
           <ReCAPTCHA sitekey={reCaptcha.siteKey} onChange={this.reCaptchaHandler} />
-          <span className="error-message">{errorMsg}</span>
+          <span className="error-message" dangerouslySetInnerHTML={createMarkupText(errorMsg)} />
           <button type="submit" className="btn btn-secondary submit" disabled={isSubmit}>
             {detailRecources.register}
             {isSubmit && <Loader />}

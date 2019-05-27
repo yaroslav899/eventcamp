@@ -17,6 +17,11 @@ export const mainMenu = [{
   name: 'Инфо',
   id: '24',
   url: '/info',
+},
+{
+  name: 'Обратная связь',
+  id: '4',
+  url: '/info',
 }];
 
 export const userMenu = {
