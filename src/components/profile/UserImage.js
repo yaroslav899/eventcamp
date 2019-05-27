@@ -51,7 +51,7 @@ class UserImage extends PureComponent {
         return request.updateProfile(param, userID)
           .then((responseProfile) => {
             if (responseProfile.success) {
-              setCookie('profileData', JSON.stringify(responseProfile.userProfile));
+              setCookie('profileData', stringifyJSON(responseProfile.userProfile));
 
               store.dispatch({
                 type: 'UPDATE_USERPROFILE',

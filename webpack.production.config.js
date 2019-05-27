@@ -1,8 +1,16 @@
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const CompressionPlugin = require("compression-webpack-plugin");
 const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
+  entry: './src/index.js',
+  cache: false,
+  output: {
+    filename: 'index.js',
+    path: path.resolve(__dirname, 'bin')
+  },
+
   module: {
     rules: [{
       test: /\.js$/,
@@ -25,11 +33,33 @@ module.exports = {
     }]
   },
 
-  plugins: [new UglifyJSPlugin(), new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /ru|en/)],
-  entry: './src/index.js',
-
-  output: {
-    filename: 'index.js',
-    path: path.resolve(__dirname, 'bin')
-  }
+  plugins: [
+    new UglifyJSPlugin({
+      uglifyOptions: {
+        warnings: false,
+        comments: false,
+        sourceMap: true,
+        parse: {},
+        compress: {},
+        mangle: true,
+        output: null,
+        toplevel: false,
+        nameCache: null,
+        ie8: false,
+        keep_fnames: false,
+      },
+    }),
+    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /ru|en/),
+    new webpack.optimize.AggressiveMergingPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
+    new CompressionPlugin({
+      filename: '[path].gz[query]',
+      algorithm: "gzip",
+      test: /\.(js|css|html|svg)$/,
+      compressionOptions: { level: 11 },
+      threshold: 10240,
+      minRatio: 0,
+      deleteOriginalAssets: false
+    })
+  ]
 }
