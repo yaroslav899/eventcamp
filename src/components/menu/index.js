@@ -6,9 +6,14 @@ import { mainMenu } from '../../resources/menu';
 import { titleList } from '../../resources/global';
 
 class Menu extends Component {
+  closeMenu = () => {
+    // ToDO optimize it. Added for hiddung menu after click
+    $('.collapse').collapse('hide');
+  }
+
   render() {
     const menuLinks = mainMenu.map((item) => <li key={item.id} className="menu-item">
-      <ActiveLink to={item.url}>{item.name}</ActiveLink>
+      <ActiveLink to={item.url} onClick={this.closeMenu}>{item.name}</ActiveLink>
     </li>);
 
     return (

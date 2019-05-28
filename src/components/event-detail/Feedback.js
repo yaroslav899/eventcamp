@@ -22,7 +22,7 @@ const FeedBack = (props) => {
   return (
     <div className="feedback-detail-right">
       <WriteToAuthor href={emailUrl} target="_blank" className="write-organisator" title={eventTitle} />
-      <AddToInteresting register={register} target="_blank" className="feedback-registration" title={eventTitle}/>
+      <AddToInteresting register={register} target="_blank" className="feedback-registration" title={eventTitle} />
       <EventPhone phone={phone} />
     </div>
   );

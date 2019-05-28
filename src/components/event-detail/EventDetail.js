@@ -94,9 +94,9 @@ class EventDetail extends PureComponent {
       interestedTitle,
       nonRegistredTitle,
       interestedButton,
-      noPhotoUrl
+      noPhotoUrl,
     } = this.props;
-    const { isAuthorized, showModalBox } = this.state;
+    const { isAuthorized, isSubscribed, showModalBox } = this.state;
     const modalBody = isAuthorized ? interestedTitle : nonRegistredTitle;
 
     return (
@@ -114,14 +114,14 @@ class EventDetail extends PureComponent {
             <EventTags className="area-1_tags" tags={event.acf.tags} />
             <EventLocation className="area-1_location" city={event.acf.cities} address={event.acf.location} />
             <p className="area-1_interesting">
-              <span className={this.state.isSubscribed ? 'm-active' : ''} onClick={this.subscribe}>
+              <span className={isSubscribed ? 'm-active' : ''} onClick={this.subscribe}>
                 {interestedButton}
               </span>
             </p>
           </div>
         </div>
-        {showModalBox &&
-          <Modal
+        {showModalBox
+          && <Modal
             toggleModal={this.toggleModal}
             title={event.title.rendered}
             body={modalBody}
@@ -138,12 +138,10 @@ EventDetail.defaultProps = {
   nonRegistredTitle: globalRecources.nonRegistred,
   interestedButton: globalRecources.interestingCTA,
   noPhotoUrl: imageUrlRecources.noPhoto,
-}
+};
 
-const mapStateToProps = function (storeData) {
-  return {
-    userProfile: storeData.user.data,
-  }
+const mapStateToProps = storeData => {
+  return { userProfile: storeData.user.data };
 };
 
 export default connect(mapStateToProps)(EventDetail);

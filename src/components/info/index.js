@@ -47,7 +47,7 @@ class InfoPage extends PureComponent {
   }
 }
 
-const mapStateToProps = storeData => {
+const mapStateToProps = (storeData) => {
   return { text: storeData.page.info };
 };
 

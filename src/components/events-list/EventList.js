@@ -133,11 +133,11 @@ class EventList extends PureComponent {
         </div>
         {showModalBox
           && <Modal
-              toggleModal={this.toggleModal}
-              title={event.title.rendered}
-              body={modalBody}
-              footer={isAuthorized ? <GoogleCalendar data={event} /> : ''}
-            />
+            toggleModal={this.toggleModal}
+            title={event.title.rendered}
+            body={modalBody}
+            footer={isAuthorized ? <GoogleCalendar data={event} /> : ''}
+          />
         }
       </div>
     );

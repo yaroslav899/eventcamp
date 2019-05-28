@@ -86,7 +86,7 @@ class AddEvent extends PureComponent {
 
       if (!file) {
         return request.createPost(state, null)
-          .then(() =>  this.setState({
+          .then(() => this.setState({
             isSuccessRegister: true,
             isAddingEvent: false,
           }));
@@ -97,7 +97,7 @@ class AddEvent extends PureComponent {
         .then((response) => {
           const { id } = response.data;
           return request.createPost(state, id)
-            .then((data) => this.setState({
+            .then(() => this.setState({
               isSuccessRegister: true,
               isAddingEvent: false,
             }));
@@ -160,6 +160,7 @@ class AddEvent extends PureComponent {
       city,
       address,
       tags,
+      topics,
       errorMsg,
       isAddingEvent,
       isSuccessRegister,
@@ -190,9 +191,9 @@ class AddEvent extends PureComponent {
                   <Select
                     name="form-field-category"
                     label="category"
-                    options={categories.map(category => ({
-                      label: category.name,
-                      value: category.id,
+                    options={categories.map(categoryValue => ({
+                      label: categoryValue.name,
+                      value: categoryValue.id,
                       type: 'category',
                     }))}
                     value={category}
@@ -204,7 +205,7 @@ class AddEvent extends PureComponent {
                   <Select
                     name="form-field-topics"
                     label="topics"
-                    options={this.state.topics.map(topic => ({
+                    options={topics.map(topic => ({
                       label: topic.name,
                       value: topic.id,
                       type: 'topics',

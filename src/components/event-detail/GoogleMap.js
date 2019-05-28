@@ -10,9 +10,9 @@ export class GoogleMap extends PureComponent {
     const { address: eventAddress } = this.props;
 
     return request.getAddress(eventAddress).then(address => {
-      this.setState({
-        googleAddress: address.results[0],
-      });
+      this.setState({ googleAddress: address.results[0] });
+
+      return true;
     });
   }
 
@@ -43,8 +43,8 @@ export class GoogleMap extends PureComponent {
     const mapStyle = {
       width: mapWidth,
       height: mapHeight,
-      position: mapPosition
-    }
+      position: mapPosition,
+    };
 
     return (
       <Fragment>

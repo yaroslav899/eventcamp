@@ -39,7 +39,7 @@ class DateRange extends Component {
         });
 
         return range;
-    });
+      });
   }
 
   handleResetClick = () => {
@@ -60,7 +60,7 @@ class DateRange extends Component {
           type: 'UPDATE_FILTER_DATERANGE',
           dateRange: {
             from: undefined,
-            to: undefined
+            to: undefined,
           },
         });
       });
@@ -72,7 +72,7 @@ class DateRange extends Component {
     const modifiers = { start: from, end: to };
 
     return (
-      <div className='date-range'>
+      <div className="date-range">
         <DayPicker
           localeUtils={MomentLocaleUtils}
           locale={locale}
@@ -82,14 +82,14 @@ class DateRange extends Component {
               after: new Date(false),
               before: new Date(),
             },
-        ]}
+          ]}
           modifiers={modifiers}
           onDayClick={this.handleDayClick}
         />
         {from && to && (
           <p>
             {from.toLocaleDateString()} по {to.toLocaleDateString()}
-            <br/>
+            <br />
             <button className="link" onClick={this.handleResetClick}>
               {resetButton}
             </button>
@@ -100,17 +100,17 @@ class DateRange extends Component {
   }
 }
 
-const dateToProps = function(storeData) {
+const dateToProps = (storeData) => {
   return {
     dateRange: storeData.filterState.dateRange,
-    posts: storeData.filterState.list
-  }
+    posts: storeData.filterState.list,
+  };
 };
 
 DateRange.defaultProps = {
   locale: 'ru',
   resetButton: filterRecources.reset,
   noFilterResultMsg: globalRecources.noFilterResult,
-}
+};
 
 export default connect(dateToProps)(DateRange);

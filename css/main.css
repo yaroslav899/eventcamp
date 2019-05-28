@@ -701,6 +701,9 @@ div.react-tabs__tab-panel {
 div.react-tabs__tab-panel div.event_text img {
   max-width:100%;
 }
+.area-2_map{
+  min-height:400px;
+}
 
 /*
 ** Social share
@@ -900,6 +903,11 @@ div.right-side li.same-post-rightside div.samePost-info-rightside div.samePost-t
   .event-detail .area-1_text .area-1_tags {
     display: none;
   }
+  @media (hover: none) {
+    span:hover, a:hover, button:hover {
+      background-color: inherit !important;
+    }
+  }
   .event-filter-option p {
     padding: 10px 0 0 0;
   }
@@ -983,7 +991,7 @@ div.right-side li.same-post-rightside div.samePost-info-rightside div.samePost-t
     font-size:0.9em;
   }
   .profile__add-button{
-    padding: 5px 10px;
+    padding: 5px;
     font-size: 0.75em;
   }
   .own-events-item .events-item__title{
@@ -999,6 +1007,9 @@ div.right-side li.same-post-rightside div.samePost-info-rightside div.samePost-t
     text-align: center;
     width: 50%;
     margin: 10px 0;
+  }
+  .profile-email{
+    overflow: hidden;
   }
   .footer {
     height: 60px;

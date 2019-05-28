@@ -34,12 +34,11 @@ const DetailTabs = (props) => {
       </TabPanel>
       <TabPanel>
         <div className="row">
-          <div className="col-7">
+          <div className="col-7 area-2_map">
             <GoogleMap address={address} />
           </div>
-          <div className="col-5 area-2_address">
+          <div className="col-5">
             {address}
-            <br />
           </div>
         </div>
       </TabPanel>

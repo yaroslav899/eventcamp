@@ -13,11 +13,9 @@ class TakingPartMember extends PureComponent {
     }
 
     return request.getTakingPartMemberEvents(subscribed)
-      .then((data) => {
-        this.setState({ events: data });
-      }).catch((error) => {
-        return false;
-      })
+      .then((events) => {
+        this.setState({ events });
+      }).catch(() => false);
   }
 
   render() {

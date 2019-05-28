@@ -32,7 +32,7 @@ const EventView = (data) => {
         </div>
       </div>
     </div>
-  )
+  );
 };
 
 export default EventView;

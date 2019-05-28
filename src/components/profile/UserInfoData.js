@@ -14,7 +14,7 @@ const UserInfoData = (props) => {
     <div className="row">
       <div className="col-6">
         <Field label={fieldsRegisterForm.firstname} text={user.name} />
-        <Field label={fieldsRegisterForm.email} text={user.email} />
+        <Field label={fieldsRegisterForm.email} text={user.email} className="profile-email"/>
       </div>
       <div className="col-6">
         <Field label={addEventFields.phoneField} text={user.phone} />

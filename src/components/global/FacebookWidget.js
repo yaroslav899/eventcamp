@@ -2,24 +2,25 @@ import React, { PureComponent } from 'react';
 
 class FacebookWidget extends PureComponent {
   componentDidMount() {
+    const { appId, xfbml, version } = this.props;
     // ToDo update this approach
     new Promise((resolve) => {
-      window.fbAsyncInit = function () {
-        FB && FB.init({
-          appId: '652873901800006',
-          xfbml: false,
-          version: 'v2.6'
+      window.fbAsyncInit = () => {
+        window.FB && window.FB.init({
+          appId,
+          xfbml,
+          version,
         });
       };
       resolve(true);
     }).then(() => {
-      document.addEventListener('fb_init', e => FB && FB.XFBML.parse());
+      document.addEventListener('fb_init', () => window.FB && window.FB.XFBML.parse());
       return true;
     }).then(() => {
       document.dispatchEvent(new Event('fb_init'));
       return true;
     }).then(() => {
-      window.fbAsyncInit && FB && window.fbAsyncInit();
+      window.fbAsyncInit && window.FB && window.fbAsyncInit();
       return true;
     });
   }
@@ -38,8 +39,14 @@ class FacebookWidget extends PureComponent {
           className="fb-xfbml-parse-ignore"
         />
       </div>
-    )
+    );
   }
 }
+
+FacebookWidget.defaultProps = {
+  appId: '652873901800006',
+  xfbml: false,
+  version: 'v2.6',
+};
 
 export default FacebookWidget;

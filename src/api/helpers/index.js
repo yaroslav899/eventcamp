@@ -68,7 +68,9 @@ export const getLastPostsUrl = () => {
 };
 
 export const fetchData = (url, params) => {
-  return fetch(url, params || { method: 'GET' })
+  const necessaryParams = params || { method: 'GET' };
+
+  return fetch(url, necessaryParams)
     .then(response => response.json());
 };
 

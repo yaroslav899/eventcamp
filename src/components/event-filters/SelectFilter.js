@@ -76,9 +76,11 @@ class SelectFilter extends Component {
               categories: data[filterOption],
             });
 
-            this.setState({
-              topics: categories.find(cat => cat.id === data[filterOption]).subcat,
-            });
+            const activeCategory = categories.find(cat => cat.id === data[filterOption]);
+
+            if (activeCategory) {
+              this.setState({ topics: activeCategory.subcat });
+            }
 
             break;
           case 'cities':
