@@ -49,7 +49,7 @@ class DetailInteresting extends PureComponent {
   render() {
     const { posts } = this.state;
 
-    if (!posts) return <Fragment />;
+    if (!posts || !posts.length) return <Fragment />;
 
     const samePosts = posts.map((samePost) => {
       const {
