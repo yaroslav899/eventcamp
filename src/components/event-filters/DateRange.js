@@ -11,12 +11,15 @@ import { globalRecources } from '../../resources/global';
 
 class DateRange extends Component {
   handleDayClick = (day) => {
-    if (new Date(day) < new Date()) {
+    const currentDate = new Date().toDateString();
+    const filterDate = new Date(day).toDateString();
+
+    if (new Date(filterDate) < new Date(currentDate)) {
       return false;
     }
 
     const { dateRange, noFilterResultMsg } = this.props;
-    const range = DateUtils.addDayToRange(day, dateRange);
+    let range = DateUtils.addDayToRange(day, dateRange);
 
     if (!range.to) {
       range.to = range.from;
@@ -26,6 +29,10 @@ class DateRange extends Component {
       type: 'UPDATE_FILTER_DATERANGE',
       dateRange: range,
     });
+
+    if (!range.to && !range.from) {
+        range = {};
+    }
 
     return request.getListPosts(range)
       .then(posts => {
@@ -40,7 +47,7 @@ class DateRange extends Component {
           list: posts,
         });
 
-        return range;
+        return true;
       });
   }
 
