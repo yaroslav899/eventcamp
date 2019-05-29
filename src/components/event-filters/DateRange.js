@@ -11,12 +11,16 @@ import { globalRecources } from '../../resources/global';
 
 class DateRange extends Component {
   handleDayClick = (day) => {
-    if (new Date(day).toLocaleDateString() < new Date().toLocaleDateString()) {
+    if (new Date(day) < new Date()) {
       return false;
     }
 
     const { dateRange, noFilterResultMsg } = this.props;
     const range = DateUtils.addDayToRange(day, dateRange);
+
+    if (!range.to) {
+      range.to = range.from;
+    }
 
     store.dispatch({
       type: 'UPDATE_FILTER_DATERANGE',
@@ -29,8 +33,6 @@ class DateRange extends Component {
           posts.push({
             empty: noFilterResultMsg,
           });
-
-          return false;
         }
 
         store.dispatch({

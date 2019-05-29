@@ -32,8 +32,12 @@ export const getRequestUrl = (param) => {
   const city = cities.find(item => item.id === query.cities);
   if (query.categories) url = `${url}&categories=${query.categories}`;
   if (query.cities) url = `${url}&filter[meta_query][0][key]=cities&filter[meta_query][0][value]=${city.name}`;
-  if (query.from) url = `${url}&filter[meta_query][1][key]=dateOf&filter[meta_query][1][value]=${query.from}&filter[meta_query][1][compare]=>`;
-  if (query.to) url = `${url}&filter[meta_query][2][key]=dateOf&filter[meta_query][2][value]=${query.to}&filter[meta_query][2][compare]=<`;
+  if (query.from && query.from === query.to) {
+    url = `${url}&filter[meta_query][1][key]=dateOf&filter[meta_query][1][value]=${query.from.replace('T00:00:00', '')}`;
+  } else if (query.from) {
+    url = `${url}&filter[meta_query][1][key]=dateOf&filter[meta_query][1][value]=${query.from}&filter[meta_query][1][compare]=>`;
+  }
+  if (query.to && query.from !== query.to) url = `${url}&filter[meta_query][2][key]=dateOf&filter[meta_query][2][value]=${query.to}&filter[meta_query][2][compare]=<`;
   if (query.topics) url = `${url}&filter[meta_query][3][key]=topic&filter[meta_query][3][value]=${query.topics}`;
   if (query.page) url = `${url}&page=${query.page}`;
   return url;
