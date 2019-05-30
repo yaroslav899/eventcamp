@@ -30,8 +30,9 @@ export const getRequestUrl = (param) => {
     page: (filterOption === 'page') ? param.page : '1',
   };
   const city = cities.find(item => item.id === query.cities);
+
   if (query.categories) url = `${url}&categories=${query.categories}`;
-  if (query.cities) url = `${url}&filter[meta_query][0][key]=cities&filter[meta_query][0][value]=${city.name}`;
+  if (query.cities) url = `${url}&filter[meta_query][0][key]=cities&filter[meta_query][0][value]=${city.url}`;
   if (query.from && query.from === query.to) {
     url = `${url}&filter[meta_query][1][key]=dateOf&filter[meta_query][1][value]=${query.from.replace('T00:00:00', '')}`;
   } else if (query.from) {
@@ -128,7 +129,7 @@ export const eventRequest = (param, imageID, userData) => {
       categories: category,
       fields: {
         topic: currentTheme.label,
-        cities: getValueFromParams(cities, city, 'id', 'name'),
+        cities: city,
         picture: imageID,
         price: priceValue,
         location: address,

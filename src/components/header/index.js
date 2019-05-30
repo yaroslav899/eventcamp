@@ -6,7 +6,7 @@ import { imageUrlRecources } from '../../resources/url';
 import { titleList } from '../../resources/global';
 
 const Header = () => (
-  <header className="header">
+  <header className="header sticky-top">
     <div className="authBlock">
       <div className="container">
         <div className="row">

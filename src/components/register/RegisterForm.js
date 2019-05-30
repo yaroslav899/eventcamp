@@ -150,7 +150,7 @@ class RegisterForm extends Component {
           {fields}
           <br />
           <input type="checkbox" onChange={this.privacyHandler} />
-          {globalRecources.privacy}
+          <span dangerouslySetInnerHTML={createMarkupText(globalRecources.privacy)} />
           <ReCAPTCHA sitekey={reCaptcha.siteKey} onChange={this.reCaptchaHandler} />
           <span className="error-message" dangerouslySetInnerHTML={createMarkupText(errorMsg)} />
           <button type="submit" className="btn btn-secondary submit" disabled={isSubmit}>

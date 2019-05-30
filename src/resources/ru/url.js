@@ -8,7 +8,7 @@ export const imageUrlRecources = {
   pinterest: '/img/pinterest.png',
   email: '/img/email.png',
   google: '/img/google.png',
-  banner: '/img/slider1.jpg',
+  banner: '/img/slider1.png',
 };
 
 export const urlRecources = {

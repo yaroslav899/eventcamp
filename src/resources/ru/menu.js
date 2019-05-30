@@ -1,25 +1,25 @@
 export const mainMenu = [{
-  name: 'Головна',
+  name: 'Главная',
   id: '2',
   url: '/',
 },
 {
-  name: 'Календар подій',
+  name: 'Календарь событий',
   id: '12',
   url: '/events',
 },
 {
-  name: 'Додати подію',
+  name: 'Добавить событие',
   id: '3',
   url: '/add-event',
 },
 {
-  name: 'Інфо',
+  name: 'Инфо',
   id: '24',
   url: '/info',
 },
 {
-  name: "Зворотній зв'язок",
+  name: 'Обратная связь',
   id: '748',
   url: '/callback',
 }];

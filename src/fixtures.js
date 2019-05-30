@@ -4,7 +4,7 @@ export const categories = [
   {
     'id': '1',
     'url': 'it',
-    'name': 'It',
+    'name': 'IT technologies',
     'img': '/img/it.png',
     'subcat': [
       {
@@ -123,19 +123,19 @@ export const categories = [
       {
         'id': '10_5',
         'url': 'exhibitions',
-        'name': 'Выставки',
+        'name': 'Виставки',
       },
       {
         'id': '10_6',
         'url': 'sport-another',
-        'name': 'Другое',
+        'name': 'Інше',
       },
     ]
   },
   {
     'id': '7',
     'url': 'robots',
-    'name': 'Робототехника',
+    'name': 'Робототехніка',
     'img': '/img/robot.png',
     'subcat': [
       {
@@ -171,7 +171,7 @@ export const categories = [
   {
     'id': '11',
     'url': 'learning',
-    'name': 'Обучение',
+    'name': 'Навчання',
     'img': '/img/learning.png',
     'subcat': [
       {
@@ -225,7 +225,7 @@ export const categories = [
   {
     'id': '9',
     'url': 'family',
-    'name': 'Семья',
+    'name': "Сім'я",
     'img': '/img/family.png',
     'subcat': [
       {
@@ -243,7 +243,7 @@ export const categories = [
   {
     'id': '13',
     'url': 'lingvo',
-    'name': 'Лингво',
+    'name': 'Лінгво',
     'img': '/img/lingvo.png',
     'subcat': [
       {
@@ -306,7 +306,7 @@ export const categories = [
   {
     'id': '8',
     'url': 'health',
-    'name': 'Здоровье',
+    'name': "Здоров'я",
     'img': '/img/health.png',
     'subcat': [
       {
@@ -342,7 +342,7 @@ export const categories = [
   {
     'id': '14',
     'url': 'action',
-    'name': 'Движение',
+    'name': 'Рух та інше',
     'img': '/img/action.png',
     'subcat': [
       {
@@ -363,27 +363,27 @@ export const cities = [
   {
     'id': '1',
     'url': 'kiev',
-    'name': 'Киев',
+    'name': 'Київ',
   },
   {
     'id': '2',
     'url': 'odessa',
-    'name': 'Одесса',
+    'name': 'Одеса',
   },
   {
     'id': '3',
     'url': 'kharkiv',
-    'name': 'Харьков',
+    'name': 'Харків',
   },
   {
     'id': '4',
     'url': 'dnepr',
-    'name': 'Днепр',
+    'name': 'Дніпро',
   },
   {
     'id': '5',
     'url': 'lviv',
-    'name': 'Львов',
+    'name': 'Львів',
   },
   {
     'id': '6',
@@ -393,7 +393,7 @@ export const cities = [
   {
     'id': '7',
     'url': 'zaporozhie',
-    'name': 'Запорожье',
+    'name': 'Запоріжжя',
   },
   {
     'id': '8',
@@ -408,17 +408,17 @@ export const cities = [
   {
     'id': '10',
     'url': 'chernihiv',
-    'name': 'Чернигов',
+    'name': 'Чернігів',
   },
   {
     'id': '11',
     'url': 'luck',
-    'name': 'Луцк',
+    'name': 'Луцьк',
   },
 ];
 
 export const defaultTopic = [{
   id: '999',
   url: 'no_choice',
-  name: 'Выберите категорию',
+  name: 'Оберіть категорію',
 }];

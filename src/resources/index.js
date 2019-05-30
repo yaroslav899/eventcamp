@@ -1,45 +1,45 @@
 export const listRecources = {
-  title: 'События и конференции',
-  additionalTitle: 'в городе',
-  emptyList: 'записи отсутствуют',
-  lastEvent: 'Последние события',
+  title: 'Події та конференції',
+  additionalTitle: 'у місті',
+  emptyList: 'записи відсутні',
+  lastEvent: 'Останні події',
 };
 
 export const filterRecources = {
-  city: 'Город',
-  category: 'Категория',
+  city: 'Місто',
+  category: 'Категорія',
   topic: 'Тема',
-  reset: 'Сбросить',
+  reset: 'Скинути',
 };
 
 export const detailRecources = {
-  writeAuthor: 'Написать организатору',
-  register: 'Зарегистрироваться',
-  maybeInteresting: 'Может быть интересно',
-  addToCalendar: 'Добавьте в календарь',
-  description: 'Описание',
-  howToGet: 'Как добраться',
-  showPhone: 'Показать телефон',
+  writeAuthor: 'Написати організатору',
+  register: 'Зареєструватися',
+  maybeInteresting: 'Може бути цікаво',
+  addToCalendar: 'Додайте в календар',
+  description: 'Опис',
+  howToGet: 'Як дістатися',
+  showPhone: 'Показати телефон',
 };
 
 export const advantRecources = {
-  first: 'Узнавайте новое и полезное',
-  second: 'Заводите новые контакты',
-  third: 'Популяризация мероприятий',
-  four: 'Только актуальные темы',
+  first: 'Дізнавайтеся нове і корисне',
+  second: 'Заводите нові контакти',
+  third: 'Популяризація заходів',
+  four: 'Тільки актуальні теми',
 };
 
 export const fieldsRegisterForm = {
-  firstname: 'Имя:',
-  secondname: 'Фамилия:',
+  firstname: "Ім'я:",
+  secondname: 'Прізвище:',
   email: 'Email: *',
-  login: 'Логин: *',
+  login: 'Логін: *',
   password: 'Пароль: *',
-  duplicatepassword: 'Повторите пароль: *',
+  duplicatepassword: 'Повторіть пароль: *',
 };
 
 export const fieldsMsg = {
-    errorMsg: 'Неправильный логин или пароль',
+    errorMsg: 'Неправильний логін або пароль',
   };
 
 export const googleApiService = {
