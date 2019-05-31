@@ -10,7 +10,7 @@ import { globalRecources } from '../../resources/global';
 const EventView = (data) => {
   const { event, isOwner } = data;
   const { acf, id: eventID, title } = event;
-  const city = getValueFromParams(cities, acf.cities, 'name', 'url');
+  const city = getValueFromParams(cities, acf.cities, 'url', 'url');
   const category = getValueFromParams(categories, event.categories[0], 'id', 'url');
   const eventUrl = `/events/${city}/${category}/${eventID}`;
   const editEventUrl = `/edit-event/${eventID}`;

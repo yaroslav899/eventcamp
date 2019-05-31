@@ -114,6 +114,7 @@ export const eventRequest = (param, imageID, userData) => {
   const description = stateToHTML(editorState.getCurrentContent());
   const { token } = parseJSON(userData);
   const url = `${urlRecources.endpointUrl}posts/${eventID || ''}`;
+  const cityValue = getValueFromParams(cities, city, 'id', 'url');
 
   return fetch(url, {
     method: 'POST',
@@ -128,8 +129,8 @@ export const eventRequest = (param, imageID, userData) => {
       featured_media: imageID,
       categories: category,
       fields: {
-        topic: currentTheme.label,
-        cities: city,
+        topic: currentTheme.value,
+        cities: cityValue,
         picture: imageID,
         price: priceValue,
         location: address,

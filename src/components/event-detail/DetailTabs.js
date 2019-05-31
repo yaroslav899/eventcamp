@@ -6,6 +6,8 @@ import {
   TabPanel,
 } from 'react-tabs';
 import GoogleMap from './GoogleMap';
+import EventLocation from '../event-global/EventLocation';
+import { cities } from '../../fixtures';
 import { createMarkupText } from '../../helper';
 import { detailRecources } from '../../resources';
 
@@ -13,7 +15,7 @@ const DetailTabs = (props) => {
   const {
     data: {
       acf: {
-        cities,
+        cities: cityUrl,
         location,
       } = {},
       content: { rendered } = {},
@@ -21,7 +23,7 @@ const DetailTabs = (props) => {
     descriptionTabName,
     howToGetTabName,
   } = props;
-  const address = `${cities}, ${location}`;
+  const address = `${cityUrl}, ${location}`;
 
   return (
     <Tabs>
@@ -38,7 +40,7 @@ const DetailTabs = (props) => {
             <GoogleMap address={address} />
           </div>
           <div className="col-5">
-            {address}
+            <EventLocation city={cityUrl} address={location} />
           </div>
         </div>
       </TabPanel>
