@@ -3,7 +3,6 @@ import Banner from './global/Banner';
 import Adventages from './global/Adventages';
 import ServicePicture from './global/ServicePicture';
 import LastPosts from './global/LastPosts';
-import FacebookWidget from './global/FacebookWidget';
 import MainText from './MainText';
 
 const MainPage = () => (
@@ -23,7 +22,6 @@ const MainPage = () => (
         </div>
         <div className="col-12 col-md-3">
           <LastPosts />
-          <FacebookWidget />
         </div>
       </div>
     </div>

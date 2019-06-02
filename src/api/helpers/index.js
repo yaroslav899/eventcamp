@@ -65,11 +65,11 @@ export const getInterestingUrl = (param, isTagActive) => {
   return `${url}&per_page=3`;
 };
 
-export const getLastPostsUrl = () => {
+export const getLastPostsUrl = (numberOfPosts = 5) => {
   const dateFrom = moment(new Date()).format('YYYY-MM-DDT00:00:00');
   let url = `${urlRecources.endpointUrl}posts?`;
   url = `${url}&filter[meta_query][1][key]=dateOf&filter[meta_query][1][value]=${dateFrom}&filter[meta_query][1][compare]=>`;
-  return `${url}&per_page=5`;
+  return `${url}&per_page=${numberOfPosts}`;
 };
 
 export const fetchData = (url, params) => {
@@ -109,12 +109,14 @@ export const eventRequest = (param, imageID, userData) => {
     register,
     phone,
     email,
+    topics,
     eventID = null,
   } = param;
   const description = stateToHTML(editorState.getCurrentContent());
   const { token } = parseJSON(userData);
   const url = `${urlRecources.endpointUrl}posts/${eventID || ''}`;
   const cityValue = getValueFromParams(cities, city, 'id', 'url');
+  const topicValue = getValueFromParams(topics, currentTheme.value, 'id', 'url');
 
   return fetch(url, {
     method: 'POST',
@@ -129,7 +131,7 @@ export const eventRequest = (param, imageID, userData) => {
       featured_media: imageID,
       categories: category,
       fields: {
-        topic: currentTheme.value,
+        topic: topicValue,
         cities: cityValue,
         picture: imageID,
         price: priceValue,

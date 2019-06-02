@@ -18,6 +18,7 @@ export const profileProperties = {
 };
 
 export const addEventFields = {
+  firstname: "Ім'я",
   titleField: 'Заголовок',
   categoryField: 'Категорія',
   topicField: 'Тема',

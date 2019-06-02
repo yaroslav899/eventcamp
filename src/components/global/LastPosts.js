@@ -33,12 +33,11 @@ class LastPosts extends PureComponent {
     if (!list) return <Fragment />;
 
     const lastPosts = list.map((post) => {
-      const city = getValueFromParams(cities, post.acf.cities, 'name', 'url');
       const category = getValueFromParams(categories, post.categories[0], 'id', 'url');
 
       return (
         <li key={post.id}>
-          <NavLink to={`/events/${city}/${category}/${post.id}`}>
+          <NavLink to={`/events/${post.acf.cities}/${category}/${post.id}`}>
             <div className="row">
               <div className="col-12">
                 <div className="last-post-title" dangerouslySetInnerHTML={createMarkupText(post.title.rendered)} />

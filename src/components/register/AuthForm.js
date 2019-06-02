@@ -69,16 +69,16 @@ class AuthForm extends PureComponent {
         <h3>{titleList.authorization}</h3>
         <form onSubmit={this.handleSubmit} className="registration__form registration-form">
           <div className="form-row">
-            <label htmlFor="login" className="registration-form__label col-sm-2">
+            <label htmlFor="login" className="registration-form__label col-sm-4">
               {fieldsRegisterForm.login}
             </label>
-            <input type="text" className="form-control col-sm-6" name="login" value={login} onChange={this.handleChange} required />
+            <input type="text" className="form-control col-sm-7" name="login" value={login} onChange={this.handleChange} required />
           </div>
           <div className="form-row">
-            <label htmlFor="password" className="registration-form__label col-sm-2">
+            <label htmlFor="password" className="registration-form__label col-sm-4">
               {fieldsRegisterForm.password}
             </label>
-            <input type="password" className="form-control col-sm-6" name="password" value={password} onChange={this.handleChange} required />
+            <input type="password" className="form-control col-sm-7" name="password" value={password} onChange={this.handleChange} required />
           </div>
           <div className={isValidForm ? 'd-none' : 'error-message'}>
             {fieldsMsg.errorMsg}

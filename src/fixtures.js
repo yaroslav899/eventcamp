@@ -111,7 +111,7 @@ export const categories = [
         'name': 'Баскетбол',
       },
       {
-        'id': '810_3',
+        'id': '10_2',
         'url': 'boxing',
         'name': 'Бокс',
       },

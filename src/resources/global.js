@@ -2,6 +2,7 @@ export const titleList = {
   home: 'Event camp - Події, конференції та зустрічі України',
   registration: 'Реєстрація',
   authorization: 'Авторизація',
+  callback: "Зворотній зв'язок",
 };
 
 export const globalRecources = {

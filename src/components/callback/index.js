@@ -1,10 +1,12 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import CallBackForm from './CallBackForm';
 import store from '../../store';
 import { request } from '../../api';
 import { getValueFromParams, createMarkupText } from '../../helper';
 import Adventages from '../global/Adventages';
 import { mainMenu } from '../../resources/menu';
+import { titleList } from '../../resources/global';
 
 class CallBack extends PureComponent {
   componentDidMount() {
@@ -33,6 +35,10 @@ class CallBack extends PureComponent {
     });
   }
 
+  onChange = (event) => {
+    this.setState({ [event.target.name]: event.target.value });
+  }
+
   render() {
     const { text } = this.props;
 
@@ -40,7 +46,17 @@ class CallBack extends PureComponent {
       <div className="container">
         <Adventages />
         <div className="row">
-          <div className="col-12" dangerouslySetInnerHTML={createMarkupText(text)} />
+          <div className="col-12">
+            <h1>{titleList.callback}</h1>
+            <div className="row">
+              <div className="col-6">
+                <CallBackForm />
+              </div>
+              <div className="col-6">
+                <span dangerouslySetInnerHTML={createMarkupText(text)} />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );

@@ -254,7 +254,7 @@ header .authBlock {
   border: 1px solid #8f8f8f;
   padding: 2px 8px;
   border-radius: 5px;
-  margin: 0 5px 0 0;
+  margin: 0 5px 2px 0;
   display: inline-block;
 }
 
@@ -854,6 +854,32 @@ div.right-side li.same-post-rightside div.samePost-info-rightside div.samePost-t
   .advant {
     display: none;
   }
+}
+@media (max-width: 991px) and (min-width: 768px) {
+  .header nav.navbar {
+    margin-top: 6px;
+    float: none;
+    z-index: 1;
+  }
+  #navbarSupportedContent {
+    z-index: 999;
+    background-color: #0367b7;
+    padding: 10px 0 0 0;
+  }
+
+  .header nav.navbar ul.navbar-nav li {
+    padding: 5px 0;
+    display: contents;
+  }
+
+    .header nav.navbar ul.navbar-nav li.menu-item a {
+      border-radius: 0;
+    }
+
+    .header nav.navbar ul.navbar-nav li.menu-item.current-menu-item a {
+      background-color: transparent;
+      color: #f6c806;
+    }
 }
 
 @media (max-width: 576px) {

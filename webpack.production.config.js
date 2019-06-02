@@ -50,16 +50,9 @@ module.exports = {
       },
     }),
     new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /ru|en/),
-    new webpack.optimize.AggressiveMergingPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
     new CompressionPlugin({
       filename: '[path].gz[query]',
       algorithm: "gzip",
-      test: /\.(js|css|html|svg)$/,
-      compressionOptions: { level: 11 },
-      threshold: 10240,
-      minRatio: 0,
-      deleteOriginalAssets: false
     })
   ]
 }

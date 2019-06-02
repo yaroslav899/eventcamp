@@ -8,7 +8,7 @@ export const imageUrlRecources = {
   pinterest: '/img/pinterest.png',
   email: '/img/email.png',
   google: '/img/google.png',
-  banner: '/img/slider1.jpg',
+  banner: '/img/slider2.jpg',
 };
 
 export const urlRecources = {
@@ -18,6 +18,7 @@ export const urlRecources = {
   calGoggle: 'http://www.google.com/calendar/event?action=TEMPLATE&text=',
   jwtRegister: 'http://board.it-mir.net.ua/wp-json/jwt-auth/v1/token/',
   mediaResources: 'http://board.it-mir.net.ua/wp-json/wp/v2/media',
+  callback: '/mail.php',
 };
 
 export const socialUrl = {
