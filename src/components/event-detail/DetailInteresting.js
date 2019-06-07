@@ -65,9 +65,8 @@ class DetailInteresting extends PureComponent {
           dateOf,
         },
       } = samePost;
-      const city = getValueFromParams(cities, postCity, 'name', 'url');
       const category = getValueFromParams(categories, postCategories[0], 'id', 'url');
-      const eventUrl = `/events/${city}/${category}/${postID}`;
+      const eventUrl = `/events/${postCity}/${category}/${postID}`;
 
       return <li key={postID} className="same-post-rightside">
         <NavLink onClick={this.handleUpdateDetailPage.bind(this, samePost)} to={eventUrl}>

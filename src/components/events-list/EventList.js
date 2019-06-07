@@ -103,10 +103,9 @@ class EventList extends PureComponent {
       interestedButton,
     } = this.props;
     const { isAuthorized, showModalBox, isSubscribed } = this.state;
-    const city = getValueFromParams(cities, event.acf.cities, 'url', 'url');
     const category = getValueFromParams(categories, event.categories[0], 'id', 'url');
     const modalBody = isAuthorized ? interestedTitle : nonRegistredTitle;
-    const url = `/events/${city}/${category}/${event.id}`;
+    const url = `/events/${event.acf.cities}/${category}/${event.id}`;
 
     return (
       <div className="row">

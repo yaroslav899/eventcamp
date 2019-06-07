@@ -40,7 +40,7 @@ class AuthForm extends PureComponent {
           }
 
           setCookie('userData', stringifyJSON(response.userData), 2);
-          setCookie('profileData', stringifyJSON(response.profileData));
+          setCookie('profileData', stringifyJSON(response.profileData), 2);
 
           store.dispatch({
             type: 'UPDATE_USERPROFILE',
