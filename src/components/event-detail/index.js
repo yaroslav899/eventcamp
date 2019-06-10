@@ -35,6 +35,8 @@ class DetailPage extends Component {
 
     if (!post) return <Loader />;
 
+    moment.locale('uk');
+
     const date = moment(post.acf.dateOf, 'YYYY-MM-DD').format('Do MMM').split(' ');
     const getDateDay = moment(post.acf.dateOf, 'YYYY-MM-DD').format('dddd');
 

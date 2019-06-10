@@ -26,7 +26,7 @@ export const globalRecources = {
   addEventButton: 'Додати подію',
   sendText: 'Відправити',
   member: 'Учасник',
-  privacy: ' Я згоден (-на) з <a href="/info" target="_blank">умовами використання сайту і політикою конфіденційності.</a>',
+  privacy: ' Я згоден (-на) з <a href="/policy" target="_blank">умовами використання сайту і політикою конфіденційності.</a>',
   interestedTitle: 'Подія додано в "Цікаве" в особистий кабінет',
   nonRegistred: 'Необхідно зареєструватися, щоб додати в цікаве',
 };

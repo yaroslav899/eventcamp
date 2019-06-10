@@ -90,7 +90,7 @@ export const categories = [
       {
         'id': '1_17',
         'url': 'another-it',
-        'name': 'Другое',
+        'name': 'Інше',
       },
     ]
   },
@@ -133,23 +133,28 @@ export const categories = [
     ]
   },
   {
-    'id': '7',
-    'url': 'robots',
-    'name': 'Робототехніка',
-    'img': '/img/robot.png',
+    'id': '8',
+    'url': 'business',
+    'name': "Бізнес",
+    'img': '/img/business.png',
     'subcat': [
       {
-        'id': '7_1',
-        'url': 'chinese',
-        'name': 'Chinese, Mandarin',
+        'id': '8_1',
+        'url': 'exhibition-business',
+        'name': 'Виставки',
       },
       {
-        'id': '7_2',
-        'url': 'english',
-        'name': 'English',
+        'id': '8_2',
+        'url': 'lection-business',
+        'name': 'Лекції',
+      },
+      {
+        'id': '8_3',
+        'url': 'another-business',
+        'name': 'Інше',
       },
     ]
-  },
+  },  
   {
     'id': '15',
     'url': 'nature',
@@ -158,13 +163,18 @@ export const categories = [
     'subcat': [
       {
         'id': '15_1',
-        'url': 'chinese',
-        'name': 'Chinese, Mandarin',
+        'url': 'rafting',
+        'name': 'Рафтінг',
       },
       {
         'id': '15_2',
-        'url': 'english',
-        'name': 'English',
+        'url': 'haiking',
+        'name': 'Хайкінг',
+      },
+      {
+        'id': '15_3',
+        'url': 'nature-another',
+        'name': 'Інше',
       },
     ]
   },
@@ -176,13 +186,8 @@ export const categories = [
     'subcat': [
       {
           'id': '11_1',
-          'url': 'chinese',
-          'name': 'Chinese, Mandarin',
-      },
-      {
-          'id': '11_2',
-          'url': 'english',
-          'name': 'English',
+          'url': 'lection',
+          'name': 'Лекції',
       },
     ]
   },
@@ -194,13 +199,73 @@ export const categories = [
     'subcat': [
       {
         'id': '12_1',
-        'url': 'chinese',
-        'name': 'Chinese, Mandarin',
+        'url': 'economic',
+        'name': 'Економічні',
       },
       {
-        'id': '13_2',
-        'url': 'english',
-        'name': 'English',
+        'id': '12_2',
+        'url': 'mathematic',
+        'name': 'Фізико-математичні',
+      },
+      {
+        'id': '12_3',
+        'url': 'sociologic',
+        'name': 'Соціологічні',
+      },
+      {
+        'id': '12_4',
+        'url': 'pedagogic',
+        'name': 'Педагогічні',
+      },
+      {
+        'id': '12_5',
+        'url': 'medic',
+        'name': 'Медичні',
+      },
+      {
+        'id': '12_6',
+        'url': 'philologic',
+        'name': 'Філологічні',
+      },
+      {
+        'id': '12_7',
+        'url': 'cultorologic',
+        'name': 'Культурологія',
+      },
+      {
+        'id': '12_8',
+        'url': 'biologic',
+        'name': 'Біологічні',
+      },
+      {
+        'id': '12_9',
+        'url': 'uridic',
+        'name': 'Юридичні',
+      },
+      {
+        'id': '12_10',
+        'url': 'history-arch',
+        'name': 'Історичні та археологія ',
+      },
+      {
+        'id': '12_11',
+        'url': 'philosophy',
+        'name': 'Філософські',
+      },
+      {
+        'id': '12_12',
+        'url': 'ecology',
+        'name': 'Екологія',
+      },
+      {
+        'id': '12_13',
+        'url': 'architector',
+        'name': 'Архітектура',
+      },
+      {
+        'id': '12_14',
+        'url': 'science-another',
+        'name': 'Інше',
       },
     ]
   },
@@ -212,13 +277,18 @@ export const categories = [
     'subcat': [
       {
         'id': '16_1',
-        'url': 'chinese',
-        'name': 'Chinese, Mandarin',
+        'url': 'exhibition-vogue',
+        'name': 'Виставки',
       },
       {
         'id': '16_2',
-        'url': 'english',
-        'name': 'English',
+        'url': 'show-vogue',
+        'name': 'Показ моди',
+      },
+      {
+        'id': '16_3',
+        'url': 'fashion-another',
+        'name': 'Інше',
       }
     ]
   },
@@ -230,13 +300,18 @@ export const categories = [
     'subcat': [
       {
         'id': '9_1',
-        'url': 'chinese',
-        'name': 'Chinese, Mandarin',
+        'url': 'exhibition-family',
+        'name': 'Виставки',
       },
       {
         'id': '9_2',
-        'url': 'english',
-        'name': 'English',
+        'url': 'lection-family',
+        'name': 'Лекції',
+      },
+      {
+        'id': '9_3',
+        'url': 'another-family',
+        'name': 'Інше',
       },
     ]
   },
@@ -298,26 +373,8 @@ export const categories = [
       },
       {
         'id': '13_11',
-        'url': 'other',
+        'url': 'other-lang',
         'name': 'Other',
-      },
-    ]
-  },
-  {
-    'id': '8',
-    'url': 'health',
-    'name': "Здоров'я",
-    'img': '/img/health.png',
-    'subcat': [
-      {
-        'id': '8_1',
-        'url': 'chinese',
-        'name': 'Chinese, Mandarin',
-      },
-      {
-        'id': '8_2',
-        'url': 'english',
-        'name': 'English',
       },
     ]
   },
@@ -329,13 +386,13 @@ export const categories = [
     'subcat': [
       {
         'id': '2_1',
-        'url': 'chinese',
-        'name': 'Chinese, Mandarin',
+        'url': 'hike',
+        'name': 'Похід',
       },
       {
         'id': '2_2',
-        'url': 'english',
-        'name': 'English',
+        'url': 'another-tourizm',
+        'name': 'Інше',
       },
     ]
   },
@@ -347,16 +404,44 @@ export const categories = [
     'subcat': [
       {
         'id': '14_1',
-        'url': 'chinese',
-        'name': 'Chinese, Mandarin',
-      },
-      {
-        'id': '14_2',
-        'url': 'english',
-        'name': 'English',
+        'url': 'another-action',
+        'name': 'Інше',
       },
     ]
-  }
+  },
+  {
+    'id': '7',
+    'url': 'robots',
+    'name': 'Робототехніка',
+    'img': '/img/robot.png',
+    'subcat': [
+      {
+        'id': '7_1',
+        'url': 'artificial-intelligence',
+        'name': 'Штучний інтелект',
+      },
+      {
+        'id': '7_2',
+        'url': 'robo',
+        'name': 'Роботи',
+      },
+      {
+        'id': '7_3',
+        'url': 'nanotechnology',
+        'name': 'Нанотехнології',
+      },
+      {
+        'id': '7_4',
+        'url': 'kibernetika',
+        'name': 'Кібернетика',
+      },
+      {
+        'id': '7_5',
+        'url': 'robo-another',
+        'name': 'Інше',
+      },
+    ]
+  },
 ];
 
 export const cities = [

@@ -1,6 +1,6 @@
 export const imageUrlRecources = {
-  noPhoto: 'http://board.it-mir.net.ua/wp-content/uploads/2018/05/nophoto.jpg',
-  googleLogo: 'http://board.it-mir.net.ua/wp-content/uploads/2018/06/google.png',
+  noPhoto: '/img/nophoto.jpg',
+  googleLogo: 'https://board.it-mir.net.ua/wp-content/uploads/2018/06/google.png',
   logo: '/img/logo.png',
   facebook: '/img/facebook.png',
   twitter: '/img/twitter.png',
@@ -12,12 +12,12 @@ export const imageUrlRecources = {
 };
 
 export const urlRecources = {
-  endpointUrl: 'http://board.it-mir.net.ua/wp-json/wp/v2/',
+  endpointUrl: 'https://board.it-mir.net.ua/wp-json/wp/v2/',
   geoLookUpUrl: 'https://maps.googleapis.com/maps/api/geocode/json?',
-  exchangeUrl: 'http://resources.finance.ua/ru/public/currency-cash.json',
-  calGoggle: 'http://www.google.com/calendar/event?action=TEMPLATE&text=',
-  jwtRegister: 'http://board.it-mir.net.ua/wp-json/jwt-auth/v1/token/',
-  mediaResources: 'http://board.it-mir.net.ua/wp-json/wp/v2/media',
+  exchangeUrl: 'https://resources.finance.ua/ru/public/currency-cash.json',
+  calGoggle: 'https://www.google.com/calendar/event?action=TEMPLATE&text=',
+  jwtRegister: 'https://board.it-mir.net.ua/wp-json/jwt-auth/v1/token/',
+  mediaResources: 'https://board.it-mir.net.ua/wp-json/wp/v2/media',
   callback: '/mail.php',
 };
 

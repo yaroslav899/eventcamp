@@ -12,6 +12,7 @@ import MainPage from './components/MainPage';
 import ListPage from './components/events-list';
 import DetailPage from './components/event-detail';
 import InfoPage from './components/info';
+import Policy from './components/policy';
 import CallBack from './components/callback';
 import RegistrationPage from './components/register';
 import Profile from './components/profile';
@@ -39,6 +40,7 @@ class App extends Component {
               <Route path="/info" component={InfoPage} />
               <Route path="/callback" component={CallBack} />
               <Route path="/register" component={RegistrationPage} />
+              <Route path="/policy" component={Policy} />
               <PrivateRoute path="/profile" redirectTo="/register" component={Profile} />
               <PrivateRoute path="/add-event" redirectTo="/register" component={AddEvent} />
               <Route path="/edit-event/:id" component={EditEvent} exact />

@@ -49,7 +49,7 @@ module.exports = {
         keep_fnames: false,
       },
     }),
-    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /ru|en/),
+    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /uk/),
     new CompressionPlugin({
       filename: '[path].gz[query]',
       algorithm: "gzip",

@@ -117,7 +117,7 @@ const dateToProps = (storeData) => {
 };
 
 DateRange.defaultProps = {
-  locale: 'ru',
+  locale: 'uk',
   resetButton: filterRecources.reset,
   noFilterResultMsg: globalRecources.noFilterResult,
 };
