@@ -75,7 +75,7 @@ class UserInfoEdit extends PureComponent {
       return request.updateProfile(param, userID)
         .then((response) => {
           if (response.success) {
-            setCookie('profileData', stringifyJSON(response.userProfile));
+            setCookie('profileData', stringifyJSON(response.userProfile), 2);
 
             store.dispatch({
               type: 'UPDATE_USERPROFILE',

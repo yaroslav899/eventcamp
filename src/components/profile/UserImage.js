@@ -32,7 +32,7 @@ class UserImage extends PureComponent {
       data: userData,
     });
 
-    setCookie('profileData', stringifyJSON(userData));
+    setCookie('profileData', stringifyJSON(userData), 2);
 
     return request.uploadImage(updatedFile)
       .then((response) => {
@@ -51,7 +51,7 @@ class UserImage extends PureComponent {
         return request.updateProfile(param, userID)
           .then((responseProfile) => {
             if (responseProfile.success) {
-              setCookie('profileData', stringifyJSON(responseProfile.userProfile));
+              setCookie('profileData', stringifyJSON(responseProfile.userProfile), 2);
 
               store.dispatch({
                 type: 'UPDATE_USERPROFILE',

@@ -129,11 +129,6 @@ class AddEvent extends PureComponent {
         name: dateField,
         rules: ['isMandatory'],
       },
-      time: {
-        value: time,
-        name: timeField,
-        rules: ['isMandatory'],
-      },
       city: {
         value: city,
         name: cityField,
@@ -216,8 +211,9 @@ class AddEvent extends PureComponent {
                 </div>
               </div>
             </div>
-            <div className="form-group offset-md-2 col-md-4 text-center">
-              <input type="file" ref={this.fileInput} />
+            <div className="form-group offset-md-2 col-md-4 event-editor_picture">
+              <p className="descr-label">{descrFields.pictureField}</p>
+              <p><input type="file" ref={this.fileInput} /></p>
             </div>
           </div>
           <div className="border-separate" />
@@ -327,6 +323,9 @@ class AddEvent extends PureComponent {
             <div className="form-group col-md-5">
               <label htmlFor="address">{addEventFields.addressField}</label>
               <input type="text" className="form-control" name="address" value={address} onChange={this.handleInputChange} placeholder={addEventPlaceholders.addressField} />
+            </div>
+            <div className="form-group offset-md-1 col-md-3 descr-label">
+              {descrFields.cityField}
             </div>
           </div>
           <div className="border-separate" />

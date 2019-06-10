@@ -66,7 +66,7 @@ class EventDetail extends PureComponent {
       return request.updateProfile(param, userID)
         .then((response) => {
           if (response.success) {
-            setCookie('profileData', JSON.stringify(response.userProfile));
+            setCookie('profileData', JSON.stringify(response.userProfile), 2);
 
             store.dispatch({
               type: 'UPDATE_USERPROFILE',

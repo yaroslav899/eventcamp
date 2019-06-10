@@ -236,12 +236,12 @@ header .authBlock {
   border-radius: 5px;
 }
 .last-post-list .last-post-location {
-  background: url(http://board.it-mir.net.ua/wp-content/uploads/2018/05/locator.png) no-repeat left center;
+  background: url(https://board.it-mir.net.ua/wp-content/uploads/2018/05/locator.png) no-repeat left center;
   padding: 0 0 0 15%;
   margin: 0 0 5px 0;
 }
 .last-post-list .last-post-date {
-  background: url(http://board.it-mir.net.ua/wp-content/uploads/2018/05/date.png) no-repeat left center;
+  background: url(https://board.it-mir.net.ua/wp-content/uploads/2018/05/date.png) no-repeat left center;
   padding: 0 0 0 15%;
 }
 .last-post-list .last-post-tags{
@@ -263,7 +263,7 @@ header .authBlock {
 */
 .additional-area {
   height: 440px;
-  background-image: url(http://board.it-mir.net.ua/img/ftrbanner.jpg);
+  background-image: url(https://board.it-mir.net.ua/img/ftrbanner.jpg);
   background-repeat: no-repeat;
   background-position: center;
   color: #ffffff;
@@ -335,6 +335,18 @@ header .authBlock {
 .submit {
   margin: 20px 0;
 }
+
+/**
+*  Add event
+*/
+.event-editor{}
+.event-editor_picture{
+  text-align: center;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  padding: 25px 0;
+}
+
 /**
 *  Footer area
 */
@@ -444,14 +456,14 @@ header .authBlock {
 }
 .events-item__location {
   clear: both;
-  padding: 1% 0 1% 15%;
-  background: url(http://board.it-mir.net.ua/wp-content/uploads/2018/05/locator.png) no-repeat left center;
-  font-size: 0.75em;
+  padding: 5px 0 5px 25px;
+  background: url(https://board.it-mir.net.ua/wp-content/uploads/2018/05/locator.png) no-repeat left center;
+  font-size: 0.7em;
 }
 .events-item__date {
   clear: both;
-  padding: 1% 0 1% 15%;
-  background: url(http://board.it-mir.net.ua/wp-content/uploads/2018/05/date.png) no-repeat left center;
+  padding: 5px 0 5px 25px;
+  background: url(https://board.it-mir.net.ua/wp-content/uploads/2018/05/date.png) no-repeat left center;
   font-size: 0.75em;
   height: 20px;
   overflow: hidden;
@@ -650,10 +662,10 @@ div.area-1 div.area-1_info span.time {
   margin-left: 1%;
 }
 div.area-1 div.area-1_info div.area-1_location {
-  background: url(http://board.it-mir.net.ua/wp-content/uploads/2018/05/locator.png) no-repeat left center;
+  background: url(https://board.it-mir.net.ua/wp-content/uploads/2018/05/locator.png) no-repeat left center;
   padding-left: 20px;
   margin-top: 10px;
-  font-size: 0.9em;
+  font-size: 0.85em;
 }
 div.area-1 div.area-1_info div.area-1_tags span {
   background: #ffffff;

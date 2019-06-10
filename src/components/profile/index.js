@@ -24,7 +24,7 @@ class Profile extends PureComponent {
           return false;
         }
 
-        setCookie('profileData', stringifyJSON(response.userProfile));
+        setCookie('profileData', stringifyJSON(response.userProfile), 2);
 
         store.dispatch({
           type: 'UPDATE_USERPROFILE',

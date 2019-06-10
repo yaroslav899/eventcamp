@@ -149,12 +149,17 @@ export const categories = [
         'name': 'Лекції',
       },
       {
+        'id': '8_4',
+        'url': 'webinars-business',
+        'name': 'Вебінар',
+      },
+      {
         'id': '8_3',
         'url': 'another-business',
         'name': 'Інше',
       },
     ]
-  },  
+  },
   {
     'id': '15',
     'url': 'nature',
@@ -170,6 +175,11 @@ export const categories = [
         'id': '15_2',
         'url': 'haiking',
         'name': 'Хайкінг',
+      },
+      {
+        'id': '15_4',
+        'url': 'webinars-nature',
+        'name': 'Вебінар',
       },
       {
         'id': '15_3',
@@ -188,6 +198,11 @@ export const categories = [
           'id': '11_1',
           'url': 'lection',
           'name': 'Лекції',
+      },
+      {
+        'id': '15_4',
+        'url': 'webinars-learning',
+        'name': 'Вебінар',
       },
     ]
   },
@@ -390,6 +405,11 @@ export const categories = [
         'name': 'Похід',
       },
       {
+        'id': '2_3',
+        'url': 'webinars-turizm',
+        'name': 'Вебінар',
+      },
+      {
         'id': '2_2',
         'url': 'another-tourizm',
         'name': 'Інше',
@@ -445,6 +465,11 @@ export const categories = [
 ];
 
 export const cities = [
+  {
+    'id': '0',
+    'url': 'online',
+    'name': 'Online',
+  },
   {
     'id': '1',
     'url': 'kiev',
