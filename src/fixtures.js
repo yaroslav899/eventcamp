@@ -126,6 +126,11 @@ export const categories = [
         'name': 'Виставки',
       },
       {
+        'id': '10_7',
+        'url': 'sport-trening',
+        'name': 'Тренінг',
+      },
+      {
         'id': '10_6',
         'url': 'sport-another',
         'name': 'Інше',
@@ -152,6 +157,11 @@ export const categories = [
         'id': '8_4',
         'url': 'webinars-business',
         'name': 'Вебінар',
+      },
+      {
+        'id': '8_5',
+        'url': 'business-trening',
+        'name': 'Тренінг',
       },
       {
         'id': '8_3',
@@ -195,14 +205,19 @@ export const categories = [
     'img': '/img/learning.png',
     'subcat': [
       {
-          'id': '11_1',
-          'url': 'lection',
-          'name': 'Лекції',
+        'id': '11_1',
+        'url': 'lection',
+        'name': 'Лекції',
       },
       {
-        'id': '15_4',
+        'id': '11_2',
         'url': 'webinars-learning',
         'name': 'Вебінар',
+      },
+      {
+        'id': '11_3',
+        'url': 'learning-trening',
+        'name': 'Тренінг',
       },
     ]
   },
@@ -324,6 +339,11 @@ export const categories = [
         'name': 'Лекції',
       },
       {
+        'id': '9_4',
+        'url': 'family-trening',
+        'name': 'Тренінг',
+      },
+      {
         'id': '9_3',
         'url': 'another-family',
         'name': 'Інше',
@@ -408,6 +428,11 @@ export const categories = [
         'id': '2_3',
         'url': 'webinars-turizm',
         'name': 'Вебінар',
+      },
+      {
+        'id': '2_4',
+        'url': 'turizm-trenning',
+        'name': 'Тренінг',
       },
       {
         'id': '2_2',

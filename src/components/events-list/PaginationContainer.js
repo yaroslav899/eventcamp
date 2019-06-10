@@ -61,7 +61,7 @@ class PaginationContainer extends PureComponent {
   goToPreviousPage = () => {
     const { activePage } = this.state;
 
-    if (activePage === 1) {
+    if (+activePage === 1) {
       return false;
     }
 
@@ -77,7 +77,7 @@ class PaginationContainer extends PureComponent {
     const { activePage } = this.state;
     const { totalPages } = this.props;
 
-    if (activePage === totalPages.length) {
+    if (+activePage === totalPages.length) {
       return false;
     }
 
@@ -134,6 +134,7 @@ class PaginationContainer extends PureComponent {
     return (
       <Fragment>
         <button type="button" className="events-pagination__navButton events-pagination__prev-button" onClick={this.goToPreviousPage} />
+
         <ul className="events__pagination events-pagination ">
           {isShowDotsBefore
             && <li className="events-pagination__item events-pagination-item">...</li>

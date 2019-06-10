@@ -621,7 +621,7 @@ div.event-detail{
 }
 div.area-1 div.area-1_image {
   padding: 0 0 0 15px;
-  height: 238px;
+  height: 251px;
   overflow: hidden;
 }
 div.area-1 div.area-1_image img {
@@ -642,8 +642,8 @@ div.area-1 div.area-1_price {
 }
 div.area-1 div.area-1_info {
   background-color: #f5f5f5;
-  padding: 20px 5px 20px 20px;
-  height: 199px;
+  padding: 15px 5px 15px 15px;
+  height: 215px;
 }
 div.area-1 div.area-1_info p {
   margin-bottom:10px;
@@ -669,8 +669,8 @@ div.area-1 div.area-1_info .area-1_tags{
 div.area-1 div.area-1_info div.area-1_location {
   background: url(https://board.it-mir.net.ua/wp-content/uploads/2018/05/locator.png) no-repeat left center;
   padding-left: 20px;
-  margin-top: 10px;
-  font-size: 0.85em;
+  margin: 10px 0;
+  font-size: 0.84em;
 }
 div.area-1 div.area-1_info div.area-1_tags span {
   background: #ffffff;
@@ -681,10 +681,10 @@ div.area-1 div.area-1_info div.area-1_tags span {
   margin: 0 2% 0 0;
   display: inline-block;
 }
-div.area-1 p.area-1_interesting {
+div.area-1 .area-1_interesting {
   text-align:right;
 }
-div.area-1 p.area-1_interesting span{
+div.area-1 .area-1_interesting span{
   background-color: #ffffff;
   border: 1px solid #cccccc;
   padding: 5px 10px;
