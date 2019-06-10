@@ -443,6 +443,7 @@ header .authBlock {
   padding: 3px 14px;
   border-radius: 5px;
   display: inline-block;
+  margin-bottom:5px;
 }
 .events-item__price {
   background: #ffffff;
@@ -660,6 +661,10 @@ div.area-1 div.area-1_info span.month {
 div.area-1 div.area-1_info span.time {
   font-size: 0.9em;
   margin-left: 1%;
+}
+div.area-1 div.area-1_info .area-1_tags{
+  height: 25px;
+  overflow: hidden;
 }
 div.area-1 div.area-1_info div.area-1_location {
   background: url(https://board.it-mir.net.ua/wp-content/uploads/2018/05/locator.png) no-repeat left center;
