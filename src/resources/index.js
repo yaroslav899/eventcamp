@@ -24,7 +24,7 @@ export const detailRecources = {
 
 export const advantRecources = {
   first: 'Дізнавайтеся нове та корисне',
-  second: 'Заводите нові контакти',
+  second: 'Знаходьте нові контакти',
   third: 'Популяризація заходів',
   four: 'Тільки актуальні теми',
 };

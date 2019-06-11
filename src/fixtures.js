@@ -49,8 +49,8 @@ export const categories = [
       },
       {
         'id': '1_9',
-        'url': 'html',
-        'name': 'HTML/CSS',
+        'url': 'javascript',
+        'name': 'JavaScript/HTML/CSS',
       },
       {
         'id': '1_10',
@@ -59,8 +59,8 @@ export const categories = [
       },
       {
         'id': '1_11',
-        'url': 'javascript',
-        'name': 'JavaScript',
+        'url': 'design-it',
+        'name': 'Дизайн',
       },
       {
         'id': '1_12',
@@ -79,8 +79,8 @@ export const categories = [
       },
       {
         'id': '1_15',
-        'url': 'vr',
-        'name': 'VR',
+        'url': 'seo-it',
+        'name': 'SEO',
       },
       {
         'id': '1_16',
@@ -111,7 +111,7 @@ export const categories = [
         'name': 'Баскетбол',
       },
       {
-        'id': '10_2',
+        'id': '10_3',
         'url': 'boxing',
         'name': 'Бокс',
       },
@@ -126,12 +126,17 @@ export const categories = [
         'name': 'Виставки',
       },
       {
-        'id': '10_7',
+        'id': '10_6',
         'url': 'sport-trening',
         'name': 'Тренінг',
       },
       {
-        'id': '10_6',
+        'id': '10_7',
+        'url': 'fitness',
+        'name': 'Фітнес',
+      },
+      {
+        'id': '10_8',
         'url': 'sport-another',
         'name': 'Інше',
       },
@@ -294,6 +299,11 @@ export const categories = [
       },
       {
         'id': '12_14',
+        'url': 'psychology-science',
+        'name': 'Психологія',
+      },
+      {
+        'id': '12_15',
         'url': 'science-another',
         'name': 'Інше',
       },
@@ -447,6 +457,11 @@ export const categories = [
     'name': 'Рух та інше',
     'img': '/img/action.png',
     'subcat': [
+      {
+        'id': '14_1',
+        'url': 'tabori',
+        'name': 'Табори',
+      },
       {
         'id': '14_1',
         'url': 'another-action',

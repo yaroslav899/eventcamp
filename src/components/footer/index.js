@@ -20,6 +20,10 @@ const Footer = (props) => (
           <div className="clear" />
           <div className="copyright">
             {props.copyrightText}
+            <br/>
+            <NavLink to="/policy" exact>
+              {props.privacyText}
+            </NavLink>
           </div>
         </div>
       </div>
@@ -30,6 +34,7 @@ const Footer = (props) => (
 Footer.defaultProps = {
   logoUrl: imageUrlRecources.logo,
   copyrightText: globalRecources.copyright,
+  privacyText: globalRecources.privacyText,
 };
 
 export default Footer;

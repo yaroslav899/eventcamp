@@ -19,7 +19,7 @@ class CallBackForm extends PureComponent {
     const { firstname, email, textDescription } = this.state;
 
     return (
-      <form id="contactForm">
+      <form id="contactForm" method="post">
         <div className="form-row form-group">
           <label className="col-sm-4" htmlFor="firstname">{fieldsRegisterForm.firstname} *</label>
           <input id="firstname" type="text" className="form-control col-sm-7" name="firstname" value={firstname} onChange={this.onChange} />

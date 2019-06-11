@@ -149,7 +149,6 @@ header .authBlock {
   width: 45%;
   display: inline-block;
   text-align: left;
-  color: #0367b7;
   font-weight: bold;
   font-size: 0.6em;
   vertical-align: top;
@@ -346,6 +345,9 @@ header .authBlock {
   border-radius: 5px;
   padding: 25px 0;
 }
+.rdw-editor-main{
+  padding: 0 20px;
+}
 
 /**
 *  Footer area
@@ -369,8 +371,11 @@ header .authBlock {
   font-size: 0.8em !important;
 }
 .footer div.copyright {
-  margin: 15px 0 0 0;
+  margin:0;
   font-size: 0.7em;
+}
+.footer div.copyright a{
+  color:#ffffff;
 }
 
 /**
