@@ -467,7 +467,7 @@ header .authBlock {
   padding: 5px 0 5px 25px;
   background: url(https://board.it-mir.net.ua/wp-content/uploads/2018/05/locator.png) no-repeat left center;
   font-size: 0.7em;
-  height: 40px;
+  max-height: 40px;
   overflow: hidden;
 }
 .events-item__date {
