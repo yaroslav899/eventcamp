@@ -138,7 +138,7 @@ export const eventRequest = (param, imageID, userData) => {
         location: address,
         dateOf: date,
         currency: currencyValue,
-        tags: topicTags,
+        tags: topicTags.toLowerCase(),
         time: eventTime,
         register,
         phone,
