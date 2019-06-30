@@ -129,7 +129,9 @@ header .authBlock {
 .banner-main {
   margin-top: 10px;
 }
-
+.img-slider{
+  width:100%;
+}
 /**
 *  Advantages container
 */
