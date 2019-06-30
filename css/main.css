@@ -256,6 +256,7 @@ header .authBlock {
   padding: 2px 8px;
   border-radius: 5px;
   margin: 0 5px 2px 0;
+  text-transform: lowercase;
   display: inline-block;
 }
 
@@ -450,6 +451,7 @@ header .authBlock {
   padding: 3px 14px;
   border-radius: 5px;
   display: inline-block;
+  text-transform: lowercase;
   margin-bottom:5px;
 }
 .events-item__price {
@@ -467,6 +469,8 @@ header .authBlock {
   padding: 5px 0 5px 25px;
   background: url(https://board.it-mir.net.ua/wp-content/uploads/2018/05/locator.png) no-repeat left center;
   font-size: 0.7em;
+  max-height: 40px;
+  overflow: hidden;
 }
 .events-item__date {
   clear: both;
@@ -686,6 +690,7 @@ div.area-1 div.area-1_info div.area-1_tags span {
   padding: 2px 13px;
   border-radius: 5px;
   margin: 0 2% 0 0;
+  text-transform: lowercase;
   display: inline-block;
 }
 div.area-1 .area-1_interesting {
