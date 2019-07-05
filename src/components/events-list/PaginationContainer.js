@@ -94,9 +94,20 @@ class PaginationContainer extends PureComponent {
     const activePage = initialParams.page;
     const updatedTotalPages = [...totalPages].splice(activePage - 1, maxPageNumber);
 
-    if (updatedTotalPages.length >= maxPageNumber) {
-      this.setState({ updatedTotalPages });
+    if (updatedTotalPages.length < maxPageNumber) {
+      let prevPage = activePage - 1;
+
+      for (let i = 0; i < maxPageNumber; i++) {
+        updatedTotalPages.unshift(prevPage);
+        prevPage -=1;
+
+        if (updatedTotalPages.length === maxPageNumber) {
+          break;
+        }
+      }
     }
+
+    this.setState({ updatedTotalPages });
 
     request.getListPosts(initialParams).then((posts) => {
       store.dispatch({
