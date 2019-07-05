@@ -52,6 +52,7 @@ export const getUserData = () => {
   const userData = parseJSON(getCookie('userData'));
 
   if (!userData) {
+    deleteCookie('profileData');
     return false;
   }
 

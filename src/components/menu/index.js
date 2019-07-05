@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import ActiveLink from '../hoc/ActiveLink';
 import { imageUrlRecources } from '../../resources/url';
 import { mainMenu } from '../../resources/menu';
-import { titleList } from '../../resources/global';
+import { meta } from '../../resources/meta/hp';
 
 class Menu extends Component {
   closeMenu = () => {
@@ -12,6 +12,7 @@ class Menu extends Component {
   }
 
   render() {
+    const { logoUrl, title } = this.props;
     const menuLinks = mainMenu.map((item) => <li key={item.id} className="menu-item">
       <ActiveLink to={item.url} onClick={this.closeMenu}>{item.name}</ActiveLink>
     </li>);
@@ -31,7 +32,7 @@ class Menu extends Component {
             <span className="navbar-toggler-icon" />
           </button>
           <NavLink to="/" className="navbar-brand d-lg-none" exact>
-            <img src={imageUrlRecources.logo} alt={titleList.home} title={titleList.home} />
+            <img src={logoUrl} alt={title} title={title} />
           </NavLink>
         </div>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -43,5 +44,10 @@ class Menu extends Component {
     );
   }
 }
+
+Menu.defaultProps = {
+  logoUrl: imageUrlRecources.logo,
+  title: meta.title,
+};
 
 export default Menu;

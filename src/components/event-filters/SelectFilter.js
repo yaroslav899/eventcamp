@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Select from 'react-select';
 import { connect } from 'react-redux';
-import 'react-select/dist/react-select.css';
 import store from '../../store';
 import { request } from '../../api';
 import { categories, cities, defaultTopic } from '../../fixtures';

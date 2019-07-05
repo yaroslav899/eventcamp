@@ -3,9 +3,9 @@ import { NavLink } from 'react-router-dom';
 import Menu from '../menu';
 import AuthHeaderLink from './AuthHeaderLink';
 import { imageUrlRecources } from '../../resources/url';
-import { titleList } from '../../resources/global';
+import { meta } from '../../resources/meta/hp';
 
-const Header = () => (
+const Header = ({ logoUrl, title }) => (
   <header className="header sticky-top">
     <div className="authBlock">
       <div className="container">
@@ -20,7 +20,7 @@ const Header = () => (
       <div className="row">
         <div className="col-2 d-none d-sm-block d-md-none d-lg-block header__logo">
           <NavLink to="/" exact>
-            <img src={imageUrlRecources.logo} alt={titleList.home} title={titleList.home} />
+            <img src={logoUrl} alt={title} title={title} />
           </NavLink>
         </div>
         <div className="col-sm-10 col-12">
@@ -30,5 +30,10 @@ const Header = () => (
     </div>
   </header>
 );
+
+Header.defaultProps = {
+  logoUrl: imageUrlRecources.logo,
+  title: meta.title,
+};
 
 export default Header;

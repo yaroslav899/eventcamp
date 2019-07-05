@@ -22,14 +22,14 @@ class DetailInteresting extends PureComponent {
   handleUpdateDetailPage = (data) => {
     request.getInterestingData(data, true).then((posts) => {
       if (!posts || !posts.length) {
-        request.getInterestingData(data, false).then((newPosts) => {
+        return request.getInterestingData(data, false).then((newPosts) => {
           this.updateDetailInterestingPosts(newPosts, data);
         });
-
-        return;
       }
 
       this.updateDetailInterestingPosts(posts, data);
+
+      return true;
     });
 
     store.dispatch({
@@ -67,14 +67,15 @@ class DetailInteresting extends PureComponent {
       } = samePost;
       const category = getValueFromParams(categories, postCategories[0], 'id', 'url');
       const eventUrl = `/events/${postCity}/${category}/${postID}`;
+      const { noPhotoUrl } = this.props;
 
-      return <li key={postID} className="same-post-rightside">
+      return <li key={postID}>
         <NavLink onClick={this.handleUpdateDetailPage.bind(this, samePost)} to={eventUrl}>
           <div className="row">
             <div className="col-12">
-              <img src={picture || imageUrlRecources.noPhoto} alt={postTitle} />
+              <img src={picture || noPhotoUrl} alt={postTitle} />
               <div className="samePost-info-rightside row">
-                <div className="samePost-title col-7" dangerouslySetInnerHTML={createMarkupText(postTitle)} />
+                <div className="col-7" dangerouslySetInnerHTML={createMarkupText(postTitle)} />
                 <EventPrice className="text-right col-5" price={price} currency={currency} />
                 <EventLocation className="col-7" city={postCity} address={location} />
                 <EventDate className="text-right col-5" date={dateOf} />
@@ -85,9 +86,11 @@ class DetailInteresting extends PureComponent {
       </li>;
     });
 
+    const { maybeInteresting } = this.props;
+
     return (
       <div className="detail-interesting">
-        <h4>{detailRecources.maybeInteresting}</h4>
+        <h4>{maybeInteresting}</h4>
         <ul>
           {samePosts}
         </ul>
@@ -95,5 +98,10 @@ class DetailInteresting extends PureComponent {
     );
   }
 }
+
+DetailInteresting.defaultProps = {
+  noPhotoUrl: imageUrlRecources.noPhoto,
+  maybeInteresting: detailRecources.maybeInteresting,
+};
 
 export default DetailInteresting;

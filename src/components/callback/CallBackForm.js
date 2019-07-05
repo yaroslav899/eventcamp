@@ -1,6 +1,4 @@
 import React, { PureComponent } from 'react';
-import axios from 'axios';
-import Loader from '../global/Loader';
 import { fieldsRegisterForm, detailRecources } from '../../resources';
 import { globalRecources } from '../../resources/global';
 

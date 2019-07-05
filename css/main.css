@@ -237,12 +237,12 @@ header .authBlock {
   border-radius: 5px;
 }
 .last-post-list .last-post-location {
-  background: url(https://board.it-mir.net.ua/wp-content/uploads/2018/05/locator.png) no-repeat left center;
+  background: url(https://event-camp.org/img/locator.png) no-repeat left center;
   padding: 0 0 0 15%;
   margin: 0 0 5px 0;
 }
 .last-post-list .last-post-date {
-  background: url(https://board.it-mir.net.ua/wp-content/uploads/2018/05/date.png) no-repeat left center;
+  background: url(https://event-camp.org/img/date.png) no-repeat left center;
   padding: 0 0 0 15%;
 }
 .last-post-list .last-post-tags{
@@ -265,11 +265,10 @@ header .authBlock {
 */
 .additional-area {
   height: 440px;
-  background-image: url(https://board.it-mir.net.ua/img/ftrbanner.jpg);
+  background-image: url(https://event-camp.org/img/ftrbanner.jpg);
   background-repeat: no-repeat;
   background-position: center;
   color: #ffffff;
-  text-shadow: 0px 1px 1px rgba(0, 0, 0, 1);
   padding-top: 30px;
   font-size: 0.9em;
 }
@@ -467,7 +466,7 @@ header .authBlock {
 .events-item__location {
   clear: both;
   padding: 5px 0 5px 25px;
-  background: url(https://board.it-mir.net.ua/wp-content/uploads/2018/05/locator.png) no-repeat left center;
+  background: url(https://event-camp.org/img/locator.png) no-repeat left center;
   font-size: 0.7em;
   max-height: 40px;
   overflow: hidden;
@@ -475,7 +474,7 @@ header .authBlock {
 .events-item__date {
   clear: both;
   padding: 5px 0 5px 25px;
-  background: url(https://board.it-mir.net.ua/wp-content/uploads/2018/05/date.png) no-repeat left center;
+  background: url(https://event-camp.org/img/date.png) no-repeat left center;
   font-size: 0.75em;
   height: 20px;
   overflow: hidden;
@@ -636,7 +635,7 @@ div.area-1 div.area-1_image {
   overflow: hidden;
 }
 div.area-1 div.area-1_image img {
-  height: 235px;
+  height: 251px;
   width: 100%;
 }
 div.area-1 div.area-1_text {
@@ -678,7 +677,7 @@ div.area-1 div.area-1_info .area-1_tags{
   overflow: hidden;
 }
 div.area-1 div.area-1_info div.area-1_location {
-  background: url(https://board.it-mir.net.ua/wp-content/uploads/2018/05/locator.png) no-repeat left center;
+  background: url(https://event-camp.org/img/locator.png) no-repeat left center;
   padding-left: 20px;
   margin: 10px 0;
   font-size: 0.84em;
@@ -804,22 +803,22 @@ div.right-side div.detail-interesting {
 div.right-side div.detail-interesting h4 {
   text-align: center;
 }
-div.right-side div.detail-interesting li.same-post-rightside {
+div.right-side div.detail-interesting ul li {
   margin-bottom: 25px;
 }
-div.right-side div.detail-interesting li.same-post-rightside img {
+div.right-side div.detail-interesting ul li img {
   width:100%;
 }
-div.right-side li.same-post-rightside div.samePost-info-rightside {
+div.right-side div.detail-interesting ul li div.samePost-info-rightside {
   background-color: rgba(18, 100, 165, 0.9);
   color: #ffffff;
   font-size: 0.7em;
   margin: 0;
 }
-div.right-side li.same-post-rightside div.samePost-info-rightside div {
+div.right-side div.detail-interesting ul li div.samePost-info-rightside div {
   margin: 10px 0;
 }
-div.right-side li.same-post-rightside div.samePost-info-rightside div.samePost-title {
+div.right-side div.detail-interesting ul li div.samePost-info-rightside div:first-child {
   font-weight: bold;
 }
 

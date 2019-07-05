@@ -1,10 +1,12 @@
-import React, { PureComponent } from 'react';
+import React, { Fragment, PureComponent } from 'react';
 import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet';
 import store from '../../store';
 import { request } from '../../api';
 import { getValueFromParams, createMarkupText } from '../../helper';
 import Adventages from '../global/Adventages';
 import { mainMenu } from '../../resources/menu';
+import { meta } from '../../resources/meta/info';
 
 class InfoPage extends PureComponent {
   componentDidMount() {
@@ -34,21 +36,40 @@ class InfoPage extends PureComponent {
   }
 
   render() {
-    const { text } = this.props;
+    const { text, title, description, keywords, metaimg, metalang } = this.props;
 
     return (
-      <div className="container">
-        <Adventages />
-        <div className="row">
-          <div className="col-12" dangerouslySetInnerHTML={createMarkupText(text)} />
+      <Fragment>
+        <Helmet>
+          <title itemProp="name" lang={metalang}>{title}</title>
+          <meta name="description" content={description} />
+          <meta name="keywords" content={keywords} />
+          <meta property="og:title" content={title} />
+          <meta property="og:description" content={description} />
+          <meta property="og:image" content={metaimg} />
+          <link rel="image_src" href={metaimg} />
+        </Helmet>
+        <div className="container">
+          <Adventages />
+          <div className="row">
+            <div className="col-12" dangerouslySetInnerHTML={createMarkupText(text)} />
+          </div>
         </div>
-      </div>
+      </Fragment>
     );
   }
 }
 
 const mapStateToProps = (storeData) => {
   return { text: storeData.page.info };
+};
+
+InfoPage.defaultProps = {
+  title: meta.title,
+  description: meta.description,
+  keywords: meta.keywords,
+  metaimg: meta.image,
+  metalang: meta.lang,
 };
 
 export default connect(mapStateToProps)(InfoPage);

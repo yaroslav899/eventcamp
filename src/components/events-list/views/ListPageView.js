@@ -1,6 +1,6 @@
 import React from 'react';
 import Adventages from '../../global/Adventages';
-import Title from '../Title';
+import Meta from '../Meta';
 import Filters from '../../event-filters';
 import LastPosts from '../../global/LastPosts';
 import PaginationContainer from '../PaginationContainer';
@@ -10,7 +10,7 @@ const ListPageView = ({ eventsElement }) => (
     <Adventages />
     <div className="row">
       <div className="col-12 col-lg-9 col-md-8 events_wrapper">
-        <Title />
+        <Meta />
         <ul>
           {eventsElement}
         </ul>

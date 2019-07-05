@@ -1,15 +1,7 @@
 import React, { Fragment } from 'react';
 import { detailRecources } from '../../resources';
 
-const AddToInteresting = (props) => {
-  const {
-    register,
-    target,
-    className,
-    title,
-    registerButton,
-  } = props;
-
+const AddToInteresting = ({ register, target, className, title, registerButton }) => {
   if (!register) {
     return <Fragment />;
   }

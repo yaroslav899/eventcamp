@@ -1,10 +1,8 @@
 import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
-import store from '../../store';
 import { request } from '../../api';
-import { getValueFromParams, createMarkupText } from '../../helper';
+import { createMarkupText } from '../../helper';
 import Adventages from '../global/Adventages';
-import { mainMenu } from '../../resources/menu';
+import { hiddenPages } from '../../resources/menu';
 
 class Policy extends PureComponent {
   state = {
@@ -12,16 +10,7 @@ class Policy extends PureComponent {
   }
 
   componentDidMount() {
-    const {
-      text,
-      location: { pathname },
-    } = this.props;
-
-    if (text) {
-      return false;
-    }
-
-    const policyPageID = 750;
+    const policyPageID = hiddenPages.policy;
 
     return request.getPage(policyPageID).then((data) => {
       if (!data) {
@@ -48,8 +37,4 @@ class Policy extends PureComponent {
   }
 }
 
-const mapStateToProps = (storeData) => {
-  return { text: storeData.page.info };
-};
-
-export default connect(mapStateToProps)(Policy);
+export default Policy;

@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import DayPicker, { DateUtils } from 'react-day-picker';
-import 'react-day-picker/lib/style.css';
 import MomentLocaleUtils from 'react-day-picker/moment';
-import 'moment/locale/ru';
 import { connect } from 'react-redux';
+import 'moment/locale/uk';
 import store from '../../store';
 import { request } from '../../api';
 import { filterRecources } from '../../resources';

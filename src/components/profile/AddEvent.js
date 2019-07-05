@@ -5,7 +5,6 @@ import Select from 'react-select';
 import { request } from '../../api';
 import Loader from '../global/Loader';
 import { formValidator } from '../../validator';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { categories, cities, defaultTopic } from '../../fixtures';
 import { currencies } from '../../resources/currencies';
 import { global, addEventFields, addEventPlaceholders, descrFields } from '../../resources/profile';

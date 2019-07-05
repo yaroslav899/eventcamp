@@ -2,27 +2,27 @@
 import { NavLink } from 'react-router-dom';
 import Menu from '../menu';
 import { imageUrlRecources } from '../../resources/url';
-import { globalRecources, titleList } from '../../resources/global';
+import { meta } from '../../resources/meta/hp';
+import { globalRecources } from '../../resources/global';
 
-const Footer = (props) => (
+const Footer = ({ logoUrl, copyrightText, privacyText, title}) => (
   <footer className="footer">
     <div className="container">
       <div className="row">
         <div className="col-6 col-md-4 text-justify">
           <NavLink to="/" exact>
-            <img src={props.logoUrl} alt={titleList.home} title={titleList.home} />
+            <img src={logoUrl} alt={title} title={title} />
           </NavLink>
         </div>
         <div className="col-6 col-md-8 text-right">
           <div className="footer-menu d-none d-md-block">
             <Menu />
           </div>
-          <div className="clear" />
           <div className="copyright">
-            {props.copyrightText}
+            {copyrightText}
             <br/>
             <NavLink to="/policy" exact>
-              {props.privacyText}
+              {privacyText}
             </NavLink>
           </div>
         </div>
@@ -35,6 +35,7 @@ Footer.defaultProps = {
   logoUrl: imageUrlRecources.logo,
   copyrightText: globalRecources.copyright,
   privacyText: globalRecources.privacyText,
+  title: meta.title,
 };
 
 export default Footer;
