@@ -55,9 +55,14 @@ class Meta extends Component {
   }
 
   _getDescription(cityValue, categoryValue) {
-    const { description } = this.props;
+    const { description, eventTitle, additionalTitle } = this.props;
+    let updatedDescription = description.split('.');
 
-    return description;
+    if (cityValue) {
+      updatedDescription[0] = cityValue + ' ' + eventTitle + ': ' + updatedDescription[0];
+      updatedDescription[0] = updatedDescription[0] + additionalTitle + ' ' + cityValue;
+    }
+    return updatedDescription.join('.');
   }
 }
 
@@ -71,6 +76,7 @@ const mapStateToProps = storeData => {
 Meta.defaultProps = {
   title: meta.title,
   additionalTitle: meta.additionalTitle,
+  eventTitle: meta.eventTitle,
   keywords: meta.keywords,
   description: meta.description,
   metalang: meta.lang,
