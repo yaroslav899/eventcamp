@@ -204,11 +204,11 @@ header .authBlock {
 }
 .events-pagination__prev-button {
   background-image: url(/img/prev-button.png);
-  margin: 5px 15px 0 0;
+  margin: 5px 10px 0 0;
 }
 .events-pagination__next-button {
   background-image: url(/img/next-button.png);
-  margin: 5px 0 0 10px;
+  margin: 5px 0 0 5px;
 }
 
 /**

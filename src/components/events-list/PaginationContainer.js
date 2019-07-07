@@ -14,17 +14,17 @@ class PaginationContainer extends PureComponent {
 
   componentDidMount() {
     const { activePage } = this.state;
-    const { totalPages, maxPageNumber } = this.props;
+    const { totalPages } = this.props;
 
-    return this.updatePaginationPages(totalPages, activePage, maxPageNumber);
+    return this.updatePaginationPages(totalPages, activePage);
   }
 
   componentDidUpdate(prevProps, prevState, totalPages) {
     if (totalPages !== null) {
-      const { activePage } = this.state;
-      const { maxPageNumber } = this.props;
+      const activePage = 1;
+      this.setState({ activePage: 1 });
 
-      return this.updatePaginationPages(totalPages, activePage, maxPageNumber);
+      return this.updatePaginationPages(totalPages, activePage);
     }
 
     return null;
@@ -41,7 +41,8 @@ class PaginationContainer extends PureComponent {
     return null;
   }
 
-  updatePaginationPages = (totalPages, activePage, maxPageNumber) => {
+  updatePaginationPages = (totalPages, activePage) => {
+    const { maxPageNumber } = this.props;
     const updatedTotalPages = [...totalPages].splice(activePage - 1, maxPageNumber);
 
     this.setState({
@@ -90,13 +91,15 @@ class PaginationContainer extends PureComponent {
   }
 
   updateEventList = (initialParams) => {
-    const { totalPages, maxPageNumber } = this.props;
-    const activePage = initialParams.page;
-    const updatedTotalPages = [...totalPages].splice(activePage - 1, maxPageNumber);
+    const { totalPages, maxPageNumber, startNumberRedrawPagination } = this.props;
+    const activePage = +initialParams.page;
+    const isCountPagesLessTotal = totalPages.length < maxPageNumber;
+    const startNumberSplice = isCountPagesLessTotal || (activePage < startNumberRedrawPagination) ? 0 : (activePage - 1);
+    const updatedTotalPages = [...totalPages].splice(startNumberSplice, maxPageNumber);
 
-    if (updatedTotalPages.length < maxPageNumber) {
+    if ((updatedTotalPages.length < maxPageNumber) && !isCountPagesLessTotal) {
       let prevPage = activePage - 1;
-
+      
       for (let i = 0; i < maxPageNumber; i++) {
         updatedTotalPages.unshift(prevPage);
         prevPage -=1;
@@ -165,6 +168,9 @@ const mapTotalPagesToProps = storeData => {
   return { totalPages: storeData.totalPages.count };
 };
 
-PaginationContainer.defaultProps = { maxPageNumber: 10 };
+PaginationContainer.defaultProps = {
+  maxPageNumber: 10,
+  startNumberRedrawPagination: 6,
+};
 
 export default connect(mapTotalPagesToProps)(PaginationContainer);
