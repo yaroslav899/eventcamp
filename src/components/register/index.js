@@ -1,5 +1,5 @@
 import React, { Fragment, PureComponent } from 'react';
-import {Helmet} from 'react-helmet';
+import { Helmet } from 'react-helmet';
 import AuthForm from './AuthForm';
 import RegisterForm from './RegisterForm';
 import Adventages from '../global/Adventages';

@@ -5,7 +5,7 @@ import { imageUrlRecources } from '../../resources/url';
 import { meta } from '../../resources/meta/hp';
 import { globalRecources } from '../../resources/global';
 
-const Footer = ({ logoUrl, copyrightText, privacyText, title}) => (
+const Footer = ({ logoUrl, copyrightText, privacyText, title }) => (
   <footer className="footer">
     <div className="container">
       <div className="row">
@@ -20,7 +20,7 @@ const Footer = ({ logoUrl, copyrightText, privacyText, title}) => (
           </div>
           <div className="copyright">
             {copyrightText}
-            <br/>
+            <br />
             <NavLink to="/policy" exact>
               {privacyText}
             </NavLink>

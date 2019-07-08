@@ -105,8 +105,8 @@ class AddEvent extends PureComponent {
   };
 
   validator = () => {
-    const { title, category, currentTheme, date, time, city } = this.state;
-    const { titleField, categoryField, topicField, dateField, timeField, cityField } = addEventFields;
+    const { title, category, currentTheme, date, city } = this.state;
+    const { titleField, categoryField, topicField, dateField, cityField } = addEventFields;
     const fields = {
       title: {
         value: title,

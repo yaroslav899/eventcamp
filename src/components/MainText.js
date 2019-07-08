@@ -42,9 +42,9 @@ class MainText extends PureComponent {
   }
 }
 
-const mapStateToProps = function (store) {
+const mapStateToProps = (storeData) => {
   return {
-    text: store.page.main,
+    text: storeData.page.main,
   };
 };
 

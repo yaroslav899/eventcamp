@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import EventLocation from './EventLocation';
 import EventDate from './EventDate';
 import Button from '../global/Button';
-import { categories, cities } from '../../fixtures';
+import { categories } from '../../fixtures';
 import { getValueFromParams, createMarkupText } from '../../helper';
 import { globalRecources } from '../../resources/global';
 

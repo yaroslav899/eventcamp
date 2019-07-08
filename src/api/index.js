@@ -6,7 +6,7 @@ import { getRequestUrl, getInterestingUrl, getLastPostsUrl, fetchData, authFetch
 import { adminAccess } from '../credentials';
 import { parseJSON, stringifyJSON } from '../helper/json';
 import { urlRecources } from '../resources/url';
-import { googleApiService } from '../resources';
+import { googleApiService } from '../credentials';
 
 export const request = {
   authUser: (param) => authFetch(param).then((response) => {
@@ -189,7 +189,7 @@ export const request = {
   },
 
   getAddress: (address) => {
-    const url = `${urlRecources.geoLookUpUrl}address=${address}&key=${googleApiService.key}`;
+    const url = `${urlRecources.geoLookUpUrl}address=${address}&key=${googleApiService.ru.key}`;
 
     return fetchData(url, null);
   },

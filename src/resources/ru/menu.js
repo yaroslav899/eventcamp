@@ -27,4 +27,4 @@ export const mainMenu = [{
 export const userMenu = {
   profile: '/profile',
   register: '/register',
-}
+};

@@ -7,7 +7,7 @@ import LastPosts from './global/LastPosts';
 import MainText from './MainText';
 import { meta } from '../resources/meta/hp';
 
-const MainPage = ({title, description, keywords, metaurl, metaimg, metalang}) => (
+const MainPage = ({ title, description, keywords, metaurl, metaimg, metalang }) => (
   <section>
     <Helmet>
       <title itemProp="name" lang={metalang}>{title}</title>
@@ -18,8 +18,8 @@ const MainPage = ({title, description, keywords, metaurl, metaimg, metalang}) =>
       <meta property="og:url" content={metaurl} />
       <meta property="og:image" content={metaimg} />
       <link rel="image_src" href={metaimg} />
-      <link rel="alternate" hreflang={metalang} href={metaurl} />
-      <link rel="alternate" hreflang="x-default" href={metaurl} />
+      <link rel="alternate" hrefLang={metalang} href={metaurl} />
+      <link rel="alternate" hrefLang="x-default" href={metaurl} />
       <link rel="canonical" href={metaurl} />
     </Helmet>
     <div className="d-none d-md-block">

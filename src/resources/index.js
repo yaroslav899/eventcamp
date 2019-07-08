@@ -39,7 +39,3 @@ export const fieldsRegisterForm = {
 export const fieldsMsg = {
   errorMsg: 'Неправильний логін або пароль',
 };
-
-export const googleApiService = {
-  key: 'AIzaSyCM7IwnppmyEPSZPDZIoTW8VKOMlS5peN4',
-};

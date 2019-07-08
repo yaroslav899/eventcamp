@@ -99,10 +99,10 @@ class PaginationContainer extends PureComponent {
 
     if ((updatedTotalPages.length < maxPageNumber) && !isCountPagesLessTotal) {
       let prevPage = activePage - 1;
-      
+
       for (let i = 0; i < maxPageNumber; i++) {
         updatedTotalPages.unshift(prevPage);
-        prevPage -=1;
+        prevPage -= 1;
 
         if (updatedTotalPages.length === maxPageNumber) {
           break;

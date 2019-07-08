@@ -6,6 +6,39 @@ import { meta } from '../../resources/meta/plp';
 import { getValueFromParams } from '../../helper';
 
 class Meta extends Component {
+  _getTitle(cityValue, categoryValue) {
+    const { title, additionalTitle } = this.props;
+    let updatedTitle = cityValue ? `${title} ${additionalTitle} ${cityValue}` : title;
+
+    updatedTitle = categoryValue ? `${categoryValue}. ${updatedTitle}` : updatedTitle;
+
+    return updatedTitle;
+  }
+
+  _getKeywords(cityValue, categoryValue) {
+    const { keywords } = this.props;
+    let updatedKeywords = keywords.split(',');
+    updatedKeywords = updatedKeywords.map((keyword) => {
+      let updatedKeyword = cityValue ? keyword + ' ' + cityValue : keyword;
+      updatedKeyword = categoryValue ? updatedKeyword + ' ' + categoryValue : updatedKeyword;
+
+      return updatedKeyword;
+    });
+
+    return updatedKeywords.join(',');
+  }
+
+  _getDescription(cityValue, categoryValue) {
+    const { description, eventTitle, additionalTitle } = this.props;
+    let updatedDescription = description.split('.');
+
+    if (cityValue) {
+      updatedDescription[0] = cityValue + ' ' + eventTitle + ': ' + updatedDescription[0];
+      updatedDescription[0] = updatedDescription[0] + additionalTitle + ' ' + cityValue;
+    }
+    return updatedDescription.join('.');
+  }
+
   render() {
     const { category, city, metalang, metaimage } = this.props;
     const cityValue = city ? getValueFromParams(cities, city, 'id', 'name') : null;
@@ -30,39 +63,6 @@ class Meta extends Component {
         </h1>
       </Fragment>
     );
-  }
-
-  _getTitle(cityValue, categoryValue) {
-    const { title, additionalTitle } = this.props;
-    let updatedTitle = cityValue ? `${title} ${additionalTitle} ${cityValue}` : title;
-
-    updatedTitle = categoryValue ? `${categoryValue}. ${updatedTitle}` : updatedTitle;
-
-    return updatedTitle;
-  }
-
-  _getKeywords(cityValue, categoryValue) {
-    const { keywords } = this.props;
-    let updatedKeywords = keywords.split(',');
-    updatedKeywords = updatedKeywords.map(keyword => {
-      keyword = cityValue ? keyword + ' ' + cityValue : keyword;
-      keyword = categoryValue ? keyword + ' ' + categoryValue : keyword;
-
-      return keyword;
-    });
-
-    return updatedKeywords.join(',');
-  }
-
-  _getDescription(cityValue, categoryValue) {
-    const { description, eventTitle, additionalTitle } = this.props;
-    let updatedDescription = description.split('.');
-
-    if (cityValue) {
-      updatedDescription[0] = cityValue + ' ' + eventTitle + ': ' + updatedDescription[0];
-      updatedDescription[0] = updatedDescription[0] + additionalTitle + ' ' + cityValue;
-    }
-    return updatedDescription.join('.');
   }
 }
 

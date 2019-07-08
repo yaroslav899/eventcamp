@@ -9,6 +9,6 @@ const EventLocation = ({ className = '', city = 'kiev', address = '' }) => {
       {`${cityValue ? cityValue.name : city}, ${address}`}
     </div>
   );
-}
+};
 
 export default EventLocation;

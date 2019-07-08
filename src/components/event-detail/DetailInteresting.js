@@ -6,7 +6,7 @@ import EventPrice from '../event-global/EventPrice';
 import store from '../../store';
 import { request } from '../../api';
 import { getValueFromParams, createMarkupText } from '../../helper';
-import { categories, cities } from '../../fixtures';
+import { categories } from '../../fixtures';
 import { detailRecources } from '../../resources';
 import { imageUrlRecources } from '../../resources/url';
 

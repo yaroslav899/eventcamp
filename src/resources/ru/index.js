@@ -39,9 +39,5 @@ export const fieldsRegisterForm = {
 };
 
 export const fieldsMsg = {
-    errorMsg: 'Неправильный логин или пароль',
-  };
-
-export const googleApiService = {
-  key: 'AIzaSyCM7IwnppmyEPSZPDZIoTW8VKOMlS5peN4',
+  errorMsg: 'Неправильный логин или пароль',
 };

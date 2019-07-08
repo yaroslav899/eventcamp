@@ -8,7 +8,7 @@ import EventTags from '../event-global/EventTags';
 import store from '../../store';
 import { request } from '../../api';
 import { getValueFromParams, createMarkupText } from '../../helper';
-import { categories, cities } from '../../fixtures';
+import { categories } from '../../fixtures';
 import { listRecources } from '../../resources';
 
 class LastPosts extends PureComponent {

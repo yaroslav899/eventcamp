@@ -3,7 +3,7 @@ export const global = {
   successMsg: 'Вы успешно добавили событие',
   successEditMsg: 'Вы успешно изменили событие',
   successRegisterMsg: 'Вы успешно зарегестрировались. Можете выполнить вход.',
-}
+};
 
 export const profileProperties = {
   title: 'Личный кабинет',
@@ -42,7 +42,7 @@ export const addEventPlaceholders = {
   tagsField: 'js,биология,бизнес,Испания',
   priceField: '1000',
   addressField: 'Адрес',
-}
+};
 
 export const descrFields = {
   linkField: 'Ссылка на ваш сайт для регистрации участников или информация о событии',

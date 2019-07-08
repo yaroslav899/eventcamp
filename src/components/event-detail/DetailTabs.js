@@ -7,7 +7,6 @@ import {
 } from 'react-tabs';
 import GoogleMap from './GoogleMap';
 import EventLocation from '../event-global/EventLocation';
-import { cities } from '../../fixtures';
 import { createMarkupText } from '../../helper';
 import { detailRecources } from '../../resources';
 

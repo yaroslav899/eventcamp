@@ -12,7 +12,7 @@ import { request } from '../../api';
 import store from '../../store';
 import { setCookie } from '../../_cookie';
 import { getValueFromParams, createMarkupText } from '../../helper';
-import { categories, cities } from '../../fixtures';
+import { categories } from '../../fixtures';
 import { imageUrlRecources } from '../../resources/url';
 import { globalRecources } from '../../resources/global';
 
