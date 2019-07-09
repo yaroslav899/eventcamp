@@ -4,7 +4,6 @@ import Banner from './global/Banner';
 import Adventages from './global/Adventages';
 import ServicePicture from './global/ServicePicture';
 import LastPosts from './global/LastPosts';
-import FacebookWidget from './global/FacebookWidget';
 import MainText from './MainText';
 import { meta } from '../resources/meta/hp';
 
@@ -35,7 +34,6 @@ const MainPage = ({ title, description, keywords, metaurl, metaimg, metalang }) 
           </div>
         </div>
         <div className="col-12 col-md-3">
-          <FacebookWidget />
           <LastPosts />
         </div>
       </div>
