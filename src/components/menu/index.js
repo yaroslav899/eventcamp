@@ -13,9 +13,20 @@ class Menu extends Component {
 
   render() {
     const { logoUrl, title } = this.props;
-    const menuLinks = mainMenu.map((item) => <li key={item.id} className="menu-item">
-      <ActiveLink to={item.url} onClick={this.closeMenu}>{item.name}</ActiveLink>
-    </li>);
+    const menuLinks = mainMenu.map((item) => {
+      if (item.id === 'articles') {
+        return (
+          <li key={item.id} className="menu-item">
+            <a href={item.url}>{item.name}</a>
+          </li>
+        )
+      }
+      return (
+        <li key={item.id} className="menu-item">
+          <ActiveLink to={item.url} onClick={this.closeMenu}>{item.name}</ActiveLink>
+        </li>
+      )
+    });
 
     return (
       <nav className="navbar navbar-expand-lg navbar-light" role="navigation">

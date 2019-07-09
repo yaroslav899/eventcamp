@@ -14,6 +14,11 @@ export const mainMenu = [{
   url: '/add-event',
 },
 {
+  name: 'Статті',
+  id: 'articles',
+  url: '/articles/',
+},
+{
   name: 'Інфо',
   id: '24',
   url: '/info',
