@@ -543,7 +543,7 @@ export const cities = [
   {
     'id': '6',
     'url': 'vinnica',
-    'name': 'Винница',
+    'name': 'Вінниця',
   },
   {
     'id': '7',
