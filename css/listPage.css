@@ -64,14 +64,14 @@
 .events-item__location {
   clear: both;
   padding: 1% 0 1% 15%;
-  background: url(http://board.it-mir.net.ua/wp-content/uploads/2018/05/locator.png) no-repeat left center;
+  background: url(https://board.event-camp.org/wp-content/uploads/2018/05/locator.png) no-repeat left center;
   font-size: 0.75em;
 }
 
 .events-item__date {
   clear: both;
   padding: 1% 0 1% 15%;
-  background: url(http://board.it-mir.net.ua/wp-content/uploads/2018/05/date.png) no-repeat left center;
+  background: url(https://board.event-camp.org/wp-content/uploads/2018/05/date.png) no-repeat left center;
   font-size: 0.75em;
   height: 20px;
   overflow: hidden;
