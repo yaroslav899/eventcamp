@@ -29,6 +29,7 @@ export const getRequestUrl = (param) => {
     to: (filterOption === 'from') ? moment(param.to).format('YYYY-MM-DDT00:00:00') : dateTo,
     page: (filterOption === 'page') ? param.page : '1',
   };
+
   const city = cities.find(item => item.id === query.cities);
 
   if (query.categories) url = `${url}&categories=${query.categories}`;
@@ -36,6 +37,9 @@ export const getRequestUrl = (param) => {
   if (query.from && query.from === query.to) {
     url = `${url}&filter[meta_query][1][key]=dateOf&filter[meta_query][1][value]=${query.from.replace('T00:00:00', '')}`;
   } else if (query.from) {
+    //ToDo: HotFix. need to optimize it. Use it since compare can only read > but cannot support >=
+    const updatedDate = new Date(query.from);
+    query.from = moment(updatedDate.setDate(updatedDate.getDate() - 1)).format('YYYY-MM-DDT00:00:00');
     url = `${url}&filter[meta_query][1][key]=dateOf&filter[meta_query][1][value]=${query.from}&filter[meta_query][1][compare]=>`;
   }
   if (query.to && query.from !== query.to) url = `${url}&filter[meta_query][2][key]=dateOf&filter[meta_query][2][value]=${query.to}&filter[meta_query][2][compare]=<`;

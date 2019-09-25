@@ -102,7 +102,7 @@ class EventDetail extends PureComponent {
     return (
       <div className="row area-1">
         <div className="col-12 col-md-6 area-1_image">
-          <img src={event.acf.picture || noPhotoUrl} alt={event.title.rendered} className="detail-picture" />
+          <img src={event.acf.picture || event.acf.picture_url || noPhotoUrl} alt={event.title.rendered} className="detail-picture" />
         </div>
         <div className="col-12 col-md-6 area-1_text">
           <EventPrice className="text-right area-1_price" price={event.acf.price} currency={event.acf.currency} />
