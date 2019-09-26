@@ -12,7 +12,7 @@ class Search extends PureComponent {
     const { urlSearch, minChars } = this.props;
     const { searchSuggestion } = this.state;
 
-    if (searchSuggestion.length < minChars) {
+    if (searchSuggestion.length <= minChars) {
         this.setState({
           searchSuggestion: event.target.value,
           eventList: null,
@@ -41,6 +41,13 @@ class Search extends PureComponent {
     return true;
   }
 
+  handleBlur = () => {
+      /*this.setState({
+        eventList: null,
+        isShowSuggestion: false,
+      });*/
+  }
+
   handleSubmit = (event) => {
     event.preventDefault();
     console.log('asdas');
@@ -58,6 +65,7 @@ class Search extends PureComponent {
           className="search-suggest"
           name="search"
           onChange={this.handleChange}
+          onBlur={this.handleBlur}
         />
         {isShowSuggestion &&
           <SearchSuggestion eventList={eventList}/>
@@ -69,7 +77,7 @@ class Search extends PureComponent {
 
 Search.defaultProps = {
   urlSearch: 'https://board.event-camp.org/wp-json/wp/v2/posts?&search=',
-  minChars: 3,
+  minChars: 2,
 };
 
 export default Search;
