@@ -16,10 +16,10 @@ export const getRequestUrl = (param) => {
   }
   const prevFilterState = store.getState().filterState;
 
-  const dateFrom = (prevFilterState.range && prevFilterState.range.from)
-    ? prevFilterState.range.from : moment(new Date()).format('YYYY-MM-DDT00:00:00');
-  const dateTo = (prevFilterState.range && prevFilterState.range.to)
-    ? prevFilterState.range.from : false;
+  const dateFrom = (prevFilterState.dateRange && prevFilterState.dateRange.from)
+    ? moment(prevFilterState.dateRange.from).format('YYYY-MM-DDT00:00:00') : moment(new Date()).format('YYYY-MM-DDT00:00:00');
+  const dateTo = (prevFilterState.dateRange && prevFilterState.dateRange.to)
+    ? moment(prevFilterState.dateRange.to).format('YYYY-MM-DDT00:00:00') : false;
 
   const query = {
     categories: (filterOption === 'categories') ? param.categories : prevFilterState.categories,
@@ -37,9 +37,6 @@ export const getRequestUrl = (param) => {
   if (query.from && query.from === query.to) {
     url = `${url}&filter[meta_query][1][key]=dateOf&filter[meta_query][1][value]=${query.from.replace('T00:00:00', '')}`;
   } else if (query.from) {
-    //ToDo: HotFix. need to optimize it. Use it since compare can only read > but cannot support >=
-    const updatedDate = new Date(query.from);
-    query.from = moment(updatedDate.setDate(updatedDate.getDate() - 1)).format('YYYY-MM-DDT00:00:00');
     url = `${url}&filter[meta_query][1][key]=dateOf&filter[meta_query][1][value]=${query.from}&filter[meta_query][1][compare]=>`;
   }
   if (query.to && query.from !== query.to) url = `${url}&filter[meta_query][2][key]=dateOf&filter[meta_query][2][value]=${query.to}&filter[meta_query][2][compare]=<`;
