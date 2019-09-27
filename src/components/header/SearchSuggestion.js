@@ -6,6 +6,11 @@ import { getValueFromParams, createMarkupText } from '../../helper';
 import { categories } from '../../fixtures';
 
 class SearchSuggestion extends PureComponent {
+  handleMouseDown = (event) => {
+    //ToDo The Issue should be solved by React tools
+    window.location = event.currentTarget.href;
+  }
+
   render() {
     const { eventList } = this.props;
 
@@ -14,7 +19,7 @@ class SearchSuggestion extends PureComponent {
         const url = `/events/${event.acf.cities}/${category}/${event.id}`;
 
         return <li key={event.id}>
-          <NavLink to={url}>
+          <NavLink to={url} onMouseDown={this.handleMouseDown}>
             <span dangerouslySetInnerHTML={createMarkupText(event.title.rendered)} />
             <div>
               <EventLocation city={event.acf.cities} address='' />

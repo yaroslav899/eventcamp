@@ -1,5 +1,6 @@
 ﻿import React, { PureComponent } from 'react';
 import SearchSuggestion from './SearchSuggestion';
+import { urlRecources } from '../../resources/url';
 
 class Search extends PureComponent {
   state = {
@@ -34,7 +35,6 @@ class Search extends PureComponent {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log('asdas');
   }
 
   suggest = (searchPhrase, value) => {
@@ -96,7 +96,7 @@ class Search extends PureComponent {
 }
 
 Search.defaultProps = {
-  urlSearch: 'https://board.event-camp.org/wp-json/wp/v2/posts?&per_page=5&search=',
+  urlSearch: urlRecources.searchUrl,
   minChars: 2,
 };
 
