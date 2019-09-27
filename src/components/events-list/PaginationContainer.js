@@ -21,10 +21,10 @@ class PaginationContainer extends PureComponent {
 
   componentDidUpdate(prevProps, prevState, totalPages) {
     if (totalPages !== null) {
-      const activePage = 1;
-      this.setState({ activePage: 1 });
+      const { firstPage } = prevProps;
+      this.setState({ activePage: firstPage });
 
-      return this.updatePaginationPages(totalPages, activePage);
+      return this.updatePaginationPages(totalPages, firstPage);
     }
 
     return null;
@@ -59,19 +59,30 @@ class PaginationContainer extends PureComponent {
     this.updateEventList(initialParams);
   }
 
+  goToFirstPage = () => {
+    const { activePage } = this.state;
+    const { firstPage } = this.props;
+
+    if (+activePage === firstPage) {
+      return false;
+    }
+
+    const page = firstPage;
+
+    return this.updateEventList({ page });
+  }
+
   goToPreviousPage = () => {
     const { activePage } = this.state;
+    const { firstPage } = this.props;
 
-    if (+activePage === 1) {
+    if (+activePage === firstPage) {
       return false;
     }
 
     const page = activePage - 1;
-    const initialParams = { page };
 
-    this.updateEventList(initialParams);
-
-    return true;
+    return this.updateEventList({ page });
   }
 
   goToNextPage = () => {
@@ -83,18 +94,29 @@ class PaginationContainer extends PureComponent {
     }
 
     const page = +activePage + 1;
-    const initialParams = { page };
 
-    this.updateEventList(initialParams);
+    return this.updateEventList({ page });
+  }
 
-    return true;
+  goToLastPage = () => {
+    const { activePage } = this.state;
+    const { totalPages } = this.props;
+
+    if (+activePage === totalPages.length) {
+      return false;
+    }
+
+    const page = totalPages.length;
+
+    return this.updateEventList({ page });
   }
 
   updateEventList = (initialParams) => {
-    const { totalPages, maxPageNumber, startNumberRedrawPagination } = this.props;
+    const { totalPages, maxPageNumber, startNumberRedrawPagination, rangeNumbers } = this.props;
     const activePage = +initialParams.page;
     const isCountPagesLessTotal = totalPages.length < maxPageNumber;
-    const startNumberSplice = isCountPagesLessTotal || (activePage < startNumberRedrawPagination) ? 0 : (activePage - 1);
+    let startNumberSplice = isCountPagesLessTotal || (activePage < startNumberRedrawPagination) ? 0 : (activePage - 1);
+    startNumberSplice = (startNumberSplice && activePage > rangeNumbers) ? startNumberSplice - rangeNumbers : startNumberSplice;
     const updatedTotalPages = [...totalPages].splice(startNumberSplice, maxPageNumber);
 
     if ((updatedTotalPages.length < maxPageNumber) && !isCountPagesLessTotal) {
@@ -110,18 +132,17 @@ class PaginationContainer extends PureComponent {
       }
     }
 
-    this.setState({ updatedTotalPages });
+    this.setState({
+      activePage,
+      lastPage: [...updatedTotalPages].pop(),
+      updatedTotalPages,
+    });
 
     request.getListPosts(initialParams).then((posts) => {
       store.dispatch({
         type: 'UPDATE_EVENT_LIST',
         list: posts,
       });
-    });
-
-    this.setState({
-      activePage,
-      lastPage: [...updatedTotalPages].pop(),
     });
 
     scrollToTop();
@@ -147,6 +168,7 @@ class PaginationContainer extends PureComponent {
 
     return (
       <Fragment>
+        <button type="button" className="events-pagination__navButton events-pagination__firstpage-button" onClick={this.goToFirstPage} />
         <button type="button" className="events-pagination__navButton events-pagination__prev-button" onClick={this.goToPreviousPage} />
 
         <ul className="events__pagination events-pagination ">
@@ -159,6 +181,7 @@ class PaginationContainer extends PureComponent {
           }
         </ul>
         <button type="button" className="events-pagination__navButton events-pagination__next-button" onClick={this.goToNextPage} />
+        <button type="button" className="events-pagination__navButton events-pagination__lastpage-button" onClick={this.goToLastPage} />
       </Fragment>
     );
   }
@@ -169,8 +192,10 @@ const mapTotalPagesToProps = storeData => {
 };
 
 PaginationContainer.defaultProps = {
+  firstPage: 1,
   maxPageNumber: 10,
   startNumberRedrawPagination: 6,
+  rangeNumbers: 3,
 };
 
 export default connect(mapTotalPagesToProps)(PaginationContainer);

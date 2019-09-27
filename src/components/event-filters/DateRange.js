@@ -51,6 +51,14 @@ class DateRange extends Component {
   }
 
   handleResetClick = () => {
+    store.dispatch({
+      type: 'UPDATE_FILTER_DATERANGE',
+      dateRange: {
+        from: undefined,
+        to: undefined,
+      },
+    });
+
     return request.getListPosts({})
       .then(posts => {
         if (!posts.length) {
@@ -62,14 +70,6 @@ class DateRange extends Component {
         store.dispatch({
           type: 'UPDATE_EVENT_LIST',
           list: posts,
-        });
-
-        store.dispatch({
-          type: 'UPDATE_FILTER_DATERANGE',
-          dateRange: {
-            from: undefined,
-            to: undefined,
-          },
         });
       });
   }
