@@ -141,8 +141,8 @@ header .authBlock {
   position: absolute;
   top: 100%;
   z-index: 100;
-  padding: 10px 20px;
-  left: -300px;
+  padding: 20px 20px 0 20px;
+  left: -350px;
   right: 15px;
   background: #0367b7;
   margin-bottom: 15px;
@@ -154,34 +154,40 @@ header .authBlock {
 }
 
 .header .header__search ul.header__search-suggestion li{
-    width: 100%;
-    margin-bottom: 5px;
-    padding-bottom: 5px;
-    clear: both;
-    border-bottom: 1px solid #dbdbdb;
-    display: inline-block;
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 10px;
+  padding-bottom: 20px;
+  clear: both;
+  border-bottom: 1px solid #dbdbdb;
+  color: #ffffff;
+  cursor: pointer;
 }
-.header .header__search ul.header__search-suggestion li a{
-    display: block;
-    height: 40px;
-}
-.header .header__search ul.header__search-suggestion li a span{
+.header .header__search ul.header__search-suggestion li span{
   display: block;
   width: 60%;
   float: left;
   height: 40px;
   overflow: hidden;
+  font-weight: bold;
 }
 
-.header .header__search ul.header__search-suggestion li a>div{
+.header .header__search ul.header__search-suggestion li>div{
+  font-size: 0.9em;
   width: 40%;
   float: left;
-  background: url(https://event-camp.org/img/locator.png) no-repeat left center;
-  padding-left: 20px;
 }
 
-.header .header__search ul.header__search-suggestion li a>div>div{
-  display:inline;
+.header .header__search ul.header__search-suggestion li>div>div{
+  height: 20px;
+  overflow: hidden;
+  padding: 2px 0 5px 25px;
+}
+.header .header__search ul.header__search-suggestion li .header__search-suggestion-location{
+  background: url(https://event-camp.org/img/locator.png) no-repeat left center;
+}
+.header .header__search ul.header__search-suggestion li .header__search-suggestion-date{
+  background: url(https://event-camp.org/img/date.png) no-repeat left center;
 }
 
 /**
