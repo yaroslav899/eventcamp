@@ -13,16 +13,18 @@ class SearchSuggestion extends PureComponent {
         const category = getValueFromParams(categories, event.categories[0], 'id', 'url');
         const url = `/events/${event.acf.cities}/${category}/${event.id}`;
 
-        return <li key={event.id} className="">
-          <NavLink to={url} className="">
-            <span>{event.title.rendered}</span>
-            <EventLocation className="suggestion-location" city={event.acf.cities} address="" />
-            <EventDate className="suggestion-date" date={event.acf.dateOf} />
+        return <li key={event.id}>
+          <NavLink to={url}>
+            <span dangerouslySetInnerHTML={createMarkupText(event.title.rendered)} />
+            <div>
+              <EventLocation city={event.acf.cities} address='' />
+              <EventDate date={event.acf.dateOf} />
+            </div>
           </NavLink>
         </li>;
       });
     return (
-      <ul className="header__search-suggestion">
+      <ul className='header__search-suggestion'>
         {eventElement}
       </ul>
     )

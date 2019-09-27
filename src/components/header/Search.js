@@ -3,49 +3,33 @@ import SearchSuggestion from './SearchSuggestion';
 
 class Search extends PureComponent {
   state = {
-    searchSuggestion: '',
-    eventList: null,
+    searchPhrase: '',
+    eventList: [],
     isShowSuggestion: false,
   };
 
   handleChange = (event) => {
-    const { urlSearch, minChars } = this.props;
-    const { searchSuggestion } = this.state;
+    const { searchPhrase } = this.state;
+    const { value } = event.target;
 
-    if (searchSuggestion.length <= minChars) {
-        this.setState({
-          searchSuggestion: event.target.value,
-          eventList: null,
-          isShowSuggestion: false,
-        });
-
-        return false;
-    }
-
-    this.setState({ searchSuggestion: event.target.value }, ()=>{
-        return fetch(urlSearch + this.state.searchSuggestion)
-            .then(response => response.json())
-            .then(response => {
-              if (response && response.length) {
-                this.setState({ eventList: response, isShowSuggestion: true });
-
-                return null;
-              }
-            }).catch(error => {
-              console.log('error');
-
-              return null;
-            });
-    });
-
-    return true;
+    return this.suggest(searchPhrase, value);
   }
 
   handleBlur = () => {
-      /*this.setState({
-        eventList: null,
-        isShowSuggestion: false,
-      });*/
+    this.setState({ isShowSuggestion: false });
+  }
+
+  handleFocus = (event) => {
+    const { searchPhrase } = this.state;
+    const { value } = event.target;
+
+    if (value.length && value === searchPhrase) {
+      this.setState({ isShowSuggestion: true });
+
+      return true;
+    } else {
+      return this.suggest(searchPhrase, value);
+    }
   }
 
   handleSubmit = (event) => {
@@ -53,19 +37,55 @@ class Search extends PureComponent {
     console.log('asdas');
   }
 
+  suggest = (searchPhrase, value) => {
+      if (!value.length) {
+          this.setState({ searchPhrase: value, eventList: [], isShowSuggestion: false });
+
+          return false;
+      }
+
+      const { urlSearch, minChars } = this.props;
+
+      this.setState({ searchPhrase: value }, () => {
+          if (minChars >= value.length) {
+              this.setState({ eventList: [], isShowSuggestion: false });
+
+              return false;
+          }
+
+          return fetch(urlSearch + searchPhrase)
+              .then(response => response.json())
+              .then(response => {
+                if (response && response.length) {
+                  this.setState({ eventList: response, isShowSuggestion: true });
+
+                  return null;
+                }
+              }).catch(error => {
+                console.log('error');
+
+                return null;
+              });
+      });
+
+      return true;
+  }
+
   render() {
-    const { searchSuggestion, eventList, isShowSuggestion } = this.state;
+    const { searchPhrase, eventList, isShowSuggestion } = this.state;
 
     return (
       <form onSubmit={this.handleSubmit}>
         <input
           type="text"
           id="search"
+          value={searchPhrase}
           placeholder="Пошук"
           className="search-suggest"
           name="search"
           onChange={this.handleChange}
           onBlur={this.handleBlur}
+          onFocus={this.handleFocus}
         />
         {isShowSuggestion &&
           <SearchSuggestion eventList={eventList}/>
@@ -76,7 +96,7 @@ class Search extends PureComponent {
 }
 
 Search.defaultProps = {
-  urlSearch: 'https://board.event-camp.org/wp-json/wp/v2/posts?&search=',
+  urlSearch: 'https://board.event-camp.org/wp-json/wp/v2/posts?&per_page=5&search=',
   minChars: 2,
 };
 
