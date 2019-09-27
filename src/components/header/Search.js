@@ -17,7 +17,7 @@ class Search extends PureComponent {
   }
 
   handleBlur = () => {
-    //this.setState({ isShowSuggestion: false });
+    this.setState({ isShowSuggestion: false });
   }
 
   handleFocus = (event) => {
