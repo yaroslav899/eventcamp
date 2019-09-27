@@ -56,7 +56,7 @@ class PaginationContainer extends PureComponent {
   handlePaginationClick = (page) => {
     const initialParams = { page };
 
-    this.updateEventList(initialParams);
+    return this.updateEventList(initialParams);
   }
 
   goToFirstPage = () => {
@@ -115,8 +115,7 @@ class PaginationContainer extends PureComponent {
     const { totalPages, maxPageNumber, startNumberRedrawPagination, rangeNumbers } = this.props;
     const activePage = +initialParams.page;
     const isCountPagesLessTotal = totalPages.length < maxPageNumber;
-    let startNumberSplice = isCountPagesLessTotal || (activePage < startNumberRedrawPagination) ? 0 : (activePage - 1);
-    startNumberSplice = (startNumberSplice && activePage > rangeNumbers) ? startNumberSplice - rangeNumbers : startNumberSplice;
+    const startNumberSplice = isCountPagesLessTotal || (activePage < startNumberRedrawPagination) ? 0 : (activePage - 1);
     const updatedTotalPages = [...totalPages].splice(startNumberSplice, maxPageNumber);
 
     if ((updatedTotalPages.length < maxPageNumber) && !isCountPagesLessTotal) {
