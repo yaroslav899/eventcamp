@@ -1,4 +1,5 @@
 ﻿import React, { PureComponent } from 'react';
+import { withRouter } from 'react-router-dom';
 import SearchSuggestion from './SearchSuggestion';
 import { urlRecources } from '../../resources/url';
 
@@ -35,6 +36,18 @@ class Search extends PureComponent {
 
   handleSubmit = (event) => {
     event.preventDefault();
+
+    const { searchPhrase } = this.state;
+
+    this.props.history.push({
+      pathname: '/events/',
+      search: '&query=' + searchPhrase,
+      state: { searchPhrase },
+    });
+
+    this.setState({ isShowSuggestion: false });
+
+    return true;
   }
 
   suggest = (searchPhrase, value) => {
@@ -100,4 +113,4 @@ Search.defaultProps = {
   minChars: 2,
 };
 
-export default Search;
+export default withRouter(Search);

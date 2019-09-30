@@ -3,6 +3,7 @@ import Adventages from '../../global/Adventages';
 import Meta from '../Meta';
 import Filters from '../../event-filters';
 import LastPosts from '../../global/LastPosts';
+import SearchPhrase from '../../global/SearchPhrase';
 import PaginationContainer from '../PaginationContainer';
 
 const ListPageView = ({ eventsElement }) => (
@@ -16,6 +17,7 @@ const ListPageView = ({ eventsElement }) => (
         </ul>
       </div>
       <div className="col-12 col-lg-3 col-md-4 events_filter-wrapper">
+        <SearchPhrase />
         <Filters />
         <div className="d-none d-sm-block">
           <LastPosts />
