@@ -125,8 +125,9 @@ class PaginationContainer extends PureComponent {
   render() {
     const { updatedTotalPages, activePage, lastPage } = this.state;
     const { totalPages, firstPage } = this.props;
+    const totalPagesLength = totalPages.length;
     const isShowDotsBefore = ([...updatedTotalPages].shift() !== [...totalPages].shift());
-    const isShowDotsAfter = (lastPage < totalPages.length);
+    const isShowDotsAfter = (lastPage < totalPagesLength);
     const pageNavigation = updatedTotalPages.map((pageNumber) => (
       <Pagination
         pageNumber={pageNumber}
@@ -136,7 +137,7 @@ class PaginationContainer extends PureComponent {
       />
     ));
 
-    if (!totalPages.length) {
+    if (!totalPagesLength) {
       return <Fragment />;
     }
 
@@ -160,11 +161,11 @@ class PaginationContainer extends PureComponent {
           {isShowDotsAfter
             && <li className="events-pagination__item events-pagination-item">...</li>
           }
-          {!updatedTotalPages.includes(totalPages.length)
+          {!updatedTotalPages.includes(totalPagesLength)
             && <Pagination
-                pageNumber={totalPages.length}
-                key={totalPages.length}
-                classNameItem={`events-pagination__item events-pagination-item ${(+activePage === +totalPages.length) ? ' active' : ''}`}
+                pageNumber={totalPagesLength}
+                key={totalPagesLength}
+                classNameItem={`events-pagination__item events-pagination-item ${(+activePage === +totalPagesLength) ? ' active' : ''}`}
                 handler={this.handlePaginationClick}
               />
           }
