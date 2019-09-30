@@ -179,6 +179,9 @@ header .authBlock {
   float: left;
   margin: 5px 10px 10px 0;
 }
+.events-pagination__item:last-child {
+  margin: 5px 0 10px 0;
+}
 .events-pagination__item button {
   color: #8c8c8c;
   font-size: 0.9em;
@@ -199,12 +202,12 @@ header .authBlock {
   background-size: cover;
   width: 25px;
   height: 25px;
-  border: 0px;
+  border: 0;
   cursor: pointer;
 }
 .events-pagination__prev-button {
   background-image: url(/img/prev-button.png);
-  margin: 5px 10px 0 0;
+  margin: 5px 5px 0 0;
 }
 .events-pagination__next-button {
   background-image: url(/img/next-button.png);
@@ -418,10 +421,11 @@ header .authBlock {
   margin-bottom: 15px;
   border-radius: 5px;
   border: 1px solid #dbdbdb;
+  min-height: 145px;
 }
 .events-item__img {
   width: 100%;
-  height: 140px;
+  height: 145px;
   border-radius: 5px 0 0 5px;
 }
 .events-item__title {
@@ -473,9 +477,9 @@ header .authBlock {
 }
 .events-item__date {
   clear: both;
-  padding: 5px 0 5px 25px;
+  padding: 2px 0 0 25px;
   background: url(https://event-camp.org/img/date.png) no-repeat left center;
-  font-size: 0.75em;
+  font-size: 0.9em;
   height: 20px;
   overflow: hidden;
 }

@@ -21,10 +21,10 @@ class PaginationContainer extends PureComponent {
 
   componentDidUpdate(prevProps, prevState, totalPages) {
     if (totalPages !== null) {
-      const activePage = 1;
-      this.setState({ activePage: 1 });
+      const { firstPage } = prevProps;
+      this.setState({ activePage: firstPage });
 
-      return this.updatePaginationPages(totalPages, activePage);
+      return this.updatePaginationPages(totalPages, firstPage);
     }
 
     return null;
@@ -56,22 +56,20 @@ class PaginationContainer extends PureComponent {
   handlePaginationClick = (page) => {
     const initialParams = { page };
 
-    this.updateEventList(initialParams);
+    return this.updateEventList(initialParams);
   }
 
   goToPreviousPage = () => {
     const { activePage } = this.state;
+    const { firstPage } = this.props;
 
-    if (+activePage === 1) {
+    if (+activePage === firstPage) {
       return false;
     }
 
     const page = activePage - 1;
-    const initialParams = { page };
 
-    this.updateEventList(initialParams);
-
-    return true;
+    return this.updateEventList({ page });
   }
 
   goToNextPage = () => {
@@ -83,12 +81,10 @@ class PaginationContainer extends PureComponent {
     }
 
     const page = +activePage + 1;
-    const initialParams = { page };
 
-    this.updateEventList(initialParams);
-
-    return true;
+    return this.updateEventList({ page });
   }
+
 
   updateEventList = (initialParams) => {
     const { totalPages, maxPageNumber, startNumberRedrawPagination } = this.props;
@@ -110,7 +106,11 @@ class PaginationContainer extends PureComponent {
       }
     }
 
-    this.setState({ updatedTotalPages });
+    this.setState({
+      activePage,
+      lastPage: [...updatedTotalPages].pop(),
+      updatedTotalPages,
+    });
 
     request.getListPosts(initialParams).then((posts) => {
       store.dispatch({
@@ -119,19 +119,15 @@ class PaginationContainer extends PureComponent {
       });
     });
 
-    this.setState({
-      activePage,
-      lastPage: [...updatedTotalPages].pop(),
-    });
-
     scrollToTop();
   }
 
   render() {
     const { updatedTotalPages, activePage, lastPage } = this.state;
-    const { totalPages } = this.props;
+    const { totalPages, firstPage } = this.props;
+    const totalPagesLength = totalPages.length;
     const isShowDotsBefore = ([...updatedTotalPages].shift() !== [...totalPages].shift());
-    const isShowDotsAfter = (lastPage < totalPages.length);
+    const isShowDotsAfter = (lastPage < totalPagesLength);
     const pageNavigation = updatedTotalPages.map((pageNumber) => (
       <Pagination
         pageNumber={pageNumber}
@@ -141,7 +137,7 @@ class PaginationContainer extends PureComponent {
       />
     ));
 
-    if (!totalPages.length) {
+    if (!totalPagesLength) {
       return <Fragment />;
     }
 
@@ -150,6 +146,14 @@ class PaginationContainer extends PureComponent {
         <button type="button" className="events-pagination__navButton events-pagination__prev-button" onClick={this.goToPreviousPage} />
 
         <ul className="events__pagination events-pagination ">
+          {!updatedTotalPages.includes(firstPage)
+            && <Pagination
+                pageNumber={firstPage}
+                key={firstPage}
+                classNameItem={`events-pagination__item events-pagination-item ${(+activePage === +firstPage) ? ' active' : ''}`}
+                handler={this.handlePaginationClick}
+              />
+          }
           {isShowDotsBefore
             && <li className="events-pagination__item events-pagination-item">...</li>
           }
@@ -157,7 +161,16 @@ class PaginationContainer extends PureComponent {
           {isShowDotsAfter
             && <li className="events-pagination__item events-pagination-item">...</li>
           }
+          {!updatedTotalPages.includes(totalPagesLength)
+            && <Pagination
+                pageNumber={totalPagesLength}
+                key={totalPagesLength}
+                classNameItem={`events-pagination__item events-pagination-item ${(+activePage === +totalPagesLength) ? ' active' : ''}`}
+                handler={this.handlePaginationClick}
+              />
+          }
         </ul>
+
         <button type="button" className="events-pagination__navButton events-pagination__next-button" onClick={this.goToNextPage} />
       </Fragment>
     );
@@ -169,6 +182,7 @@ const mapTotalPagesToProps = storeData => {
 };
 
 PaginationContainer.defaultProps = {
+  firstPage: 1,
   maxPageNumber: 10,
   startNumberRedrawPagination: 6,
 };
