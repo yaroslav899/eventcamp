@@ -161,7 +161,7 @@ export const request = {
 
   getListPosts: (param) => {
     const url = getRequestUrl(param);
-    const myHeaders = { cache: "force-cache" };
+    const myHeaders = { cache: "no-cache" };
 
     return fetch(url, myHeaders).then((response) => {
       //ToDo change this approach, since api is not a good place for it
