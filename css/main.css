@@ -205,17 +205,9 @@ header .authBlock {
   border: 0;
   cursor: pointer;
 }
-.events-pagination__firstpage-button {
-  background-image: url(https://s.pngix.com/pngfile/s/52-525678_png-file-svg-double-arrow-icon-png-transparent.png);
-  margin: 5px 5px 0 0;
-}
 .events-pagination__prev-button {
   background-image: url(/img/prev-button.png);
   margin: 5px 5px 0 0;
-}
-.events-pagination__lastpage-button {
-  background-image: url(https://cdn2.iconfinder.com/data/icons/arrows-part-1/32/tiny-arrow-right-double-512.png);
-  margin: 5px 0 0 5px;
 }
 .events-pagination__next-button {
   background-image: url(/img/next-button.png);
