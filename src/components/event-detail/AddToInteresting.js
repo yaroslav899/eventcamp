@@ -7,7 +7,7 @@ const AddToInteresting = ({ register, target, className, title, registerButton }
   }
 
   return (
-    <a href={register} target={target} className={className} title={title}>
+    <a href={register.replace(/\/\D+\/goto\?url\=/gi, '').replace('%3A', ':')} target={target} className={className} title={title}>
       {registerButton}
     </a>
   );
