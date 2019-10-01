@@ -1,13 +1,12 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import Banner from './global/Banner';
 import Adventages from './global/Adventages';
 import ServicePicture from './global/ServicePicture';
 import LastPosts from './global/LastPosts';
 import MainText from './MainText';
 import { meta } from '../resources/meta/hp';
 
-const MainPage = ({ title, description, keywords, metaurl, metaimg, metalang }) => (
+const MainPage = ({ title, description, keywords, metaurl, metaimg, metalang, h2 }) => (
   <section>
     <Helmet>
       <title itemProp="name" lang={metalang}>{title}</title>
@@ -22,13 +21,13 @@ const MainPage = ({ title, description, keywords, metaurl, metaimg, metalang }) 
       <link rel="alternate" hrefLang="x-default" href={metaurl} />
       <link rel="canonical" href={metaurl} />
     </Helmet>
-    <div className="d-none d-md-block">
-      <Banner />
-    </div>
     <div className="container">
       <Adventages />
       <div className="row">
         <div className="col-12 col-sm-9 category-main">
+          <div className="row d-none d-md-block">
+            <h2>{h2}</h2>
+          </div>
           <div className="row">
             <ServicePicture />
           </div>
@@ -49,6 +48,7 @@ MainPage.defaultProps = {
   metaurl: meta.url,
   metaimg: meta.img,
   metalang: meta.lang,
+  h2: meta.h2,
 };
 
 export default MainPage;

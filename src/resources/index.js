@@ -1,6 +1,6 @@
 export const listRecources = {
   emptyList: 'записи відсутні',
-  lastEvent: 'Останні події',
+  lastEvent: 'Останні події та івенти',
 };
 
 export const filterRecources = {
@@ -21,10 +21,10 @@ export const detailRecources = {
 };
 
 export const advantRecources = {
-  first: 'Дізнавайтеся нове та корисне',
+  first: 'Афіша відпочинку твого міста',
   second: 'Знаходьте нові контакти',
-  third: 'Популяризація заходів',
-  four: 'Тільки актуальні теми',
+  third: 'Розваги та навчання на будь який день',
+  four: 'Конференції, мітапи та фестивалі',
 };
 
 export const fieldsRegisterForm = {
