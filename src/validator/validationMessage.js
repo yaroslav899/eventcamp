@@ -5,4 +5,4 @@ export const validationMessage = {
   isValidEmail: validationMsg.nonValidEmail,
   isValidPassword: validationMsg.nonValidPassword,
   isPasswordMatch: validationMsg.passwordsNotMatch,
-}
+};

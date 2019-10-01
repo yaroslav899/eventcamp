@@ -3,7 +3,7 @@ export const global = {
   successMsg: 'Ви успішно додали подію',
   successEditMsg: 'Ви успішно змінили подію',
   successRegisterMsg: 'Ви успішно зареєструвалися. Можете виконати вхід.',
-}
+};
 
 export const profileProperties = {
   title: 'Особистий кабінет',
@@ -43,7 +43,7 @@ export const addEventPlaceholders = {
   tagsField: 'js, біологія, бізнес, Іспанія',
   priceField: '1000',
   addressField: 'Адреса',
-}
+};
 
 export const descrFields = {
   pictureField: 'Додавайте зображення події. Це надаст найбільшого візуального ефекту для вашого мітапу',

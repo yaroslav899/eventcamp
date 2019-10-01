@@ -19,7 +19,7 @@ export default function (filterReducer = initialFilterState, action) {
     case 'UPDATE_FILTER_CITY':
       return { ...filterReducer, cities: action.cities };
     case 'UPDATE_FILTER_TOPIC':
-        return { ...filterReducer, topics: action.topics };
+      return { ...filterReducer, topics: action.topics };
     case 'UPDATE_FILTER_DATERANGE':
       return { ...filterReducer, dateRange: action.dateRange };
     case 'UPDATE_SEARCH_PHRASE':

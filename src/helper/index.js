@@ -70,7 +70,7 @@ export const getUserData = () => {
 export const getUniqueArray = (array) => {
   const uniqueArray = array.filter(el => (el !== null && el !== '' && el !== ' '));
   return [...new Set(uniqueArray)];
-}
+};
 
 export const setProfileData = (data) => {
   const profileData = {};
@@ -90,4 +90,4 @@ export const setProfileData = (data) => {
   profileData.subscribed = subscribed || profileData.subscribed;
 
   return profileData;
-}
+};

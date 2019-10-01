@@ -22,11 +22,11 @@ const DetailPageView = ({ event, date, dateDay }) => (
       </div>
       <div className="col-12 col-md-3 right-side">
         <SocialShare data={event} />
-        <div className="border-separate"/>
+        <div className="border-separate" />
         <GoogleCalendar data={event} />
-        <div className="border-separate"/>
+        <div className="border-separate" />
         <FeedBack data={event} />
-        <div className="border-separate"/>
+        <div className="border-separate" />
         <DetailInteresting data={event} />
       </div>
     </div>

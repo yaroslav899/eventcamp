@@ -18,4 +18,4 @@ export const stringifyJSON = (data, defaultValue = '') => {
   const value = data || defaultValue;
 
   return JSON.stringify(value);
-}
+};

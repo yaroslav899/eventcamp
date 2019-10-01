@@ -3,10 +3,9 @@ import store from '../store';
 import { getCookie } from '../_cookie';
 import { setProfileData, getUniqueArray } from '../helper';
 import { getRequestUrl, getInterestingUrl, getLastPostsUrl, fetchData, authFetch, eventRequest } from './helpers';
-import { adminAccess } from '../credentials';
+import { adminAccess, googleApiService } from '../credentials';
 import { parseJSON, stringifyJSON } from '../helper/json';
 import { urlRecources } from '../resources/url';
-import { googleApiService } from '../credentials';
 
 export const request = {
   authUser: (param) => authFetch(param).then((response) => {
@@ -45,7 +44,7 @@ export const request = {
       body: stringifyJSON(bodyParam),
     };
 
-    //ToDo chack wordpress on email, which he sends when email was changed
+    // ToDo check wordpress on email, which he sends when email was changed
     return fetchData(url, param)
       .then(response => {
         const responseProfileData = setProfileData(response.description);
@@ -56,8 +55,8 @@ export const request = {
         return {
           userProfile: responseProfileData,
           success: true,
-        }
-      }).catch(error => {
+        };
+      }).catch(() => {
         return { success: false };
       });
   },
@@ -97,8 +96,8 @@ export const request = {
         return {
           userProfile: responseProfileData,
           success: true,
-        }
-      }).catch(error => {
+        };
+      }).catch(() => {
         return { success: false };
       });
   },
@@ -122,10 +121,10 @@ export const request = {
       }),
     };
 
-    return fetchData(url, param).catch(error => {
+    return fetchData(url, param).catch(() => {
       return { success: false };
     });
-  }).catch(error => {
+  }).catch(() => {
     return { success: false };
   }),
 
@@ -136,7 +135,7 @@ export const request = {
       return new Promise((resolve, reject) => reject({ success: false }));
     }
 
-    return eventRequest(param, imageID, userData).catch(error => {
+    return eventRequest(param, imageID, userData).catch(() => {
       return { success: false };
     });
   },
@@ -154,7 +153,7 @@ export const request = {
   getAuthorPosts: (param) => {
     const url = getRequestUrl(param);
 
-    return fetchData(url, null).catch(error => {
+    return fetchData(url, null).catch(() => {
       return { success: false };
     });
   },
@@ -164,7 +163,7 @@ export const request = {
     const myHeaders = { cache: "no-cache" };
 
     return fetch(url, myHeaders).then((response) => {
-      //ToDo change this approach, since api is not a good place for it
+      // ToDo change this approach, since api is not a good place for it
       store.dispatch({
         type: 'UPDATE_PAGINATION',
         count: response.headers.get('x-wp-totalpages'),
@@ -221,7 +220,7 @@ export const request = {
   getPage: (pageID) => {
     const url = `${urlRecources.endpointUrl}pages/${pageID}`;
 
-    return fetchData(url, null).catch(error => {
+    return fetchData(url, null).catch(() => {
       return { success: false };
     });
   },
@@ -240,7 +239,7 @@ export const request = {
         'Authorization': 'Bearer' + token,
         'Cache-Control': 'no-cache',
       }
-    }).catch(error => {
+    }).catch(() => {
       return { success: false };
     });
   },
@@ -260,8 +259,8 @@ export const request = {
 
     const url = `${urlRecources.endpointUrl}posts/?include=${postIDs}`;
 
-    return fetchData(url, null).catch(error => {
+    return fetchData(url, null).catch(() => {
       return { success: false };
     });
-  }
+  };
 };

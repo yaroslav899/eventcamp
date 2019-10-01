@@ -36,6 +36,4 @@ export const fieldsRegisterForm = {
   duplicatepassword: 'Повторіть пароль: *',
 };
 
-export const fieldsMsg = {
-  errorMsg: 'Неправильний логін або пароль',
-};
+export const fieldsMsg = { errorMsg: 'Неправильний логін або пароль' };

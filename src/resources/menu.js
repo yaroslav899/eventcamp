@@ -32,8 +32,6 @@ export const mainMenu = [{
 export const userMenu = {
   profile: '/profile',
   register: '/register',
-}
+};
 
-export const hiddenPages = {
-  policy: '750',
-}
+export const hiddenPages = { policy: '750' };

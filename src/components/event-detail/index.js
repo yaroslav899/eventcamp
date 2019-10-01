@@ -11,6 +11,21 @@ import Loader from '../global/Loader';
 
 class DetailPage extends Component {
   componentDidMount() {
+    return this.getPostDetail(this.props.match.params.id);
+  }
+
+  componentDidUpdate(props) {
+    const { location: { pathname: pathName } = {}} = props;
+    const { location: { pathname: prevPathName } = {}} = this.props;
+
+    if (pathName !== prevPathName) {
+      return this.getPostDetail(this.props.match.params.id);
+    }
+
+    return true;
+  }
+
+  getPostDetail = (postID) => {
     this.resetPostAmount();
 
     return request.getPostDetail(this.props.match.params.id)
@@ -20,25 +35,6 @@ class DetailPage extends Component {
           post,
         });
       });
-  }
-
-  componentDidUpdate(props) {
-    const { location: { pathname: pathName } = {}} = props;
-    const { location: { pathname: prevPathName } = {}} = this.props;
-
-    if (pathName !== prevPathName) {
-      this.resetPostAmount();
-
-      return request.getPostDetail(this.props.match.params.id)
-        .then(post => {
-          store.dispatch({
-            type: 'UPDATE_DETAIL_POST',
-            post,
-          });
-        });
-    }
-
-    return true;
   }
 
   resetPostAmount = () => {
