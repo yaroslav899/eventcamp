@@ -593,6 +593,21 @@ div.date-range p button {
   cursor: pointer;
   padding: 3% 8%;
 }
+.event-filter-searchphrase{
+  background-color: #f5f5f5;
+  font-size:0.9em;
+  margin: 15px 0;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #dbdbdb;
+}
+.event-filter-searchphrase span{
+  font-weight:bold;
+  cursor: pointer;
+}
+.event-filter-searchphrase span:hover{
+  text-decoration: underline;
+}
 .event-filter-option {
   padding: 0 7% 7% 7%;
   background-color: #f5f5f5;

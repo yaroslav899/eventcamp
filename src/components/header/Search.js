@@ -1,7 +1,10 @@
 ﻿import React, { PureComponent } from 'react';
 import { withRouter } from 'react-router-dom';
 import SearchSuggestion from './SearchSuggestion';
+import store from '../../store';
+import { request } from '../../api'
 import { urlRecources } from '../../resources/url';
+import { globalRecources } from '../../resources/global';
 
 class Search extends PureComponent {
   state = {
@@ -29,9 +32,9 @@ class Search extends PureComponent {
       this.setState({ isShowSuggestion: true });
 
       return true;
-    } else {
-      return this.suggest(searchPhrase, value);
     }
+
+    return this.suggest(searchPhrase, value);
   }
 
   handleSubmit = (event) => {
@@ -45,9 +48,25 @@ class Search extends PureComponent {
       state: { searchPhrase },
     });
 
+    store.dispatch({
+      type: 'UPDATE_SEARCH_PHRASE',
+      searchPhrase,
+    });
+
     this.setState({ isShowSuggestion: false });
 
-    return true;
+    return request.getListPosts({}).then((posts) => {
+      if (!posts.length) {
+        posts.push({ empty: noFilterResultMsg });
+      }
+
+      store.dispatch({
+        type: 'UPDATE_EVENT_LIST',
+        list: posts,
+      });
+
+      return true;
+    });
   }
 
   suggest = (searchPhrase, value) => {
@@ -111,6 +130,7 @@ class Search extends PureComponent {
 Search.defaultProps = {
   urlSearch: urlRecources.searchUrl,
   minChars: 2,
+  noFilterResultMsg: globalRecources.noFilterResult,
 };
 
 export default withRouter(Search);

@@ -1,4 +1,5 @@
 const initialFilterState = {
+  searchPhrase: '',
   list: [],
   categories: null,
   topics: null,
@@ -21,6 +22,8 @@ export default function (filterReducer = initialFilterState, action) {
         return { ...filterReducer, topics: action.topics };
     case 'UPDATE_FILTER_DATERANGE':
       return { ...filterReducer, dateRange: action.dateRange };
+    case 'UPDATE_SEARCH_PHRASE':
+      return { ...filterReducer, searchPhrase: action.searchPhrase };
     default:
       return filterReducer;
   }
