@@ -22,6 +22,25 @@ class DetailPage extends Component {
       });
   }
 
+  componentDidUpdate(props) {
+    const { location: { pathname: pathName } = {}} = props;
+    const { location: { pathname: prevPathName } = {}} = this.props;
+
+    if (pathName !== prevPathName) {
+      this.resetPostAmount();
+
+      return request.getPostDetail(this.props.match.params.id)
+        .then(post => {
+          store.dispatch({
+            type: 'UPDATE_DETAIL_POST',
+            post,
+          });
+        });
+    }
+
+    return true;
+  }
+
   resetPostAmount = () => {
     store.dispatch({
       type: 'UPDATE_DETAIL_POST',

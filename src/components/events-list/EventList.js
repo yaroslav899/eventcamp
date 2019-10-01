@@ -110,7 +110,7 @@ class EventList extends PureComponent {
     return (
       <div className="row">
         <NavLink to={url} className={imgWrapClass}>
-          <img src={event.acf.picture || event.acf.picture_url || imageUrlRecources.noPhoto} alt={event.title.rendered} className="events-item__img" />
+          <img src={event.acf.picture || event.acf.picture_url || imageUrlRecources.noPhoto} alt={event.title.rendered} />
         </NavLink>
         <div className={descrWrapClass}>
           <NavLink to={url} className="events-item__title">

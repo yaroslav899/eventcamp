@@ -52,7 +52,6 @@
     "immutable": "^3.8.2",
     "moment": "^2.21.0",
     "react": "^16.2.0",
-    "react-bootstrap": "^0.32.1",
     "react-cx": "^0.1.12",
     "react-day-picker": "^7.1.4",
     "react-dom": "^16.2.0",

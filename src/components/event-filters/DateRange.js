@@ -30,7 +30,7 @@ class DateRange extends Component {
     });
 
     if (!range.to && !range.from) {
-        range = {};
+      range = {};
     }
 
     return request.getListPosts(range)

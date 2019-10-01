@@ -148,11 +148,11 @@ class PaginationContainer extends PureComponent {
         <ul className="events__pagination events-pagination ">
           {!updatedTotalPages.includes(firstPage)
             && <Pagination
-                pageNumber={firstPage}
-                key={firstPage}
-                classNameItem={`events-pagination__item events-pagination-item ${(+activePage === +firstPage) ? ' active' : ''}`}
-                handler={this.handlePaginationClick}
-              />
+              pageNumber={firstPage}
+              key={firstPage}
+              classNameItem={`events-pagination__item events-pagination-item ${(+activePage === +firstPage) ? ' active' : ''}`}
+              handler={this.handlePaginationClick}
+            />
           }
           {isShowDotsBefore
             && <li className="events-pagination__item events-pagination-item">...</li>
@@ -163,11 +163,11 @@ class PaginationContainer extends PureComponent {
           }
           {!updatedTotalPages.includes(totalPagesLength)
             && <Pagination
-                pageNumber={totalPagesLength}
-                key={totalPagesLength}
-                classNameItem={`events-pagination__item events-pagination-item ${(+activePage === +totalPagesLength) ? ' active' : ''}`}
-                handler={this.handlePaginationClick}
-              />
+              pageNumber={totalPagesLength}
+              key={totalPagesLength}
+              classNameItem={`events-pagination__item events-pagination-item ${(+activePage === +totalPagesLength) ? ' active' : ''}`}
+              handler={this.handlePaginationClick}
+            />
           }
         </ul>
 

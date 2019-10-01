@@ -19,13 +19,13 @@ class Menu extends Component {
           <li key={item.id} className="menu-item">
             <a href={item.url}>{item.name}</a>
           </li>
-        )
+        );
       }
       return (
         <li key={item.id} className="menu-item">
           <ActiveLink to={item.url} onClick={this.closeMenu}>{item.name}</ActiveLink>
         </li>
-      )
+      );
     });
 
     return (

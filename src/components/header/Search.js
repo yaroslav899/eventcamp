@@ -2,7 +2,7 @@
 import { withRouter } from 'react-router-dom';
 import SearchSuggestion from './SearchSuggestion';
 import store from '../../store';
-import { request } from '../../api'
+import { request } from '../../api';
 import { urlRecources } from '../../resources/url';
 import { globalRecources } from '../../resources/global';
 
@@ -41,8 +41,9 @@ class Search extends PureComponent {
     event.preventDefault();
 
     const { searchPhrase } = this.state;
+    const { history } = this.props;
 
-    this.props.history.push({
+    history.push({
       pathname: '/events/',
       search: '&query=' + searchPhrase,
       state: { searchPhrase },
@@ -57,6 +58,8 @@ class Search extends PureComponent {
 
     return request.getListPosts({}).then((posts) => {
       if (!posts.length) {
+        const { noFilterResultMsg } = this.props;
+
         posts.push({ empty: noFilterResultMsg });
       }
 
@@ -70,37 +73,37 @@ class Search extends PureComponent {
   }
 
   suggest = (searchPhrase, value) => {
-      if (!value.length) {
-          this.setState({ searchPhrase: value, eventList: [], isShowSuggestion: false });
+    if (!value.length) {
+      this.setState({ searchPhrase: value, eventList: [], isShowSuggestion: false });
 
-          return false;
+      return false;
+    }
+
+    const { urlSearch, minChars } = this.props;
+
+    this.setState({ searchPhrase: value }, () => {
+      if (minChars >= value.length) {
+        this.setState({ eventList: [], isShowSuggestion: false });
+
+        return false;
       }
 
-      const { urlSearch, minChars } = this.props;
+      return fetch(urlSearch + searchPhrase)
+        .then(response => response.json())
+        .then(response => {
+          if (response && response.length) {
+            this.setState({ eventList: response, isShowSuggestion: true });
 
-      this.setState({ searchPhrase: value }, () => {
-          if (minChars >= value.length) {
-              this.setState({ eventList: [], isShowSuggestion: false });
-
-              return false;
+            return null;
           }
+        }).catch(error => {
+          console.log(error);
 
-          return fetch(urlSearch + searchPhrase)
-              .then(response => response.json())
-              .then(response => {
-                if (response && response.length) {
-                  this.setState({ eventList: response, isShowSuggestion: true });
+          return null;
+        });
+    });
 
-                  return null;
-                }
-              }).catch(error => {
-                console.log('error');
-
-                return null;
-              });
-      });
-
-      return true;
+    return true;
   }
 
   render() {
@@ -108,7 +111,7 @@ class Search extends PureComponent {
     const { searchLabel } = this.props;
 
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit} onBlur={this.handleBlur}>
         <input
           type="text"
           id="search"
@@ -117,11 +120,10 @@ class Search extends PureComponent {
           className="search-suggest"
           name="search"
           onChange={this.handleChange}
-          onBlur={this.handleBlur}
           onFocus={this.handleFocus}
         />
-        {isShowSuggestion &&
-          <SearchSuggestion eventList={eventList}/>
+        {isShowSuggestion
+          && <SearchSuggestion eventList={eventList} />
         }
       </form>
     );

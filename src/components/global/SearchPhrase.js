@@ -2,7 +2,7 @@ import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import store from '../../store';
-import { request } from '../../api'
+import { request } from '../../api';
 import { globalRecources } from '../../resources/global';
 
 class SearchPhrase extends PureComponent {
@@ -24,6 +24,8 @@ class SearchPhrase extends PureComponent {
 
     return request.getListPosts({}).then((posts) => {
       if (!posts.length) {
+        const { noFilterResultMsg } = this.props;
+
         posts.push({ empty: noFilterResultMsg });
       }
 

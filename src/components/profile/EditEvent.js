@@ -1,4 +1,3 @@
-import React from 'react';
 import { connect } from 'react-redux';
 import { EditorState, ContentState, convertFromHTML } from 'draft-js';
 import { request } from '../../api';

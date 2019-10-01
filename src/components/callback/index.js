@@ -41,7 +41,15 @@ class CallBack extends PureComponent {
   }
 
   render() {
-    const { text, h1, title, description, keywords, metaimg, metalang } = this.props;
+    const {
+      text,
+      h1,
+      title,
+      description,
+      keywords,
+      metaimg,
+      metalang,
+    } = this.props;
 
     return (
       <Fragment>

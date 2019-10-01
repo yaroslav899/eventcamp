@@ -485,7 +485,7 @@ header .authBlock {
   border: 1px solid #dbdbdb;
   min-height: 145px;
 }
-.events-item__img {
+.events__item img{
   width: 100%;
   height: 145px;
   border-radius: 5px 0 0 5px;
@@ -525,8 +525,6 @@ header .authBlock {
   color: #004f8f;
   margin: 0 0 5% 0;
   padding: 1% 0 1% 5%;
-  float: right;
-  width: 100%;
   font-weight: bold;
 }
 .events-item__location {
@@ -713,7 +711,7 @@ div.area-1 div.area-1_image {
   overflow: hidden;
 }
 div.area-1 div.area-1_image img {
-  height: auto;
+  height: 100%;
   width: 100%;
 }
 div.area-1 div.area-1_text {
@@ -840,7 +838,7 @@ div.calendar-link img{
   width: 48%;
 }
 div.feedback-detail-right {
-  margin: 10px 0;
+  margin: 20px 0;
   text-align:center;
 }
 div.feedback-detail-right a {
@@ -1100,10 +1098,6 @@ div.right-side div.detail-interesting ul li div.samePost-info-rightside div:firs
   .event-detail div.area-1 div.area-1_image {
     padding: 0;
     height: 180px;
-  }
-  .event-detail div.area-1 div.area-1_image img {
-    height: 100%;
-    width: 100%;
   }
   div.area-1 div.area-1_price {
     border-radius:0;

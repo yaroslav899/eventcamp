@@ -28,9 +28,9 @@ class Meta extends Component {
     return updatedKeywords.join(',');
   }
 
-  _getDescription(cityValue, categoryValue) {
+  _getDescription(cityValue) {
     const { description, eventTitle, additionalTitle } = this.props;
-    let updatedDescription = description.split('.');
+    const updatedDescription = description.split('.');
 
     if (cityValue) {
       updatedDescription[0] = cityValue + ' ' + eventTitle + ': ' + updatedDescription[0];
@@ -45,7 +45,7 @@ class Meta extends Component {
     const categoryValue = category ? getValueFromParams(categories, category, 'id', 'name') : null;
     const updatedTitle = this._getTitle(cityValue, categoryValue);
     const updatedKeywords = this._getKeywords(cityValue, categoryValue);
-    const updatedDescription = this._getDescription(cityValue, categoryValue);
+    const updatedDescription = this._getDescription(cityValue);
 
     return (
       <Fragment>

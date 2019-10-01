@@ -7,26 +7,26 @@ class SearchSuggestion extends PureComponent {
   render() {
     const { eventList } = this.props;
     const eventElement = eventList.map((event) => {
-    const title = createMarkupText(event.title.rendered);
-    const category = getValueFromParams(categories, event.categories[0], 'id', 'url');
-    const url = `/events/${event.acf.cities}/${category}/${event.id}`;
+      const title = createMarkupText(event.title.rendered);
+      const category = getValueFromParams(categories, event.categories[0], 'id', 'url');
+      const url = `/events/${event.acf.cities}/${category}/${event.id}`;
 
-    return <EventSuggestion
-             eventID={event.id}
-             title={title}
-             city={event.acf.cities}
-             address={event.acf.location}
-             date={event.acf.dateOf}
-             category={category}
-             url={url}
-      />
+      return <EventSuggestion
+        eventID={event.id}
+        title={title}
+        city={event.acf.cities}
+        address={event.acf.location}
+        date={event.acf.dateOf}
+        category={category}
+        url={url}
+      />;
     });
 
     return (
-      <ul className='header__search-suggestion'>
+      <ul className="header__search-suggestion">
         {eventElement}
       </ul>
-    )
+    );
   }
 }
 
