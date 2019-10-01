@@ -262,5 +262,5 @@ export const request = {
     return fetchData(url, null).catch(() => {
       return { success: false };
     });
-  };
+  }
 };
