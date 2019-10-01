@@ -9,14 +9,9 @@ class EventPhone extends PureComponent {
 
   handlePhoneClick = () => {
     const { isPhoneUpdated } = this.state;
+    const { phone = null } = this.props;
 
-    if (isPhoneUpdated) {
-      return true;
-    }
-
-    const { phone } = this.props;
-
-    if (!phone || !phone.length) {
+    if (isPhoneUpdated || !phone) {
       return false;
     }
 
@@ -29,7 +24,7 @@ class EventPhone extends PureComponent {
   }
 
   render() {
-    const { phone } = this.props;
+    const { phone = null } = this.props;
     const { phoneNumber } = this.state;
 
     if (!phone) return <Fragment />;

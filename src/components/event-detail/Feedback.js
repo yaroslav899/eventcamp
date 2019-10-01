@@ -21,8 +21,7 @@ const FeedBack = (props) => {
 
   return (
     <div className="feedback-detail-right">
-      {email
-        && email.length
+      {!!email.length
         && <WriteToAuthor href={emailUrl} target="_blank" className="write-organisator" title={eventTitle} />
       }
       <AddToInteresting register={register} target="_blank" className="feedback-registration" title={eventTitle} />

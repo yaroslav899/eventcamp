@@ -11,12 +11,12 @@ import { detailRecources } from '../../resources';
 import { imageUrlRecources } from '../../resources/url';
 
 class DetailInteresting extends PureComponent {
-  state = { posts: null };
+  state = { posts: [] };
 
   componentDidMount() {
     const { data } = this.props;
 
-    this.handleUpdateDetailPage(data);
+    return this.handleUpdateDetailPage(data);
   }
 
   handleUpdateDetailPage = (data) => {
@@ -49,8 +49,9 @@ class DetailInteresting extends PureComponent {
   render() {
     const { posts } = this.state;
 
-    if (!posts || !posts.length) return <Fragment />;
+    if (!posts.length) return <Fragment />;
 
+    const { maybeInteresting } = this.props;
     const samePosts = posts.map((samePost) => {
       const {
         id: postID,
@@ -70,7 +71,7 @@ class DetailInteresting extends PureComponent {
       const { noPhotoUrl } = this.props;
 
       return <li key={postID}>
-        <NavLink onClick={this.handleUpdateDetailPage.bind(this, samePost)} to={eventUrl}>
+        <NavLink to={eventUrl}>
           <div className="row">
             <div className="col-12">
               <img src={picture || noPhotoUrl} alt={postTitle} />
@@ -85,8 +86,6 @@ class DetailInteresting extends PureComponent {
         </NavLink>
       </li>;
     });
-
-    const { maybeInteresting } = this.props;
 
     return (
       <div className="detail-interesting">

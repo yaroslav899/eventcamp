@@ -9,9 +9,9 @@ import { globalRecources } from '../../resources/global';
 
 const EventView = (data) => {
   const { event, isOwner } = data;
-  const { acf, id: eventID, title } = event;
+  const { acf: { cities, location, dateOf }, id: eventID, title } = event;
   const category = getValueFromParams(categories, event.categories[0], 'id', 'url');
-  const eventUrl = `/events/${acf.cities}/${category}/${eventID}`;
+  const eventUrl = `/events/${cities}/${category}/${eventID}`;
   const editEventUrl = `/edit-event/${eventID}`;
 
   return (
@@ -20,7 +20,7 @@ const EventView = (data) => {
         <NavLink to={eventUrl} className="events-item__title">
           <span dangerouslySetInnerHTML={createMarkupText(title.rendered)} />
         </NavLink>
-        <EventLocation className="inline" city={acf.cities} address={acf.location} /> - <EventDate className="inline" date={acf.dateOf} />
+        <EventLocation className="inline" city={cities} address={location} /> - <EventDate className="inline" date={dateOf} />
       </div>
       <div className="col-4 text-right">
         <div className="events-item__action events-item-action">
