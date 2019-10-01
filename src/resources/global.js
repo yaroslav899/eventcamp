@@ -31,4 +31,5 @@ export const globalRecources = {
   interestedTitle: 'Подія додано в "Цікаве" в особистий кабінет',
   nonRegistred: 'Необхідно зареєструватися, щоб додати в цікаве',
   searchPhraseLabel: 'Пошукова фраза',
+  searchLabel: 'Пошук',
 };

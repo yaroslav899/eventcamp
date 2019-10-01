@@ -105,6 +105,7 @@ class Search extends PureComponent {
 
   render() {
     const { searchPhrase, eventList, isShowSuggestion } = this.state;
+    const { searchLabel } = this.props;
 
     return (
       <form onSubmit={this.handleSubmit}>
@@ -112,7 +113,7 @@ class Search extends PureComponent {
           type="text"
           id="search"
           value={searchPhrase}
-          placeholder="Пошук"
+          placeholder={searchLabel}
           className="search-suggest"
           name="search"
           onChange={this.handleChange}
@@ -131,6 +132,7 @@ Search.defaultProps = {
   urlSearch: urlRecources.searchUrl,
   minChars: 2,
   noFilterResultMsg: globalRecources.noFilterResult,
+  searchLabel: globalRecources.searchLabel,
 };
 
 export default withRouter(Search);
