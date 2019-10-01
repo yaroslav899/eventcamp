@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import Menu from '../menu';
 import AuthHeaderLink from './AuthHeaderLink';
+import Search from './Search';
 import { imageUrlRecources } from '../../resources/url';
 import { meta } from '../../resources/meta/hp';
 
@@ -23,8 +24,11 @@ const Header = ({ logoUrl, title }) => (
             <img src={logoUrl} alt={title} title={title} />
           </NavLink>
         </div>
-        <div className="col-sm-10 col-12">
+        <div className="col-sm-10 col-xl-8 col-12">
           <Menu />
+        </div>
+        <div className="col-xl-2 d-none d-sm-none d-md-none d-lg-none d-xl-block header__search">
+          <Search />
         </div>
       </div>
     </div>

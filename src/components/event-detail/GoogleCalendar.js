@@ -1,9 +1,8 @@
 import React, { Fragment } from 'react';
-import { detailRecources } from '../../resources';
 import { urlRecources, imageUrlRecources } from '../../resources/url';
 
 const GoogleCalendar = (props) => {
-  const { data, addToCalendarMsg, googleCalendarImage } = props;
+  const { data, googleCalendarImage } = props;
 
   if (!data) {
     return <Fragment />;
@@ -23,7 +22,6 @@ const GoogleCalendar = (props) => {
 
   return (
     <div className="calendar-link">
-      <p>{addToCalendarMsg}</p>
       <a href={addToGoogleCalendarUrl} target="_blank" rel="noopener noreferrer">
         <img src={googleCalendarImage} alt={eventTitle} />
       </a>
@@ -32,7 +30,6 @@ const GoogleCalendar = (props) => {
 };
 
 GoogleCalendar.defaultProps = {
-  addToCalendarMsg: detailRecources.addToCalendar,
   googleCalendarImage: imageUrlRecources.google,
 };
 

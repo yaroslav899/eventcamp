@@ -18,6 +18,7 @@ export const urlRecources = {
   calGoggle: 'https://www.google.com/calendar/event?action=TEMPLATE&text=',
   jwtRegister: 'https://board.event-camp.org/wp-json/jwt-auth/v1/token/',
   mediaResources: 'https://board.event-camp.org/wp-json/wp/v2/media',
+  searchUrl: 'https://board.event-camp.org/wp-json/wp/v2/posts?&per_page=5&search=',
   callback: '/mail.php',
 };
 

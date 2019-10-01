@@ -25,6 +25,7 @@ export const getRequestUrl = (param) => {
     categories: (filterOption === 'categories') ? param.categories : prevFilterState.categories,
     topics: (filterOption === 'topics') ? param.topics : prevFilterState.topics,
     cities: (filterOption === 'cities') ? param.cities : prevFilterState.cities,
+    searchPhrase: (filterOption === 'searchPhrase') ? param.searchPhrase : prevFilterState.searchPhrase,
     from: (filterOption === 'from') ? moment(param.from).format('YYYY-MM-DDT00:00:00') : dateFrom,
     to: (filterOption === 'from') ? moment(param.to).format('YYYY-MM-DDT00:00:00') : dateTo,
     page: (filterOption === 'page') ? param.page : '1',
@@ -34,6 +35,7 @@ export const getRequestUrl = (param) => {
 
   if (query.categories) url = `${url}&categories=${query.categories}`;
   if (query.cities) url = `${url}&filter[meta_query][0][key]=cities&filter[meta_query][0][value]=${city.url}`;
+  if (query.searchPhrase) url = `${url}&search=${query.searchPhrase}`;
   if (query.from && query.from === query.to) {
     url = `${url}&filter[meta_query][1][key]=dateOf&filter[meta_query][1][value]=${query.from.replace('T00:00:00', '')}`;
   } else if (query.from) {

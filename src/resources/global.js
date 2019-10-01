@@ -30,4 +30,6 @@ export const globalRecources = {
   privacy: ' Я згоден (-на) з <a href="/policy" target="_blank">умовами використання сайту і політикою конфіденційності.</a>',
   interestedTitle: 'Подія додано в "Цікаве" в особистий кабінет',
   nonRegistred: 'Необхідно зареєструватися, щоб додати в цікаве',
+  searchPhraseLabel: 'Пошукова фраза',
+  searchLabel: 'Пошук',
 };
