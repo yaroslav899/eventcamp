@@ -137,7 +137,7 @@ class PaginationContainer extends PureComponent {
       />
     ));
 
-    if (!totalPagesLength) {
+    if (!totalPagesLength || totalPages.length === 1) {
       return <Fragment />;
     }
 
@@ -150,7 +150,7 @@ class PaginationContainer extends PureComponent {
             && <Pagination
               pageNumber={firstPage}
               key={firstPage}
-              classNameItem={`events-pagination__item events-pagination-item ${(+activePage === +firstPage) ? ' active' : ''}`}
+              classNameItem={`events-pagination__item events-pagination-item ${(+activePage === +firstPage) ? 'yaroslav active' : 'yaroslav'}`}
               handler={this.handlePaginationClick}
             />
           }
@@ -165,7 +165,7 @@ class PaginationContainer extends PureComponent {
             && <Pagination
               pageNumber={totalPagesLength}
               key={totalPagesLength}
-              classNameItem={`events-pagination__item events-pagination-item ${(+activePage === +totalPagesLength) ? ' active' : ''}`}
+              classNameItem={`events-pagination__item events-pagination-item ${(+activePage === +totalPagesLength) ? 'yaroslav active' : 'yaroslav'}`}
               handler={this.handlePaginationClick}
             />
           }

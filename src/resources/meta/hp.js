@@ -5,5 +5,5 @@ export const meta = {
   url: 'https://event-camp.org/',
   image: 'https://event-camp.org/img/logo.png',
   lang: 'uk',
-  h2: 'Розпочніть вибор відпочинку або отримання нових знань з рубрики',
+  h2: 'Розпочніть відпочинок або отримання нових знань з вибору рубрики',
 };

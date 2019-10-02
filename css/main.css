@@ -221,17 +221,20 @@ header .authBlock {
 }
 .advant img {
   height: 70%;
-  margin:2% 24px 0 0;
+  margin: 2% 24px 0 0;
 }
 
 /**
 *  Main page category images
 */
 .category-main h2{
-  text-transform:uppercase;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 1.1em;
+  font-weight: bold;
 }
 .category-main img {
-  margin-bottom:10px;
+  margin-bottom: 10px;
 }
 .category-main p {
   font-weight: bold;
@@ -760,6 +763,8 @@ div.area-1 div.area-1_info div.area-1_location {
   padding-left: 20px;
   margin: 10px 0;
   font-size: 0.84em;
+  height: 40px;
+  overflow: hidden;
 }
 div.area-1 div.area-1_info div.area-1_tags span {
   background: #ffffff;
@@ -814,6 +819,7 @@ div.react-tabs__tab-panel div.event_text img {
 }
 .area-2_map{
   min-height: 430px;
+  overflow: hidden;
 }
 
 /*
