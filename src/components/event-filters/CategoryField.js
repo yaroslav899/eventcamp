@@ -3,7 +3,6 @@ import Select from 'react-select';
 import { connect } from 'react-redux';
 import store from '../../store';
 import { request } from '../../api';
-import CityField from './CityField';
 import { categories, cities, defaultTopic } from '../../fixtures';
 import { filterRecources } from '../../resources';
 import { globalRecources } from '../../resources/global';
@@ -148,7 +147,18 @@ class SelectFilter extends Component {
 
     return (
       <div className="event-filter-option">
-        <CityField />
+        <p>{filterRecources.city}</p>
+        <Select
+          name="form-field-cities"
+          label="cities"
+          options={cities.map(city => ({
+            label: city.name,
+            value: city.id,
+            type: 'cities',
+          }))}
+          value={cityFilter}
+          onChange={this.changeCity}
+        />
         <p>{filterRecources.category}</p>
         <Select
           name="form-field-category"

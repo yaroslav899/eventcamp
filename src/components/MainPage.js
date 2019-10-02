@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet';
 import Adventages from './global/Adventages';
 import ServicePicture from './global/ServicePicture';
 import LastPosts from './global/LastPosts';
+import DateRange from './event-filters/DateRange';
 import MainText from './MainText';
 import { meta } from '../resources/meta/hp';
 
@@ -33,6 +34,7 @@ const MainPage = ({ title, description, keywords, metaurl, metaimg, metalang, h2
           </div>
         </div>
         <div className="col-12 col-md-3">
+          <DateRange />
           <LastPosts />
         </div>
       </div>

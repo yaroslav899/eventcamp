@@ -311,6 +311,8 @@ header .authBlock {
   background: url(/img/locator.png) no-repeat left center;
   padding: 0 0 0 15%;
   margin: 0 0 5px 0;
+  max-height: 30px;
+  overflow: hidden;
 }
 .last-post-list .last-post-date {
   background: url(/img/date.png) no-repeat left center;
