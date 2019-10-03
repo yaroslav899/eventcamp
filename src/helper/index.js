@@ -10,10 +10,7 @@ export const getValueFromParams = (values = [], id, searchParam, exitParam) => {
 };
 
 export const getHistoryUrl = (type, selection, topics) => {
-  const { categories: catFilter, cities: cityFilter } = store.getState().filterState;
-  const categoryStatus = catFilter ? getValueFromParams(categories, catFilter[0], 'id', 'url') : '';
-  const cityStatus = cityFilter ? getValueFromParams(cities, cityFilter[0], 'id', 'url') : '';
-  const status = { categories: categoryStatus, cities: cityStatus };
+  const status = getFilterState();
 
   let data;
   switch (type) {
@@ -121,3 +118,11 @@ export const setProfileData = (data) => {
 
   return profileData;
 };
+
+const getFilterState = () => {
+  const { categories: catFilter, cities: cityFilter } = store.getState().filterState;
+  const categoryStatus = catFilter ? getValueFromParams(categories, catFilter[0], 'id', 'url') : '';
+  const cityStatus = cityFilter ? getValueFromParams(cities, cityFilter[0], 'id', 'url') : '';
+
+  return { categories: categoryStatus, cities: cityStatus };
+}

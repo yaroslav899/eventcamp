@@ -32,4 +32,5 @@ export const globalRecources = {
   nonRegistred: 'Необхідно зареєструватися, щоб додати в цікаве',
   searchPhraseLabel: 'Пошукова фраза',
   searchLabel: 'Пошук',
+  actionCtaHPLabel: 'Показати події',
 };
