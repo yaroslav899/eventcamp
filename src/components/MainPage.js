@@ -4,6 +4,8 @@ import Adventages from './global/Adventages';
 import ServicePicture from './global/ServicePicture';
 import LastPosts from './global/LastPosts';
 import DateRange from './event-filters/DateRange';
+import CityField from './event-filters/CityField';
+import Button from './global/Button';
 import MainText from './MainText';
 import { meta } from '../resources/meta/hp';
 
@@ -33,8 +35,12 @@ const MainPage = ({ title, description, keywords, metaurl, metaimg, metalang, h2
             <ServicePicture />
           </div>
         </div>
-        <div className="col-12 col-md-3">
+        <div className="col-12 col-md-3 events_filter-wrapper">
+          <div class="event-filter-option">
+            <CityField changeHistory={false} />
+          </div>
           <DateRange />
+          <Button text='go to event' className="events-item-action__button" to='/events/' />
           <LastPosts />
         </div>
       </div>

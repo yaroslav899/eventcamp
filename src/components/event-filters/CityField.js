@@ -11,11 +11,13 @@ import { getHistoryUrl } from '../../helper';
 
 class CityField extends PureComponent {
   changeCity = (selection) => {
-    const { history } = this.props;
+    const { history, changeHistory } = this.props;
 
     this.changeSelection('cities', selection);
 
-    history.push(getHistoryUrl('cities', selection, ''));
+    if (changeHistory) {
+      history.push(getHistoryUrl('cities', selection, ''));
+    }
   };
 
   changeSelection = (type, selection) => {

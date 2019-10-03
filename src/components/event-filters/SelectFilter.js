@@ -29,11 +29,6 @@ class SelectFilter extends Component {
     }
   }
 
-  changeCity = (selection) => {
-    this.changeSelection('cities', selection);
-    this.addToHistory('cities', selection);
-  };
-
   changeCategory = (selection) => {
     this.changeSelection('categories', selection);
     this.setState({ currentTheme: defaultTopic });
@@ -81,13 +76,6 @@ class SelectFilter extends Component {
             if (activeCategory) {
               this.setState({ topics: activeCategory.subcat });
             }
-
-            break;
-          case 'cities':
-            store.dispatch({
-              type: 'UPDATE_FILTER_CITY',
-              cities: data[filterOption],
-            });
             break;
           case 'topics':
             store.dispatch({
@@ -110,9 +98,6 @@ class SelectFilter extends Component {
     switch (type) {
       case 'categories':
         data = { name: 'categories', values: categories };
-        break;
-      case 'cities':
-        data = { name: 'cities', values: cities };
         break;
       case 'topics':
         data = { name: 'topics', values: topics };
@@ -140,15 +125,12 @@ class SelectFilter extends Component {
   }
 
   render() {
-    const {
-      categories: catFilter,
-      cities: cityFilter,
-    } = this.props;
+    const { categories: catFilter } = this.props;
     const { topics, currentTheme } = this.state;
 
     return (
       <div className="event-filter-option">
-        <CityField />
+        <CityField changeHistory={true} />
         <p>{filterRecources.category}</p>
         <Select
           name="form-field-category"

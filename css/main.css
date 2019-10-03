@@ -241,6 +241,13 @@ header .authBlock {
 }
 
 /**
+*  Main page right panel
+*/
+
+div.hp-right-panel>div{
+
+}
+/**
 *   Event pagination area
 */
 .events-pagination__item {
