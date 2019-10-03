@@ -4,36 +4,16 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import store from '../../store';
 import { request } from '../../api';
-import { categories, defaultTopic } from '../../fixtures';
+import { categories } from '../../fixtures';
 import { filterRecources } from '../../resources';
 import { globalRecources } from '../../resources/global';
 import { getHistoryUrl } from '../../helper';
 
-class CategoryField extends Component {
-  state = {
-    topics: defaultTopic,
-    currentTheme: '',
-  };
-
-  componentDidMount() {
-    const {
-      categories: category,
-      topics: topic,
-    } = this.props;
-
-    if (category) {
-      this.setState({
-        topics: categories.find(cat => cat.id === category).subcat,
-        currentTheme: topic || '',
-      });
-    }
-  }
-
+class CategoryField extends PureComponent {
   changeCategory = (selection) => {
     const { history } = this.props;
 
     this.changeSelection('categories', selection);
-    this.setState({ currentTheme: defaultTopic });
 
     history.push(getHistoryUrl('categories', selection, ''));
   };
@@ -53,23 +33,16 @@ class CategoryField extends Component {
         });
 
         store.dispatch({
-          type: 'UPDATE_FILTER_CITY',
-          cities: params['categories'],
+          type: 'UPDATE_FILTER_CATEGORY',
+          categories: params['categories'],
         });
-
-        const activeCategory = categories.find(cat => cat.id === data[filterOption]);
-
-        if (activeCategory) {
-          this.setState({ topics: activeCategory.subcat });
-        }
-
+ 
         return params;
       });
   };
   
   render() {
     const { categories: catFilter } = this.props;
-    const { topics, currentTheme } = this.state;
 
     return (
       <Fragment>
@@ -91,11 +64,7 @@ class CategoryField extends Component {
 }
 
 const mapStateToProps = (storeData) => {
-  return {
-    posts: storeData.filterState.list,
-    categories: storeData.filterState.categories,
-    topics: storeData.filterState.topics,
-  };
+  return { categories: storeData.filterState.categories };
 };
 
 export default withRouter(connect(mapStateToProps)(CategoryField));

@@ -1,14 +1,15 @@
-import React, { Component } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import Select from 'react-select';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import store from '../../store';
 import { request } from '../../api';
-import { categories, cities, defaultTopic } from '../../fixtures';
+import { categories, defaultTopic } from '../../fixtures';
 import { filterRecources } from '../../resources';
 import { globalRecources } from '../../resources/global';
-import { getValueFromParams } from '../../helper';
+import { getHistoryUrl } from '../../helper';
 
-class SelectFilter extends Component {
+class TopicField extends Component {
   state = {
     topics: defaultTopic,
     currentTheme: '',
@@ -28,17 +29,6 @@ class SelectFilter extends Component {
     }
   }
 
-  changeCity = (selection) => {
-    this.changeSelection('cities', selection);
-    this.addToHistory('cities', selection);
-  };
-
-  changeCategory = (selection) => {
-    this.changeSelection('categories', selection);
-    this.setState({ currentTheme: defaultTopic });
-    this.addToHistory('categories', selection);
-  };
-
   changeTopic = (selection) => {
     this.changeSelection('topics', selection);
     this.setState({ currentTheme: selection || defaultTopic });
@@ -46,12 +36,7 @@ class SelectFilter extends Component {
   };
 
   changeSelection = (type, selection) => {
-    let params = {};
-    if (!selection) {
-      params = { [type]: '' };
-    } else {
-      params = { [selection.type]: selection ? selection.value : '' };
-    }
+    const params = !selection ? { [type]: '' } : { [selection.type]: selection ? selection.value : '' };
 
     return request.getListPosts(params)
       .then((posts) => {
@@ -103,41 +88,6 @@ class SelectFilter extends Component {
       });
   };
 
-  addToHistory = (type, selection) => {
-    const { topics } = this.state;
-    let data;
-    switch (type) {
-      case 'categories':
-        data = { name: 'categories', values: categories };
-        break;
-      case 'cities':
-        data = { name: 'cities', values: cities };
-        break;
-      case 'topics':
-        data = { name: 'topics', values: topics };
-        break;
-      default:
-        console.log("Error. Type wasn't found");
-        return;
-    }
-    //  adding history
-    const {
-      categories: catFilter,
-      cities: cityFilter,
-    } = this.props;
-    const status = {
-      categories: catFilter ? getValueFromParams(categories, catFilter[0], 'id', 'url') : '',
-      cities: cityFilter ? getValueFromParams(cities, cityFilter[0], 'id', 'url') : '',
-    };
-
-    status[data.name] = getValueFromParams(data.values, selection ? selection.value : '', 'id', 'url');
-
-    const selectCity = status.cities.length ? status.cities : 'any';
-    const url = `/events/${selectCity}/${status.categories}`;
-
-    history.pushState(window.location.origin, '', url);
-  }
-
   render() {
     const {
       categories: catFilter,
@@ -146,31 +96,7 @@ class SelectFilter extends Component {
     const { topics, currentTheme } = this.state;
 
     return (
-      <div className="event-filter-option">
-        <p>{filterRecources.city}</p>
-        <Select
-          name="form-field-cities"
-          label="cities"
-          options={cities.map(city => ({
-            label: city.name,
-            value: city.id,
-            type: 'cities',
-          }))}
-          value={cityFilter}
-          onChange={this.changeCity}
-        />
-        <p>{filterRecources.category}</p>
-        <Select
-          name="form-field-category"
-          label="categories"
-          options={categories.map(category => ({
-            label: category.name,
-            value: category.id,
-            type: 'categories',
-          }))}
-          value={catFilter}
-          onChange={this.changeCategory}
-        />
+      <Fragment>
         <p>{filterRecources.topic}</p>
         <Select
           name="form-field-topics"
@@ -183,18 +109,16 @@ class SelectFilter extends Component {
           value={currentTheme}
           onChange={this.changeTopic}
         />
-      </div>
+      </Fragment>
     );
   }
 }
 
 const mapStateToProps = (storeData) => {
   return {
-    posts: storeData.filterState.list,
     categories: storeData.filterState.categories,
     topics: storeData.filterState.topics,
-    cities: storeData.filterState.cities,
   };
 };
 
-export default connect(mapStateToProps)(SelectFilter);
+export default withRouter(connect(mapStateToProps)(SelectFilter));

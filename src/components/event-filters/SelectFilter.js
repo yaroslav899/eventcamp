@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import store from '../../store';
 import { request } from '../../api';
 import CityField from './CityField';
+import CategoryField from './CategoryField';
 import { categories, cities, defaultTopic } from '../../fixtures';
 import { filterRecources } from '../../resources';
 import { globalRecources } from '../../resources/global';
@@ -131,18 +132,7 @@ class SelectFilter extends Component {
     return (
       <div className="event-filter-option">
         <CityField changeHistory={true} />
-        <p>{filterRecources.category}</p>
-        <Select
-          name="form-field-category"
-          label="categories"
-          options={categories.map(category => ({
-            label: category.name,
-            value: category.id,
-            type: 'categories',
-          }))}
-          value={catFilter}
-          onChange={this.changeCategory}
-        />
+        <CategoryField />
         <p>{filterRecources.topic}</p>
         <Select
           name="form-field-topics"
