@@ -553,6 +553,7 @@ div.home-page .events_filter-wrapper>a:hover{
   background: url(/img/locator.png) no-repeat left center;
   font-size: 0.7em;
   max-height: 40px;
+  max-width:180px;
   overflow: hidden;
 }
 .events-item__date {
