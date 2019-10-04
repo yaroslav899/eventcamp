@@ -1,7 +1,7 @@
 import store from '../store';
 import { getCookie, deleteCookie } from '../_cookie';
 import { parseJSON } from './json';
-import { categories, cities, defaultTopic } from '../fixtures';
+import { categories, cities } from '../fixtures';
 import { imageUrlRecources } from '../resources/url';
 
 export const getValueFromParams = (values = [], id, searchParam, exitParam) => {
@@ -19,9 +19,6 @@ export const getHistoryUrl = (type, selection, topics) => {
       break;
     case 'cities':
       data = { name: 'cities', values: cities };
-      break;
-    case 'topics':
-      data = { name: 'topics', values: topics };
       break;
     default:
       console.log("Error. Type wasn't found");

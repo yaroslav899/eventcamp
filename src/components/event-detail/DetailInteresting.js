@@ -11,30 +11,30 @@ import { detailRecources } from '../../resources';
 import { imageUrlRecources } from '../../resources/url';
 
 class DetailInteresting extends PureComponent {
+  _isMounted = false;
+
   state = { posts: [] };
 
   componentDidMount() {
     const { data } = this.props;
 
-    return this.handleUpdateDetailPage(data);
-  }
-
-  handleUpdateDetailPage = (data) => {
-    request.getInterestingData(data, true).then((posts) => {
-      if (!posts || !posts.length) {
-        return request.getInterestingData(data, false).then((newPosts) => {
-          this.updateDetailInterestingPosts(newPosts, data);
-        });
-      }
-
-      this.updateDetailInterestingPosts(posts, data);
-
-      return true;
-    });
+    this._isMounted = true;
 
     store.dispatch({
       type: 'UPDATE_DETAIL_POST',
       post: data,
+    });
+
+    return request.getInterestingData(data, true).then((posts) => {
+      if (this._isMounted) {
+        if (!posts || !posts.length) {
+          return request.getInterestingData(data, false).then((newPosts) => {
+            this.updateDetailInterestingPosts(newPosts, data);
+          });
+        }
+
+        return this.updateDetailInterestingPosts(posts, data);
+      }
     });
   }
 
@@ -44,6 +44,10 @@ class DetailInteresting extends PureComponent {
     this.setState({ posts: posts.filter(post => post.id !== data.id) });
 
     return true;
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   render() {

@@ -13,6 +13,11 @@ class ListPage extends Component {
     const { noFilterResultMsg, match } = this.props;
     const { params: initialParams } = match;
 
+    store.dispatch({
+      type: 'UPDATE_EVENT_LIST',
+      list: [],
+    });
+
     updateFilterStore(initialParams);
 
     return request.getListPosts(initialParams).then((posts) => {
