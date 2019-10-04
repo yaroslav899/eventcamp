@@ -5,6 +5,7 @@ import store from '../../store';
 import { request } from '../../api';
 import CityField from './CityField';
 import CategoryField from './CategoryField';
+import TopicField from './TopicField';
 import { categories, cities, defaultTopic } from '../../fixtures';
 import { filterRecources } from '../../resources';
 import { globalRecources } from '../../resources/global';
@@ -133,18 +134,7 @@ class SelectFilter extends Component {
       <div className="event-filter-option">
         <CityField changeHistory={true} />
         <CategoryField />
-        <p>{filterRecources.topic}</p>
-        <Select
-          name="form-field-topics"
-          label="topics"
-          options={topics.map(topic => ({
-            label: topic.name,
-            value: topic.url,
-            type: 'topics',
-          }))}
-          value={currentTheme}
-          onChange={this.changeTopic}
-        />
+        <TopicField />
       </div>
     );
   }

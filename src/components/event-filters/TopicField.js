@@ -1,6 +1,5 @@
 import React, { PureComponent, Fragment } from 'react';
 import Select from 'react-select';
-import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import store from '../../store';
 import { request } from '../../api';
@@ -9,17 +8,14 @@ import { filterRecources } from '../../resources';
 import { globalRecources } from '../../resources/global';
 import { getHistoryUrl } from '../../helper';
 
-class TopicField extends Component {
+class TopicField extends PureComponent {
   state = {
     topics: defaultTopic,
     currentTheme: '',
   };
 
   componentDidMount() {
-    const {
-      categories: category,
-      topics: topic,
-    } = this.props;
+    const { categories: category, topics: topic } = this.props;
 
     if (category) {
       this.setState({
@@ -29,10 +25,20 @@ class TopicField extends Component {
     }
   }
 
+  componentDidUpdate(prevProps, prevState, snapshot) {
+      const { categories: category, topics: topic } = this.props;
+
+      if (category) {
+        this.setState({
+          topics: categories.find(cat => cat.id === category).subcat,
+          currentTheme: topic || '',
+        });
+      }
+  }
+
   changeTopic = (selection) => {
     this.changeSelection('topics', selection);
     this.setState({ currentTheme: selection || defaultTopic });
-    this.addToHistory('topics', selection);
   };
 
   changeSelection = (type, selection) => {
@@ -49,42 +55,12 @@ class TopicField extends Component {
           list: posts,
         });
 
+        store.dispatch({
+          type: 'UPDATE_FILTER_TOPIC',
+          cities: params['topics'],
+        });
+
         return params;
-      })
-      .then((data) => {
-        const filterOption = Object.keys(data)[0];
-        switch (filterOption) {
-          case 'categories':
-            store.dispatch({
-              type: 'UPDATE_FILTER_CATEGORY',
-              categories: data[filterOption],
-            });
-
-            const activeCategory = categories.find(cat => cat.id === data[filterOption]);
-
-            if (activeCategory) {
-              this.setState({ topics: activeCategory.subcat });
-            }
-
-            break;
-          case 'cities':
-            store.dispatch({
-              type: 'UPDATE_FILTER_CITY',
-              cities: data[filterOption],
-            });
-            break;
-          case 'topics':
-            store.dispatch({
-              type: 'UPDATE_FILTER_TOPIC',
-              topics: data[filterOption],
-            });
-            break;
-          default:
-            console.log("Error. Filter option wasn't found");
-            break;
-        }
-
-        return data;
       });
   };
 
@@ -121,4 +97,4 @@ const mapStateToProps = (storeData) => {
   };
 };
 
-export default withRouter(connect(mapStateToProps)(SelectFilter));
+export default connect(mapStateToProps)(TopicField);
