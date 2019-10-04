@@ -241,6 +241,18 @@ header .authBlock {
 }
 
 /**
+*  Main page right panel
+*/
+
+div.home-page .events_filter-wrapper>a{
+  width:100%;
+  display: inline-block;
+  text-align: center;
+}
+div.home-page .events_filter-wrapper>a:hover{
+  background-color: #f6c806;
+}
+/**
 *   Event pagination area
 */
 .events-pagination__item {
@@ -311,10 +323,12 @@ header .authBlock {
   background: url(/img/locator.png) no-repeat left center;
   padding: 0 0 0 15%;
   margin: 0 0 5px 0;
+  max-height: 30px;
+  overflow: hidden;
 }
 .last-post-list .last-post-date {
   background: url(/img/date.png) no-repeat left center;
-  padding: 0 0 0 15%;
+  padding: 2px 0 2px 15%;
 }
 .last-post-list .last-post-tags{
   margin: 10px 0 0 0;
@@ -539,6 +553,7 @@ header .authBlock {
   background: url(/img/locator.png) no-repeat left center;
   font-size: 0.7em;
   max-height: 40px;
+  max-width:180px;
   overflow: hidden;
 }
 .events-item__date {

@@ -1,12 +1,39 @@
 import store from '../store';
 import { getCookie, deleteCookie } from '../_cookie';
 import { parseJSON } from './json';
-import { categories, cities } from '../fixtures';
+import { categories, cities, defaultTopic } from '../fixtures';
 import { imageUrlRecources } from '../resources/url';
 
 export const getValueFromParams = (values = [], id, searchParam, exitParam) => {
   const value = values.find(item => item[searchParam] === String(id));
   return value ? value[exitParam] : '';
+};
+
+export const getHistoryUrl = (type, selection, topics) => {
+  const status = getFilterState();
+
+  let data;
+  switch (type) {
+    case 'categories':
+      data = { name: 'categories', values: categories };
+      break;
+    case 'cities':
+      data = { name: 'cities', values: cities };
+      break;
+    case 'topics':
+      data = { name: 'topics', values: topics };
+      break;
+    default:
+      console.log("Error. Type wasn't found");
+      return;
+  }
+
+  status[data.name] = getValueFromParams(data.values, selection ? selection.value : '', 'id', 'url');
+
+  const selectCity = status.cities.length ? status.cities : 'any';
+  const url = `/events/${selectCity}/${status.categories}`;
+
+  return url;
 };
 
 export const updateFilterStore = (initialParams) => {
@@ -91,3 +118,11 @@ export const setProfileData = (data) => {
 
   return profileData;
 };
+
+const getFilterState = () => {
+  const { categories: catFilter, cities: cityFilter } = store.getState().filterState;
+  const categoryStatus = catFilter ? getValueFromParams(categories, catFilter[0], 'id', 'url') : '';
+  const cityStatus = cityFilter ? getValueFromParams(cities, cityFilter[0], 'id', 'url') : '';
+
+  return { categories: categoryStatus, cities: cityStatus };
+}
