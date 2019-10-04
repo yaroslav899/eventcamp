@@ -12,10 +12,11 @@ import { getHistoryUrl } from '../../helper';
 class CategoryField extends PureComponent {
   changeCategory = (selection) => {
     const { history } = this.props;
+    const url = getHistoryUrl('categories', selection, '');
 
     this.changeSelection('categories', selection);
 
-    history.push(getHistoryUrl('categories', selection, ''));
+    history.push(url);
   };
 
   changeSelection = (type, selection) => {
@@ -36,11 +37,11 @@ class CategoryField extends PureComponent {
           type: 'UPDATE_FILTER_CATEGORY',
           categories: params['categories'],
         });
- 
+
         return params;
       });
   };
-  
+
   render() {
     const { categories: catFilter } = this.props;
 

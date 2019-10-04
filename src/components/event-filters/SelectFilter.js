@@ -1,135 +1,10 @@
 import React, { Component } from 'react';
-import Select from 'react-select';
-import { connect } from 'react-redux';
-import store from '../../store';
-import { request } from '../../api';
 import CityField from './CityField';
 import CategoryField from './CategoryField';
 import TopicField from './TopicField';
-import { categories, cities, defaultTopic } from '../../fixtures';
-import { filterRecources } from '../../resources';
-import { globalRecources } from '../../resources/global';
-import { getValueFromParams } from '../../helper';
 
 class SelectFilter extends Component {
-  state = {
-    topics: defaultTopic,
-    currentTheme: '',
-  };
-
-  componentDidMount() {
-    const {
-      categories: category,
-      topics: topic,
-    } = this.props;
-
-    if (category) {
-      this.setState({
-        topics: categories.find(cat => cat.id === category).subcat,
-        currentTheme: topic || '',
-      });
-    }
-  }
-
-  changeCategory = (selection) => {
-    this.changeSelection('categories', selection);
-    this.setState({ currentTheme: defaultTopic });
-    this.addToHistory('categories', selection);
-  };
-
-  changeTopic = (selection) => {
-    this.changeSelection('topics', selection);
-    this.setState({ currentTheme: selection || defaultTopic });
-    this.addToHistory('topics', selection);
-  };
-
-  changeSelection = (type, selection) => {
-    let params = {};
-    if (!selection) {
-      params = { [type]: '' };
-    } else {
-      params = { [selection.type]: selection ? selection.value : '' };
-    }
-
-    return request.getListPosts(params)
-      .then((posts) => {
-        if (!posts.length) {
-          posts.push({ empty: globalRecources.noFilterResult });
-        }
-
-        store.dispatch({
-          type: 'UPDATE_EVENT_LIST',
-          list: posts,
-        });
-
-        return params;
-      })
-      .then((data) => {
-        const filterOption = Object.keys(data)[0];
-        switch (filterOption) {
-          case 'categories':
-            store.dispatch({
-              type: 'UPDATE_FILTER_CATEGORY',
-              categories: data[filterOption],
-            });
-
-            const activeCategory = categories.find(cat => cat.id === data[filterOption]);
-
-            if (activeCategory) {
-              this.setState({ topics: activeCategory.subcat });
-            }
-            break;
-          case 'topics':
-            store.dispatch({
-              type: 'UPDATE_FILTER_TOPIC',
-              topics: data[filterOption],
-            });
-            break;
-          default:
-            console.log("Error. Filter option wasn't found");
-            break;
-        }
-
-        return data;
-      });
-  };
-
-  addToHistory = (type, selection) => {
-    const { topics } = this.state;
-    let data;
-    switch (type) {
-      case 'categories':
-        data = { name: 'categories', values: categories };
-        break;
-      case 'topics':
-        data = { name: 'topics', values: topics };
-        break;
-      default:
-        console.log("Error. Type wasn't found");
-        return;
-    }
-    //  adding history
-    const {
-      categories: catFilter,
-      cities: cityFilter,
-    } = this.props;
-    const status = {
-      categories: catFilter ? getValueFromParams(categories, catFilter[0], 'id', 'url') : '',
-      cities: cityFilter ? getValueFromParams(cities, cityFilter[0], 'id', 'url') : '',
-    };
-
-    status[data.name] = getValueFromParams(data.values, selection ? selection.value : '', 'id', 'url');
-
-    const selectCity = status.cities.length ? status.cities : 'any';
-    const url = `/events/${selectCity}/${status.categories}`;
-
-    history.pushState(window.location.origin, '', url);
-  }
-
   render() {
-    const { categories: catFilter } = this.props;
-    const { topics, currentTheme } = this.state;
-
     return (
       <div className="event-filter-option">
         <CityField changeHistory={true} />
@@ -140,13 +15,4 @@ class SelectFilter extends Component {
   }
 }
 
-const mapStateToProps = (storeData) => {
-  return {
-    posts: storeData.filterState.list,
-    categories: storeData.filterState.categories,
-    topics: storeData.filterState.topics,
-    cities: storeData.filterState.cities,
-  };
-};
-
-export default connect(mapStateToProps)(SelectFilter);
+export default SelectFilter;

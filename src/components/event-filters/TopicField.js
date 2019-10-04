@@ -6,7 +6,6 @@ import { request } from '../../api';
 import { categories, defaultTopic } from '../../fixtures';
 import { filterRecources } from '../../resources';
 import { globalRecources } from '../../resources/global';
-import { getHistoryUrl } from '../../helper';
 
 class TopicField extends PureComponent {
   state = {
@@ -15,25 +14,36 @@ class TopicField extends PureComponent {
   };
 
   componentDidMount() {
-    const { categories: category, topics: topic } = this.props;
+    const { categories: categoryID, topics: topic } = this.props;
 
-    if (category) {
-      this.setState({
-        topics: categories.find(cat => cat.id === category).subcat,
-        currentTheme: topic || '',
-      });
+    if (!categoryID) {
+      return false;
     }
+
+    const activeCategory = categories.find(cat => cat.id === categoryID);
+    const categoryTopics = activeCategory.subcat;
+
+    this.setState({
+      topics: categoryTopics,
+      currentTheme: topic || '',
+    });
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-      const { categories: category, topics: topic } = this.props;
+  componentDidUpdate(prevProps) {
+      const { categories: prevCategoryID } = prevProps;
+      const { categories: categoryID, topics: topic } = this.props;
 
-      if (category) {
-        this.setState({
-          topics: categories.find(cat => cat.id === category).subcat,
-          currentTheme: topic || '',
-        });
+      if (prevCategoryID === categoryID || !categoryID) {
+        return false;
       }
+
+      const activeCategory = categories.find(cat => cat.id === categoryID);
+      const categoryTopics = activeCategory.subcat;
+
+      this.setState({
+        topics: categoryTopics,
+        currentTheme: topic || '',
+      });
   }
 
   changeTopic = (selection) => {
@@ -57,7 +67,7 @@ class TopicField extends PureComponent {
 
         store.dispatch({
           type: 'UPDATE_FILTER_TOPIC',
-          cities: params['topics'],
+          topics: params['topics'],
         });
 
         return params;
@@ -65,10 +75,6 @@ class TopicField extends PureComponent {
   };
 
   render() {
-    const {
-      categories: catFilter,
-      cities: cityFilter,
-    } = this.props;
     const { topics, currentTheme } = this.state;
 
     return (

@@ -16,7 +16,8 @@ class CityField extends PureComponent {
     this.changeSelection('cities', selection);
 
     if (changeHistory) {
-      history.push(getHistoryUrl('cities', selection, ''));
+      const url = getHistoryUrl('cities', selection, '');
+      history.push(url);
     }
   };
 
