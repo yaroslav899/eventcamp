@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Router } from 'react-router';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import ReactGA from 'react-ga';
 import { createBrowserHistory } from 'history';
 import store from './store';
 import { getUserData } from './helper';
@@ -21,6 +22,16 @@ import EditEvent from './components/profile/EditEvent';
 import NoMatch404 from './components/NoMatch404';
 import PrivateRoute from './components/hoc/PrivateRoute';
 
+const history = createBrowserHistory();
+
+ReactGA.initialize('UA-141687240-1');
+
+// Initialize google analytics page view tracking
+history.listen(location => {
+  ReactGA.set({ page: location.pathname });
+  ReactGA.pageview(location.pathname);
+});
+
 class App extends Component {
   componentDidMount() {
     getUserData();
@@ -29,7 +40,7 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <Router history={createBrowserHistory()}>
+        <Router history={history}>
           <Layout>
             <Switch>
               <Route path="/" component={MainPage} exact />

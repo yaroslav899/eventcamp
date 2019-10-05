@@ -1047,8 +1047,8 @@ div.right-side div.detail-interesting ul li div.samePost-info-rightside div:firs
   .events_filter-wrapper{
     order:1;
   }
-  .event-filter-option{
-    padding: 0;
+  .event-filter-option {
+    padding: 10px;
     background-color: transparent;
     border: 0;
     border-radius: 0;
@@ -1095,6 +1095,7 @@ div.right-side div.detail-interesting ul li div.samePost-info-rightside div:firs
     float: left;
     clear: none;
     width: 60%;
+    max-height: 35px;
   }
   .events-item__date {
     padding: 0 0 0 20px;
