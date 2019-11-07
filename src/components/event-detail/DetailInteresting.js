@@ -63,6 +63,7 @@ class DetailInteresting extends PureComponent {
         title: { rendered: postTitle },
         acf: {
           picture,
+          picture_url,
           price = '',
           currency = '',
           cities: postCity,
@@ -78,7 +79,7 @@ class DetailInteresting extends PureComponent {
         <NavLink to={eventUrl}>
           <div className="row">
             <div className="col-12">
-              <img src={picture || noPhotoUrl} alt={postTitle} />
+              <img src={picture || picture_url || noPhotoUrl} alt={postTitle} />
               <div className="samePost-info-rightside row">
                 <div className="col-7" dangerouslySetInnerHTML={createMarkupText(postTitle)} />
                 <EventPrice className="text-right col-5" price={price} currency={currency} />
