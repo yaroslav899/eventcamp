@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import store from '../../store';
 import { request } from '../../api';
@@ -8,7 +8,7 @@ import Loader from '../global/Loader';
 import { updateFilterStore } from '../../helper';
 import { globalRecources } from '../../resources/global';
 
-class ListPage extends Component {
+class ListPage extends PureComponent {
   componentDidMount() {
     const { noFilterResultMsg, match } = this.props;
     const { params: initialParams } = match;
@@ -64,8 +64,7 @@ class ListPage extends Component {
 }
 
 const mapStateToProps = storeData => {
-  return { posts: storeData.filterState.list };
-
+  return { posts: storeData.filterState.list};
 };
 
 ListPage.defaultProps = { noFilterResultMsg: globalRecources.noFilterResult };

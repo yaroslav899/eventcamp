@@ -1,7 +1,12 @@
 import React from 'react';
 
 const Modal = (props) => {
-  const { title, body, footer, toggleModal } = props;
+  const {
+    toggleModal,
+    modalTitle,
+    modalBody,
+    modalFooter,
+  } = props;
 
   const closeModal = (e) => {
     e.preventDefault();
@@ -13,17 +18,17 @@ const Modal = (props) => {
       <div className="modal-dialog" role="document">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title">{title}</h5>
+            <h5 className="modal-title">{modalTitle}</h5>
             <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={closeModal}>
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div className="modal-body">
-            <p>{body}</p>
+            <p>{modalBody}</p>
           </div>
-          <div className="modal-footer">
-            {footer}
-          </div>
+          { modalFooter && <div className="modal-footer">
+            {modalFooter}
+          </div> }
         </div>
       </div>
     </div>

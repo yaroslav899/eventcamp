@@ -1,13 +1,10 @@
 import React, { PureComponent, Fragment } from 'react';
-import { NavLink } from 'react-router-dom';
-import EventLocation from '../event-global/EventLocation';
-import EventDate from '../event-global/EventDate';
-import EventPrice from '../event-global/EventPrice';
+import DetailInterestingEvent from './views/DetailInterestingEvent';
+import DetailInterestingView from './views/DetailInterestingView';
 import store from '../../store';
 import { request } from '../../api';
-import { getValueFromParams, createMarkupText } from '../../helper';
+import { getValueFromParams } from '../../helper';
 import { categories } from '../../fixtures';
-import { detailRecources } from '../../resources';
 import { imageUrlRecources } from '../../resources/url';
 
 class DetailInteresting extends PureComponent {
@@ -56,56 +53,46 @@ class DetailInteresting extends PureComponent {
     if (!posts.length) return <Fragment />;
 
     const { maybeInteresting } = this.props;
-    const samePosts = posts.map((samePost) => {
+    const similarEvents = posts.map((similarEvent) => {
       const {
-        id: postID,
+        id: eventID,
         categories: postCategories = ['it'],
-        title: { rendered: postTitle },
+        title: { rendered: eventTitle },
         acf: {
           picture,
           picture_url,
-          price = '',
-          currency = '',
-          cities: postCity,
-          location,
-          dateOf,
+          price : eventPrice = '',
+          currency : eventCurrency = '',
+          cities: eventCity,
+          location: eventLocation,
+          dateOf: eventDate,
         },
-      } = samePost;
-      const category = getValueFromParams(categories, postCategories[0], 'id', 'url');
-      const eventUrl = `/events/${postCity}/${category}/${postID}`;
+      } = similarEvent;
+      const eventCategory = getValueFromParams(categories, postCategories[0], 'id', 'url');
+      const eventUrl = `/events/${eventCity}/${eventCategory}/${eventID}`;
       const { noPhotoUrl } = this.props;
+      const eventImgUrl = picture || picture_url || noPhotoUrl;
 
-      return <li key={postID}>
-        <NavLink to={eventUrl}>
-          <div className="row">
-            <div className="col-12">
-              <img src={picture || picture_url || noPhotoUrl} alt={postTitle} />
-              <div className="samePost-info-rightside row">
-                <div className="col-7" dangerouslySetInnerHTML={createMarkupText(postTitle)} />
-                <EventPrice className="text-right col-5" price={price} currency={currency} />
-                <EventLocation className="col-7" city={postCity} address={location} />
-                <EventDate className="text-right col-5" date={dateOf} />
-              </div>
-            </div>
-          </div>
-        </NavLink>
-      </li>;
+      return <DetailInterestingEvent
+               key={eventID}
+               eventID={eventID}
+               eventUrl={eventUrl}
+               eventImgUrl={eventImgUrl}
+               eventTitle={eventTitle}
+               eventPrice={eventPrice}
+               eventCurrency={eventCurrency}
+               eventCity={eventCity}
+               eventLocation={eventLocation}
+               eventDate={eventDate}
+      />
     });
 
-    return (
-      <div className="detail-interesting">
-        <h4>{maybeInteresting}</h4>
-        <ul>
-          {samePosts}
-        </ul>
-      </div>
-    );
+    return <DetailInterestingView similarEvents={similarEvents} />;
   }
 }
 
 DetailInteresting.defaultProps = {
   noPhotoUrl: imageUrlRecources.noPhoto,
-  maybeInteresting: detailRecources.maybeInteresting,
 };
 
 export default DetailInteresting;

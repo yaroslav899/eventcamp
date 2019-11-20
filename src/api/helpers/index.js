@@ -28,7 +28,6 @@ export const getRequestUrl = (param) => {
     searchPhrase: (filterOption === 'searchPhrase') ? param.searchPhrase : prevFilterState.searchPhrase,
     from: (filterOption === 'from') ? moment(param.from).format('YYYY-MM-DDT00:00:00') : dateFrom,
     to: (filterOption === 'from') ? moment(param.to).format('YYYY-MM-DDT00:00:00') : dateTo,
-    page: (filterOption === 'page') ? param.page : '1',
   };
 
   const city = cities.find(item => item.id === query.cities);
@@ -43,7 +42,9 @@ export const getRequestUrl = (param) => {
   }
   if (query.to && query.from !== query.to) url = `${url}&filter[meta_query][2][key]=dateOf&filter[meta_query][2][value]=${query.to}&filter[meta_query][2][compare]=<`;
   if (query.topics) url = `${url}&filter[meta_query][3][key]=topic&filter[meta_query][3][value]=${query.topics}`;
-  if (query.page) url = `${url}&page=${query.page}`;
+
+  url = `${url}&page=${store.getState().totalPages.activePageNumber}`;
+
   return url;
 };
 

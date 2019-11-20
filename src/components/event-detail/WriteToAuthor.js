@@ -1,10 +1,12 @@
 import React from 'react';
 import { detailRecources } from '../../resources';
 
-const WriteToAuthor = (props) => (
+const WriteToAuthor = ({ writeAuthor, ...props }) => (
   <a {...props}>
-    {detailRecources.writeAuthor}
+    {writeAuthor}
   </a>
 );
+
+WriteToAuthor.defaultProps = { writeAuthor: detailRecources.writeAuthor };
 
 export default WriteToAuthor;

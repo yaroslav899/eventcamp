@@ -13,10 +13,11 @@ class PaginationContainer extends PureComponent {
   };
 
   componentDidMount() {
-    const { activePage } = this.state;
-    const { totalPages } = this.props;
+    const { totalPages, activePageNumber, firstPage } = this.props;
 
-    return this.updatePaginationPages(totalPages, activePage);
+    this.setState({ activePage: +activePageNumber });
+
+    return this.updatePaginationPages(totalPages);
   }
 
   componentDidUpdate(prevProps, prevState, totalPages) {
@@ -24,7 +25,7 @@ class PaginationContainer extends PureComponent {
       const { firstPage } = prevProps;
       this.setState({ activePage: firstPage });
 
-      return this.updatePaginationPages(totalPages, firstPage);
+      return this.updatePaginationPages(totalPages);
     }
 
     return null;
@@ -41,9 +42,9 @@ class PaginationContainer extends PureComponent {
     return null;
   }
 
-  updatePaginationPages = (totalPages, activePage) => {
+  updatePaginationPages = (totalPages) => {
     const { maxPageNumber } = this.props;
-    const updatedTotalPages = [...totalPages].splice(activePage - 1, maxPageNumber);
+    const updatedTotalPages = [...totalPages].splice(0, maxPageNumber);
 
     this.setState({
       updatedTotalPages,
@@ -54,9 +55,12 @@ class PaginationContainer extends PureComponent {
   }
 
   handlePaginationClick = (page) => {
-    const initialParams = { page };
+    store.dispatch({
+      type: 'UPDATE_ACTIVE_PAGE',
+      activePageNumber: page,
+    });
 
-    return this.updateEventList(initialParams);
+    return this.updateEventList({ page });
   }
 
   goToPreviousPage = () => {
@@ -68,6 +72,11 @@ class PaginationContainer extends PureComponent {
     }
 
     const page = activePage - 1;
+
+    store.dispatch({
+      type: 'UPDATE_ACTIVE_PAGE',
+      activePageNumber: page,
+    });
 
     return this.updateEventList({ page });
   }
@@ -81,6 +90,11 @@ class PaginationContainer extends PureComponent {
     }
 
     const page = +activePage + 1;
+
+    store.dispatch({
+      type: 'UPDATE_ACTIVE_PAGE',
+      activePageNumber: page,
+    });
 
     return this.updateEventList({ page });
   }
@@ -178,7 +192,10 @@ class PaginationContainer extends PureComponent {
 }
 
 const mapTotalPagesToProps = storeData => {
-  return { totalPages: storeData.totalPages.count };
+  return {
+    totalPages: storeData.totalPages.count,
+    activePageNumber: storeData.totalPages.activePageNumber,
+  };
 };
 
 PaginationContainer.defaultProps = {

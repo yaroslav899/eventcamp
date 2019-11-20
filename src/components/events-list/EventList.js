@@ -1,17 +1,12 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
-import EventLocation from '../event-global/EventLocation';
-import EventDate from '../event-global/EventDate';
-import EventPrice from '../event-global/EventPrice';
-import EventTags from '../event-global/EventTags';
+import EventView from './views/EventView';
 import Modal from '../global/Modal';
-import Button from '../global/Button';
 import GoogleCalendar from '../event-detail/GoogleCalendar';
 import { request } from '../../api';
 import store from '../../store';
 import { setCookie } from '../../_cookie';
-import { getValueFromParams, createMarkupText } from '../../helper';
+import { getValueFromParams } from '../../helper';
 import { categories } from '../../fixtures';
 import { imageUrlRecources } from '../../resources/url';
 import { globalRecources } from '../../resources/global';
@@ -99,43 +94,54 @@ class EventList extends PureComponent {
       actionWrapClass,
       interestedTitle,
       nonRegistredTitle,
-      moreInfoButton,
-      interestedButton,
+      noPhotoUrl,
     } = this.props;
+    const {
+      id: eventID,
+      categories: eventCategories = ['it'],
+      title: { rendered: eventTitle },
+      excerpt: { rendered: eventShortDescription },
+      acf: {
+        picture,
+        picture_url,
+        price : eventPrice = '',
+        currency : eventCurrency = '',
+        cities: eventCity,
+        location: eventLocation,
+        dateOf: eventDate,
+        tags: eventTags,
+      },
+    } = event;
     const { isAuthorized, showModalBox, isSubscribed } = this.state;
-    const category = getValueFromParams(categories, event.categories[0], 'id', 'url');
-    const modalBody = isAuthorized ? interestedTitle : nonRegistredTitle;
-    const url = `/events/${event.acf.cities}/${category}/${event.id}`;
+    const eventCategory = getValueFromParams(categories, eventCategories[0], 'id', 'url');
+    const eventUrl = `/events/${eventCity}/${eventCategory}/${eventID}`;
+    const eventImgUrl = picture || picture_url || noPhotoUrl;
 
     return (
       <div className="row">
-        <NavLink to={url} className={imgWrapClass}>
-          <img src={event.acf.picture || event.acf.picture_url || imageUrlRecources.noPhoto} alt={event.title.rendered} />
-        </NavLink>
-        <div className={descrWrapClass}>
-          <NavLink to={url} className="events-item__title">
-            <span dangerouslySetInnerHTML={createMarkupText(event.title.rendered)} />
-          </NavLink>
-          <div className="events-item__description" dangerouslySetInnerHTML={createMarkupText(event.excerpt.rendered)} />
-          <EventTags className="events-item__tags events-item-tags" tags={event.acf.tags} />
-        </div>
-        <div className={actionWrapClass}>
-          <EventPrice className="events-item__price" price={event.acf.price} currency={event.acf.currency} />
-          <EventLocation className="events-item__location" city={event.acf.cities} address={event.acf.location} />
-          <EventDate className="events-item__date" date={event.acf.dateOf} />
-          <div className="events-item__action events-item-action">
-            <Button text={moreInfoButton} to={url} className="events-item-action__button" />
-            <span className={`events-item-action__button ${isSubscribed && 'action-button__active'}`} onClick={this.subscribe}>
-              {interestedButton}
-            </span>
-          </div>
-        </div>
+        <EventView
+          eventUrl={eventUrl}
+          imgWrapClass={imgWrapClass}
+          eventImgUrl={eventImgUrl}
+          eventTitle={eventTitle}
+          descrWrapClass={descrWrapClass}
+          eventShortDescription={eventShortDescription}
+          eventTags={eventTags}
+          actionWrapClass={actionWrapClass}
+          eventPrice={eventPrice}
+          eventCurrency={eventCurrency}
+          eventCity={eventCity}
+          eventLocation={eventLocation}
+          eventDate={eventDate}
+          isSubscribed={isSubscribed}
+          subscribeHandler={this.subscribe}
+        />
         {showModalBox
           && <Modal
             toggleModal={this.toggleModal}
-            title={event.title.rendered}
-            body={modalBody}
-            footer={isAuthorized ? <GoogleCalendar data={event} /> : ''}
+            modalTitle={eventTitle}
+            modalBody={isAuthorized ? interestedTitle : nonRegistredTitle}
+            modalFooter={isAuthorized ? <GoogleCalendar data={event} /> : false}
           />
         }
       </div>
@@ -146,8 +152,7 @@ class EventList extends PureComponent {
 EventList.defaultProps = {
   interestedTitle: globalRecources.interestedTitle,
   nonRegistredTitle: globalRecources.nonRegistred,
-  moreInfoButton: globalRecources.moreInfo,
-  interestedButton: globalRecources.interestingCTA,
+  noPhotoUrl: imageUrlRecources.noPhoto,
 };
 
 const mapStateToProps = (storeData) => {

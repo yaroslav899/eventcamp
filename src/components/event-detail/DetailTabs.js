@@ -14,15 +14,15 @@ const DetailTabs = (props) => {
   const {
     data: {
       acf: {
-        cities: cityUrl,
-        location,
+        cities: eventCity,
+        location: eventLocation,
       } = {},
       content: { rendered } = {},
     } = {},
     descriptionTabName,
     howToGetTabName,
   } = props;
-  const address = `${cityUrl}, ${location}`;
+  const address = `${eventCity}, ${eventLocation}`;
 
   return (
     <Tabs>
@@ -39,7 +39,7 @@ const DetailTabs = (props) => {
             <GoogleMap address={address} />
           </div>
           <div className="col-5">
-            <EventLocation city={cityUrl} address={location} />
+            <EventLocation city={eventCity} address={eventLocation} />
           </div>
         </div>
       </TabPanel>

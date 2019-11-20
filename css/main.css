@@ -507,7 +507,7 @@ div.home-page .events_filter-wrapper>a:hover{
 }
 .events__item img{
   width: 100%;
-  height: 145px;
+  min-height: 145px;
   border-radius: 5px 0 0 5px;
 }
 .events-item__title {
