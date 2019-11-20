@@ -94,14 +94,12 @@ class EventDetail extends PureComponent {
       nonRegistredTitle,
     } = this.props;
     const {
-      id: eventID,
-      categories: postCategories = ['it'],
       title: { rendered: eventTitle },
       acf: {
         picture,
         picture_url,
-        price : eventPrice = '',
-        currency : eventCurrency = '',
+        price: eventPrice = '',
+        currency: eventCurrency = '',
         cities: eventCity,
         location: eventLocation,
         dateOf: eventDate,

@@ -30,20 +30,20 @@ class TopicField extends PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-      const { categories: prevCategoryID } = prevProps;
-      const { categories: categoryID, topics: topic } = this.props;
+    const { categories: prevCategoryID } = prevProps;
+    const { categories: categoryID, topics: topic } = this.props;
 
-      if (prevCategoryID === categoryID || !categoryID) {
-        return false;
-      }
+    if (prevCategoryID === categoryID || !categoryID) {
+      return false;
+    }
 
-      const activeCategory = categories.find(cat => cat.id === categoryID);
-      const categoryTopics = activeCategory.subcat;
+    const activeCategory = categories.find(cat => cat.id === categoryID);
+    const categoryTopics = activeCategory.subcat;
 
-      this.setState({
-        topics: categoryTopics,
-        currentTheme: topic || '',
-      });
+    this.setState({
+      topics: categoryTopics,
+      currentTheme: topic || '',
+    });
   }
 
   changeTopic = (selection) => {
@@ -53,6 +53,7 @@ class TopicField extends PureComponent {
 
   changeSelection = (type, selection) => {
     const params = !selection ? { [type]: '' } : { [selection.type]: selection ? selection.value : '' };
+    params.page = '1';
 
     return request.getListPosts(params)
       .then((posts) => {

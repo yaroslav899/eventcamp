@@ -21,6 +21,7 @@ class CategoryField extends PureComponent {
 
   changeSelection = (type, selection) => {
     const params = !selection ? { [type]: '' } : { [selection.type]: selection ? selection.value : '' };
+    params.page='1';
 
     return request.getListPosts(params)
       .then((posts) => {

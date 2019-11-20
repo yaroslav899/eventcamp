@@ -43,7 +43,7 @@ export const getRequestUrl = (param) => {
   if (query.to && query.from !== query.to) url = `${url}&filter[meta_query][2][key]=dateOf&filter[meta_query][2][value]=${query.to}&filter[meta_query][2][compare]=<`;
   if (query.topics) url = `${url}&filter[meta_query][3][key]=topic&filter[meta_query][3][value]=${query.topics}`;
 
-  url = `${url}&page=${store.getState().totalPages.activePageNumber}`;
+  url = `${url}&page=${param.page || store.getState().totalPages.activePageNumber}`;
 
   return url;
 };

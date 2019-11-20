@@ -61,8 +61,8 @@ class DetailInteresting extends PureComponent {
         acf: {
           picture,
           picture_url,
-          price : eventPrice = '',
-          currency : eventCurrency = '',
+          price: eventPrice = '',
+          currency: eventCurrency = '',
           cities: eventCity,
           location: eventLocation,
           dateOf: eventDate,
@@ -74,16 +74,16 @@ class DetailInteresting extends PureComponent {
       const eventImgUrl = picture || picture_url || noPhotoUrl;
 
       return <DetailInterestingEvent
-               key={eventID}
-               eventID={eventID}
-               eventUrl={eventUrl}
-               eventImgUrl={eventImgUrl}
-               eventTitle={eventTitle}
-               eventPrice={eventPrice}
-               eventCurrency={eventCurrency}
-               eventCity={eventCity}
-               eventLocation={eventLocation}
-               eventDate={eventDate}
+        key={eventID}
+        eventID={eventID}
+        eventUrl={eventUrl}
+        eventImgUrl={eventImgUrl}
+        eventTitle={eventTitle}
+        eventPrice={eventPrice}
+        eventCurrency={eventCurrency}
+        eventCity={eventCity}
+        eventLocation={eventLocation}
+        eventDate={eventDate}
       />
     });
 

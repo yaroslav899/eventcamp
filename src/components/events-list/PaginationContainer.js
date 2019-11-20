@@ -13,19 +13,16 @@ class PaginationContainer extends PureComponent {
   };
 
   componentDidMount() {
-    const { totalPages, activePageNumber, firstPage } = this.props;
+    const { totalPages, activePageNumber } = this.props;
 
-    this.setState({ activePage: +activePageNumber });
-
-    return this.updatePaginationPages(totalPages);
+    return this.updatePagination(totalPages, +activePageNumber);
   }
 
   componentDidUpdate(prevProps, prevState, totalPages) {
     if (totalPages !== null) {
       const { firstPage } = prevProps;
-      this.setState({ activePage: firstPage });
 
-      return this.updatePaginationPages(totalPages);
+      return this.updatePagination(totalPages, firstPage);
     }
 
     return null;
@@ -42,11 +39,11 @@ class PaginationContainer extends PureComponent {
     return null;
   }
 
-  updatePaginationPages = (totalPages) => {
-    const { maxPageNumber } = this.props;
-    const updatedTotalPages = [...totalPages].splice(0, maxPageNumber);
+  updatePagination = (totalPages, activePage) => {
+    const updatedTotalPages = this.getTotalPages(totalPages, activePage);
 
     this.setState({
+      activePage,
       updatedTotalPages,
       lastPage: [...updatedTotalPages].pop(),
     });
@@ -101,13 +98,11 @@ class PaginationContainer extends PureComponent {
 
 
   updateEventList = (initialParams) => {
-    const { totalPages, maxPageNumber, startNumberRedrawPagination } = this.props;
+    const { totalPages, maxPageNumber } = this.props;
     const activePage = +initialParams.page;
-    const isCountPagesLessTotal = totalPages.length < maxPageNumber;
-    const startNumberSplice = isCountPagesLessTotal || (activePage < startNumberRedrawPagination) ? 0 : (activePage - 1);
-    const updatedTotalPages = [...totalPages].splice(startNumberSplice, maxPageNumber);
+    const updatedTotalPages = this.getTotalPages(totalPages, activePage);
 
-    if ((updatedTotalPages.length < maxPageNumber) && !isCountPagesLessTotal) {
+    if ((updatedTotalPages.length < maxPageNumber) && !(totalPages.length < maxPageNumber)) {
       let prevPage = activePage - 1;
 
       for (let i = 0; i < maxPageNumber; i++) {
@@ -134,6 +129,14 @@ class PaginationContainer extends PureComponent {
     });
 
     scrollToTop();
+  }
+
+  getTotalPages = (totalPages, activePage) => {
+    const { maxPageNumber, startNumberRedrawPagination } = this.props;
+    const isCountPagesLessTotal = totalPages.length < maxPageNumber;
+    const startNumberSplice = isCountPagesLessTotal || (activePage < startNumberRedrawPagination) ? 0 : (activePage - 1);
+
+    return [...totalPages].splice(startNumberSplice, maxPageNumber);
   }
 
   render() {

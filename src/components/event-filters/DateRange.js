@@ -33,6 +33,8 @@ class DateRange extends Component {
       range = {};
     }
 
+    range.page='1';
+
     return request.getListPosts(range)
       .then(posts => {
         if (!posts.length) {
@@ -59,7 +61,7 @@ class DateRange extends Component {
       },
     });
 
-    return request.getListPosts({})
+    return request.getListPosts({ page: '1' })
       .then(posts => {
         if (!posts.length) {
           const { noFilterResultMsg } = this.props;

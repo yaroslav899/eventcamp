@@ -15,8 +15,8 @@ class DetailPage extends Component {
   }
 
   componentDidUpdate(props) {
-    const { location: { pathname: pathName } = {}} = props;
-    const { location: { pathname: prevPathName } = {}} = this.props;
+    const { location: { pathname: pathName } = {} } = props;
+    const { location: { pathname: prevPathName } = {} } = this.props;
 
     if (pathName !== prevPathName) {
       return this.getPostDetail(this.props.match.params.id);
@@ -25,7 +25,7 @@ class DetailPage extends Component {
     return true;
   }
 
-  getPostDetail = (postID) => {
+  getPostDetail = () => {
     this.resetPostAmount();
 
     return request.getPostDetail(this.props.match.params.id)
@@ -68,9 +68,9 @@ class DetailPage extends Component {
         </Helmet>
         <DetailPageView event={post} date={date} dateDay={getDateDay} />
       </Fragment>
-    )
+    );
   }
-};
+}
 
 const mapStateToProps = (storeData) => {
   return { post: storeData.post.detail };
