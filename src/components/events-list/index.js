@@ -64,7 +64,7 @@ class ListPage extends PureComponent {
 }
 
 const mapStateToProps = storeData => {
-  return { posts: storeData.filterState.list};
+  return { posts: storeData.filterState.list };
 };
 
 ListPage.defaultProps = { noFilterResultMsg: globalRecources.noFilterResult };

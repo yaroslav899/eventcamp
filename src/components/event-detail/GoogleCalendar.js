@@ -1,9 +1,7 @@
 import React, { Fragment } from 'react';
 import { urlRecources, imageUrlRecources } from '../../resources/url';
 
-const GoogleCalendar = (props) => {
-  const { data, googleCalendarImage } = props;
-
+const GoogleCalendar = ({ data, googleCalendarImage }) => {
   if (!data) {
     return <Fragment />;
   }
@@ -29,8 +27,6 @@ const GoogleCalendar = (props) => {
   );
 };
 
-GoogleCalendar.defaultProps = {
-  googleCalendarImage: imageUrlRecources.google,
-};
+GoogleCalendar.defaultProps = { googleCalendarImage: imageUrlRecources.google };
 
 export default GoogleCalendar;

@@ -9,7 +9,7 @@ export const getValueFromParams = (values = [], id, searchParam, exitParam) => {
   return value ? value[exitParam] : '';
 };
 
-export const getHistoryUrl = (type, selection, topics) => {
+export const getHistoryUrl = (type, selection) => {
   const status = getFilterState();
 
   let data;
@@ -122,4 +122,4 @@ const getFilterState = () => {
   const cityStatus = cityFilter ? getValueFromParams(cities, cityFilter[0], 'id', 'url') : '';
 
   return { categories: categoryStatus, cities: cityStatus };
-}
+};

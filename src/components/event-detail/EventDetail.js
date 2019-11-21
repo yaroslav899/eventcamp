@@ -97,18 +97,17 @@ class EventDetail extends PureComponent {
       title: { rendered: eventTitle },
       acf: {
         picture,
-        picture_url,
+        picture_url: pictureUrl,
         price: eventPrice = '',
         currency: eventCurrency = '',
         cities: eventCity,
         location: eventLocation,
-        dateOf: eventDate,
         time: eventTime,
         tags: eventTags,
       },
-   } = event;
+    } = event;
     const { isAuthorized, isSubscribed, showModalBox } = this.state;
-    const eventImgUrl = picture || picture_url || noPhotoUrl;
+    const eventImgUrl = picture || pictureUrl || noPhotoUrl;
 
     return (
       <div className="row area-1">

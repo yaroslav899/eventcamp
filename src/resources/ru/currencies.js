@@ -1,9 +1,1 @@
-export const currencies = [{
-  name: 'UAH',
-},
-{
-  name: 'USD',
-},
-{
-  name: 'EUR',
-}];
+export const currencies = [{ name: 'UAH' }, { name: 'USD' }, { name: 'EUR' }];

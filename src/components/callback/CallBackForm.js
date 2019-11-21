@@ -20,15 +20,21 @@ class CallBackForm extends PureComponent {
     return (
       <form id="contactForm" method="post">
         <div className="form-row form-group">
-          <label className="col-sm-4" htmlFor="firstname">{firstNameValue} *</label>
+          <label className="col-sm-4" htmlFor="firstname">
+            {firstNameValue} *
+          </label>
           <input id="firstname" type="text" className="form-control col-sm-7" name="firstname" value={firstname} onChange={this.onChange} />
         </div>
         <div className="form-row form-group">
-          <label className="col-sm-4" htmlFor="email">{emailValue}</label>
+          <label className="col-sm-4" htmlFor="email">
+            {emailValue}
+          </label>
           <input id="email" type="email" className="form-control col-sm-7" name="email" value={email} onChange={this.onChange} />
         </div>
         <div className="form-row form-group">
-          <label className="col-sm-4" htmlFor="textDescription">{descriptionValue} *</label>
+          <label className="col-sm-4" htmlFor="textDescription">
+            {descriptionValue} *
+          </label>
           <textarea id="textDescription" className="form-control col-sm-7" cols="33" name="textDescription" rows="5" onChange={this.onChange} value={textDescription} />
         </div>
         <button className="btn btn-secondary submit" type="submit">

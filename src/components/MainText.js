@@ -15,7 +15,7 @@ class MainText extends PureComponent {
 
     const mainPageID = getValueFromParams(mainMenu, '/', 'url', 'id');
 
-    request.getPage(mainPageID).then((data) => {
+    return request.getPage(mainPageID).then((data) => {
       if (!data) {
         return null;
       }
@@ -24,6 +24,8 @@ class MainText extends PureComponent {
         type: 'UPDATE_MAIN_PAGE',
         main: data.content.rendered,
       });
+
+      return true;
     });
   }
 
@@ -43,9 +45,7 @@ class MainText extends PureComponent {
 }
 
 const mapStateToProps = (storeData) => {
-  return {
-    text: storeData.page.main,
-  };
+  return { text: storeData.page.main };
 };
 
 export default connect(mapStateToProps)(MainText);

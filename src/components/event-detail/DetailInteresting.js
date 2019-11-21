@@ -32,7 +32,13 @@ class DetailInteresting extends PureComponent {
 
         return this.updateDetailInterestingPosts(posts, data);
       }
+
+      return true;
     });
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   updateDetailInterestingPosts = (posts, data) => {
@@ -43,16 +49,11 @@ class DetailInteresting extends PureComponent {
     return true;
   }
 
-  componentWillUnmount() {
-    this._isMounted = false;
-  }
-
   render() {
     const { posts } = this.state;
 
     if (!posts.length) return <Fragment />;
 
-    const { maybeInteresting } = this.props;
     const similarEvents = posts.map((similarEvent) => {
       const {
         id: eventID,
@@ -60,7 +61,7 @@ class DetailInteresting extends PureComponent {
         title: { rendered: eventTitle },
         acf: {
           picture,
-          picture_url,
+          picture_url: pictureUrl,
           price: eventPrice = '',
           currency: eventCurrency = '',
           cities: eventCity,
@@ -71,7 +72,7 @@ class DetailInteresting extends PureComponent {
       const eventCategory = getValueFromParams(categories, postCategories[0], 'id', 'url');
       const eventUrl = `/events/${eventCity}/${eventCategory}/${eventID}`;
       const { noPhotoUrl } = this.props;
-      const eventImgUrl = picture || picture_url || noPhotoUrl;
+      const eventImgUrl = picture || pictureUrl || noPhotoUrl;
 
       return <DetailInterestingEvent
         key={eventID}
@@ -91,8 +92,6 @@ class DetailInteresting extends PureComponent {
   }
 }
 
-DetailInteresting.defaultProps = {
-  noPhotoUrl: imageUrlRecources.noPhoto,
-};
+DetailInteresting.defaultProps = { noPhotoUrl: imageUrlRecources.noPhoto };
 
 export default DetailInteresting;

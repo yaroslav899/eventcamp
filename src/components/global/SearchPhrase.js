@@ -14,6 +14,8 @@ class SearchPhrase extends PureComponent {
 
       return this.updateStoreValues(updatedSearchPharse);
     }
+
+    return true;
   }
 
   updateStoreValues = (searchPhrase) => {
@@ -41,9 +43,7 @@ class SearchPhrase extends PureComponent {
   removeSearchPhrase = (e) => {
     e.preventDefault();
 
-    this.props.history.push({
-      search: '',
-    });
+    this.props.history.push({ search: '' });
 
     return this.updateStoreValues('');
   };

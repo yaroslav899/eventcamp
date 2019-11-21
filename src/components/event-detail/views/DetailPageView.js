@@ -12,7 +12,7 @@ const DetailPageView = ({ event, date, dateDay }) => (
     <Adventages />
     <div className="row">
       <div className="col-12 col-md-9 event-detail">
-        <h1 dangerouslySetInnerHTML={{ __html: event.title.rendered }}></h1>
+        <h1 dangerouslySetInnerHTML={{ __html: event.title.rendered }} />
         <EventDetail event={event} date={date} dateDay={dateDay} />
         <div className="row area-2">
           <div className="col-12">

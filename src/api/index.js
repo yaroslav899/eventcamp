@@ -160,7 +160,7 @@ export const request = {
 
   getListPosts: (param) => {
     const url = getRequestUrl(param);
-    const myHeaders = { cache: "no-cache" };
+    const myHeaders = { cache: 'no-cache' };
 
     return fetch(url, myHeaders).then((response) => {
       // ToDo change this approach, since api is not a good place for it
@@ -172,7 +172,7 @@ export const request = {
       return response.json();
     }).then(data => {
       return data;
-    }).catch(error => {
+    }).catch(() => {
       return { success: false };
     });
   },
@@ -182,7 +182,7 @@ export const request = {
 
     return fetchData(url, null).then(data => {
       return data;
-    }).catch(error => {
+    }).catch(() => {
       return { success: false };
     });
   },
@@ -196,7 +196,7 @@ export const request = {
   getExchangeData: () => {
     const url = urlRecources.exchangeUrl;
 
-    return fetchData(url, null).catch(error => {
+    return fetchData(url, null).catch(() => {
       return { success: false };
     });
   },
@@ -204,7 +204,7 @@ export const request = {
   getInterestingData: (param, isTagActive) => {
     const url = getInterestingUrl(param, isTagActive);
 
-    return fetchData(url, null).catch(error => {
+    return fetchData(url, null).catch(() => {
       return { success: false };
     });
   },
@@ -212,7 +212,7 @@ export const request = {
   getLastPosts: () => {
     const url = getLastPostsUrl();
 
-    return fetchData(url, null).catch(error => {
+    return fetchData(url, null).catch(() => {
       return { success: false };
     });
   },

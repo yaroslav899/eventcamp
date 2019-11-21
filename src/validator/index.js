@@ -62,4 +62,4 @@ const validateForm = (field, fieldName, rules) => {
   }
 
   return defaultValidForm;
-}
+};

@@ -1,5 +1,5 @@
 import React from 'react';
-import { detailRecources } from '../../resources';
+import { detailRecources } from '../../../resources';
 
 const WriteToAuthor = ({ writeAuthor, ...props }) => (
   <a {...props}>

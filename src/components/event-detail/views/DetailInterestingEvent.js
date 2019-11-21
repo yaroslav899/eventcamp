@@ -15,7 +15,7 @@ const DetailInterestingEvent = (props) => {
     eventCurrency,
     eventCity,
     eventLocation,
-    eventDate
+    eventDate,
   } = props;
 
   return (
@@ -34,7 +34,7 @@ const DetailInterestingEvent = (props) => {
         </div>
       </NavLink>
     </li>
-  )
+  );
 };
 
 export default DetailInterestingEvent;

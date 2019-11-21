@@ -53,12 +53,12 @@ const EventView = (props) => {
         </div>
       </div>
     </Fragment>
-  )
+  );
 };
 
 EventView.defaultProps = {
-    moreInfoButton: globalRecources.moreInfo,
-    interestedButton: globalRecources.interestingCTA,
-  };
+  moreInfoButton: globalRecources.moreInfo,
+  interestedButton: globalRecources.interestingCTA,
+};
 
 export default EventView;

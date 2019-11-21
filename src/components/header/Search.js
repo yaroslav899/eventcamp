@@ -93,9 +93,9 @@ class Search extends PureComponent {
         .then(response => {
           if (response && response.length) {
             this.setState({ eventList: response, isShowSuggestion: true });
-
-            return null;
           }
+
+          return true;
         }).catch(error => {
           console.log(error);
 

@@ -14,7 +14,17 @@ import { globalRecources } from '../resources/global';
 
 class MainPage extends PureComponent {
   render() {
-    const { title, description, keywords, metaurl, metaimg, metalang, h2, actionCtaHPLabel, cities = '' } = this.props;
+    const {
+      title,
+      description,
+      keywords,
+      metaurl,
+      metaimg,
+      metalang,
+      h2,
+      actionCtaHPLabel,
+      cities = '',
+    } = this.props;
 
     return (
       <section>
@@ -47,7 +57,7 @@ class MainPage extends PureComponent {
                 <CityField changeHistory={false} />
               </div>
               <DateRange />
-              <Button text={actionCtaHPLabel} className="events-item-action__button" to={getHistoryUrl('cities', {value: cities}, '')} />
+              <Button text={actionCtaHPLabel} className="events-item-action__button" to={getHistoryUrl('cities', { value: cities }, '')} />
               <LastPosts />
             </div>
           </div>
@@ -74,4 +84,3 @@ const mapStateToProps = (storeData) => {
 };
 
 export default connect(mapStateToProps)(MainPage);
-

@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import EventPhone from './EventPhone';
-import WriteToAuthor from './WriteToAuthor';
+import WriteToAuthor from './views/WriteToAuthor';
 import AddToInteresting from './views/AddToInteresting';
 
 const FeedBack = (props) => {

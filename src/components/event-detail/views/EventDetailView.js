@@ -38,8 +38,8 @@ const EventDetailView = (props) => {
           <EventLocation className="area-1_location" city={eventCity} address={eventLocation} />
           <p className="area-1_interesting">
             <span className={isSubscribed ? 'm-active' : ''} onClick={subscribeHandler}>
-            {interestedButton}
-          </span>
+              {interestedButton}
+            </span>
           </p>
         </div>
       </div>
@@ -47,8 +47,6 @@ const EventDetailView = (props) => {
   );
 };
 
-EventDetailView.defaultProps = {
-  interestedButton: globalRecources.interestingCTA,
-};
+EventDetailView.defaultProps = { interestedButton: globalRecources.interestingCTA };
 
 export default EventDetailView;

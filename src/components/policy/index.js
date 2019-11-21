@@ -5,9 +5,7 @@ import Adventages from '../global/Adventages';
 import { hiddenPages } from '../../resources/menu';
 
 class Policy extends PureComponent {
-  state = {
-    text: '',
-  }
+  state = { text: '' }
 
   componentDidMount() {
     const policyPageID = hiddenPages.policy;

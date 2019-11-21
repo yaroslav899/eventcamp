@@ -7,8 +7,7 @@ import { categories } from '../../fixtures';
 import { getValueFromParams, createMarkupText } from '../../helper';
 import { globalRecources } from '../../resources/global';
 
-const EventView = (data) => {
-  const { event, isOwner } = data;
+const EventView = ({ event, isOwner }) => {
   const { acf: { cities, location, dateOf }, id: eventID, title } = event;
   const category = getValueFromParams(categories, event.categories[0], 'id', 'url');
   const eventUrl = `/events/${cities}/${category}/${eventID}`;

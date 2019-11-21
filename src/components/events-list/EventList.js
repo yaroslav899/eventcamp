@@ -53,9 +53,8 @@ class EventList extends PureComponent {
         userProfile.subscribed = subscribed.replace(eventID, '');
       } else {
         userProfile.subscribed = subscribed.length ? `${subscribed},${eventID}` : `${eventID}`;
+        this.toggleModal();
       }
-
-      !isSubscribed && this.toggleModal();
 
       this.setState({ isSubscribed: !isSubscribed });
 
@@ -103,9 +102,9 @@ class EventList extends PureComponent {
       excerpt: { rendered: eventShortDescription },
       acf: {
         picture,
-        picture_url,
-        price : eventPrice = '',
-        currency : eventCurrency = '',
+        picture_url: pictureUrl,
+        price: eventPrice = '',
+        currency: eventCurrency = '',
         cities: eventCity,
         location: eventLocation,
         dateOf: eventDate,
@@ -115,7 +114,7 @@ class EventList extends PureComponent {
     const { isAuthorized, showModalBox, isSubscribed } = this.state;
     const eventCategory = getValueFromParams(categories, eventCategories[0], 'id', 'url');
     const eventUrl = `/events/${eventCity}/${eventCategory}/${eventID}`;
-    const eventImgUrl = picture || picture_url || noPhotoUrl;
+    const eventImgUrl = picture || pictureUrl || noPhotoUrl;
 
     return (
       <div className="row">
