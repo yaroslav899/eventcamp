@@ -32,16 +32,27 @@ export const getRequestUrl = (param) => {
 
   const city = cities.find(item => item.id === query.cities);
 
-  if (query.categories) url = `${url}&categories=${query.categories}`;
-  if (query.cities) url = `${url}&filter[meta_query][0][key]=cities&filter[meta_query][0][value]=${city.url}`;
-  if (query.searchPhrase) url = `${url}&search=${query.searchPhrase}`;
-  if (query.from && query.from === query.to) {
-    url = `${url}&filter[meta_query][1][key]=dateOf&filter[meta_query][1][value]=${query.from.replace('T00:00:00', '')}`;
-  } else if (query.from) {
+  if (query.categories) {
+    url = `${url}&categories=${query.categories}`;
+  }
+  if (query.cities) {
+    url = `${url}&filter[meta_query][0][key]=cities&filter[meta_query][0][value]=${city.url}`;
+  }
+  if (query.searchPhrase) {
+    url = `${url}&search=${query.searchPhrase}`;
+  }
+  if (query.from) {
     url = `${url}&filter[meta_query][1][key]=dateOf&filter[meta_query][1][value]=${query.from}&filter[meta_query][1][compare]=>`;
   }
-  if (query.to && query.from !== query.to) url = `${url}&filter[meta_query][2][key]=dateOf&filter[meta_query][2][value]=${query.to}&filter[meta_query][2][compare]=<`;
-  if (query.topics) url = `${url}&filter[meta_query][3][key]=topic&filter[meta_query][3][value]=${query.topics}`;
+  if (query.from && query.from === query.to) {
+    url = `${url}&filter[meta_query][2][key]=dateOf&filter[meta_query][2][value]=${query.from.replace('T00:00:00', 'T23:59:59')}&filter[meta_query][2][compare]=<`;
+  } 
+  if (query.to && query.from !== query.to) {
+    url = `${url}&filter[meta_query][2][key]=dateOf&filter[meta_query][2][value]=${query.to}&filter[meta_query][2][compare]=<`;
+  }
+  if (query.topics) {
+    url = `${url}&filter[meta_query][3][key]=topic&filter[meta_query][3][value]=${query.topics}`;
+  }
 
   url = `${url}&page=${param.page || store.getState().totalPages.activePageNumber}`;
 
@@ -107,7 +118,6 @@ export const eventRequest = (param, imageID, userData) => {
     tags: topicTags,
     city,
     address,
-    date,
     time: eventTime,
     currentTheme,
     register,
@@ -116,6 +126,7 @@ export const eventRequest = (param, imageID, userData) => {
     topics,
     eventID = null,
   } = param;
+  param.date = `${param.date}T00:00`;
   const description = stateToHTML(editorState.getCurrentContent());
   const { token } = parseJSON(userData);
   const url = `${urlRecources.endpointUrl}posts/${eventID || ''}`;
@@ -140,7 +151,7 @@ export const eventRequest = (param, imageID, userData) => {
         picture: imageID,
         price: priceValue,
         location: address,
-        dateOf: date,
+        dateOf: param.date,
         currency: currencyValue,
         tags: topicTags.toLowerCase(),
         time: eventTime,

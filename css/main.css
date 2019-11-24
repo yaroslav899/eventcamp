@@ -503,7 +503,8 @@ div.home-page .events_filter-wrapper>a:hover{
   margin-bottom: 15px;
   border-radius: 5px;
   border: 1px solid #dbdbdb;
-  min-height: 145px;
+  max-height: 145px;
+  overflow: hidden;
 }
 .events__item img{
   width: 100%;
@@ -1066,8 +1067,9 @@ div.right-side div.detail-interesting ul li div.samePost-info-rightside div:firs
   .event-filter-option p {
     padding: 10px 0 0 0;
   }
-  .events__item{
-    padding-bottom:10px;
+  .events__item {
+    padding-bottom: 10px;
+    max-height: 100%;
   }
   .events-item__img {
     height: 160px;
