@@ -48,7 +48,7 @@ export const getRequestUrl = (param) => {
     url = `${url}&filter[meta_query][2][key]=dateOf&filter[meta_query][2][value]=${query.from.replace('T00:00:00', 'T23:59:59')}&filter[meta_query][2][compare]=<`;
   } 
   if (query.to && query.from !== query.to) {
-    url = `${url}&filter[meta_query][2][key]=dateOf&filter[meta_query][2][value]=${query.to}&filter[meta_query][2][compare]=<`;
+    url = `${url}&filter[meta_query][2][key]=dateOf&filter[meta_query][2][value]=${query.to.replace('T00:00:00', 'T23:59:59')}&filter[meta_query][2][compare]=<`;
   }
   if (query.topics) {
     url = `${url}&filter[meta_query][3][key]=topic&filter[meta_query][3][value]=${query.topics}`;
