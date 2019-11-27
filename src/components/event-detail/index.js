@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import moment from 'moment';
 import { request } from '../../api';
-import store from '../../store';
+import { updateDetailPost } from '../../redux/actions/postActions';
 import { getValueFromParams } from '../../helper';
 import { cities } from '../../fixtures';
 import DetailPageView from './views/DetailPageView';
@@ -11,7 +11,7 @@ import Loader from '../global/Loader';
 
 class DetailPage extends Component {
   componentDidMount() {
-    return this.getPostDetail(this.props.match.params.id);
+    return this.getPostDetail();
   }
 
   componentDidUpdate(props) {
@@ -19,31 +19,19 @@ class DetailPage extends Component {
     const { location: { pathname: prevPathName } = {} } = this.props;
 
     if (pathName !== prevPathName) {
-      return this.getPostDetail(this.props.match.params.id);
+      return this.getPostDetail();
     }
 
     return true;
   }
 
   getPostDetail = () => {
-    this.resetPostAmount();
+    const { dispatch, match: { params: { id: postID } } } = this.props;
 
-    return request.getPostDetail(this.props.match.params.id)
-      .then(post => {
-        store.dispatch({
-          type: 'UPDATE_DETAIL_POST',
-          post,
-        });
-      });
-  }
+    dispatch(updateDetailPost(null));
 
-  resetPostAmount = () => {
-    store.dispatch({
-      type: 'UPDATE_DETAIL_POST',
-      post: null,
-    });
-
-    return true;
+    return request.getPostDetail(postID)
+      .then(post => dispatch(updateDetailPost(post)));
   }
 
   render() {

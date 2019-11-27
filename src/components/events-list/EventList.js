@@ -4,7 +4,7 @@ import EventView from './views/EventView';
 import Modal from '../global/Modal';
 import GoogleCalendar from '../event-detail/GoogleCalendar';
 import { request } from '../../api';
-import store from '../../store';
+import { updateUserProfile } from '../../redux/actions/userActions';
 import { setCookie } from '../../_cookie';
 import { getValueFromParams } from '../../helper';
 import { categories } from '../../fixtures';
@@ -63,12 +63,10 @@ class EventList extends PureComponent {
       return request.updateProfile(param, userID)
         .then((response) => {
           if (response.success) {
-            setCookie('profileData', JSON.stringify(response.userProfile), 2);
+            const { dispatch } = this.props;
 
-            store.dispatch({
-              type: 'UPDATE_USERPROFILE',
-              data: response.userProfile,
-            });
+            setCookie('profileData', JSON.stringify(response.userProfile), 2);
+            dispatch(updateUserProfile(response.userProfile));
           }
 
           return true;

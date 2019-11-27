@@ -1,6 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { updateEventList, updateSearchPhrase } from '../../redux/actions/filterActions';
 import store from '../../store';
 import { request } from '../../api';
 import { globalRecources } from '../../resources/global';
@@ -19,10 +20,9 @@ class SearchPhrase extends PureComponent {
   }
 
   updateStoreValues = (searchPhrase) => {
-    store.dispatch({
-      type: 'UPDATE_SEARCH_PHRASE',
-      searchPhrase: decodeURI(searchPhrase),
-    });
+    const { dispatch } = this.props;
+
+    dispatch(updateSearchPhrase(decodeURI(searchPhrase)));
 
     return request.getListPosts({}).then((posts) => {
       if (!posts.length) {
@@ -31,18 +31,13 @@ class SearchPhrase extends PureComponent {
         posts.push({ empty: noFilterResultMsg });
       }
 
-      store.dispatch({
-        type: 'UPDATE_EVENT_LIST',
-        list: posts,
-      });
+      dispatch(updateEventList(posts));
 
       return true;
     });
   }
 
-  removeSearchPhrase = (e) => {
-    e.preventDefault();
-
+  removeSearchPhrase = () => {
     this.props.history.push({ search: '' });
 
     return this.updateStoreValues('');

@@ -1,7 +1,8 @@
 import React, { PureComponent, Fragment } from 'react';
-import DetailInterestingEvent from './views/DetailInterestingEvent';
-import DetailInterestingView from './views/DetailInterestingView';
-import store from '../../store';
+import { connect } from 'react-redux';
+import InterestingEventView from './views/InterestingEventView';
+import InterestingListView from './views/InterestingListView';
+import { updateDetailPost } from '../../redux/actions/postActions';
 import { request } from '../../api';
 import { getValueFromParams } from '../../helper';
 import { categories } from '../../fixtures';
@@ -13,14 +14,11 @@ class DetailInteresting extends PureComponent {
   state = { posts: [] };
 
   componentDidMount() {
-    const { data } = this.props;
+    const { data, dispatch } = this.props;
 
     this._isMounted = true;
 
-    store.dispatch({
-      type: 'UPDATE_DETAIL_POST',
-      post: data,
-    });
+    dispatch(updateDetailPost(data));
 
     return request.getInterestingData(data, true).then((posts) => {
       if (this._isMounted) {
@@ -54,7 +52,7 @@ class DetailInteresting extends PureComponent {
 
     if (!posts.length) return <Fragment />;
 
-    const similarEvents = posts.map((similarEvent) => {
+    const events = posts.map((similarEvent) => {
       const {
         id: eventID,
         categories: postCategories = ['it'],
@@ -74,7 +72,7 @@ class DetailInteresting extends PureComponent {
       const { noPhotoUrl } = this.props;
       const eventImgUrl = picture || pictureUrl || noPhotoUrl;
 
-      return <DetailInterestingEvent
+      return <InterestingEventView
         key={eventID}
         eventID={eventID}
         eventUrl={eventUrl}
@@ -88,10 +86,10 @@ class DetailInteresting extends PureComponent {
       />
     });
 
-    return <DetailInterestingView similarEvents={similarEvents} />;
+    return <InterestingListView events={events} />;
   }
 }
 
 DetailInteresting.defaultProps = { noPhotoUrl: imageUrlRecources.noPhoto };
 
-export default DetailInteresting;
+export default connect()(DetailInteresting);

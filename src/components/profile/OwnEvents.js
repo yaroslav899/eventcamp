@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import { updateUserPosts } from '../../redux/actions/userActions';
 import EventView from '../event-global/EventView';
 import { request } from '../../api';
-import store from '../../store';
 
 class OwnEvents extends PureComponent {
   componentDidMount() {
@@ -36,12 +36,11 @@ class OwnEvents extends PureComponent {
     return null;
   }
 
-  loadOwnEvents = userID => request.getAuthorPosts({ author: userID })
+  loadOwnEvents = (userID) => request.getAuthorPosts({ author: userID })
     .then((posts) => {
-      store.dispatch({
-        type: 'UPDATE_USER_POSTS',
-        listPosts: posts,
-      });
+      const { dispatch } = this.props;
+
+      dispatch(updateUserPosts(posts));
     });
 
   render() {

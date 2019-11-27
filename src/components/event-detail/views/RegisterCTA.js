@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { detailRecources } from '../../../resources';
 
-const AddToInteresting = ({ register, registerButton, ...props }) => {
+const RegisterCTA = ({ register, registerButton, ...props }) => {
   if (!register) {
     return <Fragment />;
   }
@@ -13,6 +13,6 @@ const AddToInteresting = ({ register, registerButton, ...props }) => {
   );
 };
 
-AddToInteresting.defaultProps = { registerButton: detailRecources.register };
+RegisterCTA.defaultProps = { registerButton: detailRecources.register };
 
-export default AddToInteresting;
+export default RegisterCTA;

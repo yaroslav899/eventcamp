@@ -2,7 +2,7 @@ import React, { PureComponent, Fragment } from 'react';
 import Select from 'react-select';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import store from '../../store';
+import { updateEventList, updateFilterCity } from '../../redux/actions/filterActions';
 import { request } from '../../api';
 import { cities } from '../../fixtures';
 import { filterRecources } from '../../resources';
@@ -24,6 +24,7 @@ class CityField extends PureComponent {
   changeSelection = (type, selection) => {
     const params = !selection ? { [type]: '' } : { [selection.type]: selection ? selection.value : '' };
     params.page='1';
+    const { dispatch } = this.props;
 
     return request.getListPosts(params)
       .then((posts) => {
@@ -31,15 +32,8 @@ class CityField extends PureComponent {
           posts.push({ empty: globalRecources.noFilterResult });
         }
 
-        store.dispatch({
-          type: 'UPDATE_EVENT_LIST',
-          list: posts,
-        });
-
-        store.dispatch({
-          type: 'UPDATE_FILTER_CITY',
-          cities: params['cities'],
-        });
+        dispatch(updateEventList(posts));
+        dispatch(updateFilterCity(params['cities']));
 
         return params;
       });

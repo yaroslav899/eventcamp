@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
-import { fieldsRegisterForm, detailRecources } from '../../resources';
-import { globalRecources } from '../../resources/global';
+import { fieldsRegisterForm, detailRecources } from '../../../resources';
+import { globalRecources } from '../../../resources/global';
 
 class CallBackForm extends PureComponent {
   state = {

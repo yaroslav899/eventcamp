@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import { updateEventList } from '../../redux/actions/filterActions';
 import store from '../../store';
 import { request } from '../../api';
 import EventList from './EventList';
@@ -10,14 +11,10 @@ import { globalRecources } from '../../resources/global';
 
 class ListPage extends PureComponent {
   componentDidMount() {
-    const { noFilterResultMsg, match } = this.props;
+    const { noFilterResultMsg, match, dispatch } = this.props;
     const { params: initialParams } = match;
 
-    store.dispatch({
-      type: 'UPDATE_EVENT_LIST',
-      list: [],
-    });
-
+    dispatch(updateEventList([]));
     updateFilterStore(initialParams);
 
     return request.getListPosts(initialParams).then((posts) => {
@@ -25,10 +22,7 @@ class ListPage extends PureComponent {
         posts.push({ empty: noFilterResultMsg });
       }
 
-      store.dispatch({
-        type: 'UPDATE_EVENT_LIST',
-        list: posts,
-      });
+      dispatch(updateEventList(posts));
 
       return true;
     });

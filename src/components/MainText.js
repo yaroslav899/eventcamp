@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import store from '../store';
+import { updateMainPage } from '../redux/actions/pageActions';
 import { request } from '../api';
 import { getValueFromParams, createMarkupText } from '../helper';
 import { mainMenu } from '../resources/menu';
@@ -20,10 +20,9 @@ class MainText extends PureComponent {
         return null;
       }
 
-      store.dispatch({
-        type: 'UPDATE_MAIN_PAGE',
-        main: data.content.rendered,
-      });
+      const { dispatch } = this.props;
+
+      dispatch(updateMainPage(data.content.rendered));
 
       return true;
     });

@@ -1,7 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
 import Select from 'react-select';
 import { connect } from 'react-redux';
-import store from '../../store';
+import { updateEventList, updateFilterTopic } from '../../redux/actions/filterActions';
 import { request } from '../../api';
 import { categories, defaultTopic } from '../../fixtures';
 import { filterRecources } from '../../resources';
@@ -54,6 +54,7 @@ class TopicField extends PureComponent {
   changeSelection = (type, selection) => {
     const params = !selection ? { [type]: '' } : { [selection.type]: selection ? selection.value : '' };
     params.page = '1';
+    const { dispatch } = this.props;
 
     return request.getListPosts(params)
       .then((posts) => {
@@ -61,15 +62,8 @@ class TopicField extends PureComponent {
           posts.push({ empty: globalRecources.noFilterResult });
         }
 
-        store.dispatch({
-          type: 'UPDATE_EVENT_LIST',
-          list: posts,
-        });
-
-        store.dispatch({
-          type: 'UPDATE_FILTER_TOPIC',
-          topics: params['topics'],
-        });
+        dispatch(updateEventList(posts));
+        dispatch(updateFilterTopic(params['topics']));
 
         return params;
       });

@@ -11,7 +11,7 @@ import UserImage from './UserImage';
 import UserInfo from './UserInfo';
 import TakingPartMember from './TakingPartMember';
 import { setCookie } from '../../_cookie';
-import store from '../../store';
+import { updateUserProfile } from '../../redux/actions/userActions';
 import { stringifyJSON } from '../../helper/json';
 import { request } from '../../api';
 import { profileProperties } from '../../resources/profile';
@@ -24,12 +24,10 @@ class Profile extends PureComponent {
           return false;
         }
 
-        setCookie('profileData', stringifyJSON(response.userProfile), 2);
+        const { dispatch } = this.props;
 
-        store.dispatch({
-          type: 'UPDATE_USERPROFILE',
-          data: response.userProfile,
-        });
+        setCookie('profileData', stringifyJSON(response.userProfile), 2);
+        dispatch(updateUserProfile(response.userProfile));
 
         return true;
       });

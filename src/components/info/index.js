@@ -1,7 +1,7 @@
 import React, { Fragment, PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import store from '../../store';
+import { updateInfoPage } from '../../redux/actions/pageActions';
 import { request } from '../../api';
 import { getValueFromParams, createMarkupText } from '../../helper';
 import Adventages from '../global/Adventages';
@@ -10,26 +10,21 @@ import { meta } from '../../resources/meta/info';
 
 class InfoPage extends PureComponent {
   componentDidMount() {
-    const {
-      text,
-      location: { pathname },
-    } = this.props;
+    const { text, location: { pathname } } = this.props;
 
     if (text) {
       return false;
     }
 
     const infoPageID = getValueFromParams(mainMenu, pathname, 'url', 'id');
+    const { dispatch } = this.props;
 
     return request.getPage(infoPageID).then((data) => {
       if (!data) {
         return false;
       }
 
-      store.dispatch({
-        type: 'UPDATE_INFO_PAGE',
-        info: data.content.rendered,
-      });
+      dispatch(updateInfoPage(data.content.rendered));
 
       return true;
     });

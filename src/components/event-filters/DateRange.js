@@ -3,7 +3,7 @@ import DayPicker, { DateUtils } from 'react-day-picker';
 import MomentLocaleUtils from 'react-day-picker/moment';
 import { connect } from 'react-redux';
 import 'moment/locale/uk';
-import store from '../../store';
+import { updateEventList, updateFilterDateRange } from '../../redux/actions/filterActions';
 import { request } from '../../api';
 import { filterRecources } from '../../resources';
 import { globalRecources } from '../../resources/global';
@@ -17,17 +17,14 @@ class DateRange extends Component {
       return false;
     }
 
-    const { dateRange, noFilterResultMsg } = this.props;
+    const { dateRange, noFilterResultMsg, dispatch } = this.props;
     let range = DateUtils.addDayToRange(day, dateRange);
 
     if (!range.to) {
       range.to = range.from;
     }
 
-    store.dispatch({
-      type: 'UPDATE_FILTER_DATERANGE',
-      dateRange: range,
-    });
+    dispatch(updateFilterDateRange(range));
 
     if (!range.to && !range.from) {
       range = {};
@@ -43,23 +40,20 @@ class DateRange extends Component {
           });
         }
 
-        store.dispatch({
-          type: 'UPDATE_EVENT_LIST',
-          list: posts,
-        });
+        dispatch(updateEventList(posts));
 
         return true;
       });
   }
 
   handleResetClick = () => {
-    store.dispatch({
-      type: 'UPDATE_FILTER_DATERANGE',
-      dateRange: {
-        from: undefined,
-        to: undefined,
-      },
-    });
+    const { dispatch } = this.props;
+    const dateRange = {
+      from: undefined,
+      to: undefined,
+    };
+
+    dispatch(updateFilterDateRange(dateRange));
 
     return request.getListPosts({ page: '1' })
       .then(posts => {
@@ -69,10 +63,7 @@ class DateRange extends Component {
           posts.push({ empty: noFilterResultMsg });
         }
 
-        store.dispatch({
-          type: 'UPDATE_EVENT_LIST',
-          list: posts,
-        });
+        dispatch(updateEventList(posts));
       });
   }
 

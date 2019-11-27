@@ -2,7 +2,7 @@ import React, { PureComponent, Fragment } from 'react';
 import Select from 'react-select';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import store from '../../store';
+import { updateEventList, updateFilterCategory } from '../../redux/actions/filterActions';
 import { request } from '../../api';
 import { categories } from '../../fixtures';
 import { filterRecources } from '../../resources';
@@ -22,6 +22,7 @@ class CategoryField extends PureComponent {
   changeSelection = (type, selection) => {
     const params = !selection ? { [type]: '' } : { [selection.type]: selection ? selection.value : '' };
     params.page='1';
+    const { dispatch } = this.props;
 
     return request.getListPosts(params)
       .then((posts) => {
@@ -29,22 +30,20 @@ class CategoryField extends PureComponent {
           posts.push({ empty: globalRecources.noFilterResult });
         }
 
-        store.dispatch({
-          type: 'UPDATE_EVENT_LIST',
-          list: posts,
-        });
-
-        store.dispatch({
-          type: 'UPDATE_FILTER_CATEGORY',
-          categories: params['categories'],
-        });
+        dispatch(updateEventList(posts));
+        dispatch(updateFilterCategory(params['categories']));
 
         return params;
       });
   };
 
   render() {
-    const { categories: catFilter } = this.props;
+    const { categories: categoryValue } = this.props;
+    const optionValues = categories.map(category => ({
+      label: category.name,
+      value: category.id,
+      type: 'categories',
+    }));
 
     return (
       <Fragment>
@@ -57,7 +56,7 @@ class CategoryField extends PureComponent {
             value: category.id,
             type: 'categories',
           }))}
-          value={catFilter}
+          value={categoryValue}
           onChange={this.changeCategory}
         />
       </Fragment>

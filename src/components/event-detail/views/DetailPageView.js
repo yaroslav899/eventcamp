@@ -1,7 +1,7 @@
 import React from 'react';
 import Adventages from '../../global/Adventages';
 import EventDetail from '../EventDetail';
-import DetailTabs from '../DetailTabs';
+import Tabs from './Tabs';
 import SocialShare from '../SocialShare';
 import GoogleCalendar from '../GoogleCalendar';
 import FeedBack from '../FeedBack';
@@ -16,7 +16,7 @@ const DetailPageView = ({ event, date, dateDay }) => (
         <EventDetail event={event} date={date} dateDay={dateDay} />
         <div className="row area-2">
           <div className="col-12">
-            <DetailTabs data={event} />
+            <Tabs data={event} />
           </div>
         </div>
       </div>
