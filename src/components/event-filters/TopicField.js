@@ -53,8 +53,9 @@ class TopicField extends PureComponent {
 
   changeSelection = (type, selection) => {
     const params = !selection ? { [type]: '' } : { [selection.type]: selection ? selection.value : '' };
-    params.page = '1';
-    const { dispatch } = this.props;
+    const { defaultPage, updateEventList, updateFilterTopic } = this.props;
+
+    params.page = defaultPage;
 
     return request.getListPosts(params)
       .then((posts) => {
@@ -62,8 +63,8 @@ class TopicField extends PureComponent {
           posts.push({ empty: globalRecources.noFilterResult });
         }
 
-        dispatch(updateEventList(posts));
-        dispatch(updateFilterTopic(params['topics']));
+        updateEventList(posts);
+        updateFilterTopic(params['topics']);
 
         return params;
       });
@@ -98,4 +99,15 @@ const mapStateToProps = (storeData) => {
   };
 };
 
-export default connect(mapStateToProps)(TopicField);
+const mapDispatchToProps = dispatch => {
+  return {
+    updateEventList: posts => dispatch(updateEventList(posts)),
+    updateFilterTopic: topics => dispatch(updateFilterTopic(topics)),
+  };
+};
+
+TopicField.defaultProps = {
+  defaultPage: '1',
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TopicField);

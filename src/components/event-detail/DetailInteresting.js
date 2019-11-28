@@ -83,7 +83,7 @@ class DetailInteresting extends PureComponent {
         eventCity={eventCity}
         eventLocation={eventLocation}
         eventDate={eventDate}
-      />
+      />;
     });
 
     return <InterestingListView events={events} />;

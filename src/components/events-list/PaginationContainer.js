@@ -84,11 +84,11 @@ class PaginationContainer extends PureComponent {
 
 
   updateEventList = (initialParams) => {
-    const { totalPages, maxPageNumber, dispatch } = this.props;
+    const { totalPages, maxPageNumber, updateActivePage, updateEventList } = this.props;
     const activePage = +initialParams.page;
     const updatedTotalPages = this.getTotalPages(totalPages, activePage);
 
-    dispatch(updateActivePage(initialParams.page));
+    updateActivePage(initialParams.page);
 
     if ((updatedTotalPages.length < maxPageNumber) && !(totalPages.length < maxPageNumber)) {
       let prevPage = activePage - 1;
@@ -110,7 +110,7 @@ class PaginationContainer extends PureComponent {
     });
 
     request.getListPosts(initialParams).then((posts) => {
-      dispatch(updateEventList(posts));
+      updateEventList(posts);
     });
 
     scrollToTop();
@@ -186,10 +186,17 @@ const mapTotalPagesToProps = storeData => {
   };
 };
 
+const mapDispatchToProps = dispatch => {
+  return {
+    updateEventList: posts => dispatch(updateEventList(posts)),
+    updateActivePage: activePageNumber => dispatch(updateActivePage(activePageNumber)),
+  };
+};
+
 PaginationContainer.defaultProps = {
   firstPage: 1,
   maxPageNumber: 10,
   startNumberRedrawPagination: 6,
 };
 
-export default connect(mapTotalPagesToProps)(PaginationContainer);
+export default connect(mapTotalPagesToProps, mapDispatchToProps)(PaginationContainer);

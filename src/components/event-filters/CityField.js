@@ -23,8 +23,9 @@ class CityField extends PureComponent {
 
   changeSelection = (type, selection) => {
     const params = !selection ? { [type]: '' } : { [selection.type]: selection ? selection.value : '' };
-    params.page='1';
-    const { dispatch } = this.props;
+    const { defaultPage, updateEventList, updateFilterCity } = this.props;
+
+    params.page = defaultPage;
 
     return request.getListPosts(params)
       .then((posts) => {
@@ -32,15 +33,15 @@ class CityField extends PureComponent {
           posts.push({ empty: globalRecources.noFilterResult });
         }
 
-        dispatch(updateEventList(posts));
-        dispatch(updateFilterCity(params['cities']));
+        updateEventList(posts);
+        updateFilterCity(params['cities']);
 
         return params;
       });
   };
 
   render() {
-    const { cities: cityFilter } = this.props;
+    const { cities: cityValue } = this.props;
 
     return (
       <Fragment>
@@ -53,7 +54,7 @@ class CityField extends PureComponent {
             value: city.id,
             type: 'cities',
           }))}
-          value={cityFilter}
+          value={cityValue}
           onChange={this.changeCity}
         />
       </Fragment>
@@ -65,4 +66,15 @@ const mapStateToProps = (storeData) => {
   return { cities: storeData.filterState.cities };
 };
 
-export default withRouter(connect(mapStateToProps)(CityField));
+const mapDispatchToProps = dispatch => {
+  return {
+    updateEventList: posts => dispatch(updateEventList(posts)),
+    updateFilterCity: cities => dispatch(updateFilterCity(cities)),
+  };
+};
+
+CityField.defaultProps = {
+  defaultPage: '1',
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CityField));

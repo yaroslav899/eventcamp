@@ -1,5 +1,5 @@
 import React from 'react';
-import CallBackForm from './CallBackForm';
+import CallBackForm from '../CallBackForm';
 
 const CallBackView = ({ title, content }) => {
   return (

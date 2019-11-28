@@ -20,9 +20,9 @@ class MainText extends PureComponent {
         return null;
       }
 
-      const { dispatch } = this.props;
+      const { updateMainPage } = this.props;
 
-      dispatch(updateMainPage(data.content.rendered));
+      updateMainPage(data.content.rendered);
 
       return true;
     });
@@ -47,4 +47,8 @@ const mapStateToProps = (storeData) => {
   return { text: storeData.page.main };
 };
 
-export default connect(mapStateToProps)(MainText);
+const mapDispatchToProps = dispatch => {
+  return { updateMainPage: main => dispatch(updateMainPage(main)) };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainText);

@@ -17,20 +17,20 @@ class DateRange extends Component {
       return false;
     }
 
-    const { dateRange, noFilterResultMsg, dispatch } = this.props;
+    const { dateRange, defaultPage, noFilterResultMsg, updateFilterDateRange, updateEventList } = this.props;
     let range = DateUtils.addDayToRange(day, dateRange);
 
     if (!range.to) {
       range.to = range.from;
     }
 
-    dispatch(updateFilterDateRange(range));
+    updateFilterDateRange(range);
 
     if (!range.to && !range.from) {
       range = {};
     }
 
-    range.page='1';
+    range.page = defaultPage;
 
     return request.getListPosts(range)
       .then(posts => {
@@ -40,22 +40,22 @@ class DateRange extends Component {
           });
         }
 
-        dispatch(updateEventList(posts));
+        updateEventList(posts);
 
         return true;
       });
   }
 
   handleResetClick = () => {
-    const { dispatch } = this.props;
+    const { defaultPage, updateFilterDateRange, updateEventList } = this.props;
     const dateRange = {
       from: undefined,
       to: undefined,
     };
 
-    dispatch(updateFilterDateRange(dateRange));
+    updateFilterDateRange(dateRange);
 
-    return request.getListPosts({ page: '1' })
+    return request.getListPosts({ page: defaultPage })
       .then(posts => {
         if (!posts.length) {
           const { noFilterResultMsg } = this.props;
@@ -63,7 +63,7 @@ class DateRange extends Component {
           posts.push({ empty: noFilterResultMsg });
         }
 
-        dispatch(updateEventList(posts));
+        updateEventList(posts);
       });
   }
 
@@ -101,10 +101,17 @@ class DateRange extends Component {
   }
 }
 
-const dateToProps = (storeData) => {
+const mapStateToProps = (storeData) => {
   return {
     dateRange: storeData.filterState.dateRange,
     posts: storeData.filterState.list,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    updateEventList: posts => dispatch(updateEventList(posts)),
+    updateFilterDateRange: dateRange => dispatch(updateFilterDateRange(dateRange)),
   };
 };
 
@@ -112,6 +119,7 @@ DateRange.defaultProps = {
   locale: 'uk',
   resetButton: filterRecources.reset,
   noFilterResultMsg: globalRecources.noFilterResult,
+  defaultPage: '1',
 };
 
-export default connect(dateToProps)(DateRange);
+export default connect(mapStateToProps, mapDispatchToProps)(DateRange);

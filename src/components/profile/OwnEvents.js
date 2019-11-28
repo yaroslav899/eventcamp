@@ -36,7 +36,7 @@ class OwnEvents extends PureComponent {
     return null;
   }
 
-  loadOwnEvents = (userID) => request.getAuthorPosts({ author: userID })
+  loadOwnEvents = userID => request.getAuthorPosts({ author: userID })
     .then((posts) => {
       const { dispatch } = this.props;
 

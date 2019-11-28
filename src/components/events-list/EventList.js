@@ -63,10 +63,10 @@ class EventList extends PureComponent {
       return request.updateProfile(param, userID)
         .then((response) => {
           if (response.success) {
-            const { dispatch } = this.props;
+            const { updateUserProfile } = this.props;
 
             setCookie('profileData', JSON.stringify(response.userProfile), 2);
-            dispatch(updateUserProfile(response.userProfile));
+            updateUserProfile(response.userProfile);
           }
 
           return true;
@@ -156,4 +156,8 @@ const mapStateToProps = (storeData) => {
   return { userProfile: storeData.user.data };
 };
 
-export default connect(mapStateToProps)(EventList);
+const mapDispatchToProps = dispatch => {
+  return { updateUserProfile: data => dispatch(updateUserProfile(data)) };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(EventList);

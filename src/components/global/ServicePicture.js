@@ -1,9 +1,8 @@
 import React, { PureComponent, Fragment } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { categories } from '../../fixtures';
+import { categories, cities } from '../../fixtures';
 import { getValueFromParams } from '../../helper';
-import { cities } from '../../fixtures';
 
 class ServicePicture extends PureComponent {
   render() {
@@ -20,7 +19,7 @@ class ServicePicture extends PureComponent {
       <Fragment>
         {categoryBanners}
       </Fragment>
-    )
+    );
   }
 }
 
@@ -28,8 +27,6 @@ const mapStateToProps = storeData => {
   return { city: storeData.filterState.cities };
 };
 
-ServicePicture.defaultProps = {
-  defaultCity: 'any',
-};
+ServicePicture.defaultProps = { defaultCity: 'any' };
 
 export default connect(mapStateToProps)(ServicePicture);

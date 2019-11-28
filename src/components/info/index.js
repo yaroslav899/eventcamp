@@ -17,14 +17,14 @@ class InfoPage extends PureComponent {
     }
 
     const infoPageID = getValueFromParams(mainMenu, pathname, 'url', 'id');
-    const { dispatch } = this.props;
+    const { updatePage } = this.props;
 
     return request.getPage(infoPageID).then((data) => {
       if (!data) {
         return false;
       }
 
-      dispatch(updateInfoPage(data.content.rendered));
+      updatePage(data.content.rendered);
 
       return true;
     });
@@ -59,6 +59,10 @@ const mapStateToProps = (storeData) => {
   return { text: storeData.page.info };
 };
 
+const mapDispatchToProps = dispatch => {
+  return { updatePage: info => dispatch(updateInfoPage(info)) };
+};
+
 InfoPage.defaultProps = {
   title: meta.title,
   description: meta.description,
@@ -67,4 +71,4 @@ InfoPage.defaultProps = {
   metalang: meta.lang,
 };
 
-export default connect(mapStateToProps)(InfoPage);
+export default connect(mapStateToProps, mapDispatchToProps)(InfoPage);

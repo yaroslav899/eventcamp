@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { updateEventList } from '../../redux/actions/filterActions';
-import store from '../../store';
 import { request } from '../../api';
 import EventList from './EventList';
 import ListPageView from './views/ListPageView';
@@ -11,10 +10,10 @@ import { globalRecources } from '../../resources/global';
 
 class ListPage extends PureComponent {
   componentDidMount() {
-    const { noFilterResultMsg, match, dispatch } = this.props;
+    const { noFilterResultMsg, match, updateEventList } = this.props;
     const { params: initialParams } = match;
 
-    dispatch(updateEventList([]));
+    updateEventList([]);
     updateFilterStore(initialParams);
 
     return request.getListPosts(initialParams).then((posts) => {
@@ -22,7 +21,7 @@ class ListPage extends PureComponent {
         posts.push({ empty: noFilterResultMsg });
       }
 
-      dispatch(updateEventList(posts));
+      updateEventList(posts);
 
       return true;
     });
@@ -61,6 +60,10 @@ const mapStateToProps = storeData => {
   return { posts: storeData.filterState.list };
 };
 
+const mapDispatchToProps = dispatch => {
+  return { updateEventList: posts => dispatch(updateEventList(posts)) };
+};
+
 ListPage.defaultProps = { noFilterResultMsg: globalRecources.noFilterResult };
 
-export default connect(mapStateToProps)(ListPage);
+export default connect(mapStateToProps, mapDispatchToProps)(ListPage);

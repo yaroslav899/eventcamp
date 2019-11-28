@@ -13,14 +13,14 @@ import { listRecources } from '../../resources';
 
 class LastPosts extends PureComponent {
   componentDidMount() {
-    const { lastPosts: { list }, dispatch } = this.props;
+    const { lastPosts: { list }, updateLastPost } = this.props;
 
     if (list) {
       return false;
     }
 
     return request.getLastPosts().then((posts) => {
-      dispatch(updateLastPost(posts));
+      updateLastPost(posts);
     });
   }
 
@@ -68,4 +68,8 @@ const mapStateToProps = storeData => {
   return { lastPosts: storeData.lastPosts };
 };
 
-export default connect(mapStateToProps)(LastPosts);
+const mapDispatchToProps = dispatch => {
+  return { updateLastPost: (list) => dispatch(updateLastPost(list))};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LastPosts);
