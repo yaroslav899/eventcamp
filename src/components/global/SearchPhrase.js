@@ -19,9 +19,9 @@ class SearchPhrase extends PureComponent {
   }
 
   updateStoreValues = (searchPhrase) => {
-    const { updateEventList, updateSearchPhrase } = this.props;
+    const { updateEvents, updatePhrase } = this.props;
 
-    updateSearchPhrase(decodeURI(searchPhrase));
+    updatePhrase(decodeURI(searchPhrase));
 
     return request.getListPosts({}).then((posts) => {
       if (!posts.length) {
@@ -30,7 +30,7 @@ class SearchPhrase extends PureComponent {
         posts.push({ empty: noFilterResultMsg });
       }
 
-      updateEventList(posts);
+      updateEvents(posts);
 
       return true;
     });
@@ -59,16 +59,16 @@ class SearchPhrase extends PureComponent {
   }
 };
 
-const mapStateToProps = storeData => {
-  return { searchPhrase: storeData.filterState.searchPhrase };
-};
+function mapStateToProps(store) {
+  return { searchPhrase: store.filterState.searchPhrase };
+}
 
-const mapDispatchToProps = dispatch => {
+function mapDispatchToProps(dispatch) {
   return {
-    updateEventList: posts => dispatch(updateEventList(posts)),
-    updateSearchPhrase: searchPhrase => dispatch(updateSearchPhrase(searchPhrase)),
+    updateEvents: posts => dispatch(updateEventList(posts)),
+    updatePhrase: searchPhrase => dispatch(updateSearchPhrase(searchPhrase)),
   };
-};
+}
 
 SearchPhrase.defaultProps = {
   noFilterResultMsg: globalRecources.noFilterResult,

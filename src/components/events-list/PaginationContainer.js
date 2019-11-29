@@ -84,7 +84,7 @@ class PaginationContainer extends PureComponent {
 
 
   updateEventList = (initialParams) => {
-    const { totalPages, maxPageNumber, updateActivePage, updateEventList } = this.props;
+    const { totalPages, maxPageNumber, updateActivePage, updateEvents } = this.props;
     const activePage = +initialParams.page;
     const updatedTotalPages = this.getTotalPages(totalPages, activePage);
 
@@ -110,7 +110,7 @@ class PaginationContainer extends PureComponent {
     });
 
     request.getListPosts(initialParams).then((posts) => {
-      updateEventList(posts);
+      updateEvents(posts);
     });
 
     scrollToTop();
@@ -179,19 +179,19 @@ class PaginationContainer extends PureComponent {
   }
 }
 
-const mapTotalPagesToProps = storeData => {
+function mapTotalPagesToProps(store) {
   return {
-    totalPages: storeData.totalPages.count,
-    activePageNumber: storeData.totalPages.activePageNumber,
+    totalPages: store.totalPages.count,
+    activePageNumber: store.totalPages.activePageNumber,
   };
-};
+}
 
-const mapDispatchToProps = dispatch => {
+function mapDispatchToProps(dispatch) {
   return {
-    updateEventList: posts => dispatch(updateEventList(posts)),
+    updateEvents: posts => dispatch(updateEventList(posts)),
     updateActivePage: activePageNumber => dispatch(updateActivePage(activePageNumber)),
   };
-};
+}
 
 PaginationContainer.defaultProps = {
   firstPage: 1,

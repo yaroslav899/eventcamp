@@ -71,8 +71,8 @@ class Profile extends PureComponent {
   }
 }
 
-const mapStateToProps = (storeData) => {
-  return { userProfile: storeData.user.data };
+function mapStateToProps(store) {
+  return { userProfile: store.user.data };
 };
 
 export default connect(mapStateToProps)(Profile);

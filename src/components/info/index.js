@@ -55,13 +55,13 @@ class InfoPage extends PureComponent {
   }
 }
 
-const mapStateToProps = (storeData) => {
-  return { text: storeData.page.info };
-};
+function mapStateToProps(store) {
+  return { text: store.page.info };
+}
 
-const mapDispatchToProps = (dispatch) => {
+function mapDispatchToProps(dispatch) {
   return { updatePage: info => dispatch(updateInfoPage(info)) };
-};
+}
 
 InfoPage.defaultProps = {
   title: meta.title,

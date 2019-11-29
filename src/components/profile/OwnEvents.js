@@ -57,9 +57,11 @@ class OwnEvents extends PureComponent {
   }
 }
 
-const mapStateToProps = storeData => ({
-  posts: storeData.user.listPosts,
-  userProfile: storeData.user.data,
-});
+function mapStateToProps(store) {
+  return {
+    posts: store.user.listPosts,
+    userProfile: store.user.data,
+  }
+};
 
 export default connect(mapStateToProps)(OwnEvents);

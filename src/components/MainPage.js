@@ -79,8 +79,8 @@ MainPage.defaultProps = {
   actionCtaHPLabel: globalRecources.actionCtaHPLabel,
 };
 
-const mapStateToProps = (storeData) => {
-  return { cities: storeData.filterState.cities };
-};
+function mapStateToProps(store) {
+  return { cities: store.filterState.cities };
+}
 
 export default connect(mapStateToProps)(MainPage);

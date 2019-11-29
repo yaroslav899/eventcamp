@@ -20,9 +20,9 @@ class MainText extends PureComponent {
         return null;
       }
 
-      const { updateMainPage } = this.props;
+      const { updatePage } = this.props;
 
-      updateMainPage(data.content.rendered);
+      updatePage(data.content.rendered);
 
       return true;
     });
@@ -43,12 +43,12 @@ class MainText extends PureComponent {
   }
 }
 
-const mapStateToProps = (storeData) => {
-  return { text: storeData.page.main };
-};
+function mapStateToProps(store) {
+  return { text: store.page.main };
+}
 
-const mapDispatchToProps = dispatch => {
-  return { updateMainPage: main => dispatch(updateMainPage(main)) };
-};
+function mapDispatchToProps(dispatch) {
+  return { updatePage: main => dispatch(updateMainPage(main)) };
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainText);

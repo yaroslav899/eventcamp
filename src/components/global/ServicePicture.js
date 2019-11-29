@@ -23,9 +23,9 @@ class ServicePicture extends PureComponent {
   }
 }
 
-const mapStateToProps = storeData => {
-  return { city: storeData.filterState.cities };
-};
+function mapStateToProps(store) {
+  return { city: store.filterState.cities };
+}
 
 ServicePicture.defaultProps = { defaultCity: 'any' };
 
