@@ -929,8 +929,11 @@ div.right-side div.detail-interesting ul li div.samePost-info-rightside div:firs
     padding-right: 0;
     padding-left: 0;
   }
-}
 
+  .events__item > div > a {
+    max-height: 145px;
+  }
+}
 @media only screen and (min-device-width: 768px) and (max-device-width: 1199px) {
   .advant {
     height: 40px;
