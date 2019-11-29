@@ -17,7 +17,7 @@ class CallBack extends PureComponent {
       return false;
     }
 
-    const { location: { pathname }, updateCallbackPage } = this.props;
+    const { location: { pathname }, updatePage } = this.props;
     const pageID = getValueFromParams(mainMenu, pathname, 'url', 'id');
 
     return request.getPage(pageID).then((data) => {
@@ -27,7 +27,7 @@ class CallBack extends PureComponent {
 
       const { content: { rendered: page } } = data;
 
-      updateCallbackPage(page);
+      updatePage(page);
 
       return true;
     });
@@ -68,13 +68,13 @@ class CallBack extends PureComponent {
   }
 }
 
-const mapStateToProps = storeData => {
-  return { text: storeData.page.callback };
-};
+function mapStateToProps(store) {
+  return { text: store.page.callback };
+}
 
-const mapDispatchToProps = dispatch => {
-  return { updateCallbackPage: page => dispatch(updateCallbackPage(page)) };
-};
+function mapDispatchToProps(dispatch) {
+  return { updatePage: page => dispatch(updateCallbackPage(page)) };
+}
 
 CallBack.defaultProps = {
   h1: meta.h1,

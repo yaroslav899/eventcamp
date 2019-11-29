@@ -23,7 +23,7 @@ class CityField extends PureComponent {
 
   changeSelection = (type, selection) => {
     const params = !selection ? { [type]: '' } : { [selection.type]: selection ? selection.value : '' };
-    const { defaultPage, updateEventList, updateFilterCity } = this.props;
+    const { defaultPage, updateEvents, updateCity } = this.props;
 
     params.page = defaultPage;
 
@@ -33,8 +33,8 @@ class CityField extends PureComponent {
           posts.push({ empty: globalRecources.noFilterResult });
         }
 
-        updateEventList(posts);
-        updateFilterCity(params['cities']);
+        updateEvents(posts);
+        updateCity(params.cities);
 
         return params;
       });
@@ -62,19 +62,17 @@ class CityField extends PureComponent {
   }
 }
 
-const mapStateToProps = (storeData) => {
-  return { cities: storeData.filterState.cities };
-};
+function mapStateToProps(store) {
+  return { cities: store.filterState.cities };
+}
 
-const mapDispatchToProps = dispatch => {
+function mapDispatchToProps(dispatch) {
   return {
-    updateEventList: posts => dispatch(updateEventList(posts)),
-    updateFilterCity: cities => dispatch(updateFilterCity(cities)),
+    updateEvents: posts => dispatch(updateEventList(posts)),
+    updateCity: cities => dispatch(updateFilterCity(cities)),
   };
-};
+}
 
-CityField.defaultProps = {
-  defaultPage: '1',
-};
+CityField.defaultProps = { defaultPage: '1' };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CityField));

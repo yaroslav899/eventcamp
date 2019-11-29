@@ -17,14 +17,14 @@ class DateRange extends Component {
       return false;
     }
 
-    const { dateRange, defaultPage, noFilterResultMsg, updateFilterDateRange, updateEventList } = this.props;
+    const { dateRange, defaultPage, noFilterResultMsg, updateDateRange, updateEvents } = this.props;
     let range = DateUtils.addDayToRange(day, dateRange);
 
     if (!range.to) {
       range.to = range.from;
     }
 
-    updateFilterDateRange(range);
+    updateDateRange(range);
 
     if (!range.to && !range.from) {
       range = {};
@@ -35,25 +35,23 @@ class DateRange extends Component {
     return request.getListPosts(range)
       .then(posts => {
         if (!posts.length) {
-          posts.push({
-            empty: noFilterResultMsg,
-          });
+          posts.push({ empty: noFilterResultMsg });
         }
 
-        updateEventList(posts);
+        updateEvents(posts);
 
         return true;
       });
   }
 
   handleResetClick = () => {
-    const { defaultPage, updateFilterDateRange, updateEventList } = this.props;
+    const { defaultPage, updateDateRange, updateEvents } = this.props;
     const dateRange = {
       from: undefined,
       to: undefined,
     };
 
-    updateFilterDateRange(dateRange);
+    updateDateRange(dateRange);
 
     return request.getListPosts({ page: defaultPage })
       .then(posts => {
@@ -63,7 +61,7 @@ class DateRange extends Component {
           posts.push({ empty: noFilterResultMsg });
         }
 
-        updateEventList(posts);
+        updateEvents(posts);
       });
   }
 
@@ -91,7 +89,7 @@ class DateRange extends Component {
           <p>
             {from.toLocaleDateString()} по {to.toLocaleDateString()}
             <br />
-            <button className="link" onClick={this.handleResetClick}>
+            <button type="button" className="link" onClick={this.handleResetClick}>
               {resetButton}
             </button>
           </p>
@@ -101,19 +99,19 @@ class DateRange extends Component {
   }
 }
 
-const mapStateToProps = (storeData) => {
+function mapStateToProps(store) {
   return {
-    dateRange: storeData.filterState.dateRange,
-    posts: storeData.filterState.list,
+    dateRange: store.filterState.dateRange,
+    posts: store.filterState.list,
   };
-};
+}
 
-const mapDispatchToProps = dispatch => {
+function mapDispatchToProps(dispatch) {
   return {
-    updateEventList: posts => dispatch(updateEventList(posts)),
-    updateFilterDateRange: dateRange => dispatch(updateFilterDateRange(dateRange)),
+    updateEvents: posts => dispatch(updateEventList(posts)),
+    updateDateRange: dateRange => dispatch(updateFilterDateRange(dateRange)),
   };
-};
+}
 
 DateRange.defaultProps = {
   locale: 'uk',

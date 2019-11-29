@@ -21,7 +21,10 @@ class TakingPartMember extends PureComponent {
   render() {
     const { events } = this.state;
     const userPosts = !events ? '---' : events.map(event => <li key={event.id} className="own-events__item own-events-item">
-      <EventView event={event} isOwner={false} />
+      <EventView
+        event={event}
+        isOwner={false}
+      />
     </li>);
 
     return (

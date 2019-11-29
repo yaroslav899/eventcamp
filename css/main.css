@@ -888,7 +888,11 @@ div.feedback-detail-right a.feedback-registration {
   padding: 5px 30px;
   border:1px solid #dbdbdb;
 }
-div.feedback-detail-right a.feedback-phone {
+div.feedback-detail-right .feedback-phone {
+  cursor: pointer;
+  margin-top: 20px;
+  font-weight: bold;
+  display: inline-block;
   font-size: 0.9em;
 }
 

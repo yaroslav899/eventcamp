@@ -21,7 +21,7 @@ class CategoryField extends PureComponent {
 
   changeSelection = (type, selection) => {
     const params = !selection ? { [type]: '' } : { [selection.type]: selection ? selection.value : '' };
-    const { defaultPage, updateEventList, updateFilterCategory } = this.props;
+    const { defaultPage, updateEvents, updateCategory } = this.props;
 
     params.page = defaultPage;
 
@@ -31,8 +31,8 @@ class CategoryField extends PureComponent {
           posts.push({ empty: globalRecources.noFilterResult });
         }
 
-        updateEventList(posts);
-        updateFilterCategory(params['categories']);
+        updateEvents(posts);
+        updateCategory(params.categories);
 
         return params;
       });
@@ -60,19 +60,17 @@ class CategoryField extends PureComponent {
   }
 }
 
-const mapStateToProps = storeData => {
-  return { categories: storeData.filterState.categories };
-};
+function mapStateToProps(store) {
+  return { categories: store.filterState.categories };
+}
 
-const mapDispatchToProps = dispatch => {
+function mapDispatchToProps(dispatch) {
   return {
-    updateEventList: posts => dispatch(updateEventList(posts)),
-    updateFilterCategory: categories => dispatch(updateFilterCategory(categories)),
+    updateEvents: posts => dispatch(updateEventList(posts)),
+    updateCategory: categories => dispatch(updateFilterCategory(categories)),
   };
-};
+}
 
-CategoryField.defaultProps = {
-  defaultPage: '1',
-};
+CategoryField.defaultProps = { defaultPage: '1' };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CategoryField));

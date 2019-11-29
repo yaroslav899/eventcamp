@@ -59,7 +59,7 @@ const mapStateToProps = (storeData) => {
   return { text: storeData.page.info };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return { updatePage: info => dispatch(updateInfoPage(info)) };
 };
 

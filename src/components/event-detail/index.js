@@ -26,12 +26,12 @@ class DetailPage extends Component {
   }
 
   getPostDetail = () => {
-    const { updateDetailPost, match: { params: { id: postID } } } = this.props;
+    const { updateEvent, match: { params: { id: postID } } } = this.props;
 
-    updateDetailPost(null);
+    updateEvent(null);
 
     return request.getPostDetail(postID)
-      .then(post => updateDetailPost(post));
+      .then(post => updateEvent(post));
   }
 
   render() {
@@ -60,12 +60,12 @@ class DetailPage extends Component {
   }
 }
 
-const mapStateToProps = storeData => {
-  return { post: storeData.post.detail };
-};
+function mapStateToProps(store) {
+  return { post: store.post.detail };
+}
 
-const mapDispatchToProps = dispatch => {
-  return { updateDetailPost: post => dispatch(updateDetailPost(post)) };
-};
+function mapDispatchToProps(dispatch) {
+  return { updateEvent: post => dispatch(updateDetailPost(post)) };
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(DetailPage);

@@ -62,10 +62,10 @@ class EventDetail extends PureComponent {
       return request.updateProfile(param, userID)
         .then((response) => {
           if (response.success) {
-            const { updateUserProfile } = this.props;
+            const { updateProfile } = this.props;
 
             setCookie('profileData', JSON.stringify(response.userProfile), 2);
-            updateUserProfile(response.userProfile);
+            updateProfile(response.userProfile);
           }
 
           return true;
@@ -142,12 +142,12 @@ EventDetail.defaultProps = {
   nonRegistredTitle: globalRecources.nonRegistred,
 };
 
-const mapStateToProps = storeData => {
-  return { userProfile: storeData.user.data };
-};
+function mapStateToProps(store) {
+  return { userProfile: store.user.data };
+}
 
-const mapDispatchToProps = dispatch => {
-  return { updateUserProfile: data => dispatch(updateUserProfile(data)) };
-};
+function mapDispatchToProps(dispatch) {
+  return { updateProfile: data => dispatch(updateUserProfile(data)) };
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(EventDetail);

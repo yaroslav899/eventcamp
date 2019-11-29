@@ -21,7 +21,7 @@ class TopicField extends PureComponent {
     }
 
     const activeCategory = categories.find(cat => cat.id === categoryID);
-    const categoryTopics = activeCategory.subcat;
+    const categoryTopics = activeCategory ? activeCategory.subcat : defaultTopic;
 
     this.setState({
       topics: categoryTopics,
@@ -31,29 +31,29 @@ class TopicField extends PureComponent {
 
   componentDidUpdate(prevProps) {
     const { categories: prevCategoryID } = prevProps;
-    const { categories: categoryID, topics: topic } = this.props;
+    const { categories: categoryID, topics: topic, updateTopic } = this.props;
 
-    if (prevCategoryID === categoryID || !categoryID) {
-      return false;
+    if (prevCategoryID !== categoryID || !categoryID) {
+      const activeCategory = categories.find(cat => cat.id === categoryID);
+      const categoryTopics = activeCategory ? activeCategory.subcat : defaultTopic;
+
+      updateTopic(null);
+
+      this.setState({
+        topics: categoryTopics,
+        currentTheme: topic || '',
+      });
     }
-
-    const activeCategory = categories.find(cat => cat.id === categoryID);
-    const categoryTopics = activeCategory.subcat;
-
-    this.setState({
-      topics: categoryTopics,
-      currentTheme: topic || '',
-    });
   }
 
   changeTopic = (selection) => {
     this.changeSelection('topics', selection);
-    this.setState({ currentTheme: selection || defaultTopic });
+    this.setState({ currentTheme: selection || '' });
   };
 
   changeSelection = (type, selection) => {
     const params = !selection ? { [type]: '' } : { [selection.type]: selection ? selection.value : '' };
-    const { defaultPage, updateEventList, updateFilterTopic } = this.props;
+    const { defaultPage, updateEvents, updateTopic } = this.props;
 
     params.page = defaultPage;
 
@@ -63,8 +63,8 @@ class TopicField extends PureComponent {
           posts.push({ empty: globalRecources.noFilterResult });
         }
 
-        updateEventList(posts);
-        updateFilterTopic(params['topics']);
+        updateEvents(posts);
+        updateTopic(params.topics);
 
         return params;
       });
@@ -92,22 +92,20 @@ class TopicField extends PureComponent {
   }
 }
 
-const mapStateToProps = (storeData) => {
+function mapStateToProps(store) {
   return {
-    categories: storeData.filterState.categories,
-    topics: storeData.filterState.topics,
+    categories: store.filterState.categories,
+    topics: store.filterState.topics,
   };
-};
+}
 
-const mapDispatchToProps = dispatch => {
+function mapDispatchToProps(dispatch) {
   return {
-    updateEventList: posts => dispatch(updateEventList(posts)),
-    updateFilterTopic: topics => dispatch(updateFilterTopic(topics)),
+    updateEvents: posts => dispatch(updateEventList(posts)),
+    updateTopic: topics => dispatch(updateFilterTopic(topics)),
   };
-};
+}
 
-TopicField.defaultProps = {
-  defaultPage: '1',
-};
+TopicField.defaultProps = { defaultPage: '1' };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TopicField);
