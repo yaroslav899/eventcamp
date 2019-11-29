@@ -1,4 +1,4 @@
-import { imageUrlRecources } from '../resources/url';
+import { imageUrlRecources } from '../../resources/url';
 
 const initialFilterState = {
   data: {},

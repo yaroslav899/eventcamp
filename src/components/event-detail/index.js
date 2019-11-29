@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import moment from 'moment';
 import { request } from '../../api';
-import store from '../../store';
+import { updateDetailPost } from '../../redux/actions/postActions';
 import { getValueFromParams } from '../../helper';
 import { cities } from '../../fixtures';
 import DetailPageView from './views/DetailPageView';
@@ -11,7 +11,7 @@ import Loader from '../global/Loader';
 
 class DetailPage extends Component {
   componentDidMount() {
-    return this.getPostDetail(this.props.match.params.id);
+    return this.getPostDetail();
   }
 
   componentDidUpdate(props) {
@@ -19,31 +19,19 @@ class DetailPage extends Component {
     const { location: { pathname: prevPathName } = {} } = this.props;
 
     if (pathName !== prevPathName) {
-      return this.getPostDetail(this.props.match.params.id);
+      return this.getPostDetail();
     }
 
     return true;
   }
 
   getPostDetail = () => {
-    this.resetPostAmount();
+    const { updateEvent, match: { params: { id: postID } } } = this.props;
 
-    return request.getPostDetail(this.props.match.params.id)
-      .then(post => {
-        store.dispatch({
-          type: 'UPDATE_DETAIL_POST',
-          post,
-        });
-      });
-  }
+    updateEvent(null);
 
-  resetPostAmount = () => {
-    store.dispatch({
-      type: 'UPDATE_DETAIL_POST',
-      post: null,
-    });
-
-    return true;
+    return request.getPostDetail(postID)
+      .then(post => updateEvent(post));
   }
 
   render() {
@@ -72,8 +60,12 @@ class DetailPage extends Component {
   }
 }
 
-const mapStateToProps = (storeData) => {
-  return { post: storeData.post.detail };
-};
+function mapStateToProps(store) {
+  return { post: store.post.detail };
+}
 
-export default connect(mapStateToProps)(DetailPage);
+function mapDispatchToProps(dispatch) {
+  return { updateEvent: post => dispatch(updateDetailPost(post)) };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DetailPage);

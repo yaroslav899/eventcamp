@@ -3,7 +3,7 @@ import DayPicker, { DateUtils } from 'react-day-picker';
 import MomentLocaleUtils from 'react-day-picker/moment';
 import { connect } from 'react-redux';
 import 'moment/locale/uk';
-import store from '../../store';
+import { updateEventList, updateFilterDateRange } from '../../redux/actions/filterActions';
 import { request } from '../../api';
 import { filterRecources } from '../../resources';
 import { globalRecources } from '../../resources/global';
@@ -17,51 +17,43 @@ class DateRange extends Component {
       return false;
     }
 
-    const { dateRange, noFilterResultMsg } = this.props;
+    const { dateRange, defaultPage, noFilterResultMsg, updateDateRange, updateEvents } = this.props;
     let range = DateUtils.addDayToRange(day, dateRange);
 
     if (!range.to) {
       range.to = range.from;
     }
 
-    store.dispatch({
-      type: 'UPDATE_FILTER_DATERANGE',
-      dateRange: range,
-    });
+    updateDateRange(range);
 
     if (!range.to && !range.from) {
       range = {};
     }
 
-    range.page='1';
+    range.page = defaultPage;
 
     return request.getListPosts(range)
       .then(posts => {
         if (!posts.length) {
-          posts.push({
-            empty: noFilterResultMsg,
-          });
+          posts.push({ empty: noFilterResultMsg });
         }
 
-        store.dispatch({
-          type: 'UPDATE_EVENT_LIST',
-          list: posts,
-        });
+        updateEvents(posts);
 
         return true;
       });
   }
 
   handleResetClick = () => {
-    store.dispatch({
-      type: 'UPDATE_FILTER_DATERANGE',
-      dateRange: {
-        from: undefined,
-        to: undefined,
-      },
-    });
+    const { defaultPage, updateDateRange, updateEvents } = this.props;
+    const dateRange = {
+      from: undefined,
+      to: undefined,
+    };
 
-    return request.getListPosts({ page: '1' })
+    updateDateRange(dateRange);
+
+    return request.getListPosts({ page: defaultPage })
       .then(posts => {
         if (!posts.length) {
           const { noFilterResultMsg } = this.props;
@@ -69,10 +61,7 @@ class DateRange extends Component {
           posts.push({ empty: noFilterResultMsg });
         }
 
-        store.dispatch({
-          type: 'UPDATE_EVENT_LIST',
-          list: posts,
-        });
+        updateEvents(posts);
       });
   }
 
@@ -100,7 +89,7 @@ class DateRange extends Component {
           <p>
             {from.toLocaleDateString()} по {to.toLocaleDateString()}
             <br />
-            <button className="link" onClick={this.handleResetClick}>
+            <button type="button" className="link" onClick={this.handleResetClick}>
               {resetButton}
             </button>
           </p>
@@ -110,17 +99,25 @@ class DateRange extends Component {
   }
 }
 
-const dateToProps = (storeData) => {
+function mapStateToProps(store) {
   return {
-    dateRange: storeData.filterState.dateRange,
-    posts: storeData.filterState.list,
+    dateRange: store.filterState.dateRange,
+    posts: store.filterState.list,
   };
-};
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    updateEvents: posts => dispatch(updateEventList(posts)),
+    updateDateRange: dateRange => dispatch(updateFilterDateRange(dateRange)),
+  };
+}
 
 DateRange.defaultProps = {
   locale: 'uk',
   resetButton: filterRecources.reset,
   noFilterResultMsg: globalRecources.noFilterResult,
+  defaultPage: '1',
 };
 
-export default connect(dateToProps)(DateRange);
+export default connect(mapStateToProps, mapDispatchToProps)(DateRange);

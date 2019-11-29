@@ -5,7 +5,7 @@ import EventLocation from '../event-global/EventLocation';
 import EventDate from '../event-global/EventDate';
 import EventPrice from '../event-global/EventPrice';
 import EventTags from '../event-global/EventTags';
-import store from '../../store';
+import { updateLastPost } from '../../redux/actions/lastPostsActions';
 import { request } from '../../api';
 import { getValueFromParams, createMarkupText } from '../../helper';
 import { categories } from '../../fixtures';
@@ -13,17 +13,14 @@ import { listRecources } from '../../resources';
 
 class LastPosts extends PureComponent {
   componentDidMount() {
-    const { lastPosts: { list } } = this.props;
+    const { lastPosts: { list }, updateLastEvents } = this.props;
 
     if (list) {
       return false;
     }
 
     return request.getLastPosts().then((posts) => {
-      store.dispatch({
-        type: 'UPDATE_LAST_POSTS',
-        list: posts,
-      });
+      updateLastEvents(posts);
     });
   }
 
@@ -67,8 +64,12 @@ class LastPosts extends PureComponent {
   }
 }
 
-const mapStateToProps = storeData => {
-  return { lastPosts: storeData.lastPosts };
-};
+function mapStateToProps(store) {
+  return { lastPosts: store.lastPosts };
+}
 
-export default connect(mapStateToProps)(LastPosts);
+function mapDispatchToProps(dispatch) {
+  return { updateLastEvents: (list) => dispatch(updateLastPost(list)) };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LastPosts);

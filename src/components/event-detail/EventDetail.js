@@ -4,7 +4,7 @@ import Modal from '../global/Modal';
 import GoogleCalendar from './GoogleCalendar';
 import EventDetailView from './views/EventDetailView';
 import { request } from '../../api';
-import store from '../../store';
+import { updateUserProfile } from '../../redux/actions/userActions';
 import { setCookie } from '../../_cookie';
 import { imageUrlRecources } from '../../resources/url';
 import { globalRecources } from '../../resources/global';
@@ -31,9 +31,7 @@ class EventDetail extends PureComponent {
     }
   }
 
-  subscribe = (e) => {
-    e.preventDefault();
-
+  subscribe = () => {
     const {
       userProfile: {
         name: userName,
@@ -64,17 +62,16 @@ class EventDetail extends PureComponent {
       return request.updateProfile(param, userID)
         .then((response) => {
           if (response.success) {
-            setCookie('profileData', JSON.stringify(response.userProfile), 2);
+            const { updateProfile } = this.props;
 
-            store.dispatch({
-              type: 'UPDATE_USERPROFILE',
-              data: response.userProfile,
-            });
+            setCookie('profileData', JSON.stringify(response.userProfile), 2);
+            updateProfile(response.userProfile);
           }
 
           return true;
         });
     }
+
     this.toggleModal();
 
     return true;
@@ -145,8 +142,12 @@ EventDetail.defaultProps = {
   nonRegistredTitle: globalRecources.nonRegistred,
 };
 
-const mapStateToProps = storeData => {
-  return { userProfile: storeData.user.data };
-};
+function mapStateToProps(store) {
+  return { userProfile: store.user.data };
+}
 
-export default connect(mapStateToProps)(EventDetail);
+function mapDispatchToProps(dispatch) {
+  return { updateProfile: data => dispatch(updateUserProfile(data)) };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EventDetail);

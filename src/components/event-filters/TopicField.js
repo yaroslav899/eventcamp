@@ -1,7 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
 import Select from 'react-select';
 import { connect } from 'react-redux';
-import store from '../../store';
+import { updateEventList, updateFilterTopic } from '../../redux/actions/filterActions';
 import { request } from '../../api';
 import { categories, defaultTopic } from '../../fixtures';
 import { filterRecources } from '../../resources';
@@ -21,7 +21,7 @@ class TopicField extends PureComponent {
     }
 
     const activeCategory = categories.find(cat => cat.id === categoryID);
-    const categoryTopics = activeCategory.subcat;
+    const categoryTopics = activeCategory ? activeCategory.subcat : defaultTopic;
 
     this.setState({
       topics: categoryTopics,
@@ -31,29 +31,31 @@ class TopicField extends PureComponent {
 
   componentDidUpdate(prevProps) {
     const { categories: prevCategoryID } = prevProps;
-    const { categories: categoryID, topics: topic } = this.props;
+    const { categories: categoryID, topics: topic, updateTopic } = this.props;
 
-    if (prevCategoryID === categoryID || !categoryID) {
-      return false;
+    if (prevCategoryID !== categoryID || !categoryID) {
+      const activeCategory = categories.find(cat => cat.id === categoryID);
+      const categoryTopics = activeCategory ? activeCategory.subcat : defaultTopic;
+
+      updateTopic(null);
+
+      this.setState({
+        topics: categoryTopics,
+        currentTheme: topic || '',
+      });
     }
-
-    const activeCategory = categories.find(cat => cat.id === categoryID);
-    const categoryTopics = activeCategory.subcat;
-
-    this.setState({
-      topics: categoryTopics,
-      currentTheme: topic || '',
-    });
   }
 
   changeTopic = (selection) => {
     this.changeSelection('topics', selection);
-    this.setState({ currentTheme: selection || defaultTopic });
+    this.setState({ currentTheme: selection || '' });
   };
 
   changeSelection = (type, selection) => {
     const params = !selection ? { [type]: '' } : { [selection.type]: selection ? selection.value : '' };
-    params.page = '1';
+    const { defaultPage, updateEvents, updateTopic } = this.props;
+
+    params.page = defaultPage;
 
     return request.getListPosts(params)
       .then((posts) => {
@@ -61,15 +63,8 @@ class TopicField extends PureComponent {
           posts.push({ empty: globalRecources.noFilterResult });
         }
 
-        store.dispatch({
-          type: 'UPDATE_EVENT_LIST',
-          list: posts,
-        });
-
-        store.dispatch({
-          type: 'UPDATE_FILTER_TOPIC',
-          topics: params['topics'],
-        });
+        updateEvents(posts);
+        updateTopic(params.topics);
 
         return params;
       });
@@ -97,11 +92,20 @@ class TopicField extends PureComponent {
   }
 }
 
-const mapStateToProps = (storeData) => {
+function mapStateToProps(store) {
   return {
-    categories: storeData.filterState.categories,
-    topics: storeData.filterState.topics,
+    categories: store.filterState.categories,
+    topics: store.filterState.topics,
   };
-};
+}
 
-export default connect(mapStateToProps)(TopicField);
+function mapDispatchToProps(dispatch) {
+  return {
+    updateEvents: posts => dispatch(updateEventList(posts)),
+    updateTopic: topics => dispatch(updateFilterTopic(topics)),
+  };
+}
+
+TopicField.defaultProps = { defaultPage: '1' };
+
+export default connect(mapStateToProps, mapDispatchToProps)(TopicField);

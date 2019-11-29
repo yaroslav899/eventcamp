@@ -1,6 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
-import store from '../../store';
+import { updateActivePage } from '../../redux/actions/paginationActions';
+import { updateEventList } from '../../redux/actions/filterActions';
 import Pagination from '../global/Pagination';
 import { request } from '../../api';
 import { scrollToTop } from '../../helper/scroll';
@@ -52,11 +53,6 @@ class PaginationContainer extends PureComponent {
   }
 
   handlePaginationClick = (page) => {
-    store.dispatch({
-      type: 'UPDATE_ACTIVE_PAGE',
-      activePageNumber: page,
-    });
-
     return this.updateEventList({ page });
   }
 
@@ -69,11 +65,6 @@ class PaginationContainer extends PureComponent {
     }
 
     const page = activePage - 1;
-
-    store.dispatch({
-      type: 'UPDATE_ACTIVE_PAGE',
-      activePageNumber: page,
-    });
 
     return this.updateEventList({ page });
   }
@@ -88,19 +79,16 @@ class PaginationContainer extends PureComponent {
 
     const page = +activePage + 1;
 
-    store.dispatch({
-      type: 'UPDATE_ACTIVE_PAGE',
-      activePageNumber: page,
-    });
-
     return this.updateEventList({ page });
   }
 
 
   updateEventList = (initialParams) => {
-    const { totalPages, maxPageNumber } = this.props;
+    const { totalPages, maxPageNumber, updateActivePage, updateEvents } = this.props;
     const activePage = +initialParams.page;
     const updatedTotalPages = this.getTotalPages(totalPages, activePage);
+
+    updateActivePage(initialParams.page);
 
     if ((updatedTotalPages.length < maxPageNumber) && !(totalPages.length < maxPageNumber)) {
       let prevPage = activePage - 1;
@@ -122,10 +110,7 @@ class PaginationContainer extends PureComponent {
     });
 
     request.getListPosts(initialParams).then((posts) => {
-      store.dispatch({
-        type: 'UPDATE_EVENT_LIST',
-        list: posts,
-      });
+      updateEvents(posts);
     });
 
     scrollToTop();
@@ -194,12 +179,19 @@ class PaginationContainer extends PureComponent {
   }
 }
 
-const mapTotalPagesToProps = storeData => {
+function mapTotalPagesToProps(store) {
   return {
-    totalPages: storeData.totalPages.count,
-    activePageNumber: storeData.totalPages.activePageNumber,
+    totalPages: store.totalPages.count,
+    activePageNumber: store.totalPages.activePageNumber,
   };
-};
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    updateEvents: posts => dispatch(updateEventList(posts)),
+    updateActivePage: activePageNumber => dispatch(updateActivePage(activePageNumber)),
+  };
+}
 
 PaginationContainer.defaultProps = {
   firstPage: 1,
@@ -207,4 +199,4 @@ PaginationContainer.defaultProps = {
   startNumberRedrawPagination: 6,
 };
 
-export default connect(mapTotalPagesToProps)(PaginationContainer);
+export default connect(mapTotalPagesToProps, mapDispatchToProps)(PaginationContainer);

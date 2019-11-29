@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import store from '../../store';
+import { updateEventList } from '../../redux/actions/filterActions';
 import { request } from '../../api';
 import EventList from './EventList';
 import ListPageView from './views/ListPageView';
@@ -10,25 +10,20 @@ import { globalRecources } from '../../resources/global';
 
 class ListPage extends PureComponent {
   componentDidMount() {
-    const { noFilterResultMsg, match } = this.props;
+    const { noFilterResultMsg, match, updateEvents, defaultPage } = this.props;
     const { params: initialParams } = match;
 
-    store.dispatch({
-      type: 'UPDATE_EVENT_LIST',
-      list: [],
-    });
-
+    updateEvents([]);
     updateFilterStore(initialParams);
+
+    initialParams.page = defaultPage;
 
     return request.getListPosts(initialParams).then((posts) => {
       if (!posts.length) {
         posts.push({ empty: noFilterResultMsg });
       }
 
-      store.dispatch({
-        type: 'UPDATE_EVENT_LIST',
-        list: posts,
-      });
+      updateEvents(posts);
 
       return true;
     });
@@ -63,10 +58,17 @@ class ListPage extends PureComponent {
   }
 }
 
-const mapStateToProps = storeData => {
-  return { posts: storeData.filterState.list };
+function mapStateToProps(store) {
+  return { posts: store.filterState.list };
+}
+
+function mapDispatchToProps(dispatch) {
+  return { updateEvents: posts => dispatch(updateEventList(posts)) };
+}
+
+ListPage.defaultProps = {
+  noFilterResultMsg: globalRecources.noFilterResult,
+  defaultPage: '1',
 };
 
-ListPage.defaultProps = { noFilterResultMsg: globalRecources.noFilterResult };
-
-export default connect(mapStateToProps)(ListPage);
+export default connect(mapStateToProps, mapDispatchToProps)(ListPage);

@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import { updateUserPosts } from '../../redux/actions/userActions';
 import EventView from '../event-global/EventView';
 import { request } from '../../api';
-import store from '../../store';
 
 class OwnEvents extends PureComponent {
   componentDidMount() {
@@ -38,10 +38,9 @@ class OwnEvents extends PureComponent {
 
   loadOwnEvents = userID => request.getAuthorPosts({ author: userID })
     .then((posts) => {
-      store.dispatch({
-        type: 'UPDATE_USER_POSTS',
-        listPosts: posts,
-      });
+      const { dispatch } = this.props;
+
+      dispatch(updateUserPosts(posts));
     });
 
   render() {
@@ -58,9 +57,11 @@ class OwnEvents extends PureComponent {
   }
 }
 
-const mapStateToProps = storeData => ({
-  posts: storeData.user.listPosts,
-  userProfile: storeData.user.data,
-});
+function mapStateToProps(store) {
+  return {
+    posts: store.user.listPosts,
+    userProfile: store.user.data,
+  }
+};
 
 export default connect(mapStateToProps)(OwnEvents);

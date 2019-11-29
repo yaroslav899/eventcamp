@@ -103,8 +103,8 @@ class EditEvent extends AddEvent {
 
 EditEvent.defaultProps = { successMsg: global.successEditMsg };
 
-const mapStateToProps = storeData => {
-  return { listPosts: storeData.user.listPosts };
+function mapStateToProps(store) {
+  return { listPosts: store.user.listPosts };
 };
 
 export default connect(mapStateToProps)(EditEvent);

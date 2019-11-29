@@ -5,10 +5,10 @@ import {
   TabList,
   TabPanel,
 } from 'react-tabs';
-import GoogleMap from './GoogleMap';
-import EventLocation from '../event-global/EventLocation';
-import { createMarkupText } from '../../helper';
-import { detailRecources } from '../../resources';
+import GoogleMap from '../GoogleMap';
+import EventLocation from '../../event-global/EventLocation';
+import { createMarkupText } from '../../../helper';
+import { detailRecources } from '../../../resources';
 
 const DetailTabs = (props) => {
   const {

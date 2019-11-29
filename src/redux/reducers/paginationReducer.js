@@ -5,8 +5,9 @@ export default function (paginationReducer = { count: [1], activePageNumber: '1'
       for (let i = 1; i <= action.count; ++i) {
         count.push(i);
       }
-      return { ...paginationReducer, count: count };
-    };
+
+      return { ...paginationReducer, count };
+    }
     case 'UPDATE_ACTIVE_PAGE':
       return { ...paginationReducer, activePageNumber: action.activePageNumber };
     default:

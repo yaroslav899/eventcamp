@@ -2,7 +2,7 @@ import React, { PureComponent, Fragment } from 'react';
 import Select from 'react-select';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import store from '../../store';
+import { updateEventList, updateFilterCity } from '../../redux/actions/filterActions';
 import { request } from '../../api';
 import { cities } from '../../fixtures';
 import { filterRecources } from '../../resources';
@@ -23,7 +23,9 @@ class CityField extends PureComponent {
 
   changeSelection = (type, selection) => {
     const params = !selection ? { [type]: '' } : { [selection.type]: selection ? selection.value : '' };
-    params.page='1';
+    const { defaultPage, updateEvents, updateCity } = this.props;
+
+    params.page = defaultPage;
 
     return request.getListPosts(params)
       .then((posts) => {
@@ -31,22 +33,15 @@ class CityField extends PureComponent {
           posts.push({ empty: globalRecources.noFilterResult });
         }
 
-        store.dispatch({
-          type: 'UPDATE_EVENT_LIST',
-          list: posts,
-        });
-
-        store.dispatch({
-          type: 'UPDATE_FILTER_CITY',
-          cities: params['cities'],
-        });
+        updateEvents(posts);
+        updateCity(params.cities);
 
         return params;
       });
   };
 
   render() {
-    const { cities: cityFilter } = this.props;
+    const { cities: cityValue } = this.props;
 
     return (
       <Fragment>
@@ -59,7 +54,7 @@ class CityField extends PureComponent {
             value: city.id,
             type: 'cities',
           }))}
-          value={cityFilter}
+          value={cityValue}
           onChange={this.changeCity}
         />
       </Fragment>
@@ -67,8 +62,17 @@ class CityField extends PureComponent {
   }
 }
 
-const mapStateToProps = (storeData) => {
-  return { cities: storeData.filterState.cities };
-};
+function mapStateToProps(store) {
+  return { cities: store.filterState.cities };
+}
 
-export default withRouter(connect(mapStateToProps)(CityField));
+function mapDispatchToProps(dispatch) {
+  return {
+    updateEvents: posts => dispatch(updateEventList(posts)),
+    updateCity: cities => dispatch(updateFilterCity(cities)),
+  };
+}
+
+CityField.defaultProps = { defaultPage: '1' };
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CityField));

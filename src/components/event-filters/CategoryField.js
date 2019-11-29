@@ -2,7 +2,7 @@ import React, { PureComponent, Fragment } from 'react';
 import Select from 'react-select';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import store from '../../store';
+import { updateEventList, updateFilterCategory } from '../../redux/actions/filterActions';
 import { request } from '../../api';
 import { categories } from '../../fixtures';
 import { filterRecources } from '../../resources';
@@ -21,7 +21,9 @@ class CategoryField extends PureComponent {
 
   changeSelection = (type, selection) => {
     const params = !selection ? { [type]: '' } : { [selection.type]: selection ? selection.value : '' };
-    params.page='1';
+    const { defaultPage, updateEvents, updateCategory } = this.props;
+
+    params.page = defaultPage;
 
     return request.getListPosts(params)
       .then((posts) => {
@@ -29,22 +31,15 @@ class CategoryField extends PureComponent {
           posts.push({ empty: globalRecources.noFilterResult });
         }
 
-        store.dispatch({
-          type: 'UPDATE_EVENT_LIST',
-          list: posts,
-        });
-
-        store.dispatch({
-          type: 'UPDATE_FILTER_CATEGORY',
-          categories: params['categories'],
-        });
+        updateEvents(posts);
+        updateCategory(params.categories);
 
         return params;
       });
   };
 
   render() {
-    const { categories: catFilter } = this.props;
+    const { categories: categoryValue } = this.props;
 
     return (
       <Fragment>
@@ -57,7 +52,7 @@ class CategoryField extends PureComponent {
             value: category.id,
             type: 'categories',
           }))}
-          value={catFilter}
+          value={categoryValue}
           onChange={this.changeCategory}
         />
       </Fragment>
@@ -65,8 +60,17 @@ class CategoryField extends PureComponent {
   }
 }
 
-const mapStateToProps = (storeData) => {
-  return { categories: storeData.filterState.categories };
-};
+function mapStateToProps(store) {
+  return { categories: store.filterState.categories };
+}
 
-export default withRouter(connect(mapStateToProps)(CategoryField));
+function mapDispatchToProps(dispatch) {
+  return {
+    updateEvents: posts => dispatch(updateEventList(posts)),
+    updateCategory: categories => dispatch(updateFilterCategory(categories)),
+  };
+}
+
+CategoryField.defaultProps = { defaultPage: '1' };
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CategoryField));

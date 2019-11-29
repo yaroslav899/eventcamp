@@ -42,9 +42,9 @@ class AuthHeaderLink extends Component {
   }
 }
 
-const mapStateToProps = storeData => {
-  return { userAuth: storeData.user.data };
-};
+function mapStateToProps(store) {
+  return { userAuth: store.user.data };
+}
 
 AuthHeaderLink.defaultProps = {
   exitButton: globalRecources.exit,

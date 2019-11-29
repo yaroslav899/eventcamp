@@ -1,25 +1,23 @@
 import React, { Fragment, PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import CallBackForm from './CallBackForm';
-import store from '../../store';
+import CallBackView from './views/CallBackView';
+import Adventages from '../global/Adventages';
+import { updateCallbackPage } from '../../redux/actions/pageActions';
 import { request } from '../../api';
 import { getValueFromParams, createMarkupText } from '../../helper';
-import Adventages from '../global/Adventages';
 import { mainMenu } from '../../resources/menu';
 import { meta } from '../../resources/meta/callback';
 
 class CallBack extends PureComponent {
   componentDidMount() {
-    const {
-      text,
-      location: { pathname },
-    } = this.props;
+    const { text } = this.props;
 
     if (text) {
       return false;
     }
 
+    const { location: { pathname }, updatePage } = this.props;
     const pageID = getValueFromParams(mainMenu, pathname, 'url', 'id');
 
     return request.getPage(pageID).then((data) => {
@@ -27,10 +25,9 @@ class CallBack extends PureComponent {
         return false;
       }
 
-      store.dispatch({
-        type: 'UPDATE_CALLBACK_PAGE',
-        callback: data.content.rendered,
-      });
+      const { content: { rendered: page } } = data;
+
+      updatePage(page);
 
       return true;
     });
@@ -64,28 +61,20 @@ class CallBack extends PureComponent {
         </Helmet>
         <div className="container">
           <Adventages />
-          <div className="row">
-            <div className="col-12">
-              <h1>{h1}</h1>
-              <div className="row">
-                <div className="col-6">
-                  <CallBackForm />
-                </div>
-                <div className="col-6">
-                  <span dangerouslySetInnerHTML={createMarkupText(text)} />
-                </div>
-              </div>
-            </div>
-          </div>
+          <CallBackView title={h1} content={createMarkupText(text)} />
         </div>
       </Fragment>
     );
   }
 }
 
-const mapStateToProps = storeData => {
-  return { text: storeData.page.callback };
-};
+function mapStateToProps(store) {
+  return { text: store.page.callback };
+}
+
+function mapDispatchToProps(dispatch) {
+  return { updatePage: page => dispatch(updateCallbackPage(page)) };
+}
 
 CallBack.defaultProps = {
   h1: meta.h1,
@@ -96,4 +85,4 @@ CallBack.defaultProps = {
   metalang: meta.lang,
 };
 
-export default connect(mapStateToProps)(CallBack);
+export default connect(mapStateToProps, mapDispatchToProps)(CallBack);

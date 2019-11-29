@@ -30,9 +30,9 @@ class EventPhone extends PureComponent {
     if (!phone) return <Fragment />;
 
     return (
-      <a className="feedback-phone" onClick={this.handlePhoneClick}>
+      <span role="textbox" tabIndex="0" className="feedback-phone" onClick={this.handlePhoneClick}>
         {phoneNumber}
-      </a>
+      </span>
     );
   }
 }

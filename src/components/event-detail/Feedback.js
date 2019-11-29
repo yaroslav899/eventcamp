@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import EventPhone from './EventPhone';
 import WriteToAuthor from './views/WriteToAuthor';
-import AddToInteresting from './views/AddToInteresting';
+import RegisterCTA from './views/RegisterCTA';
 
 const FeedBack = (props) => {
   const { data } = props;
@@ -24,7 +24,7 @@ const FeedBack = (props) => {
       {!!email.length
         && <WriteToAuthor href={emailUrl} target="_blank" className="write-organisator" title={eventTitle} />
       }
-      <AddToInteresting register={register} target="_blank" className="feedback-registration" title={eventTitle} />
+      <RegisterCTA register={register} target="_blank" className="feedback-registration" title={eventTitle} />
       <EventPhone phone={phone} />
     </div>
   );

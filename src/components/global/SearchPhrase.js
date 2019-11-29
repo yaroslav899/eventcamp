@@ -1,7 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import store from '../../store';
+import { updateEventList, updateSearchPhrase } from '../../redux/actions/filterActions';
 import { request } from '../../api';
 import { globalRecources } from '../../resources/global';
 
@@ -19,10 +19,9 @@ class SearchPhrase extends PureComponent {
   }
 
   updateStoreValues = (searchPhrase) => {
-    store.dispatch({
-      type: 'UPDATE_SEARCH_PHRASE',
-      searchPhrase: decodeURI(searchPhrase),
-    });
+    const { updateEvents, updatePhrase } = this.props;
+
+    updatePhrase(decodeURI(searchPhrase));
 
     return request.getListPosts({}).then((posts) => {
       if (!posts.length) {
@@ -31,19 +30,16 @@ class SearchPhrase extends PureComponent {
         posts.push({ empty: noFilterResultMsg });
       }
 
-      store.dispatch({
-        type: 'UPDATE_EVENT_LIST',
-        list: posts,
-      });
+      updateEvents(posts);
 
       return true;
     });
   }
 
-  removeSearchPhrase = (e) => {
-    e.preventDefault();
+  removeSearchPhrase = () => {
+    const { history } = this.props;
 
-    this.props.history.push({ search: '' });
+    history.push({ search: '' });
 
     return this.updateStoreValues('');
   };
@@ -63,13 +59,20 @@ class SearchPhrase extends PureComponent {
   }
 };
 
-const mapStateToProps = storeData => {
-  return { searchPhrase: storeData.filterState.searchPhrase };
-};
+function mapStateToProps(store) {
+  return { searchPhrase: store.filterState.searchPhrase };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    updateEvents: posts => dispatch(updateEventList(posts)),
+    updatePhrase: searchPhrase => dispatch(updateSearchPhrase(searchPhrase)),
+  };
+}
 
 SearchPhrase.defaultProps = {
   noFilterResultMsg: globalRecources.noFilterResult,
   searchPhraseLabel: globalRecources.searchPhraseLabel,
 };
 
-export default withRouter(connect(mapStateToProps)(SearchPhrase));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SearchPhrase));

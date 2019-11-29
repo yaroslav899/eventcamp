@@ -1,9 +1,9 @@
 import React from 'react';
-import CityField from './CityField';
-import CategoryField from './CategoryField';
-import TopicField from './TopicField';
+import CityField from '../CityField';
+import CategoryField from '../CategoryField';
+import TopicField from '../TopicField';
 
-const SelectFilter = () => {
+const FilterView = () => {
   return (
     <div className="event-filter-option">
       <CityField changeHistory={true} />
@@ -13,4 +13,4 @@ const SelectFilter = () => {
   );
 };
 
-export default SelectFilter;
+export default FilterView;
