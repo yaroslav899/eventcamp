@@ -9,7 +9,6 @@ import { scrollToTop } from '../../helper/scroll';
 class PaginationContainer extends PureComponent {
   state = {
     updatedTotalPages: [],
-    activePage: 1,
     lastPage: null,
   };
 
@@ -58,27 +57,25 @@ class PaginationContainer extends PureComponent {
   }
 
   goToPreviousPage = () => {
-    const { activePage } = this.state;
-    const { firstPage } = this.props;
+    const { firstPage, activePageNumber } = this.props;
 
-    if (+activePage === firstPage) {
+    if (+activePageNumber === firstPage) {
       return false;
     }
 
-    const page = activePage - 1;
+    const page = activePageNumber - 1;
 
     return this.updateEventList({ page });
   }
 
   goToNextPage = () => {
-    const { activePage } = this.state;
-    const { totalPages } = this.props;
+    const { totalPages, activePageNumber } = this.props;
 
-    if (+activePage === totalPages.length) {
+    if (+activePageNumber === totalPages.length) {
       return false;
     }
 
-    const page = +activePage + 1;
+    const page = +activePageNumber + 1;
 
     return this.updateEventList({ page });
   }
@@ -125,7 +122,7 @@ class PaginationContainer extends PureComponent {
   }
 
   render() {
-    const { updatedTotalPages, activePage, lastPage } = this.state;
+    const { updatedTotalPages, lastPage } = this.state;
     const { totalPages, firstPage, activePageNumber } = this.props;
     const totalPagesLength = totalPages.length;
     const isShowDotsBefore = ([...updatedTotalPages].shift() !== [...totalPages].shift());
