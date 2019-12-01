@@ -8,11 +8,11 @@ export const titleList = {
 export const globalRecources = {
   title: 'Event camp - Події, конференції та зустрічі України',
   free: '0 UAH',
-  moreInfo: 'Детальніше',
+  moreInfo: 'Відкрити',
   change: 'Змінити',
   loading: 'Завантаження ...',
   welcome: 'Ласкаво просимо',
-  interestingCTA: 'Цікаво',
+  interestingCTA: 'Стежити',
   copyright: '©2019 EventCamp. Всі права захищені.',
   enter: 'Мій кабінет',
   exit: 'Вийти',

@@ -340,7 +340,7 @@ export const categories = [
   {
     'id': '9',
     'url': 'family',
-    'name': "Сім'я",
+    'name': "Сім'я / діти",
     'img': '/img/family.png',
     'subcat': [
       {

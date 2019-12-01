@@ -571,12 +571,16 @@ div.home-page .events_filter-wrapper>a:hover{
   position: absolute;
   bottom: 10px;
 }
-.events-item__action a+span{
+.events-item__action a + span {
   margin: 0 0 0 3%;
   background-color: #ffffff;
-  border:1px solid #cccccc;
+  border: 1px solid #cccccc;
   color: #004f8f;
   font-weight: bold;
+  background: url(/img/star.png) no-repeat;
+  background-size: 15%;
+  background-position: 10% 50%;
+  padding-left: 25px;
 }
 .events-item__action a:hover, .events-item__action a+span:hover, .events-item__action .action-button__active{
   background-color: #f6c806;

@@ -3,6 +3,7 @@ import Select from 'react-select';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { updateEventList, updateFilterCity } from '../../redux/actions/filterActions';
+import { updateActivePage } from '../../redux/actions/paginationActions';
 import { request } from '../../api';
 import { cities } from '../../fixtures';
 import { filterRecources } from '../../resources';
@@ -23,9 +24,9 @@ class CityField extends PureComponent {
 
   changeSelection = (type, selection) => {
     const params = !selection ? { [type]: '' } : { [selection.type]: selection ? selection.value : '' };
-    const { defaultPage, updateEvents, updateCity } = this.props;
+    const { defaultPage, updateEvents, updateCity, updateActivePage } = this.props;
 
-    params.page = defaultPage;
+    updateActivePage(defaultPage);
 
     return request.getListPosts(params)
       .then((posts) => {
@@ -70,6 +71,7 @@ function mapDispatchToProps(dispatch) {
   return {
     updateEvents: posts => dispatch(updateEventList(posts)),
     updateCity: cities => dispatch(updateFilterCity(cities)),
+    updateActivePage: page => dispatch(updateActivePage(page)),
   };
 }
 

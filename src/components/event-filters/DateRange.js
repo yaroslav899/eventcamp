@@ -4,6 +4,7 @@ import MomentLocaleUtils from 'react-day-picker/moment';
 import { connect } from 'react-redux';
 import 'moment/locale/uk';
 import { updateEventList, updateFilterDateRange } from '../../redux/actions/filterActions';
+import { updateActivePage } from '../../redux/actions/paginationActions';
 import { request } from '../../api';
 import { filterRecources } from '../../resources';
 import { globalRecources } from '../../resources/global';
@@ -45,13 +46,14 @@ class DateRange extends Component {
   }
 
   handleResetClick = () => {
-    const { defaultPage, updateDateRange, updateEvents } = this.props;
+    const { defaultPage, updateDateRange, updateEvents, updateActivePage } = this.props;
     const dateRange = {
       from: undefined,
       to: undefined,
     };
 
     updateDateRange(dateRange);
+    updateActivePage(defaultPage);
 
     return request.getListPosts({ page: defaultPage })
       .then(posts => {
@@ -110,6 +112,7 @@ function mapDispatchToProps(dispatch) {
   return {
     updateEvents: posts => dispatch(updateEventList(posts)),
     updateDateRange: dateRange => dispatch(updateFilterDateRange(dateRange)),
+    updateActivePage: page => dispatch(updateActivePage(page)),
   };
 }
 

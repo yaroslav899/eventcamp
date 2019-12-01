@@ -10,13 +10,11 @@ import { globalRecources } from '../../resources/global';
 
 class ListPage extends PureComponent {
   componentDidMount() {
-    const { noFilterResultMsg, match, updateEvents, defaultPage } = this.props;
+    const { noFilterResultMsg, match, updateEvents } = this.props;
     const { params: initialParams } = match;
 
     updateEvents([]);
     updateFilterStore(initialParams);
-
-    initialParams.page = defaultPage;
 
     return request.getListPosts(initialParams).then((posts) => {
       if (!posts.length) {
@@ -66,9 +64,6 @@ function mapDispatchToProps(dispatch) {
   return { updateEvents: posts => dispatch(updateEventList(posts)) };
 }
 
-ListPage.defaultProps = {
-  noFilterResultMsg: globalRecources.noFilterResult,
-  defaultPage: '1',
-};
+ListPage.defaultProps = { noFilterResultMsg: globalRecources.noFilterResult };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListPage);

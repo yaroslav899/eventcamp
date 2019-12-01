@@ -2,6 +2,7 @@ import React, { PureComponent, Fragment } from 'react';
 import Select from 'react-select';
 import { connect } from 'react-redux';
 import { updateEventList, updateFilterTopic } from '../../redux/actions/filterActions';
+import { updateActivePage } from '../../redux/actions/paginationActions';
 import { request } from '../../api';
 import { categories, defaultTopic } from '../../fixtures';
 import { filterRecources } from '../../resources';
@@ -53,9 +54,9 @@ class TopicField extends PureComponent {
 
   changeSelection = (type, selection) => {
     const params = !selection ? { [type]: '' } : { [selection.type]: selection ? selection.value : '' };
-    const { defaultPage, updateEvents, updateTopic } = this.props;
+    const { defaultPage, updateEvents, updateTopic, updateActivePage } = this.props;
 
-    params.page = defaultPage;
+    updateActivePage(defaultPage);
 
     return request.getListPosts(params)
       .then((posts) => {
@@ -103,6 +104,7 @@ function mapDispatchToProps(dispatch) {
   return {
     updateEvents: posts => dispatch(updateEventList(posts)),
     updateTopic: topics => dispatch(updateFilterTopic(topics)),
+    updateActivePage: page => dispatch(updateActivePage(page)),
   };
 }
 

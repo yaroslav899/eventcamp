@@ -14,7 +14,9 @@ class PaginationContainer extends PureComponent {
   };
 
   componentDidMount() {
-    const { totalPages, activePageNumber } = this.props;
+    const { totalPages, activePageNumber, updateActivePage } = this.props;
+
+    updateActivePage(activePageNumber);
 
     return this.updatePagination(totalPages, +activePageNumber);
   }
@@ -44,7 +46,6 @@ class PaginationContainer extends PureComponent {
     const updatedTotalPages = this.getTotalPages(totalPages, activePage);
 
     this.setState({
-      activePage,
       updatedTotalPages,
       lastPage: [...updatedTotalPages].pop(),
     });
@@ -104,7 +105,6 @@ class PaginationContainer extends PureComponent {
     }
 
     this.setState({
-      activePage,
       lastPage: [...updatedTotalPages].pop(),
       updatedTotalPages,
     });
@@ -126,7 +126,7 @@ class PaginationContainer extends PureComponent {
 
   render() {
     const { updatedTotalPages, activePage, lastPage } = this.state;
-    const { totalPages, firstPage } = this.props;
+    const { totalPages, firstPage, activePageNumber } = this.props;
     const totalPagesLength = totalPages.length;
     const isShowDotsBefore = ([...updatedTotalPages].shift() !== [...totalPages].shift());
     const isShowDotsAfter = (lastPage < totalPagesLength);
@@ -134,7 +134,7 @@ class PaginationContainer extends PureComponent {
       <Pagination
         pageNumber={pageNumber}
         key={pageNumber}
-        classNameItem={`events-pagination__item events-pagination-item ${(+activePage === +pageNumber) ? ' active' : ''}`}
+        classNameItem={`events-pagination__item events-pagination-item ${(+activePageNumber === +pageNumber) ? ' active' : ''}`}
         handler={this.handlePaginationClick}
       />
     ));
@@ -152,7 +152,7 @@ class PaginationContainer extends PureComponent {
             && <Pagination
               pageNumber={firstPage}
               key={firstPage}
-              classNameItem={`events-pagination__item events-pagination-item ${(+activePage === +firstPage) ? 'yaroslav active' : 'yaroslav'}`}
+              classNameItem={`events-pagination__item events-pagination-item ${(+activePageNumber === +firstPage) ? ' active' : ''}`}
               handler={this.handlePaginationClick}
             />
           }
@@ -167,7 +167,7 @@ class PaginationContainer extends PureComponent {
             && <Pagination
               pageNumber={totalPagesLength}
               key={totalPagesLength}
-              classNameItem={`events-pagination__item events-pagination-item ${(+activePage === +totalPagesLength) ? 'yaroslav active' : 'yaroslav'}`}
+              classNameItem={`events-pagination__item events-pagination-item ${(+activePageNumber === +totalPagesLength) ? ' active' : ''}`}
               handler={this.handlePaginationClick}
             />
           }
