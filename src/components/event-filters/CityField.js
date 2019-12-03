@@ -2,51 +2,41 @@ import React, { PureComponent, Fragment } from 'react';
 import Select from 'react-select';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { updateEventList, updateFilterCity } from '../../redux/actions/filterActions';
+import { updateFilterCity } from '../../redux/actions/eventActions';
 import { updateActivePage } from '../../redux/actions/paginationActions';
-import { request } from '../../api';
+import { fetchEventList } from '../../api';
 import { cities } from '../../fixtures';
 import { filterRecources } from '../../resources';
-import { globalRecources } from '../../resources/global';
 import { getHistoryUrl } from '../../helper';
 
 class CityField extends PureComponent {
   changeCity = (selection) => {
-    const { history, changeHistory } = this.props;
+    const params = !selection ? { ['cities']: '' } : { [selection.type]: selection ? selection.value : '' };
+    const { defaultPage, updateCity, updateActivePage, fetchEventList } = this.props;
 
-    this.changeSelection('cities', selection);
+    this.changeHistory(selection);
+
+    updateCity(params.cities);
+
+    return fetchEventList(params)
+      .then(() => updateActivePage(defaultPage));
+  };
+
+  changeHistory = (selection) => {
+    const { history, changeHistory } = this.props;
 
     if (changeHistory) {
       const url = getHistoryUrl('cities', selection, '');
       history.push(url);
     }
-  };
-
-  changeSelection = (type, selection) => {
-    const params = !selection ? { [type]: '' } : { [selection.type]: selection ? selection.value : '' };
-    const { defaultPage, updateEvents, updateCity, updateActivePage } = this.props;
-
-    updateActivePage(defaultPage);
-
-    return request.getListPosts(params)
-      .then((posts) => {
-        if (!posts.length) {
-          posts.push({ empty: globalRecources.noFilterResult });
-        }
-
-        updateEvents(posts);
-        updateCity(params.cities);
-
-        return params;
-      });
-  };
+  }
 
   render() {
-    const { cities: cityValue } = this.props;
+    const { cityValue, fieldLabel } = this.props;
 
     return (
       <Fragment>
-        <p>{filterRecources.city}</p>
+        <p>{fieldLabel}</p>
         <Select
           name="form-field-cities"
           label="cities"
@@ -64,17 +54,20 @@ class CityField extends PureComponent {
 }
 
 function mapStateToProps(store) {
-  return { cities: store.filterState.cities };
+  return { cityValue: store.eventState.cities };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    updateEvents: posts => dispatch(updateEventList(posts)),
     updateCity: cities => dispatch(updateFilterCity(cities)),
     updateActivePage: page => dispatch(updateActivePage(page)),
+    fetchEventList: params => dispatch(fetchEventList(params)),
   };
 }
 
-CityField.defaultProps = { defaultPage: '1' };
+CityField.defaultProps = {
+  defaultPage: '1',
+  fieldLabel: filterRecources.city,
+};
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CityField));

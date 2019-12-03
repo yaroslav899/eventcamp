@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { request } from '../../api';
+import { fetchPageData } from '../../api';
 import { createMarkupText } from '../../helper';
 import Adventages from '../global/Adventages';
 import { hiddenPages } from '../../resources/menu';
@@ -10,15 +10,16 @@ class Policy extends PureComponent {
   componentDidMount() {
     const policyPageID = hiddenPages.policy;
 
-    return request.getPage(policyPageID).then((data) => {
-      if (!data) {
-        return false;
-      }
+    return fetchPageData(null, policyPageID)
+      .then(text => {
+        if (!text) {
+          return false;
+        }
 
-      this.setState({ text: data.content.rendered });
+        this.setState({ text });
 
-      return true;
-    });
+        return true;
+      });
   }
 
   render() {

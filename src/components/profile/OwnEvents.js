@@ -38,9 +38,9 @@ class OwnEvents extends PureComponent {
 
   loadOwnEvents = userID => request.getAuthorPosts({ author: userID })
     .then((posts) => {
-      const { dispatch } = this.props;
+      const { updateUserPosts } = this.props;
 
-      dispatch(updateUserPosts(posts));
+      updateUserPosts(posts);
     });
 
   render() {
@@ -64,4 +64,8 @@ function mapStateToProps(store) {
   }
 };
 
-export default connect(mapStateToProps)(OwnEvents);
+function mapDispatchToProps(dispatch) {
+  return { updateUserPosts: posts => dispatch(updateUserPosts(posts)) };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(OwnEvents);

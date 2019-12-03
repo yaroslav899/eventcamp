@@ -1,6 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
 import { formValidator } from '../../validator';
-import store from '../../store';
+import { connect } from 'react-redux';
+import { updateUserProfile } from '../../redux/actions/userActions';
 import Loader from '../global/Loader';
 import { setCookie, getCookie } from '../../_cookie';
 import { stringifyJSON, parseJSON } from '../../helper/json';
@@ -56,10 +57,7 @@ class UserInfoEdit extends PureComponent {
 
       const profileData = parseJSON(getCookie('profileData'));
       const { name, email, phone, city } = this.state;
-      const {
-        user: { userID },
-        changeProfileInfo,
-      } = this.props;
+      const { user: { userID } } = this.props;
 
       profileData.name = name;
       profileData.email = email;
@@ -75,12 +73,11 @@ class UserInfoEdit extends PureComponent {
       return request.updateProfile(param, userID)
         .then((response) => {
           if (response.success) {
+            const { updateUserProfile, changeProfileInfo } = this.props;
+
             setCookie('profileData', stringifyJSON(response.userProfile), 2);
 
-            store.dispatch({
-              type: 'UPDATE_USERPROFILE',
-              data: response.userProfile,
-            });
+            updateUserProfile(response.userProfile);
 
             changeProfileInfo();
           }
@@ -163,6 +160,10 @@ class UserInfoEdit extends PureComponent {
   }
 }
 
+function mapDispatchToProps(dispatch) {
+  return { updateUserProfile: data => dispatch(updateUserProfile(data)) };
+}
+
 UserInfoEdit.defaultProps = {
   nameLabel: fieldsRegisterForm.firstname,
   emailLabel: fieldsRegisterForm.email,
@@ -170,4 +171,4 @@ UserInfoEdit.defaultProps = {
   cityLabel: addEventFields.cityField,
 };
 
-export default UserInfoEdit;
+export default connect(null, mapDispatchToProps)(UserInfoEdit);

@@ -1,12 +1,11 @@
 import React, { PureComponent, Fragment } from 'react';
 import Select from 'react-select';
 import { connect } from 'react-redux';
-import { updateEventList, updateFilterTopic } from '../../redux/actions/filterActions';
+import { updateFilterTopic } from '../../redux/actions/eventActions';
 import { updateActivePage } from '../../redux/actions/paginationActions';
-import { request } from '../../api';
+import { fetchEventList } from '../../api';
 import { categories, defaultTopic } from '../../fixtures';
 import { filterRecources } from '../../resources';
-import { globalRecources } from '../../resources/global';
 
 class TopicField extends PureComponent {
   state = {
@@ -15,68 +14,57 @@ class TopicField extends PureComponent {
   };
 
   componentDidMount() {
-    const { categories: categoryID, topics: topic } = this.props;
+    const { categoryValue, topicValue } = this.props;
 
-    if (!categoryID) {
+    if (!categoryValue) {
       return false;
     }
 
-    const activeCategory = categories.find(cat => cat.id === categoryID);
+    const activeCategory = categories.find(category => category.id === categoryValue);
     const categoryTopics = activeCategory ? activeCategory.subcat : defaultTopic;
 
     this.setState({
       topics: categoryTopics,
-      currentTheme: topic || '',
+      currentTheme: topicValue || '',
     });
   }
 
   componentDidUpdate(prevProps) {
-    const { categories: prevCategoryID } = prevProps;
-    const { categories: categoryID, topics: topic, updateTopic } = this.props;
+    const { categoryValue: prevCategoryValue } = prevProps;
+    const { categoryValue, topicValue, updateTopic } = this.props;
 
-    if (prevCategoryID !== categoryID || !categoryID) {
-      const activeCategory = categories.find(cat => cat.id === categoryID);
+    if (prevCategoryValue !== categoryValue || !categoryValue) {
+      const activeCategory = categories.find(category => category.id === categoryValue);
       const categoryTopics = activeCategory ? activeCategory.subcat : defaultTopic;
 
       updateTopic(null);
 
       this.setState({
         topics: categoryTopics,
-        currentTheme: topic || '',
+        currentTheme: topicValue || '',
       });
     }
   }
 
   changeTopic = (selection) => {
-    this.changeSelection('topics', selection);
+    const params = !selection ? { ['topics']: '' } : { [selection.type]: selection ? selection.value : '' };
+    const { defaultPage, updateTopic, updateActivePage, fetchEventList } = this.props;
+
     this.setState({ currentTheme: selection || '' });
-  };
 
-  changeSelection = (type, selection) => {
-    const params = !selection ? { [type]: '' } : { [selection.type]: selection ? selection.value : '' };
-    const { defaultPage, updateEvents, updateTopic, updateActivePage } = this.props;
+    updateTopic(params.topics);
 
-    updateActivePage(defaultPage);
-
-    return request.getListPosts(params)
-      .then((posts) => {
-        if (!posts.length) {
-          posts.push({ empty: globalRecources.noFilterResult });
-        }
-
-        updateEvents(posts);
-        updateTopic(params.topics);
-
-        return params;
-      });
+    return fetchEventList(params)
+      .then(() => updateActivePage(defaultPage));
   };
 
   render() {
     const { topics, currentTheme } = this.state;
+    const { fieldLabel } = this.props;
 
     return (
       <Fragment>
-        <p>{filterRecources.topic}</p>
+        <p>{fieldLabel}</p>
         <Select
           name="form-field-topics"
           label="topics"
@@ -95,19 +83,22 @@ class TopicField extends PureComponent {
 
 function mapStateToProps(store) {
   return {
-    categories: store.filterState.categories,
-    topics: store.filterState.topics,
+    categoryValue: store.eventState.categories,
+    topicValue: store.eventState.topics,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    updateEvents: posts => dispatch(updateEventList(posts)),
     updateTopic: topics => dispatch(updateFilterTopic(topics)),
     updateActivePage: page => dispatch(updateActivePage(page)),
+    fetchEventList: params => dispatch(fetchEventList(params)),
   };
 }
 
-TopicField.defaultProps = { defaultPage: '1' };
+TopicField.defaultProps = {
+  defaultPage: '1',
+  fieldLabel: filterRecources.topic,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(TopicField);

@@ -1,47 +1,36 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { updateEventList, updateSearchPhrase } from '../../redux/actions/filterActions';
-import { request } from '../../api';
+import { updateSearchPhrase } from '../../redux/actions/eventActions';
+import { fetchEventList } from '../../api';
 import { globalRecources } from '../../resources/global';
 
 class SearchPhrase extends PureComponent {
   componentDidMount() {
-    const { location: { search } = {}, searchPhrase } = this.props;
+    const {
+      location: { search } = {},
+      searchPhrase,
+      fetchEventList,
+      updatePhrase,
+    } = this.props;
 
     if (search && search.length && !searchPhrase.length) {
-      const updatedSearchPharse = search.replace('?&query=', '');
+      const updatedSearchPhrase = search.replace('?&query=', '');
 
-      return this.updateStoreValues(updatedSearchPharse);
+      return fetchEventList({})
+        .then(() => updatePhrase(decodeURI(updatedSearchPhrase)));
     }
 
     return true;
   }
 
-  updateStoreValues = (searchPhrase) => {
-    const { updateEvents, updatePhrase } = this.props;
-
-    updatePhrase(decodeURI(searchPhrase));
-
-    return request.getListPosts({}).then((posts) => {
-      if (!posts.length) {
-        const { noFilterResultMsg } = this.props;
-
-        posts.push({ empty: noFilterResultMsg });
-      }
-
-      updateEvents(posts);
-
-      return true;
-    });
-  }
-
   removeSearchPhrase = () => {
-    const { history } = this.props;
+    const { history, fetchEventList, updatePhrase } = this.props;
 
     history.push({ search: '' });
 
-    return this.updateStoreValues('');
+    return fetchEventList({})
+      .then(() => updatePhrase(decodeURI('')));
   };
 
   render() {
@@ -60,19 +49,16 @@ class SearchPhrase extends PureComponent {
 };
 
 function mapStateToProps(store) {
-  return { searchPhrase: store.filterState.searchPhrase };
+  return { searchPhrase: store.eventState.searchPhrase };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    updateEvents: posts => dispatch(updateEventList(posts)),
     updatePhrase: searchPhrase => dispatch(updateSearchPhrase(searchPhrase)),
+    fetchEventList: params => dispatch(fetchEventList(params)),
   };
 }
 
-SearchPhrase.defaultProps = {
-  noFilterResultMsg: globalRecources.noFilterResult,
-  searchPhraseLabel: globalRecources.searchPhraseLabel,
-};
+SearchPhrase.defaultProps = { searchPhraseLabel: globalRecources.searchPhraseLabel };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SearchPhrase));

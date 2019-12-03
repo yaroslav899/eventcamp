@@ -24,7 +24,7 @@ class ServicePicture extends PureComponent {
 }
 
 function mapStateToProps(store) {
-  return { city: store.filterState.cities };
+  return { city: store.eventState.cities };
 }
 
 ServicePicture.defaultProps = { defaultCity: 'any' };

@@ -1,18 +1,14 @@
 import { combineReducers } from 'redux';
 import pageReducer from './pageReducer';
-import filterReducer from './filterReducer';
+import eventReducer from './eventReducer';
 import paginationReducer from './paginationReducer';
-import lastPostsReducer from './lastPostsReducer';
-import postReducer from './postReducer';
 import userReducer from './userReducer';
 
 // Combine Reducers
 const reducers = combineReducers({
   page: pageReducer,
-  filterState: filterReducer,
+  eventState: eventReducer,
   totalPages: paginationReducer,
-  lastPosts: lastPostsReducer,
-  post: postReducer,
   user: userReducer,
 });
 

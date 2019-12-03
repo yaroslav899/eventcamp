@@ -1,8 +1,9 @@
 ﻿import React, { PureComponent } from 'react';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import SearchSuggestion from './SearchSuggestion';
-import store from '../../store';
-import { request } from '../../api';
+import { updateSearchPhrase } from '../../redux/actions/eventActions';
+import { fetchEventList } from '../../api';
 import { urlRecources } from '../../resources/url';
 import { globalRecources } from '../../resources/global';
 
@@ -13,9 +14,9 @@ class Search extends PureComponent {
     isShowSuggestion: false,
   };
 
-  handleChange = (event) => {
+  handleChange = (e) => {
     const { searchPhrase } = this.state;
-    const { value } = event.target;
+    const { value } = e.target;
 
     return this.suggest(searchPhrase, value);
   }
@@ -24,9 +25,9 @@ class Search extends PureComponent {
     this.setState({ isShowSuggestion: false });
   }
 
-  handleFocus = (event) => {
+  handleFocus = (e) => {
     const { searchPhrase } = this.state;
-    const { value } = event.target;
+    const { value } = e.target;
 
     if (value.length && value === searchPhrase) {
       this.setState({ isShowSuggestion: true });
@@ -37,11 +38,11 @@ class Search extends PureComponent {
     return this.suggest(searchPhrase, value);
   }
 
-  handleSubmit = (event) => {
-    event.preventDefault();
+  handleSubmit = (e) => {
+    e.preventDefault();
 
     const { searchPhrase } = this.state;
-    const { history } = this.props;
+    const { history, fetchEventList, updateSearchPhrase } = this.props;
 
     history.push({
       pathname: '/events/',
@@ -49,27 +50,10 @@ class Search extends PureComponent {
       state: { searchPhrase },
     });
 
-    store.dispatch({
-      type: 'UPDATE_SEARCH_PHRASE',
-      searchPhrase,
-    });
-
     this.setState({ isShowSuggestion: false });
 
-    return request.getListPosts({}).then((posts) => {
-      if (!posts.length) {
-        const { noFilterResultMsg } = this.props;
-
-        posts.push({ empty: noFilterResultMsg });
-      }
-
-      store.dispatch({
-        type: 'UPDATE_EVENT_LIST',
-        list: posts,
-      });
-
-      return true;
-    });
+    return fetchEventList({})
+      .then(() => updateSearchPhrase(searchPhrase));
   }
 
   suggest = (searchPhrase, value) => {
@@ -130,11 +114,17 @@ class Search extends PureComponent {
   }
 }
 
+function mapDispatchToProps(dispatch) {
+  return {
+    fetchEventList: params => dispatch(fetchEventList(params)),
+    updateSearchPhrase: searchPhrase => dispatch(updateSearchPhrase(searchPhrase)),
+  };
+}
+
 Search.defaultProps = {
   urlSearch: urlRecources.searchUrl,
   minChars: 2,
-  noFilterResultMsg: globalRecources.noFilterResult,
   searchLabel: globalRecources.searchLabel,
 };
 
-export default withRouter(Search);
+export default withRouter(connect(null, mapDispatchToProps)(Search));

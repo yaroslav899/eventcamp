@@ -24,10 +24,10 @@ class Profile extends PureComponent {
           return false;
         }
 
-        const { dispatch } = this.props;
+        const { updateUserProfile } = this.props;
 
         setCookie('profileData', stringifyJSON(response.userProfile), 2);
-        dispatch(updateUserProfile(response.userProfile));
+        updateUserProfile(response.userProfile);
 
         return true;
       });
@@ -75,4 +75,8 @@ function mapStateToProps(store) {
   return { userProfile: store.user.data };
 };
 
-export default connect(mapStateToProps)(Profile);
+function mapDispatchToProps(dispatch) {
+  return { updateUserProfile: data => dispatch(updateUserProfile(data)) };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

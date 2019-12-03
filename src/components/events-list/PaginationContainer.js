@@ -1,9 +1,8 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { updateActivePage } from '../../redux/actions/paginationActions';
-import { updateEventList } from '../../redux/actions/filterActions';
 import Pagination from '../global/Pagination';
-import { request } from '../../api';
+import { fetchEventList } from '../../api';
 import { scrollToTop } from '../../helper/scroll';
 
 class PaginationContainer extends PureComponent {
@@ -82,7 +81,7 @@ class PaginationContainer extends PureComponent {
 
 
   updateEventList = (initialParams) => {
-    const { totalPages, maxPageNumber, updateActivePage, updateEvents } = this.props;
+    const { totalPages, maxPageNumber, updateActivePage, fetchEventList } = this.props;
     const activePage = +initialParams.page;
     const updatedTotalPages = this.getTotalPages(totalPages, activePage);
 
@@ -106,9 +105,7 @@ class PaginationContainer extends PureComponent {
       updatedTotalPages,
     });
 
-    request.getListPosts(initialParams).then((posts) => {
-      updateEvents(posts);
-    });
+    fetchEventList(initialParams);
 
     scrollToTop();
   }
@@ -185,8 +182,8 @@ function mapTotalPagesToProps(store) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    updateEvents: posts => dispatch(updateEventList(posts)),
     updateActivePage: activePageNumber => dispatch(updateActivePage(activePageNumber)),
+    fetchEventList: params => dispatch(fetchEventList(params)),
   };
 }
 

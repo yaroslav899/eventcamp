@@ -1,11 +1,81 @@
 import axios from 'axios';
-import store from '../store';
 import { getCookie } from '../_cookie';
-import { setProfileData, getUniqueArray } from '../helper';
+import { setProfileData, getUniqueArray, getValueFromParams } from '../helper';
 import { getRequestUrl, getInterestingUrl, getLastPostsUrl, fetchData, authFetch, eventRequest } from './helpers';
 import { adminAccess, googleApiService } from '../credentials';
 import { parseJSON, stringifyJSON } from '../helper/json';
 import { urlRecources } from '../resources/url';
+import { globalRecources } from '../resources/global';
+import { mainMenu } from '../resources/menu';
+import { updatePagination } from '../redux/actions/paginationActions';
+import { updateEventList, updateDetailPost, updateLastPost, eventLoading, eventLoaded, eventFailed } from '../redux/actions/eventActions';
+
+export const fetchEventList = (param) => (dispatch) =>{
+  const url = getRequestUrl(param);
+  const myHeaders = { cache: 'no-cache' };
+
+  dispatch(eventLoading());
+
+  return fetch(url, myHeaders)
+    .then((response) => {
+      dispatch(updatePagination(response.headers.get('x-wp-totalpages')));
+
+      return response.json();
+    })
+    .then((events) => {
+      if (!events.length) {
+        events.push({ empty: globalRecources.noFilterResult });
+      }
+
+      return dispatch(updateEventList(events));
+    })
+    .then(() => dispatch(eventLoaded()))
+    .catch(() => dispatch(eventFailed(globalRecources.noFilterResult)));
+};
+
+export const fetchLastEvents = () => (dispatch) =>{
+  const url = getLastPostsUrl();
+
+  return fetchData(url, null)
+    .then((events) => dispatch(updateLastPost(events)))
+    .catch(() => {
+      return { success: false };
+    });
+};
+
+export const fetchPageData = (pathname, pageID) =>{
+  const fetchPageID = pageID || getValueFromParams(mainMenu, pathname, 'url', 'id');
+  const url = `${urlRecources.endpointUrl}pages/${fetchPageID}`;
+
+  return fetchData(url, null)
+    .then((data) => {
+      if (!data) {
+        return { success: false };
+      }
+
+      const { content: { rendered: text } = {} } = data;
+
+      return text;
+    })
+    .catch(() => {
+      return { success: false };
+    });
+};
+
+export const fetchEventDetail = (eventID) => (dispatch) =>{
+  const url = `${urlRecources.endpointUrl}posts/${eventID}?_embed`;
+
+  dispatch(eventLoading());
+
+  return fetchData(url, null)
+    .then((post) => dispatch(updateDetailPost(post)))
+    .then(() => dispatch(eventLoaded()))
+    .catch(() => {
+      dispatch(eventFailed());
+
+      return { success: false };
+    });
+};
 
 export const request = {
   authUser: (param) => authFetch(param).then((response) => {
@@ -158,35 +228,6 @@ export const request = {
     });
   },
 
-  getListPosts: (param) => {
-    const url = getRequestUrl(param);
-    const myHeaders = { cache: 'no-cache' };
-
-    return fetch(url, myHeaders).then((response) => {
-      // ToDo change this approach, since api is not a good place for it
-      store.dispatch({
-        type: 'UPDATE_PAGINATION',
-        count: response.headers.get('x-wp-totalpages'),
-      });
-
-      return response.json();
-    }).then(data => {
-      return data;
-    }).catch(() => {
-      return { success: false };
-    });
-  },
-
-  getPostDetail: (eventID) => {
-    const url = `${urlRecources.endpointUrl}posts/${eventID}?_embed`;
-
-    return fetchData(url, null).then(data => {
-      return data;
-    }).catch(() => {
-      return { success: false };
-    });
-  },
-
   getAddress: (address) => {
     const url = `${urlRecources.geoLookUpUrl}address=${address}&key=${googleApiService.ru.key}`;
 
@@ -209,22 +250,6 @@ export const request = {
     });
   },
 
-  getLastPosts: () => {
-    const url = getLastPostsUrl();
-
-    return fetchData(url, null).catch(() => {
-      return { success: false };
-    });
-  },
-
-  getPage: (pageID) => {
-    const url = `${urlRecources.endpointUrl}pages/${pageID}`;
-
-    return fetchData(url, null).catch(() => {
-      return { success: false };
-    });
-  },
-
   uploadImage: (file) => {
     if (!file) {
       return new Promise((resolve, reject) => reject({ success: false }));
@@ -237,7 +262,7 @@ export const request = {
         'Content-Type': file.type,
         'Content-Disposition': 'attachment; filename=' + file.name + '',
         'Authorization': 'Bearer' + token,
-        'Cache-Control': 'no-cache',
+        'Access-Control-Allow-Origin': '*',
       }
     }).catch(() => {
       return { success: false };

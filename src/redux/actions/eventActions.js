@@ -1,6 +1,6 @@
-export const updateEventList = list => ({
+export const updateEventList = events => ({
   type: 'UPDATE_EVENT_LIST',
-  list,
+  events,
 });
 
 export const updateFilterCategory = categories => ({
@@ -26,4 +26,27 @@ export const updateFilterDateRange = dateRange => ({
 export const updateSearchPhrase = searchPhrase => ({
   type: 'UPDATE_SEARCH_PHRASE',
   searchPhrase,
+});
+
+export const updateLastPost = lastEvents => ({
+  type: 'UPDATE_LAST_POSTS',
+  lastEvents,
+});
+
+export const updateDetailPost = event => ({
+  type: 'UPDATE_DETAIL_POST',
+  event,
+});
+
+export const eventLoading = () => ({
+  type: 'EVENT_LOAD_START',
+});
+
+export const eventLoaded = () => ({
+  type: 'EVENT_LOAD_SUCCESS',
+});
+
+export const eventFailed = (error) => ({
+  type: 'EVENT_LOAD_FAILURE',
+  error,
 });

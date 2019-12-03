@@ -117,7 +117,7 @@ export const setProfileData = (data) => {
 };
 
 const getFilterState = () => {
-  const { categories: catFilter, cities: cityFilter } = store.getState().filterState;
+  const { categories: catFilter, cities: cityFilter } = store.getState().eventState;
   const categoryStatus = catFilter ? getValueFromParams(categories, catFilter[0], 'id', 'url') : '';
   const cityStatus = cityFilter ? getValueFromParams(cities, cityFilter[0], 'id', 'url') : '';
 

@@ -80,7 +80,7 @@ MainPage.defaultProps = {
 };
 
 function mapStateToProps(store) {
-  return { cities: store.filterState.cities };
+  return { cities: store.eventState.cities };
 }
 
 export default connect(mapStateToProps)(MainPage);

@@ -1,11 +1,11 @@
-﻿import React, { Component } from 'react';
+﻿import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import ActiveLink from '../hoc/ActiveLink';
 import { globalRecources } from '../../resources/global';
 import { userMenu } from '../../resources/menu';
 import { logout } from '../../helper';
 
-class AuthHeaderLink extends Component {
+class AuthHeaderLink extends PureComponent {
   logoutUser = () => logout();
 
   render() {

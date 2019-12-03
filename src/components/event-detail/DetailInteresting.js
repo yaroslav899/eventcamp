@@ -1,8 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
-import { connect } from 'react-redux';
 import InterestingEventView from './views/InterestingEventView';
 import InterestingListView from './views/InterestingListView';
-import { updateDetailPost } from '../../redux/actions/postActions';
 import { request } from '../../api';
 import { getValueFromParams } from '../../helper';
 import { categories } from '../../fixtures';
@@ -17,8 +15,6 @@ class DetailInteresting extends PureComponent {
     const { data, dispatch } = this.props;
 
     this._isMounted = true;
-
-    dispatch(updateDetailPost(data));
 
     return request.getInterestingData(data, true).then((posts) => {
       if (this._isMounted) {
@@ -92,4 +88,4 @@ class DetailInteresting extends PureComponent {
 
 DetailInteresting.defaultProps = { noPhotoUrl: imageUrlRecources.noPhoto };
 
-export default connect()(DetailInteresting);
+export default DetailInteresting;

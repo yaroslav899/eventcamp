@@ -66,10 +66,10 @@ class Meta extends Component {
   }
 }
 
-const mapStateToProps = storeData => {
+const mapStateToProps = store => {
   return {
-    category: storeData.filterState.categories,
-    city: storeData.filterState.cities,
+    category: store.eventState.categories,
+    city: store.eventState.cities,
   };
 };
 

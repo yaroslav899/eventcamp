@@ -1,31 +1,19 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { updateMainPage } from '../redux/actions/pageActions';
-import { request } from '../api';
-import { getValueFromParams, createMarkupText } from '../helper';
-import { mainMenu } from '../resources/menu';
+import { fetchPageData } from '../api';
+import { createMarkupText } from '../helper';
 
 class MainText extends PureComponent {
   componentDidMount() {
-    const { text } = this.props;
+    const { text, updateMainPage } = this.props;
 
     if (text) {
       return null;
     }
 
-    const mainPageID = getValueFromParams(mainMenu, '/', 'url', 'id');
-
-    return request.getPage(mainPageID).then((data) => {
-      if (!data) {
-        return null;
-      }
-
-      const { updatePage } = this.props;
-
-      updatePage(data.content.rendered);
-
-      return true;
-    });
+    return fetchPageData('/')
+      .then(text => updateMainPage(text));
   }
 
   render() {
@@ -48,7 +36,7 @@ function mapStateToProps(store) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return { updatePage: main => dispatch(updateMainPage(main)) };
+  return { updateMainPage: page => dispatch(updateMainPage(page)) };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainText);

@@ -5,31 +5,24 @@ import EventLocation from '../event-global/EventLocation';
 import EventDate from '../event-global/EventDate';
 import EventPrice from '../event-global/EventPrice';
 import EventTags from '../event-global/EventTags';
-import { updateLastPost } from '../../redux/actions/lastPostsActions';
-import { request } from '../../api';
+import { fetchLastEvents } from '../../api';
 import { getValueFromParams, createMarkupText } from '../../helper';
 import { categories } from '../../fixtures';
 import { listRecources } from '../../resources';
 
 class LastPosts extends PureComponent {
   componentDidMount() {
-    const { lastPosts: { list }, updateLastEvents } = this.props;
+    const { lastEvents, fetchLastEvents } = this.props;
 
-    if (list) {
-      return false;
-    }
-
-    return request.getLastPosts().then((posts) => {
-      updateLastEvents(posts);
-    });
+    return (lastEvents.length) ? false : fetchLastEvents();
   }
 
   render() {
-    const { lastPosts: { list } } = this.props;
+    const { lastEvents } = this.props;
 
-    if (!list) return <Fragment />;
+    if (!lastEvents) return <Fragment />;
 
-    const lastPosts = list.map((post) => {
+    const lastPosts = lastEvents.map((post) => {
       const category = getValueFromParams(categories, post.categories[0], 'id', 'url');
 
       return (
@@ -65,11 +58,11 @@ class LastPosts extends PureComponent {
 }
 
 function mapStateToProps(store) {
-  return { lastPosts: store.lastPosts };
+  return { lastEvents: store.eventState.lastEvents };
 }
 
 function mapDispatchToProps(dispatch) {
-  return { updateLastEvents: (list) => dispatch(updateLastPost(list)) };
+  return { fetchLastEvents: () => dispatch(fetchLastEvents()) };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LastPosts);

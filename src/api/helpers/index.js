@@ -14,7 +14,7 @@ export const getRequestUrl = (param) => {
     url = `${url}&author=${authorID}`;
     return url;
   }
-  const prevFilterState = store.getState().filterState;
+  const prevFilterState = store.getState().eventState;
 
   const dateFrom = (prevFilterState.dateRange && prevFilterState.dateRange.from)
     ? moment(prevFilterState.dateRange.from).format('YYYY-MM-DDT00:00:00') : moment(new Date()).format('YYYY-MM-DDT00:00:00');

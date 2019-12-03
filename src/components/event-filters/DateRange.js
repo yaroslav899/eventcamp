@@ -1,15 +1,14 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import DayPicker, { DateUtils } from 'react-day-picker';
 import MomentLocaleUtils from 'react-day-picker/moment';
 import { connect } from 'react-redux';
 import 'moment/locale/uk';
-import { updateEventList, updateFilterDateRange } from '../../redux/actions/filterActions';
+import { updateFilterDateRange } from '../../redux/actions/eventActions';
 import { updateActivePage } from '../../redux/actions/paginationActions';
-import { request } from '../../api';
+import { fetchEventList } from '../../api';
 import { filterRecources } from '../../resources';
-import { globalRecources } from '../../resources/global';
 
-class DateRange extends Component {
+class DateRange extends PureComponent {
   handleDayClick = (day) => {
     const currentDate = new Date().toDateString();
     const filterDate = new Date(day).toDateString();
@@ -18,7 +17,7 @@ class DateRange extends Component {
       return false;
     }
 
-    const { dateRange, defaultPage, noFilterResultMsg, updateDateRange, updateEvents } = this.props;
+    const { dateRange, defaultPage, updateDateRange, fetchEventList } = this.props;
     let range = DateUtils.addDayToRange(day, dateRange);
 
     if (!range.to) {
@@ -33,38 +32,21 @@ class DateRange extends Component {
 
     range.page = defaultPage;
 
-    return request.getListPosts(range)
-      .then(posts => {
-        if (!posts.length) {
-          posts.push({ empty: noFilterResultMsg });
-        }
-
-        updateEvents(posts);
-
-        return true;
-      });
+    return fetchEventList(range)
+      .then(() => updateActivePage(defaultPage));
   }
 
   handleResetClick = () => {
-    const { defaultPage, updateDateRange, updateEvents, updateActivePage } = this.props;
+    const { defaultPage, updateDateRange, updateActivePage, fetchEventList } = this.props;
     const dateRange = {
       from: undefined,
       to: undefined,
     };
 
     updateDateRange(dateRange);
-    updateActivePage(defaultPage);
 
-    return request.getListPosts({ page: defaultPage })
-      .then(posts => {
-        if (!posts.length) {
-          const { noFilterResultMsg } = this.props;
-
-          posts.push({ empty: noFilterResultMsg });
-        }
-
-        updateEvents(posts);
-      });
+    return fetchEventList({ page: defaultPage })
+      .then(() => updateActivePage(defaultPage));
   }
 
   render() {
@@ -103,23 +85,22 @@ class DateRange extends Component {
 
 function mapStateToProps(store) {
   return {
-    dateRange: store.filterState.dateRange,
-    posts: store.filterState.list,
+    dateRange: store.eventState.dateRange,
+    posts: store.eventState.list,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    updateEvents: posts => dispatch(updateEventList(posts)),
     updateDateRange: dateRange => dispatch(updateFilterDateRange(dateRange)),
     updateActivePage: page => dispatch(updateActivePage(page)),
+    fetchEventList: params => dispatch(fetchEventList(params)),
   };
 }
 
 DateRange.defaultProps = {
   locale: 'uk',
   resetButton: filterRecources.reset,
-  noFilterResultMsg: globalRecources.noFilterResult,
   defaultPage: '1',
 };
 

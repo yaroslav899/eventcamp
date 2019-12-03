@@ -1,45 +1,30 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { updateEventList } from '../../redux/actions/filterActions';
-import { request } from '../../api';
 import EventList from './EventList';
 import ListPageView from './views/ListPageView';
 import Loader from '../global/Loader';
+import { fetchEventList } from '../../api';
 import { updateFilterStore } from '../../helper';
-import { globalRecources } from '../../resources/global';
 
 class ListPage extends PureComponent {
   componentDidMount() {
-    const { noFilterResultMsg, match, updateEvents } = this.props;
-    const { params: initialParams } = match;
+    const { match: { params: initialParams } = {}, fetchEventList } = this.props;
 
-    updateEvents([]);
     updateFilterStore(initialParams);
 
-    return request.getListPosts(initialParams).then((posts) => {
-      if (!posts.length) {
-        posts.push({ empty: noFilterResultMsg });
-      }
-
-      updateEvents(posts);
-
-      return true;
-    });
+    return fetchEventList(initialParams);
   }
 
   render() {
-    const { posts } = this.props;
-
-    if (!posts.length) {
-      return <Loader />;
-    }
-
+    const { events, loader } = this.props;
     let eventsElement = null;
 
-    if (posts.length === 1 && posts[0].empty) {
-      eventsElement = posts[0].empty;
+    if (loader) {
+      eventsElement = <Loader />;
+    } else if (events.length === 1 && events[0].empty) {
+      eventsElement = events[0].empty;
     } else {
-      eventsElement = posts.map((event) => {
+      eventsElement = events.map((event) => {
         return <li key={event.id} className="events__item events-item">
           <EventList
             event={event}
@@ -57,13 +42,14 @@ class ListPage extends PureComponent {
 }
 
 function mapStateToProps(store) {
-  return { posts: store.filterState.list };
+  return {
+    events: store.eventState.events,
+    loader: store.eventState.loader,
+  };
 }
 
 function mapDispatchToProps(dispatch) {
-  return { updateEvents: posts => dispatch(updateEventList(posts)) };
+  return { fetchEventList: params => dispatch(fetchEventList(params)) };
 }
-
-ListPage.defaultProps = { noFilterResultMsg: globalRecources.noFilterResult };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListPage);
