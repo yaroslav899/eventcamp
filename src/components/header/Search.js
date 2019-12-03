@@ -1,6 +1,7 @@
 ﻿import React, { PureComponent } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import debounce from 'lodash.debounce'
 import SearchSuggestion from './SearchSuggestion';
 import { updateSearchPhrase } from '../../redux/actions/eventActions';
 import { fetchEventList } from '../../api';
@@ -15,10 +16,9 @@ class Search extends PureComponent {
   };
 
   handleChange = (e) => {
-    const { searchPhrase } = this.state;
     const { value } = e.target;
 
-    return this.suggest(searchPhrase, value);
+    return this.setState({ searchPhrase: value}, () => this.suggest(value));
   }
 
   handleBlur = () => {
@@ -26,16 +26,9 @@ class Search extends PureComponent {
   }
 
   handleFocus = (e) => {
-    const { searchPhrase } = this.state;
     const { value } = e.target;
 
-    if (value.length && value === searchPhrase) {
-      this.setState({ isShowSuggestion: true });
-
-      return true;
-    }
-
-    return this.suggest(searchPhrase, value);
+    return this.suggest(value);
   }
 
   handleSubmit = (e) => {
@@ -50,45 +43,39 @@ class Search extends PureComponent {
       state: { searchPhrase },
     });
 
-    this.setState({ isShowSuggestion: false });
-
-    return fetchEventList({})
-      .then(() => updateSearchPhrase(searchPhrase));
+    this.setState({ isShowSuggestion: false }, () => {
+      return new Promise((resolve) => resolve(updateSearchPhrase(decodeURI(searchPhrase))))
+        .then(() => fetchEventList({ searchPhrase }));
+    });
   }
 
-  suggest = (searchPhrase, value) => {
-    if (!value.length) {
-      this.setState({ searchPhrase: value, eventList: [], isShowSuggestion: false });
+  suggest = debounce((value) => {
+    const { minChars, urlSearch } = this.props;
+    const { searchPhrase, eventList } = this.state;
 
-      return false;
+    if (!searchPhrase.length || (minChars >= value.length)) {
+      return this.setState({ eventList: [], isShowSuggestion: false });
     }
 
-    const { urlSearch, minChars } = this.props;
+    if ((searchPhrase === value) && eventList.length) {
+      return this.setState({ isShowSuggestion: true });
+    }
 
-    this.setState({ searchPhrase: value }, () => {
-      if (minChars >= value.length) {
-        this.setState({ eventList: [], isShowSuggestion: false });
+    return fetch(urlSearch + searchPhrase)
+      .then(response => response.json())
+      .then(response => {
+        if (response && response.length) {
+          this.setState({ eventList: response, isShowSuggestion: true });
+        }
 
-        return false;
-      }
+        return true;
+      })
+      .catch(error => {
+        console.log(error);
 
-      return fetch(urlSearch + searchPhrase)
-        .then(response => response.json())
-        .then(response => {
-          if (response && response.length) {
-            this.setState({ eventList: response, isShowSuggestion: true });
-          }
-
-          return true;
-        }).catch(error => {
-          console.log(error);
-
-          return null;
-        });
-    });
-
-    return true;
-  }
+        return null;
+      });
+  }, 500)
 
   render() {
     const { searchPhrase, eventList, isShowSuggestion } = this.state;

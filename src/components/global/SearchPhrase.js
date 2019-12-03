@@ -9,28 +9,27 @@ class SearchPhrase extends PureComponent {
   componentDidMount() {
     const {
       location: { search } = {},
-      searchPhrase,
       fetchEventList,
-      updatePhrase,
+      updateSearchPhrase,
     } = this.props;
 
-    if (search && search.length && !searchPhrase.length) {
+    if (search && search.length) {
       const updatedSearchPhrase = search.replace('?&query=', '');
 
-      return fetchEventList({})
-        .then(() => updatePhrase(decodeURI(updatedSearchPhrase)));
+      return new Promise((resolve) => resolve(updateSearchPhrase(decodeURI(updatedSearchPhrase))))
+          .then(() => fetchEventList({searchPhrase: updatedSearchPhrase}));
     }
 
     return true;
   }
 
   removeSearchPhrase = () => {
-    const { history, fetchEventList, updatePhrase } = this.props;
+    const { history, fetchEventList, updateSearchPhrase } = this.props;
 
     history.push({ search: '' });
 
-    return fetchEventList({})
-      .then(() => updatePhrase(decodeURI('')));
+    return new Promise((resolve) => resolve(updateSearchPhrase(decodeURI(''))))
+      .then(() => fetchEventList({}));
   };
 
   render() {
@@ -54,7 +53,7 @@ function mapStateToProps(store) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    updatePhrase: searchPhrase => dispatch(updateSearchPhrase(searchPhrase)),
+    updateSearchPhrase: searchPhrase => dispatch(updateSearchPhrase(searchPhrase)),
     fetchEventList: params => dispatch(fetchEventList(params)),
   };
 }
