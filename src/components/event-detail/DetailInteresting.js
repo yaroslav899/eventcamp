@@ -12,7 +12,7 @@ class DetailInteresting extends PureComponent {
   state = { posts: [] };
 
   componentDidMount() {
-    const { data, dispatch } = this.props;
+    const { data } = this.props;
 
     this._isMounted = true;
 

@@ -10,9 +10,8 @@ class ListPage extends PureComponent {
   componentDidMount() {
     const { match: { params: initialParams } = {}, fetchEventList } = this.props;
 
-    updateFilterStore(initialParams);
-
-    return fetchEventList(initialParams);
+    return new Promise((resolve) => resolve(updateFilterStore(initialParams)))
+      .then(() => fetchEventList(initialParams));
   }
 
   render() {

@@ -61,7 +61,7 @@ function mapStateToProps(store) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return { fetchEventDetail: event => dispatch(fetchEventDetail(event)) };
+  return { fetchEventDetail: (event) => dispatch(fetchEventDetail(event)) };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(DetailPage);

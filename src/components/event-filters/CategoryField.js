@@ -14,12 +14,10 @@ class CategoryField extends PureComponent {
     const params = !selection ? { ['categories']: '' } : { [selection.type] : selection ? selection.value : '' };
     const { defaultPage, updateCategory, updateActivePage, fetchEventList } = this.props;
 
-    this.changeHistory(selection);
-
-    updateCategory(params.categories)
-
-    return fetchEventList(params)
-      .then(() => updateActivePage(defaultPage));
+    return new Promise((resolve) => resolve(this.changeHistory(selection)))
+      .then(() => updateCategory(params.categories))
+      .then(() => updateActivePage(defaultPage))
+      .then(() => fetchEventList(params));
   };
 
   changeHistory = (selection) => {

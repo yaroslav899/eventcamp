@@ -1,11 +1,10 @@
 import React, { PureComponent, Fragment } from 'react';
-import { formValidator } from '../../validator';
 import { connect } from 'react-redux';
-import { updateUserProfile } from '../../redux/actions/userActions';
+import { formValidator } from '../../validator';
 import Loader from '../global/Loader';
-import { setCookie, getCookie } from '../../_cookie';
+import { getCookie } from '../../_cookie';
 import { stringifyJSON, parseJSON } from '../../helper/json';
-import { request } from '../../api';
+import { fetchProfileData } from '../../api';
 import { fieldsRegisterForm } from '../../resources';
 import { globalRecources } from '../../resources/global';
 import { addEventFields } from '../../resources/profile';
@@ -57,33 +56,21 @@ class UserInfoEdit extends PureComponent {
 
       const profileData = parseJSON(getCookie('profileData'));
       const { name, email, phone, city } = this.state;
-      const { user: { userID } } = this.props;
+      const { user: { userID }, fetchProfileData, changeProfileInfo } = this.props;
 
       profileData.name = name;
       profileData.email = email;
       profileData.city = city;
       profileData.phone = phone;
 
-      const param = {
+      const bodyParam = {
         name,
         email,
         description: stringifyJSON(profileData),
       };
 
-      return request.updateProfile(param, userID)
-        .then((response) => {
-          if (response.success) {
-            const { updateUserProfile, changeProfileInfo } = this.props;
-
-            setCookie('profileData', stringifyJSON(response.userProfile), 2);
-
-            updateUserProfile(response.userProfile);
-
-            changeProfileInfo();
-          }
-
-          return true;
-        });
+      return fetchProfileData(bodyParam, userID)
+        .then(() => changeProfileInfo());
     });
   }
 
@@ -161,7 +148,7 @@ class UserInfoEdit extends PureComponent {
 }
 
 function mapDispatchToProps(dispatch) {
-  return { updateUserProfile: data => dispatch(updateUserProfile(data)) };
+  return { fetchProfileData: (bodyParam, userID) => dispatch(fetchProfileData(bodyParam, userID)) };
 }
 
 UserInfoEdit.defaultProps = {

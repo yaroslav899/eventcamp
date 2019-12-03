@@ -73,7 +73,7 @@ class Profile extends PureComponent {
 
 function mapStateToProps(store) {
   return { userProfile: store.user.data };
-};
+}
 
 function mapDispatchToProps(dispatch) {
   return { updateUserProfile: data => dispatch(updateUserProfile(data)) };

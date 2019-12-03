@@ -38,13 +38,9 @@ export const updateDetailPost = event => ({
   event,
 });
 
-export const eventLoading = () => ({
-  type: 'EVENT_LOAD_START',
-});
+export const eventLoading = () => ({ type: 'EVENT_LOAD_START' });
 
-export const eventLoaded = () => ({
-  type: 'EVENT_LOAD_SUCCESS',
-});
+export const eventLoaded = () => ({ type: 'EVENT_LOAD_SUCCESS' });
 
 export const eventFailed = (error) => ({
   type: 'EVENT_LOAD_FAILURE',

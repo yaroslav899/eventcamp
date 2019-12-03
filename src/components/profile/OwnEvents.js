@@ -61,8 +61,8 @@ function mapStateToProps(store) {
   return {
     posts: store.user.listPosts,
     userProfile: store.user.data,
-  }
-};
+  };
+}
 
 function mapDispatchToProps(dispatch) {
   return { updateUserPosts: posts => dispatch(updateUserPosts(posts)) };

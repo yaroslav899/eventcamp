@@ -1,7 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { updateUserProfile } from '../../redux/actions/userActions';
-import { request } from '../../api';
+import { request, fetchProfileData } from '../../api';
 import { setCookie } from '../../_cookie';
 import { stringifyJSON } from '../../helper/json';
 import { profileProperties } from '../../resources/profile';
@@ -11,7 +11,7 @@ class UserImage extends PureComponent {
   fileInput = React.createRef();
 
   handleUploadImage = () => {
-    const { user, updateUserProfile } = this.props;
+    const { user, updateUserProfile, fetchProfileData } = this.props;
     const { name, email, city, phone, userID, subscribed } = user;
 
     const file = this.fileInput.current.files[0];
@@ -34,7 +34,7 @@ class UserImage extends PureComponent {
 
     return request.uploadImage(updatedFile)
       .then((response) => {
-        const param = {
+        const bodyParam = {
           description: stringifyJSON({
             name,
             userID,
@@ -46,16 +46,7 @@ class UserImage extends PureComponent {
           }),
         };
 
-        return request.updateProfile(param, userID)
-          .then((responseProfile) => {
-            if (responseProfile.success) {
-              setCookie('profileData', stringifyJSON(responseProfile.userProfile), 2);
-
-              updateUserProfile(responseProfile.userProfile);
-            }
-
-            return true;
-          });
+        return fetchProfileData(bodyParam, userID);
       });
   };
 
@@ -91,7 +82,10 @@ class UserImage extends PureComponent {
 }
 
 function mapDispatchToProps(dispatch) {
-  return { updateUserProfile: data => dispatch(updateUserProfile(data)) };
+  return {
+    updateUserProfile: data => dispatch(updateUserProfile(data)),
+    fetchProfileData: (bodyParam, userID) => dispatch(fetchProfileData(bodyParam, userID)),
+  };
 }
 
 export default connect(null, mapDispatchToProps)(UserImage);

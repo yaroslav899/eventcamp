@@ -32,8 +32,8 @@ class DateRange extends PureComponent {
 
     range.page = defaultPage;
 
-    return fetchEventList(range)
-      .then(() => updateActivePage(defaultPage));
+    return new Promise((resolve) => resolve(updateActivePage(defaultPage)))
+      .then(() => fetchEventList(range));
   }
 
   handleResetClick = () => {
@@ -43,10 +43,9 @@ class DateRange extends PureComponent {
       to: undefined,
     };
 
-    updateDateRange(dateRange);
-
-    return fetchEventList({ page: defaultPage })
-      .then(() => updateActivePage(defaultPage));
+    return new Promise((resolve) => resolve(updateDateRange(dateRange)))
+      .then(() => updateActivePage(defaultPage))
+      .then(() => fetchEventList({ page: defaultPage }));
   }
 
   render() {

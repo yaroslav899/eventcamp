@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 import EventView from './views/EventView';
 import Modal from '../global/Modal';
 import GoogleCalendar from '../event-detail/GoogleCalendar';
-import { request } from '../../api';
-import { updateUserProfile } from '../../redux/actions/userActions';
-import { setCookie } from '../../_cookie';
+import { fetchProfileData } from '../../api';
 import { getValueFromParams } from '../../helper';
 import { categories } from '../../fixtures';
 import { imageUrlRecources } from '../../resources/url';
@@ -46,7 +44,7 @@ class EventList extends PureComponent {
     } = this.props;
 
     if (userName && userEmail) {
-      const { userProfile, event: { id: eventID } } = this.props;
+      const { userProfile, event: { id: eventID }, fetchProfileData } = this.props;
       const { isSubscribed } = this.state;
 
       if (isSubscribed) {
@@ -58,24 +56,12 @@ class EventList extends PureComponent {
 
       this.setState({ isSubscribed: !isSubscribed });
 
-      const param = { description: JSON.stringify(userProfile) };
+      const bodyParam = { description: JSON.stringify(userProfile) };
 
-      return request.updateProfile(param, userID)
-        .then((response) => {
-          if (response.success) {
-            const { updateProfile } = this.props;
-
-            setCookie('profileData', JSON.stringify(response.userProfile), 2);
-            updateProfile(response.userProfile);
-          }
-
-          return true;
-        });
+      return fetchProfileData(bodyParam, userID);
     }
 
-    this.toggleModal();
-
-    return true;
+    return this.toggleModal();
   }
 
   toggleModal = () => {
@@ -157,7 +143,7 @@ function mapStateToProps(store) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return { updateProfile: data => dispatch(updateUserProfile(data)) };
+  return { fetchProfileData: (bodyParam, userID) => dispatch(fetchProfileData(bodyParam, userID)) };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(EventList);

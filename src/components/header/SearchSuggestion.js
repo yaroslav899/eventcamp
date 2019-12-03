@@ -12,6 +12,7 @@ class SearchSuggestion extends PureComponent {
       const url = `/events/${event.acf.cities}/${category}/${event.id}`;
 
       return <EventSuggestion
+        key={event.id}
         eventID={event.id}
         title={title}
         city={event.acf.cities}

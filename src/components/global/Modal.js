@@ -1,4 +1,5 @@
 import React from 'react';
+import { createMarkupText } from '../../helper';
 
 const Modal = (props) => {
   const {
@@ -18,7 +19,7 @@ const Modal = (props) => {
       <div className="modal-dialog" role="document">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title">{modalTitle}</h5>
+            <h5 className="modal-title" dangerouslySetInnerHTML={createMarkupText(modalTitle)} />
             <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={closeModal}>
               <span aria-hidden="true">&times;</span>
             </button>

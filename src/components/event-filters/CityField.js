@@ -14,12 +14,10 @@ class CityField extends PureComponent {
     const params = !selection ? { ['cities']: '' } : { [selection.type]: selection ? selection.value : '' };
     const { defaultPage, updateCity, updateActivePage, fetchEventList } = this.props;
 
-    this.changeHistory(selection);
-
-    updateCity(params.cities);
-
-    return fetchEventList(params)
-      .then(() => updateActivePage(defaultPage));
+    return new Promise((resolve) => resolve(this.changeHistory(selection)))
+      .then(() => updateCity(params.cities))
+      .then(() => updateActivePage(defaultPage))
+      .then(() => fetchEventList(params));
   };
 
   changeHistory = (selection) => {
@@ -29,6 +27,8 @@ class CityField extends PureComponent {
       const url = getHistoryUrl('cities', selection, '');
       history.push(url);
     }
+
+    return true;
   }
 
   render() {

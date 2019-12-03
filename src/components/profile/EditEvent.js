@@ -105,6 +105,6 @@ EditEvent.defaultProps = { successMsg: global.successEditMsg };
 
 function mapStateToProps(store) {
   return { listPosts: store.user.listPosts };
-};
+}
 
 export default connect(mapStateToProps)(EditEvent);

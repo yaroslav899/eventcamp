@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getCookie } from '../_cookie';
+import { setCookie, getCookie } from '../_cookie';
 import { setProfileData, getUniqueArray, getValueFromParams } from '../helper';
 import { getRequestUrl, getInterestingUrl, getLastPostsUrl, fetchData, authFetch, eventRequest } from './helpers';
 import { adminAccess, googleApiService } from '../credentials';
@@ -8,9 +8,10 @@ import { urlRecources } from '../resources/url';
 import { globalRecources } from '../resources/global';
 import { mainMenu } from '../resources/menu';
 import { updatePagination } from '../redux/actions/paginationActions';
+import { updateUserProfile } from '../redux/actions/userActions';
 import { updateEventList, updateDetailPost, updateLastPost, eventLoading, eventLoaded, eventFailed } from '../redux/actions/eventActions';
 
-export const fetchEventList = (param) => (dispatch) =>{
+export const fetchEventList = (param) => (dispatch) => {
   const url = getRequestUrl(param);
   const myHeaders = { cache: 'no-cache' };
 
@@ -33,7 +34,7 @@ export const fetchEventList = (param) => (dispatch) =>{
     .catch(() => dispatch(eventFailed(globalRecources.noFilterResult)));
 };
 
-export const fetchLastEvents = () => (dispatch) =>{
+export const fetchLastEvents = () => (dispatch) => {
   const url = getLastPostsUrl();
 
   return fetchData(url, null)
@@ -62,7 +63,7 @@ export const fetchPageData = (pathname, pageID) =>{
     });
 };
 
-export const fetchEventDetail = (eventID) => (dispatch) =>{
+export const fetchEventDetail = (eventID) => (dispatch) => {
   const url = `${urlRecources.endpointUrl}posts/${eventID}?_embed`;
 
   dispatch(eventLoading());
@@ -73,6 +74,43 @@ export const fetchEventDetail = (eventID) => (dispatch) =>{
     .catch(() => {
       dispatch(eventFailed());
 
+      return { success: false };
+    });
+};
+
+export const fetchProfileData = (bodyParam, userID) => (dispatch) => {
+  const userData = getCookie('userData');
+
+  if (!userData) {
+    return new Promise((resolve, reject) => reject({ success: false }));
+  }
+
+  const { token } = parseJSON(userData);
+  const url = `${urlRecources.endpointUrl}users/${userID}`;
+  const param = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: stringifyJSON(bodyParam),
+  };
+
+  return fetchData(url, param)
+    .then((response) => {
+      const responseProfileData = setProfileData(response.description);
+      responseProfileData.name = response.name;
+      responseProfileData.userID = response.id;
+      responseProfileData.email = response.email;
+
+      return responseProfileData;
+    })
+    .then((profileData) => {
+      setCookie('profileData', JSON.stringify(profileData), 2);
+      dispatch(updateUserProfile(profileData));
+    })
+    .catch(() => {
       return { success: false };
     });
 };
@@ -259,10 +297,10 @@ export const request = {
 
     return axios.post(urlRecources.mediaResources, file, {
       headers: {
+        'Access-Control-Allow-Origin': '*',
         'Content-Type': file.type,
         'Content-Disposition': 'attachment; filename=' + file.name + '',
         'Authorization': 'Bearer' + token,
-        'Access-Control-Allow-Origin': '*',
       }
     }).catch(() => {
       return { success: false };

@@ -50,12 +50,10 @@ class TopicField extends PureComponent {
     const params = !selection ? { ['topics']: '' } : { [selection.type]: selection ? selection.value : '' };
     const { defaultPage, updateTopic, updateActivePage, fetchEventList } = this.props;
 
-    this.setState({ currentTheme: selection || '' });
-
-    updateTopic(params.topics);
-
-    return fetchEventList(params)
-      .then(() => updateActivePage(defaultPage));
+    return new Promise((resolve) => resolve(this.setState({ currentTheme: selection || '' })))
+      .then(() => updateTopic(params.topics))
+      .then(() => updateActivePage(defaultPage))
+      .then(() => fetchEventList(params));
   };
 
   render() {
