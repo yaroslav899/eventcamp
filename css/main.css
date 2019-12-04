@@ -579,8 +579,8 @@ div.home-page .events_filter-wrapper>a:hover{
   font-weight: bold;
   background: url(/img/star.png) no-repeat;
   background-size: 15%;
-  background-position: 10% 50%;
-  padding-left: 25px;
+  background-position: 7% 50%;
+  padding-left: 20px;
 }
 .events-item__action a:hover, .events-item__action a+span:hover, .events-item__action .action-button__active{
   background-color: #f6c806;
@@ -590,7 +590,7 @@ div.home-page .events_filter-wrapper>a:hover{
   color: #ffffff;
   border-radius: 5px;
   font-size: 0.8em;
-  padding: 7px;
+  padding: 5px;
   cursor: pointer;
 }
 
