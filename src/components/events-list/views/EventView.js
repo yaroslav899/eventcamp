@@ -1,5 +1,6 @@
 import React, { Fragment }  from 'react';
 import { NavLink } from 'react-router-dom';
+import EventImage from '../../event-global/EventImage';
 import EventLocation from '../../event-global/EventLocation';
 import EventDate from '../../event-global/EventDate';
 import EventPrice from '../../event-global/EventPrice';
@@ -32,7 +33,7 @@ const EventView = (props) => {
   return (
     <Fragment>
       <NavLink to={eventUrl} className={imgWrapClass}>
-        <img src={eventImgUrl} alt={eventTitle} />
+        <EventImage imgUrl={eventImgUrl} alt={eventTitle} />
       </NavLink>
       <div className={descrWrapClass}>
         <NavLink to={eventUrl} className="events-item__title">

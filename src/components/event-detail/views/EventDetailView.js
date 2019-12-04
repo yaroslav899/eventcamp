@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import EventImage from '../../event-global/EventImage';
 import EventPrice from '../../event-global/EventPrice';
 import EventTags from '../../event-global/EventTags';
 import EventLocation from '../../event-global/EventLocation';
@@ -25,7 +26,7 @@ const EventDetailView = (props) => {
   return (
     <Fragment>
       <div className="col-12 col-md-6 area-1_image">
-        <img src={eventImgUrl} alt={eventTitle} className="detail-picture" />
+        <EventImage imgUrl={eventImgUrl} alt={eventTitle} className="detail-picture" />
       </div>
       <div className="col-12 col-md-6 area-1_text">
         <EventPrice className="text-right area-1_price" price={eventPrice} currency={eventCurrency} />
