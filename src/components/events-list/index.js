@@ -27,8 +27,8 @@ class ListPage extends PureComponent {
         return <li key={event.id} className="events__item events-item">
           <EventList
             event={event}
-            imgWrapClass="col-12 col-lg-3 d-md-none d-lg-block"
-            descrWrapClass="col-12 col-lg-6 col-md-7"
+            imgWrapClass="col-12 col-lg-4 d-md-none d-lg-block"
+            descrWrapClass="col-12 col-lg-5 col-md-7"
             actionWrapClass="col-12 col-lg-3 col-md-5"
             isOwner={false}
           />
