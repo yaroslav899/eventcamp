@@ -23,6 +23,11 @@ export const updateFilterDateRange = dateRange => ({
   dateRange,
 });
 
+export const updateSorting = sortingValue => ({
+  type: 'UPDATE_SORTING',
+  sortingValue,
+});
+
 export const updateSearchPhrase = searchPhrase => ({
   type: 'UPDATE_SEARCH_PHRASE',
   searchPhrase,
