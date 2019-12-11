@@ -24,7 +24,7 @@ export const mainMenu = [{
   url: '/info',
 },
 {
-  name: "Зворотній зв'язок",
+  name: 'Контакти',
   id: '748',
   url: '/callback',
 }];

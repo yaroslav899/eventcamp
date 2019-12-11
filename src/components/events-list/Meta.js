@@ -8,44 +8,43 @@ import { getValueFromParams } from '../../helper';
 class Meta extends Component {
   _getTitle(cityValue, categoryValue) {
     const { title, additionalTitle } = this.props;
-    let updatedTitle = cityValue ? `${title} ${additionalTitle} ${cityValue}` : title;
+    let updatedTitle = title;
 
-    updatedTitle = categoryValue ? `${categoryValue}. ${updatedTitle}` : updatedTitle;
+    updatedTitle = updatedTitle.replace('{0}', categoryValue || '');
+    updatedTitle = updatedTitle.replace('{1}', cityValue ? ` ${additionalTitle} ${cityValue}` : '');
 
     return updatedTitle;
   }
 
   _getKeywords(cityValue, categoryValue) {
     const { keywords } = this.props;
-    let updatedKeywords = keywords.split(',');
-    updatedKeywords = updatedKeywords.map((keyword) => {
-      let updatedKeyword = cityValue ? keyword + ' ' + cityValue : keyword;
-      updatedKeyword = categoryValue ? updatedKeyword + ' ' + categoryValue : updatedKeyword;
+    let updatedKeywords = keywords;
 
-      return updatedKeyword;
-    });
+    updatedKeywords = updatedKeywords.replace(/\{0\}/gi, categoryValue ? ` ${categoryValue}` : '');
+    updatedKeywords = updatedKeywords.replace(/\{1\}/gi, cityValue ? ` ${cityValue}` : '');
 
-    return updatedKeywords.join(',');
+    return updatedKeywords;
   }
 
-  _getDescription(cityValue) {
+  _getDescription(cityValue, categoryValue) {
     const { description, eventTitle, additionalTitle } = this.props;
-    const updatedDescription = description.split('.');
+    let updatedDescription = description;
 
-    if (cityValue) {
-      updatedDescription[0] = cityValue + ' ' + eventTitle + ': ' + updatedDescription[0];
-      updatedDescription[0] = updatedDescription[0] + additionalTitle + ' ' + cityValue;
-    }
-    return updatedDescription.join('.');
+    updatedDescription = updatedDescription.replace('{0}', cityValue ? `${cityValue} ${eventTitle}: `: '');
+    updatedDescription = updatedDescription.replace(/\{1\}/gi, categoryValue ? `${categoryValue}`: '');
+    updatedDescription = updatedDescription.replace('{2}', cityValue ? ` ${additionalTitle} ${cityValue}`: '');
+
+    return updatedDescription;
   }
 
   render() {
     const { category, city, metalang, metaimage } = this.props;
     const cityValue = city ? getValueFromParams(cities, city, 'id', 'name') : null;
     const categoryValue = category ? getValueFromParams(categories, category, 'id', 'name') : null;
+
     const updatedTitle = this._getTitle(cityValue, categoryValue);
     const updatedKeywords = this._getKeywords(cityValue, categoryValue);
-    const updatedDescription = this._getDescription(cityValue);
+    const updatedDescription = this._getDescription(cityValue, categoryValue);
 
     return (
       <Fragment>
