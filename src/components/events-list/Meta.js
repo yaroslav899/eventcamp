@@ -6,12 +6,18 @@ import { meta } from '../../resources/meta/plp';
 import { getValueFromParams } from '../../helper';
 
 class Meta extends Component {
-  _getTitle(cityValue, categoryValue) {
+  _getTitle(cityValue, categoryValue, updatedH1) {
     const { title, additionalTitle } = this.props;
+
+    if (!cityValue && !categoryValue) {
+      return updatedH1;
+    }
+
     let updatedTitle = title;
 
-    updatedTitle = updatedTitle.replace('{0}', categoryValue || '');
-    updatedTitle = updatedTitle.replace('{1}', cityValue ? ` ${additionalTitle} ${cityValue}` : '');
+    updatedTitle = updatedTitle.replace(/\{0\}/gi, categoryValue || '');
+    updatedTitle = updatedTitle.replace(/\{1\}/gi, cityValue ? ` ${cityValue}` : '');
+    updatedTitle = updatedTitle.replace(/\{2\}/gi, cityValue ? ` ${additionalTitle} ${cityValue}` : '');
 
     return updatedTitle;
   }
@@ -29,12 +35,24 @@ class Meta extends Component {
   _getDescription(cityValue, categoryValue) {
     const { description, eventTitle, additionalTitle } = this.props;
     let updatedDescription = description;
+    let updatedEventTitle = eventTitle;
 
-    updatedDescription = updatedDescription.replace('{0}', cityValue ? `${cityValue} ${eventTitle}: `: '');
-    updatedDescription = updatedDescription.replace(/\{1\}/gi, categoryValue ? `${categoryValue}`: '');
+    updatedEventTitle = updatedEventTitle.replace('{0}', categoryValue ? ` ${categoryValue}` : '');
+    updatedDescription = updatedDescription.replace('{0}', cityValue ? `${updatedEventTitle} ${cityValue}: `: '');
+    updatedDescription = updatedDescription.replace(/\{1\}/gi, categoryValue ? ` ${categoryValue}` : '');
     updatedDescription = updatedDescription.replace('{2}', cityValue ? ` ${additionalTitle} ${cityValue}`: '');
 
     return updatedDescription;
+  }
+
+  _getH1(cityValue, categoryValue) {
+    const { h1, additionalTitle } = this.props;
+    let updatedH1 = h1;
+
+    updatedH1 = updatedH1.replace(/\{0\}/gi, categoryValue || '');
+    updatedH1 = updatedH1.replace(/\{1\}/gi, cityValue ? ` ${additionalTitle} ${cityValue}` : '');
+
+    return updatedH1;
   }
 
   render() {
@@ -42,23 +60,24 @@ class Meta extends Component {
     const cityValue = city ? getValueFromParams(cities, city, 'id', 'name') : null;
     const categoryValue = category ? getValueFromParams(categories, category, 'id', 'name') : null;
 
-    const updatedTitle = this._getTitle(cityValue, categoryValue);
+    const updatedH1 = this._getH1(cityValue, categoryValue);
+    const updatedTitle = this._getTitle(cityValue, categoryValue, updatedH1);
     const updatedKeywords = this._getKeywords(cityValue, categoryValue);
-    const updatedDescription = this._getDescription(cityValue, categoryValue);
+    const updatedDescription = this._getDescription(cityValue, categoryValue);    
 
     return (
       <Fragment>
         <Helmet>
-          <title itemProp="name" lang={metalang}>{`${updatedTitle} - EventCamp`}</title>
+          <title itemProp="name" lang={metalang}>{updatedTitle}</title>
           <meta name="description" content={updatedDescription} />
           <meta name="keywords" content={updatedKeywords} />
-          <meta property="og:title" content={`${updatedTitle} - EventCamp`} />
+          <meta property="og:title" content={updatedTitle} />
           <meta property="og:description" content={updatedDescription} />
           <meta property="og:image" content={metaimage} />
           <link rel="image_src" href={metaimage} />
         </Helmet>
         <h1>
-          {updatedTitle}
+          {updatedH1}
         </h1>
       </Fragment>
     );
@@ -74,6 +93,7 @@ const mapStateToProps = store => {
 
 Meta.defaultProps = {
   title: meta.title,
+  h1: meta.h1,
   additionalTitle: meta.additionalTitle,
   eventTitle: meta.eventTitle,
   keywords: meta.keywords,
