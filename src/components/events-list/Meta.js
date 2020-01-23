@@ -15,7 +15,7 @@ class Meta extends Component {
 
     let updatedTitle = title;
 
-    updatedTitle = updatedTitle.replace(/\{0\}/gi, categoryValue || '');
+    updatedTitle = updatedTitle.replace(/\{0\}/gi, categoryValue ? ` ${categoryValue}` : '');
     updatedTitle = updatedTitle.replace(/\{1\}/gi, cityValue ? ` ${cityValue}` : '');
     updatedTitle = updatedTitle.replace(/\{2\}/gi, cityValue ? ` ${additionalTitle} ${cityValue}` : '');
 
@@ -63,7 +63,7 @@ class Meta extends Component {
     const updatedH1 = this._getH1(cityValue, categoryValue);
     const updatedTitle = this._getTitle(cityValue, categoryValue, updatedH1);
     const updatedKeywords = this._getKeywords(cityValue, categoryValue);
-    const updatedDescription = this._getDescription(cityValue, categoryValue);    
+    const updatedDescription = this._getDescription(cityValue, categoryValue);
 
     return (
       <Fragment>
