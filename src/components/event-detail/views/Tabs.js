@@ -35,11 +35,9 @@ const DetailTabs = (props) => {
       </TabPanel>
       <TabPanel>
         <div className="row">
-          <div className="col-7 area-2_map">
-            <GoogleMap address={address} />
-          </div>
-          <div className="col-5">
+          <div className="col-12 area-2_map">
             <EventLocation city={eventCity} address={eventLocation} />
+            <GoogleMap address={address} />
           </div>
         </div>
       </TabPanel>
