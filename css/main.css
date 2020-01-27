@@ -273,7 +273,7 @@ div.home-page .events_filter-wrapper>a:hover{
 .events-pagination__item.active button, .events-pagination__item.active button:hover {
   background: #0367b7;
   color: #ffffff;
-  padding: 1px 8px;
+  padding: 1px 7px;
   border-radius: 15px;
 }
 .events-pagination__navButton {
@@ -813,6 +813,9 @@ div.area-1 .area-1_interesting span{
 div.area-1 p.area-1_interesting span:hover, div.area-1 p.area-1_interesting span.m-active{
   background-color: #f6c806;
 }
+div.area-2 .js-ev_owl_gallery{
+  display:none;
+}
 
 /**
 * Detail tabs area
@@ -923,6 +926,8 @@ div.right-side div.detail-interesting ul li div.samePost-info-rightside {
 }
 div.right-side div.detail-interesting ul li div.samePost-info-rightside div {
   margin: 10px 0;
+  max-height: 30px;
+  overflow: hidden;
 }
 div.right-side div.detail-interesting ul li div.samePost-info-rightside div:first-child {
   font-weight: bold;
@@ -944,7 +949,7 @@ div.right-side div.detail-interesting ul li div.samePost-info-rightside div:firs
 }
 @media only screen and (min-device-width: 768px) and (max-device-width: 1199px) {
   .advant {
-    height: 40px;
+    height: auto;
   }
   .advant div {
     height: 35px;
@@ -955,8 +960,10 @@ div.right-side div.detail-interesting ul li div.samePost-info-rightside div:firs
   }
   .advant span {
     width: 65%;
-    font-size: 0.5em;
-    margin-top: 5px;
+    font-size: 0.4em;
+  }
+  .category-main h2 {
+    font-size: 0.7em;
   }
   .events-item__title, .events-item__description, .events-item-tags {
     padding-left: 10px;
@@ -964,19 +971,22 @@ div.right-side div.detail-interesting ul li div.samePost-info-rightside div:firs
   .events-item__tags {
     position: initial;
   }
+  .events__item {
+    height: 165px;
+  }
   .events-item .events-item__action {
     top: 18px;
     position: inherit;
     bottom: 0;
     font-size: 0.9em;
   }
-    .events-item .events-item__action a {
+  .events-item .events-item__action a {
       display: inline;
-    }
+  }
   .events-item .events-item__action span {
   }
   .DayPicker-wrapper {
-    font-size: 0.8em !important;
+    font-size: 0.9em !important;
   }
   .DayPicker-Month {
     padding: 0 !important;
@@ -984,6 +994,16 @@ div.right-side div.detail-interesting ul li div.samePost-info-rightside div:firs
   }
   .DayPicker-Day {
     padding: 0.2rem !important;
+  }
+  .DayPicker-NavButton{
+    top: 0 !important;
+  }
+  .additional-area{
+    height:auto;
+    background-size: cover;
+  }
+  .footer div.copyright {
+      font-size: 0.4em;
   }
 }
 
@@ -1003,20 +1023,24 @@ div.right-side div.detail-interesting ul li div.samePost-info-rightside div:firs
     background-color: #0367b7;
     padding: 10px 0 0 0;
   }
-
+  .additional-area{
+    height:auto;
+    background-size: cover;
+  }
   .header nav.navbar ul.navbar-nav li {
     padding: 5px 0;
     display: contents;
   }
-
-    .header nav.navbar ul.navbar-nav li.menu-item a {
+  .header nav.navbar ul.navbar-nav li.menu-item a {
       border-radius: 0;
-    }
-
-    .header nav.navbar ul.navbar-nav li.menu-item.current-menu-item a {
-      background-color: transparent;
-      color: #f6c806;
-    }
+  }
+  .header nav.navbar ul.navbar-nav li.menu-item.current-menu-item a {
+    background-color: transparent;
+    color: #f6c806;
+  }
+  .footer div.copyright {
+      font-size: 0.4em;
+  }
 }
 
 @media (max-width: 576px) {
@@ -1176,12 +1200,19 @@ div.right-side div.detail-interesting ul li div.samePost-info-rightside div:firs
   .profile-email{
     overflow: hidden;
   }
+  .additional-area{
+    height:auto;
+    background-size: cover;
+  }
   .footer {
     height: 60px;
     padding: 10px 0 0 0;
   }
   .footer img{
     width: 140px;
+  }
+  .footer div.copyright {
+      font-size: 0.4em;
   }
 
 }

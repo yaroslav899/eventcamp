@@ -13,7 +13,7 @@ export const globalRecources = {
   loading: 'Завантаження ...',
   welcome: 'Ласкаво просимо',
   interestingCTA: 'Стежити',
-  copyright: '©2019 EventCamp. Всі права захищені.',
+  copyright: '©2019 EventCamp. Всі права захищені. При використанні матеріалів, посилання на сайт https://event-camp.org/ обов\'язкове.',
   enter: 'Мій кабінет',
   exit: 'Вийти',
   registr: 'Реєстрація',
