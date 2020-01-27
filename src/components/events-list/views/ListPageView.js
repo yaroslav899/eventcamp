@@ -19,7 +19,7 @@ const ListPageView = ({ eventsElement }) => (
       <div className="col-12 col-lg-3 col-md-4 events_filter-wrapper">
         <SearchPhrase />
         <Filters />
-        <div className="d-none d-sm-block">
+        <div className="d-none d-dm-block">
           <LastPosts />
         </div>
       </div>
