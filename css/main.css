@@ -12,8 +12,8 @@ h3, h4{
   font-size:1.1em;
 }
 ul {
-  margin: 0;
   padding: 0;
+  margin: 0;
 }
 ul li{
   list-style-type: none;
@@ -39,7 +39,6 @@ img {
   font-size: 0.8em;
 }
 a {
-  cursor: pointer;
   color: #0367b7;
   text-decoration: none;
 }
@@ -199,12 +198,12 @@ header .authBlock {
 *  Advantages container
 */
 .advant {
-  margin: 7px 0;
-  height: 50px;
+  margin: 5px 0;
+  height: 47px;
   border-bottom: 1px solid #b3d1e9;
 }
 .advant div {
-  height: 42px;
+  height: 40px;
 }
 .advant div + div {
   border-left: 1px solid #b3d1e9;
@@ -213,10 +212,10 @@ header .authBlock {
   width: 50%;
   display: inline-block;
   text-align: left;
-  font-weight: bold;
   font-size: 0.6em;
+  font-weight:bold;
   vertical-align: top;
-  margin-top: 8px;
+  margin-top: 7px;
   text-transform: uppercase;
 }
 .advant img {
@@ -280,7 +279,7 @@ div.home-page .events_filter-wrapper>a:hover{
   float: left;
   background-color: transparent;
   background-size: cover;
-  width: 25px;
+  width: 20px;
   height: 25px;
   border: 0;
   cursor: pointer;
@@ -301,7 +300,7 @@ div.home-page .events_filter-wrapper>a:hover{
   margin: 15px 0;
 }
 .last-post-list li {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 .last-post-list li a {
   color: #565656;
@@ -309,7 +308,7 @@ div.home-page .events_filter-wrapper>a:hover{
 }
 .last-post-list .last-post-title{
   color:#0367b7;
-  font-size: 1.1em;
+  font-size: 1.2em;
   font-weight: bold;
   margin: 0 0 4px 0;
 }
@@ -318,20 +317,21 @@ div.home-page .events_filter-wrapper>a:hover{
   color: #ffffff;
   text-align: center;
   border-radius: 5px;
+  padding: 2px;
 }
 .last-post-list .last-post-location {
   background: url(/img/locator.png) no-repeat left center;
-  padding: 0 0 0 15%;
-  margin: 0 0 5px 0;
+  padding-left: 25px;
+  margin-bottom: 5px;
   max-height: 30px;
   overflow: hidden;
 }
 .last-post-list .last-post-date {
   background: url(/img/date.png) no-repeat left center;
-  padding: 2px 0 2px 15%;
+  padding: 2px 0 2px 25px;
 }
 .last-post-list .last-post-tags{
-  margin: 10px 0 0 0;
+  margin-top: 10px;
   height: 20px;
   overflow: hidden;
 }
@@ -349,12 +349,12 @@ div.home-page .events_filter-wrapper>a:hover{
 *  Additional area on main page
 */
 .additional-area {
-  height: 440px;
+  height: 470px;
   background-image: url(/img/ftrbanner.jpg);
   background-repeat: no-repeat;
   background-position: center;
   color: #ffffff;
-  padding-top: 30px;
+  padding: 30px 0;
   font-size: 0.9em;
 }
 .additional-area h1{
@@ -509,7 +509,6 @@ div.home-page .events_filter-wrapper>a:hover{
 .events__item img{
   width: 100%;
   min-height: 145px;
-  border-radius: 5px 0 0 5px;
 }
 .events-item__title {
   font-weight: bold;
@@ -544,10 +543,10 @@ div.home-page .events_filter-wrapper>a:hover{
   background: #ffffff;
   border-radius: 0 5px 0 0;
   color: #004f8f;
-  margin: 0 0 5% 0;
+  margin-bottom: 5px;
   padding: 1% 0 1% 5%;
   font-weight: bold;
-  height: 30px;
+  height: 27px;
   overflow: hidden;
 }
 .events-item__location {
@@ -563,6 +562,7 @@ div.home-page .events_filter-wrapper>a:hover{
   clear: both;
   padding: 2px 0 0 25px;
   background: url(/img/date.png) no-repeat left center;
+  background-size: 15px;
   font-size: 0.9em;
   height: 20px;
   overflow: hidden;
@@ -578,7 +578,7 @@ div.home-page .events_filter-wrapper>a:hover{
   color: #004f8f;
   font-weight: bold;
   background: url(/img/star.png) no-repeat;
-  background-size: 15%;
+  background-size: 14%;
   background-position: 7% 50%;
   padding-left: 20px;
 }
@@ -598,7 +598,7 @@ div.home-page .events_filter-wrapper>a:hover{
 ** Filter area
 */
 div.events_filter-wrapper>div{
-  margin: 15px 0;
+  margin-top: 15px;
   background-color: #f5f5f5;
   border-radius: 5px;
   border: 1px solid #dbdbdb;
@@ -829,7 +829,7 @@ ul.react-tabs__tab-list li {
   float: left;
   font-weight: bold;
   margin: 15px 10px 15px 0;
-  padding: 5px 25px;
+  padding: 5px 50px;
   border-radius: 5px;
 }
 ul.react-tabs__tab-list li.react-tabs__tab--selected {
@@ -947,7 +947,7 @@ div.right-side div.detail-interesting ul li div.samePost-info-rightside div:firs
     max-height: 145px;
   }
 }
-@media only screen and (min-device-width: 768px) and (max-device-width: 1199px) {
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
   .advant {
     height: auto;
   }
@@ -983,10 +983,18 @@ div.right-side div.detail-interesting ul li div.samePost-info-rightside div:firs
   .events-item .events-item__action a {
       display: inline;
   }
-  .events-item .events-item__action span {
+  .socialShare a img{
+    width: 25px;
   }
-  .DayPicker-wrapper {
+  .socialShare a+a img{
+    margin-left: 5px;
+    }
+
+  .events_filter-wrapper .DayPicker-wrapper {
     font-size: 0.9em !important;
+  }
+  .home-page .DayPicker-wrapper {
+    font-size: 0.65em !important;
   }
   .DayPicker-Month {
     padding: 0 !important;
@@ -1012,11 +1020,14 @@ div.right-side div.detail-interesting ul li div.samePost-info-rightside div:firs
     display: none;
   }
 }
-@media (max-width: 991px) and (min-width: 768px) {
+@media (min-width: 768px) and (max-width: 991px), (max-width: 767.98px) {
   .header nav.navbar {
     margin-top: 6px;
     float: none;
     z-index: 1;
+  }
+  .header .header__logo{
+    display:none !important;
   }
   #navbarSupportedContent {
     z-index: 999;
@@ -1043,7 +1054,7 @@ div.right-side div.detail-interesting ul li div.samePost-info-rightside div:firs
   }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 767.98px) {
   h3 {
     margin-top:10px;
   }
@@ -1214,9 +1225,7 @@ div.right-side div.detail-interesting ul li div.samePost-info-rightside div:firs
   .footer div.copyright {
       font-size: 0.4em;
   }
-
 }
-
 .rdw-editor-main{
     min-height:400px;
 }

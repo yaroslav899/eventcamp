@@ -459,7 +459,7 @@ export const categories = [
   {
     'id': '14',
     'url': 'action',
-    'name': 'Рух та інше',
+    'name': 'Фестивалі та інше',
     'img': '/img/action.png',
     'subcat': [
       {
@@ -467,6 +467,11 @@ export const categories = [
         'url': 'tabori',
         'name': 'Табори',
       },
+      {
+          'id': '14_3',
+          'url': 'fest-action',
+          'name': 'Фестивалі',
+        },
       {
         'id': '14_2',
         'url': 'another-action',
