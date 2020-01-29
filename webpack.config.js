@@ -2,9 +2,7 @@ var path = require('path');
 
 module.exports = {
     devtool: 'source-map',
-    entry: [
-        './src/index.js'
-    ],
+    entry: [ './polyfill/index.js', './polyfill/fetch.js', './src/index.js'],
     output: {
         path: path.join(__dirname, 'build'),
         filename: 'bundle.js',

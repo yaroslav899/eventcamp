@@ -11,7 +11,6 @@ class ServicePicture extends PureComponent {
     const categoryBanners = categories.map(category => <div key={category.id} className="col-6 col-sm-4 text-center">
       <NavLink to={`/events/${eventCity || defaultCity}/${category.url}`}>
         <img src={category.img} alt={category.name} title={category.name} className="img-fluid" />
-        <br />
         <p>{category.name}</p>
       </NavLink>
     </div>);
