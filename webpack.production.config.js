@@ -4,7 +4,7 @@ const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: [ './polyfill/index.js', './polyfill/fetch.js', './src/index.js'],
   cache: false,
   output: {
     filename: 'index.js',
