@@ -4,8 +4,8 @@ import FilterView from './views/FilterView';
 
 const Filters = () => (
   <Fragment>
-    <DateRange />
     <FilterView />
+    <DateRange />
   </Fragment>
 );
 

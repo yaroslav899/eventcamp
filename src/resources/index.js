@@ -4,9 +4,9 @@ export const listRecources = {
 };
 
 export const filterRecources = {
-  city: 'Місто',
-  category: 'Категорія',
-  topic: 'Тема',
+  city: 'Виберіть місто',
+  category: 'Виберіть категорію',
+  topic: 'Виберіть тему',
   reset: 'Скинути',
 };
 
