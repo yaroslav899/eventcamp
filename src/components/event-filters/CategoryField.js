@@ -32,10 +32,10 @@ class CategoryField extends PureComponent {
 
     return (
       <Fragment>
-        <p>{fieldLabel}</p>
         <Select
           name="form-field-category"
           label="categories"
+          placeholder={fieldLabel}
           options={categories.map(category => ({
             label: category.name,
             value: category.id,

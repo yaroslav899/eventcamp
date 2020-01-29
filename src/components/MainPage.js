@@ -53,9 +53,7 @@ class MainPage extends PureComponent {
               </div>
             </div>
             <div className="col-12 col-md-3 events_filter-wrapper">
-              <div className="event-filter-option">
-                <CityField changeHistory={false} />
-              </div>
+              <CityField changeHistory={false} />
               <DateRange />
               <Button text={actionCtaHPLabel} className="events-item-action__button" to={getHistoryUrl('cities', { value: cities }, '')} />
               <LastPosts />

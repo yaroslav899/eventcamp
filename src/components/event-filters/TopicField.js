@@ -62,10 +62,10 @@ class TopicField extends PureComponent {
 
     return (
       <Fragment>
-        <p>{fieldLabel}</p>
         <Select
           name="form-field-topics"
           label="topics"
+          placeholder={fieldLabel}
           options={topics.map(topic => ({
             label: topic.name,
             value: topic.url,

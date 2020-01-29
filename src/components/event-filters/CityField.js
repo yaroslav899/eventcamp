@@ -36,10 +36,10 @@ class CityField extends PureComponent {
 
     return (
       <Fragment>
-        <p>{fieldLabel}</p>
         <Select
           name="form-field-cities"
           label="cities"
+          placeholder={fieldLabel}
           options={cities.map(city => ({
             label: city.name,
             value: city.id,

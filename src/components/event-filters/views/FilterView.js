@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import CityField from '../CityField';
 import CategoryField from '../CategoryField';
 import TopicField from '../TopicField';
 
 const FilterView = () => {
   return (
-    <div className="event-filter-option">
+    <Fragment>
       <CityField changeHistory={true} />
       <CategoryField />
       <TopicField />
-    </div>
+    </Fragment>
   );
 };
 
