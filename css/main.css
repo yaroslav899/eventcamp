@@ -580,7 +580,7 @@ div.home-page .events_filter-wrapper>a:hover{
   color: #004f8f;
   font-weight: bold;
   background: url(/img/star.png) no-repeat;
-  background-size: 14%;
+  background-size: 11px;
   background-position: 7% 50%;
   padding-left: 20px;
 }
@@ -1148,6 +1148,7 @@ div.right-side div.detail-interesting ul li div.samePost-info-rightside div:firs
     margin: 0;
     width: 35%;
     padding: 0;
+    font-size: 0.85em;
   }
   .events-item__location {
     margin-left: 10px;
