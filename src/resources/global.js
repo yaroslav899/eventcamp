@@ -7,7 +7,7 @@ export const titleList = {
 
 export const globalRecources = {
   title: 'Event camp - Події, конференції та зустрічі України',
-  free: '0 UAH',
+  free: 'безкоштовно',
   moreInfo: 'Відкрити',
   change: 'Змінити',
   loading: 'Завантаження ...',
