@@ -1,27 +1,27 @@
 export const mainMenu = [{
   name: 'Календарь событий',
   id: '12',
-  url: '/events',
+  url: '/events/',
 },
 {
   name: 'Добавить событие',
   id: '3',
-  url: '/add-event',
+  url: '/add-event/',
 },
 {
   name: 'Инфо',
   id: '24',
-  url: '/info',
+  url: '/info/',
 },
 {
   name: 'Обратная связь',
   id: '748',
-  url: '/callback',
+  url: '/callback/',
 }];
 
 export const userMenu = {
   profile: '/profile',
-  register: '/register',
+  register: '/register/',
 };
 
 export const hiddenPages = {

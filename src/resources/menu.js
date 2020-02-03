@@ -1,12 +1,12 @@
 export const mainMenu = [{
   name: 'Календар подій',
   id: '12',
-  url: '/events',
+  url: '/events/',
 },
 {
   name: 'Додати подію',
   id: '3',
-  url: '/add-event',
+  url: '/add-event/',
 },
 {
   name: 'Статті',
@@ -16,17 +16,17 @@ export const mainMenu = [{
 {
   name: 'Інфо',
   id: '24',
-  url: '/info',
+  url: '/info/',
 },
 {
   name: 'Контакти',
   id: '748',
-  url: '/callback',
+  url: '/callback/',
 }];
 
 export const userMenu = {
   profile: '/profile',
-  register: '/register',
+  register: '/register/',
 };
 
 export const hiddenPages = {

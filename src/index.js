@@ -55,7 +55,7 @@ class App extends Component {
               <PrivateRoute path="/profile" redirectTo="/register" component={Profile} />
               <PrivateRoute path="/add-event" redirectTo="/register" component={AddEvent} />
               <Route path="/edit-event/:id" component={EditEvent} exact />
-              <Route component={NoMatch404} />
+              <Route path="*" component={NoMatch404} />
             </Switch>
           </Layout>
         </Router>

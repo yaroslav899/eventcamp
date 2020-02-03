@@ -627,13 +627,21 @@ div.date-range p button {
 }
 .event-filter-searchphrase{
   padding: 10px;
+  font-size:12px !important;
 }
 .event-filter-searchphrase span{
-  font-weight:bold;
   cursor: pointer;
+  font-size: 14px;
 }
 .event-filter-searchphrase span:hover{
   text-decoration: underline;
+}
+.event-filter-searchphrase span:after{
+  content: 'x';
+  font-weight: bold;
+  font-size: 1.3em;
+  color: #0367b7;
+  padding-left: 5px;
 }
 .events_filter-wrapper div.Select+div.Select{
   margin-top:10px;

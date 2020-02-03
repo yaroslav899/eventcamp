@@ -12,9 +12,10 @@ class SearchPhrase extends PureComponent {
       fetchEventList,
       updateSearchPhrase,
     } = this.props;
+    const queryParam = '?&query=';
 
-    if (search && search.length) {
-      const updatedSearchPhrase = search.replace('?&query=', '');
+    if (search && search.length && search.includes(queryParam)) {
+      const updatedSearchPhrase = search.replace(queryParam, '');
 
       return new Promise((resolve) => resolve(updateSearchPhrase(decodeURI(updatedSearchPhrase))))
           .then(() => fetchEventList({searchPhrase: updatedSearchPhrase}));
@@ -41,7 +42,7 @@ class SearchPhrase extends PureComponent {
 
     return (
       <div className="event-filter-searchphrase">
-        {searchPhraseLabel} - <span onClick={this.removeSearchPhrase}>{searchPhrase} &times;</span>
+        {searchPhraseLabel} - <span onClick={this.removeSearchPhrase}>{searchPhrase}</span>
       </div>
     );
   }
