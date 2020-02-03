@@ -139,7 +139,9 @@ class PaginationContainer extends PureComponent {
 
     return (
       <Fragment>
-        <button type="button" className="events-pagination__navButton events-pagination__prev-button" onClick={this.goToPreviousPage} />
+        {(+activePageNumber !== +firstPage)
+          && <button type="button" className="events-pagination__navButton events-pagination__prev-button" onClick={this.goToPreviousPage} />
+        }
 
         <ul className="events__pagination events-pagination ">
           {!updatedTotalPages.includes(firstPage)
@@ -167,7 +169,9 @@ class PaginationContainer extends PureComponent {
           }
         </ul>
 
-        <button type="button" className="events-pagination__navButton events-pagination__next-button" onClick={this.goToNextPage} />
+        {(+activePageNumber !== +totalPagesLength)
+          && <button type="button" className="events-pagination__navButton events-pagination__next-button" onClick={this.goToNextPage} />
+        }
       </Fragment>
     );
   }

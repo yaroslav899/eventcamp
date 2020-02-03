@@ -36,27 +36,29 @@ export const getHistoryUrl = (type, selection) => {
 export const updateFilterStore = (initialParams) => {
   if (!initialParams) return false;
 
-  if ('cities' in initialParams) {
-    if (initialParams.cities === 'any') {
-      initialParams.cities = '';
-    } else {
-      const value = cities.find(item => item.url == initialParams.cities);
-      initialParams.cities = value ? value.id : '';
-      store.dispatch({
-        type: 'UPDATE_FILTER_CITY',
-        cities: initialParams.cities,
-      });
-    }
+  if ('cities' in initialParams && initialParams.cities !== 'any') {
+    const value = cities.find(item => item.url == initialParams.cities);
+    initialParams.cities = value ? value.id : '';
+  } else {
+    initialParams.cities = null;
   }
+
+  store.dispatch({
+    type: 'UPDATE_FILTER_CITY',
+    cities: initialParams.cities,
+  });
 
   if ('categories' in initialParams) {
     const value = categories.find(item => item.url == initialParams.categories);
     initialParams.categories = value ? value.id : '';
-    store.dispatch({
-      type: 'UPDATE_FILTER_CATEGORY',
-      categories: initialParams.categories,
-    });
+  } else {
+    initialParams.categories = null;
   }
+
+  store.dispatch({
+    type: 'UPDATE_FILTER_CATEGORY',
+    categories: initialParams.categories,
+  });
 
   return true;
 };
