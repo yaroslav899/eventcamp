@@ -75,7 +75,6 @@ class Meta extends Component {
           <meta property="og:description" content={updatedDescription} />
           <meta property="og:image" content={metaimage} />
           <link rel="image_src" href={metaimage} />
-          <link rel="canonical" href="http://mysite.com/example" />
         </Helmet>
         <h1>
           {updatedH1}
