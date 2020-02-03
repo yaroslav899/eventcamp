@@ -7,7 +7,9 @@ const EventLocation = ({ className = '', city = 'kiev', address = '' }) => {
   const location = `${cityValue ? cityValue.name : city}, ${address}`;
 
   return (
-    <div className={className} dangerouslySetInnerHTML={createMarkupText(location)} />
+    <div className={className} itemProp="location" itemScope itemType="http://schema.org/Place">
+      <span itemProp="address" content={location} dangerouslySetInnerHTML={createMarkupText(location)} />
+    </div>
   );
 };
 
