@@ -1,9 +1,4 @@
 export const mainMenu = [{
-  name: 'Главная',
-  id: '2',
-  url: '/',
-},
-{
   name: 'Календарь событий',
   id: '12',
   url: '/events',
@@ -27,4 +22,9 @@ export const mainMenu = [{
 export const userMenu = {
   profile: '/profile',
   register: '/register',
+};
+
+export const hiddenPages = {
+  policy: '750',
+  homePage: '2',
 };

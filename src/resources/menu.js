@@ -1,9 +1,4 @@
 export const mainMenu = [{
-  name: 'Головна',
-  id: '2',
-  url: '/',
-},
-{
   name: 'Календар подій',
   id: '12',
   url: '/events',
@@ -34,4 +29,7 @@ export const userMenu = {
   register: '/register',
 };
 
-export const hiddenPages = { policy: '750' };
+export const hiddenPages = {
+  policy: '750',
+  homePage: '2',
+};

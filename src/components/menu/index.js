@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import ActiveLink from '../hoc/ActiveLink';
+import store from '../../store';
+import { updateActivePage } from '../../redux/actions/paginationActions';
 import { imageUrlRecources } from '../../resources/url';
 import { mainMenu } from '../../resources/menu';
 import { meta } from '../../resources/meta/hp';
 
 class Menu extends Component {
   closeMenu = () => {
+    const defaultPage = '1';
     // ToDO optimize it. Added for hiddung menu after click
     $('.collapse').collapse('hide');
+    // ToDo need to implement abother solution for remove another number of page
+    store.dispatch(updateActivePage(defaultPage));
   }
 
   render() {

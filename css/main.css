@@ -99,7 +99,7 @@ header .authBlock {
 * Main menu navigation
 */
 .header nav.navbar {
-  margin-top: 25px;
+  margin-top: 24px;
   padding: 0;
   float: right;
   z-index:999;
@@ -108,7 +108,8 @@ header .authBlock {
   font-weight: bold;
   text-transform: uppercase;
   border-radius: 5px;
-  padding: 7px 15px;
+  padding: 6px 15px;
+  font-size: 1.05em;
 }
 .header nav.navbar ul.navbar-nav li.menu-item a:hover {
   background-color: #035ca4;

@@ -3,16 +3,18 @@ import { connect } from 'react-redux';
 import { updateMainPage } from '../redux/actions/pageActions';
 import { fetchPageData } from '../api';
 import { createMarkupText } from '../helper';
+import { hiddenPages } from '../resources/menu';
 
 class MainText extends PureComponent {
   componentDidMount() {
+    const homePageID = hiddenPages.homePage;
     const { text, updateMainPage } = this.props;
 
     if (text) {
       return null;
     }
 
-    return fetchPageData('/')
+    return fetchPageData('/', homePageID)
       .then(text => updateMainPage(text));
   }
 
