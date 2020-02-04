@@ -9,12 +9,13 @@ import Meta from './Meta';
 class InfoPage extends PureComponent {
   componentDidMount() {
     const { text, location: { pathname }, updateInfoPage } = this.props;
+    const pageID = 24;
 
     if (text) {
       return false;
     }
 
-    return fetchPageData(pathname)
+    return fetchPageData(pathname, 24)
       .then(text => updateInfoPage(text));
   }
 

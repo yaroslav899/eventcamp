@@ -48,6 +48,8 @@ class App extends Component {
               <Route path="/events/:cities" component={ListPage} exact />
               <Route path="/events/:cities/:categories" component={ListPage} exact />
               <Route path="/events/:cities/:categories/:id" component={withRouter(DetailPage)} exact />
+              <Route path="/events/:query" component={ListPage} />
+              <Route path="/events/:cities/:query" component={ListPage} />
               <Route path="/info" component={InfoPage} />
               <Route path="/callback" component={CallBack} />
               <Route path="/register" component={RegistrationPage} />
@@ -55,7 +57,8 @@ class App extends Component {
               <PrivateRoute path="/profile" redirectTo="/register" component={Profile} />
               <PrivateRoute path="/add-event" redirectTo="/register" component={AddEvent} />
               <Route path="/edit-event/:id" component={EditEvent} exact />
-              <Route path="*" component={NoMatch404} />
+              <Route path="/:query" component={MainPage} exact />
+              <Route component={NoMatch404} />
             </Switch>
           </Layout>
         </Router>

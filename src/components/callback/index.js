@@ -9,12 +9,13 @@ import { updateCallbackPage } from '../../redux/actions/pageActions';
 class CallBack extends PureComponent {
   componentDidMount() {
     const { text, location: { pathname }, updateCallbackPage } = this.props;
+    const pageID = 748;
 
     if (text) {
       return false;
     }
 
-    return fetchPageData(pathname)
+    return fetchPageData(pathname, pageID)
       .then(text => updateCallbackPage(text));
   }
 
