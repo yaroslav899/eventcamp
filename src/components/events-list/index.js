@@ -24,7 +24,7 @@ class ListPage extends PureComponent {
       eventsElement = events[0].empty;
     } else {
       eventsElement = events.map((event) => {
-        return <li key={event.id} className="events__item events-item">
+        return <div key={event.id} className="events__item">
           <EventList
             event={event}
             imgWrapClass="col-12 col-lg-4 d-md-none d-lg-block"
@@ -32,7 +32,7 @@ class ListPage extends PureComponent {
             actionWrapClass="col-12 col-lg-3 col-md-5"
             isOwner={false}
           />
-        </li>;
+        </div>;
       });
     }
 

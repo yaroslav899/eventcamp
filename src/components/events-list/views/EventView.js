@@ -38,10 +38,10 @@ const EventView = (props) => {
         <EventImage imgUrl={eventImgUrl} alt={eventTitle} />
       </NavLink>
       <div className={descrWrapClass}>
-        <NavLink to={eventUrl} className="events-item__title">
+        <NavLink to={eventUrl} className="events-item__title" itemProp="url">
           <span dangerouslySetInnerHTML={createMarkupText(eventTitle)} itemProp="name"/>
         </NavLink>
-        <div className="events-item__description" dangerouslySetInnerHTML={createMarkupText(eventShortDescription)} />
+        <div className="events-item__description" dangerouslySetInnerHTML={createMarkupText(eventShortDescription)}  itemProp="description"/>
         <EventTags className="events-item__tags events-item-tags" tags={eventTags} />
       </div>
       <div className={actionWrapClass}>

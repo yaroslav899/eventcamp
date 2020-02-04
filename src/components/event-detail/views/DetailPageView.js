@@ -11,8 +11,8 @@ const DetailPageView = ({ event, date, dateDay }) => (
   <div className="container">
     <Adventages />
     <div className="row">
-      <div className="col-12 col-md-9 event-detail">
-        <h1 dangerouslySetInnerHTML={{ __html: event.title.rendered }} />
+      <div className="col-12 col-md-9 event-detail"  itemScope itemType="http://schema.org/Event">
+        <h1 dangerouslySetInnerHTML={{ __html: event.title.rendered }}  itemProp="name" />
         <EventDetail event={event} date={date} dateDay={dateDay} />
         <div className="row area-2">
           <div className="col-12">

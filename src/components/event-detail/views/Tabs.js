@@ -31,7 +31,7 @@ const DetailTabs = (props) => {
         <Tab>{howToGetTabName}</Tab>
       </TabList>
       <TabPanel>
-        <div className="event_text" dangerouslySetInnerHTML={createMarkupText(rendered)} />
+        <div className="event_text" dangerouslySetInnerHTML={createMarkupText(rendered)} itemProp="description" />
       </TabPanel>
       <TabPanel>
         <div className="row">

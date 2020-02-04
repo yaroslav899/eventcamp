@@ -7,16 +7,14 @@ import SearchPhrase from '../../global/SearchPhrase';
 import PaginationContainer from '../PaginationContainer';
 
 const ListPageView = ({ eventsElement }) => (
-  <div className="container events">
+  <div className="container">
     <Adventages />
     <div className="row">
-      <div className="col-12 col-lg-9 col-md-8 events_wrapper">
+      <div className="col-12 col-lg-9 col-md-8 events">
         <Meta />
-        <ul>
-          {eventsElement}
-        </ul>
+        {eventsElement}
       </div>
-      <div className="col-12 col-lg-3 col-md-4 events_filter-wrapper">
+      <div className="col-12 col-lg-3 col-md-4 events-filter">
         <SearchPhrase />
         <Filters />
         <div className="d-none d-md-block">

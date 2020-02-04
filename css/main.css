@@ -244,13 +244,13 @@ header .authBlock {
 *  Main page right panel
 */
 
-div.home-page .events_filter-wrapper>a{
+div.home-page .events-filter>a{
   width:100%;
   display: inline-block;
   text-align: center;
   margin-top:15px;
 }
-div.home-page .events_filter-wrapper>a:hover{
+div.home-page .events-filter>a:hover{
   background-color: #f6c806;
 }
 /**
@@ -570,7 +570,7 @@ div.home-page .events_filter-wrapper>a:hover{
   height: 20px;
   overflow: hidden;
 }
-.events-item .events-item__action {
+.events__item .events-item__action {
   position: absolute;
   bottom: 10px;
 }
@@ -600,14 +600,14 @@ div.home-page .events_filter-wrapper>a:hover{
 /*
 ** Filter area
 */
-.events_filter-wrapper>div{
+.events-filter>div{
   margin-top: 15px;
   background-color: #f5f5f5;
   border-radius: 5px;
   border: 1px solid #dbdbdb;
   font-size: 0.9em;
 }
-div.events_filter-wrapper>div:last-child{
+.events-filter>div:last-child{
   background-color: transparent;
   border: 0px;
 }
@@ -635,16 +635,16 @@ div.date-range p button {
 .event-filter-searchphrase span:hover{
   text-decoration: underline;
 }
-.events_filter-wrapper div.Select+div.Select{
+.events-filter div.Select+div.Select{
   margin-top:10px;
 }
-.events_filter-wrapper .event-filter-option {
+.events-filter .event-filter-option {
   padding: 0 7% 7% 7%;
 }
-.events_filter-wrapper .Select-control{
+.events-filter .Select-control{
   border: 0;
 }
-.events_filter-wrapper .Select-placeholder, .Select--single > .Select-control .Select-value {
+.events-filter .Select-placeholder, .Select--single > .Select-control .Select-value {
   background-color: #f5f5f5;
   color: #0367b7 !important;
   text-transform: uppercase;
