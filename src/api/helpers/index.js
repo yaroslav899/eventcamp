@@ -54,6 +54,10 @@ export const getRequestUrl = (param) => {
     url = `${url}&filter[meta_query][3][key]=topic&filter[meta_query][3][value]=${query.topics}`;
   }
 
+  if (prevFilterState.sortingValue.value !== 'default') {
+    url = `${url}&filter[orderby]=${prevFilterState.sortingValue.orderby}&filter[order]=${prevFilterState.sortingValue.order}`;
+  }
+
   url = `${url}&page=${param.page || store.getState().totalPages.activePageNumber}`;
 
   return url;

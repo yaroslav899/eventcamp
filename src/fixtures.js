@@ -582,3 +582,24 @@ export const defaultTopic = [{
   url: 'no_choice',
   name: 'Оберіть категорію',
 }];
+
+export const sortingOptions = [
+  {
+    'label': 'новинки',
+    'value': 'default',
+    'orderby': null,
+    'order': null,
+  },
+  {
+    'label': 'за датою ↑',
+    'value': 'date-up',
+    'orderby': 'dateOf',
+    'order': 'asc',
+  },
+  {
+    'label': 'за датою ↓',
+    'value': 'date-low',
+    'orderby': 'dateOf',
+    'order': 'desc',
+  },
+];

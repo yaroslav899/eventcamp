@@ -501,6 +501,21 @@ div.home-page .events_filter-wrapper>a:hover{
 /**
 *  Events list
 */
+.events_wrapper>h1{
+  display: inline-block;
+}
+.events_wrapper>ul{
+  clear: both;
+}
+.events_wrapper .events_sorting{
+  width: 20%;
+  font-size: 0.8em;
+  float: right;
+  margin-top: 5px;
+}
+.events_wrapper .events_sorting .Select-control{
+  border:0;
+}
 .events__item {
   background-color: #f5f5f5;
   margin-bottom: 15px;
