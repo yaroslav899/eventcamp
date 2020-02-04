@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
 import EventView from './views/EventView';
 import Modal from '../global/Modal';
@@ -101,7 +101,8 @@ class EventList extends PureComponent {
     const eventImgUrl = picture || pictureUrl || noPhotoUrl;
 
     return (
-      <div className="row">
+      <Fragment>
+      <div className="row" itemScope itemType="http://schema.org/Event">
         <EventView
           eventUrl={eventUrl}
           imgWrapClass={imgWrapClass}
@@ -119,7 +120,8 @@ class EventList extends PureComponent {
           isSubscribed={isSubscribed}
           subscribeHandler={this.subscribe}
         />
-        {showModalBox
+      </div>      
+      {showModalBox
           && <Modal
             toggleModal={this.toggleModal}
             modalTitle={eventTitle}
@@ -127,7 +129,7 @@ class EventList extends PureComponent {
             modalFooter={isAuthorized ? <GoogleCalendar data={event} /> : false}
           />
         }
-      </div>
+      </Fragment>
     );
   }
 }

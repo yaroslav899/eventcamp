@@ -8,6 +8,7 @@ import EventTags from '../../event-global/EventTags';
 import Button from '../../global/Button';
 import { createMarkupText } from '../../../helper';
 import { globalRecources } from '../../../resources/global';
+import { urlRecources } from '../../../resources/url';
 
 const EventView = (props) => {
   const {
@@ -28,6 +29,7 @@ const EventView = (props) => {
     subscribeHandler,
     moreInfoButton,
     interestedButton,
+    homePageUrl,
   } = props;
 
   return (
@@ -37,7 +39,7 @@ const EventView = (props) => {
       </NavLink>
       <div className={descrWrapClass}>
         <NavLink to={eventUrl} className="events-item__title">
-          <span dangerouslySetInnerHTML={createMarkupText(eventTitle)} />
+          <span dangerouslySetInnerHTML={createMarkupText(eventTitle)} itemProp="name"/>
         </NavLink>
         <div className="events-item__description" dangerouslySetInnerHTML={createMarkupText(eventShortDescription)} />
         <EventTags className="events-item__tags events-item-tags" tags={eventTags} />
@@ -47,7 +49,7 @@ const EventView = (props) => {
         <EventLocation className="events-item__location" city={eventCity} address={eventLocation} />
         <EventDate className="events-item__date" date={eventDate} />
         <div className="events-item__action events-item-action">
-          <Button text={moreInfoButton} to={eventUrl} className="events-item-action__button" />
+          <Button text={moreInfoButton} to={eventUrl} className="events-item-action__button" itemProp="url" content={`${homePageUrl}${eventUrl}`} />
           <span className={`events-item-action__button ${isSubscribed && 'action-button__active'}`} onClick={subscribeHandler}>
             {interestedButton}
           </span>
@@ -60,6 +62,7 @@ const EventView = (props) => {
 EventView.defaultProps = {
   moreInfoButton: globalRecources.moreInfo,
   interestedButton: globalRecources.interestingCTA,
+  homePageUrl: urlRecources.mainUrl,
 };
 
 export default EventView;

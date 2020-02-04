@@ -3,7 +3,7 @@ import moment from 'moment';
 
 const EventDate = ({ className, date = null }) => {
   return (
-    <div className={className}>
+    <div className={className} itemProp="startDate" content={date}>
       {date ? moment(date, 'YYYY-MM-DD').format('DD MMM YYYY') : ''}
     </div>
   );

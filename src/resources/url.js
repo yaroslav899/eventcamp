@@ -12,6 +12,7 @@ export const imageUrlRecources = {
 };
 
 export const urlRecources = {
+  mainUrl: 'https://event-camp.org',
   endpointUrl: 'https://board.event-camp.org/wp-json/wp/v2/',
   geoLookUpUrl: 'https://maps.googleapis.com/maps/api/geocode/json?',
   exchangeUrl: 'https://resources.finance.ua/ru/public/currency-cash.json',

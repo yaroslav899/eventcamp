@@ -14,7 +14,9 @@ class EventImage extends PureComponent {
 
     return (
       <img
+        itemProp="image"
         src={ isError ? noPhotoUrl : imgUrl }
+        content={ isError ? noPhotoUrl : imgUrl }
         alt={alt}
         className={className}
         onError={this.onError}
