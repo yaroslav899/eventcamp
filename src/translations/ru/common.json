@@ -1,0 +1,10 @@
+{
+    "profile" : {
+         "global" : {
+             "addEventButton" : "Добавить событие",
+             "successMsg" : "Ви успішно додали подію",
+             "successEditMsg" : "Ви успішно змінили подію",
+             "successRegisterMsg" : "Ви успішно зареєструвалися. Можете виконати вхід."
+           }
+     }
+ }

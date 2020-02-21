@@ -12,6 +12,9 @@ import { getHistoryUrl } from '../helper';
 import { meta } from '../resources/meta/hp';
 import { globalRecources } from '../resources/global';
 
+
+
+
 class MainPage extends PureComponent {
   render() {
     const {
@@ -25,7 +28,8 @@ class MainPage extends PureComponent {
       actionCtaHPLabel,
       cities = '',
     } = this.props;
-
+    const { t } = this.props;
+    var e = 12;
     return (
       <section>
         <Helmet>
@@ -42,6 +46,7 @@ class MainPage extends PureComponent {
           <link rel="canonical" href={metaurl} />
         </Helmet>
         <div className="container home-page">
+          {t('profile.global.addEventButton')}
           <Adventages />
           <div className="row">
             <div className="col-12 col-sm-9 category-main">

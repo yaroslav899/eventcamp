@@ -22,6 +22,15 @@ import EditEvent from './components/profile/EditEvent';
 import NoMatch404 from './components/NoMatch404';
 import PrivateRoute from './components/hoc/PrivateRoute';
 
+// Translation Higher Order Component
+import { setTranslations, setDefaultLanguage, withTranslation } from 'react-multi-lang';
+import uk from './translations/uk/common.json';
+import ru from './translations/ru/common.json';
+import type { T } from 'react-multi-lang';
+
+setTranslations({ uk, ru });
+setDefaultLanguage('uk');
+
 const history = createBrowserHistory();
 
 ReactGA.initialize('UA-141687240-1');
@@ -64,4 +73,4 @@ class App extends Component {
   }
 }
 
-ReactDOM.render(<App />, document.querySelector('#workarea'));
+ReactDOM.render(withTranslation(<App />), document.querySelector('#workarea'));
