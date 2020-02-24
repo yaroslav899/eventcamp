@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import Menu from '../menu';
 import AuthHeaderLink from './AuthHeaderLink';
 import Search from './Search';
+import LanguageSwitcher from '../global/LanguageSwitcher';
 import { imageUrlRecources } from '../../resources/url';
 import { meta } from '../../resources/meta/hp';
 
@@ -11,7 +12,10 @@ const Header = ({ logoUrl, title }) => (
     <div className="authBlock">
       <div className="container">
         <div className="row">
-          <div className="offset-md-2 col-sm-10 col-12">
+          <div className="col-sm-2 col-2">
+            <LanguageSwitcher />
+          </div>
+          <div className="col-sm-10 col-10">
             <AuthHeaderLink />
           </div>
         </div>
