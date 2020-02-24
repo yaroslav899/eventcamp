@@ -15,7 +15,7 @@ class MainText extends PureComponent {
     }
 
     return fetchPageData('/', homePageID)
-      .then(text => updateMainPage(text));
+      .then(content => updateMainPage(content));
   }
 
   render() {

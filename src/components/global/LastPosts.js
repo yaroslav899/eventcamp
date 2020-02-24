@@ -1,13 +1,13 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { withTranslation } from 'react-multi-lang';
 import EventLocation from '../event-global/EventLocation';
 import EventDate from '../event-global/EventDate';
 import EventTags from '../event-global/EventTags';
 import { fetchLastEvents } from '../../api';
 import { getValueFromParams, createMarkupText } from '../../helper';
 import { categories } from '../../fixtures';
-import { listRecources } from '../../resources';
 
 class LastPosts extends PureComponent {
   componentDidMount() {
@@ -17,7 +17,7 @@ class LastPosts extends PureComponent {
   }
 
   render() {
-    const { lastEvents } = this.props;
+    const { lastEvents, t } = this.props;
 
     if (!lastEvents) return <Fragment />;
 
@@ -44,7 +44,7 @@ class LastPosts extends PureComponent {
 
     return (
       <div className="last-post-list">
-        <h4>{listRecources.lastEvent}</h4>
+        <h4>{t('global.lastEvent')}</h4>
         <ul>
           {lastPosts}
         </ul>
@@ -61,4 +61,4 @@ function mapDispatchToProps(dispatch) {
   return { fetchLastEvents: () => dispatch(fetchLastEvents()) };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LastPosts);
+export default withTranslation(connect(mapStateToProps, mapDispatchToProps)(LastPosts));

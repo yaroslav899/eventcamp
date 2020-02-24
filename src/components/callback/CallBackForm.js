@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import { withTranslation } from 'react-multi-lang';
-import { fieldsRegisterForm, detailRecources } from '../../resources';
 
 class CallBackForm extends PureComponent {
   state = {
@@ -15,25 +14,25 @@ class CallBackForm extends PureComponent {
 
   render() {
     const { firstname, email, textDescription } = this.state;
-    const { firstNameValue, emailValue, descriptionValue, t } = this.props;
+    const { t } = this.props;
 
     return (
       <form id="contactForm" method="post">
         <div className="form-row form-group">
           <label className="col-sm-4" htmlFor="firstname">
-            {firstNameValue} *
+            {t('profile.field.label.firstname')} *
           </label>
           <input id="firstname" type="text" className="form-control col-sm-7" name="firstname" value={firstname} onChange={this.onChange} />
         </div>
         <div className="form-row form-group">
           <label className="col-sm-4" htmlFor="email">
-            {emailValue}
+            {t('profile.field.label.email')} *
           </label>
           <input id="email" type="email" className="form-control col-sm-7" name="email" value={email} onChange={this.onChange} />
         </div>
         <div className="form-row form-group">
           <label className="col-sm-4" htmlFor="textDescription">
-            {descriptionValue} *
+            {t('pdp.description')} *
           </label>
           <textarea id="textDescription" className="form-control col-sm-7" cols="33" name="textDescription" rows="5" onChange={this.onChange} value={textDescription} />
         </div>
@@ -44,11 +43,5 @@ class CallBackForm extends PureComponent {
     );
   }
 }
-
-CallBackForm.defaultProps = {
-  firstNameValue: fieldsRegisterForm.firstname,
-  emailValue: fieldsRegisterForm.email,
-  descriptionValue: detailRecources.description,
-};
 
 export default withTranslation(CallBackForm);

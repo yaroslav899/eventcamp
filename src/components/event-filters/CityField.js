@@ -2,11 +2,11 @@ import React, { PureComponent, Fragment } from 'react';
 import Select from 'react-select';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { withTranslation } from 'react-multi-lang';
 import { updateFilterCity } from '../../redux/actions/eventActions';
 import { updateActivePage } from '../../redux/actions/paginationActions';
 import { fetchEventList } from '../../api';
 import { cities } from '../../fixtures';
-import { filterRecources } from '../../resources';
 import { getHistoryUrl } from '../../helper';
 
 class CityField extends PureComponent {
@@ -14,7 +14,7 @@ class CityField extends PureComponent {
     const params = !selection ? { ['cities']: '' } : { [selection.type]: selection ? selection.value : '' };
     const { defaultPage, updateCity, updateActivePage, fetchEventList } = this.props;
 
-    return new Promise((resolve) => resolve(this.changeHistory(selection)))
+    return new Promise(resolve => resolve(this.changeHistory(selection)))
       .then(() => updateCity(params.cities))
       .then(() => updateActivePage(defaultPage))
       .then(() => fetchEventList(params));
@@ -32,14 +32,14 @@ class CityField extends PureComponent {
   }
 
   render() {
-    const { cityValue, fieldLabel } = this.props;
+    const { cityValue, t } = this.props;
 
     return (
       <Fragment>
         <Select
           name="form-field-cities"
           label="cities"
-          placeholder={fieldLabel}
+          placeholder={t('filter.placeholder.city')}
           options={cities.map(city => ({
             label: city.name,
             value: city.id,
@@ -65,9 +65,6 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-CityField.defaultProps = {
-  defaultPage: '1',
-  fieldLabel: filterRecources.city,
-};
+CityField.defaultProps = { defaultPage: '1' };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CityField));
+export default withTranslation(withRouter(connect(mapStateToProps, mapDispatchToProps)(CityField)));

@@ -1,18 +1,15 @@
 import React, { Fragment } from 'react';
-import { detailRecources } from '../../../resources';
+import { withTranslation } from 'react-multi-lang';
 
-const RegisterCTA = ({ register, registerButton, ...props }) => {
+const RegisterCTA = ({ register, t, ...props }) => {
   if (!register) {
     return <Fragment />;
   }
 
   return (
     <a href={register.replace(/\/\D+\/goto\?url\=/gi, '').replace('%3A', ':')} {...props}>
-      {registerButton}
+      {t('pdp.button.register')}
     </a>
   );
 };
-
-RegisterCTA.defaultProps = { registerButton: detailRecources.register };
-
-export default RegisterCTA;
+export default withTranslation(RegisterCTA);

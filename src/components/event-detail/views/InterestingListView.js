@@ -1,15 +1,13 @@
 import React from 'react';
-import { detailRecources } from '../../../resources';
+import { withTranslation } from 'react-multi-lang';
 
-const InterestingListView = ({ events, maybeInteresting }) => (
+const InterestingListView = ({ events, t }) => (
   <div className="detail-interesting">
-    <h4>{maybeInteresting}</h4>
+    <h4>{t('pdp.maybeInteresting')}</h4>
     <ul>
       {events}
     </ul>
   </div>
 );
 
-InterestingListView.defaultProps = { maybeInteresting: detailRecources.maybeInteresting };
-
-export default InterestingListView;
+export default withTranslation(InterestingListView);

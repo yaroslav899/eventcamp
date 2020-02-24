@@ -2,11 +2,11 @@ import React, { PureComponent, Fragment } from 'react';
 import Select from 'react-select';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { withTranslation } from 'react-multi-lang';
 import { updateFilterCategory } from '../../redux/actions/eventActions';
 import { updateActivePage } from '../../redux/actions/paginationActions';
 import { fetchEventList } from '../../api';
 import { categories } from '../../fixtures';
-import { filterRecources } from '../../resources';
 import { getHistoryUrl } from '../../helper';
 
 class CategoryField extends PureComponent {
@@ -14,7 +14,7 @@ class CategoryField extends PureComponent {
     const params = !selection ? { ['categories']: '' } : { [selection.type] : selection ? selection.value : '' };
     const { defaultPage, updateCategory, updateActivePage, fetchEventList } = this.props;
 
-    return new Promise((resolve) => resolve(this.changeHistory(selection)))
+    return new Promise(resolve => resolve(this.changeHistory(selection)))
       .then(() => updateCategory(params.categories))
       .then(() => updateActivePage(defaultPage))
       .then(() => fetchEventList(params));
@@ -28,14 +28,14 @@ class CategoryField extends PureComponent {
   }
 
   render() {
-    const { categoryValue, fieldLabel } = this.props;
+    const { categoryValue, t } = this.props;
 
     return (
       <Fragment>
         <Select
           name="form-field-category"
           label="categories"
-          placeholder={fieldLabel}
+          placeholder={t('filter.placeholder.category')}
           options={categories.map(category => ({
             label: category.name,
             value: category.id,
@@ -61,9 +61,6 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-CategoryField.defaultProps = {
-  defaultPage: '1',
-  fieldLabel: filterRecources.category,
-};
+CategoryField.defaultProps = { defaultPage: '1' };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CategoryField));
+export default withTranslation(withRouter(connect(mapStateToProps, mapDispatchToProps)(CategoryField)));

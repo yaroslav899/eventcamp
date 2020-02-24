@@ -120,9 +120,7 @@ class EventDetail extends PureComponent {
   }
 }
 
-EventDetail.defaultProps = {
-  noPhotoUrl: imageUrlRecources.noPhoto,
-};
+EventDetail.defaultProps = { noPhotoUrl: imageUrlRecources.noPhoto };
 
 function mapStateToProps(store) {
   return { userProfile: store.user.data };

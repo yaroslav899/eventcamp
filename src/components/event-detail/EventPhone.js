@@ -1,10 +1,15 @@
 import React, { PureComponent, Fragment } from 'react';
-import { detailRecources } from '../../resources';
+import { withTranslation } from 'react-multi-lang';
 
 class EventPhone extends PureComponent {
   state = {
-    phoneNumber: detailRecources.showPhone,
+    phoneNumber: '',
     isPhoneUpdated: false,
+  }
+
+  componentDidMount() {
+    const { t } = this.props;
+    this.setState({ phoneNumber: t('pdp.button.showPhone') });
   }
 
   handlePhoneClick = () => {
@@ -37,4 +42,4 @@ class EventPhone extends PureComponent {
   }
 }
 
-export default EventPhone;
+export default withTranslation(EventPhone);

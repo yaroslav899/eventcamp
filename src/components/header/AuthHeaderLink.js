@@ -33,7 +33,7 @@ class AuthHeaderLink extends PureComponent {
           {t('global.enter')}
         </ActiveLink>
         <ActiveLink to={userMenu.register}>
-          {t('global.registr')}
+          {t('global.button.registr')}
         </ActiveLink>
       </div>
     );

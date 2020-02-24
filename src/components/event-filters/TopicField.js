@@ -1,11 +1,11 @@
 import React, { PureComponent, Fragment } from 'react';
 import Select from 'react-select';
 import { connect } from 'react-redux';
+import { withTranslation } from 'react-multi-lang';
 import { updateFilterTopic } from '../../redux/actions/eventActions';
 import { updateActivePage } from '../../redux/actions/paginationActions';
 import { fetchEventList } from '../../api';
 import { categories, defaultTopic } from '../../fixtures';
-import { filterRecources } from '../../resources';
 
 class TopicField extends PureComponent {
   state = {
@@ -50,7 +50,7 @@ class TopicField extends PureComponent {
     const params = !selection ? { ['topics']: '' } : { [selection.type]: selection ? selection.value : '' };
     const { defaultPage, updateTopic, updateActivePage, fetchEventList } = this.props;
 
-    return new Promise((resolve) => resolve(this.setState({ currentTheme: selection || '' })))
+    return new Promise(resolve => resolve(this.setState({ currentTheme: selection || '' })))
       .then(() => updateTopic(params.topics))
       .then(() => updateActivePage(defaultPage))
       .then(() => fetchEventList(params));
@@ -58,14 +58,14 @@ class TopicField extends PureComponent {
 
   render() {
     const { topics, currentTheme } = this.state;
-    const { fieldLabel } = this.props;
+    const { t } = this.props;
 
     return (
       <Fragment>
         <Select
           name="form-field-topics"
           label="topics"
-          placeholder={fieldLabel}
+          placeholder={t('filter.placeholder.topic')}
           options={topics.map(topic => ({
             label: topic.name,
             value: topic.url,
@@ -94,9 +94,6 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-TopicField.defaultProps = {
-  defaultPage: '1',
-  fieldLabel: filterRecources.topic,
-};
+TopicField.defaultProps = { defaultPage: '1' };
 
-export default connect(mapStateToProps, mapDispatchToProps)(TopicField);
+export default withTranslation(connect(mapStateToProps, mapDispatchToProps)(TopicField));

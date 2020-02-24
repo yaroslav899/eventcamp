@@ -6,29 +6,25 @@ import {
   TabPanel,
 } from 'react-tabs';
 import GoogleMap from '../GoogleMap';
+import { withTranslation } from 'react-multi-lang';
 import EventLocation from '../../event-global/EventLocation';
 import { createMarkupText } from '../../../helper';
-import { detailRecources } from '../../../resources';
 
-const DetailTabs = (props) => {
+const DetailTabs = ({ data = {}, t }) => {
   const {
-    data: {
-      acf: {
-        cities: eventCity,
-        location: eventLocation,
-      } = {},
-      content: { rendered } = {},
+    acf: {
+      cities: eventCity,
+      location: eventLocation,
     } = {},
-    descriptionTabName,
-    howToGetTabName,
-  } = props;
+    content: { rendered } = {},
+  } = data;
   const address = `${eventCity}, ${eventLocation}`;
 
   return (
     <Tabs>
       <TabList>
-        <Tab>{descriptionTabName}</Tab>
-        <Tab>{howToGetTabName}</Tab>
+        <Tab>{t('pdp.description')}</Tab>
+        <Tab>{t('pdp.howToGet')}</Tab>
       </TabList>
       <TabPanel>
         <div className="event_text" dangerouslySetInnerHTML={createMarkupText(rendered)} />
@@ -45,9 +41,4 @@ const DetailTabs = (props) => {
   );
 };
 
-DetailTabs.defaultProps = {
-  descriptionTabName: detailRecources.description,
-  howToGetTabName: detailRecources.howToGet,
-};
-
-export default DetailTabs;
+export default withTranslation(DetailTabs);

@@ -154,7 +154,7 @@ class RegisterForm extends Component {
           <ReCAPTCHA sitekey={reCaptcha.siteKey} onChange={this.reCaptchaHandler} />
           <span className="error-message" dangerouslySetInnerHTML={createMarkupText(errorMsg)} />
           <button type="submit" className="btn btn-secondary submit" disabled={isSubmit}>
-            {detailRecources.register}
+            {t('global.button.registr')}
             {isSubmit && <Loader />}
           </button>
         </form>

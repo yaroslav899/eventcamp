@@ -1,12 +1,10 @@
 import React from 'react';
-import { detailRecources } from '../../../resources';
+import { withTranslation } from 'react-multi-lang';
 
-const WriteToAuthor = ({ writeAuthor, ...props }) => (
+const WriteToAuthor = ({ t, ...props }) => (
   <a {...props}>
-    {writeAuthor}
+    {t('pdp.button.writeToAuthor')}
   </a>
 );
 
-WriteToAuthor.defaultProps = { writeAuthor: detailRecources.writeAuthor };
-
-export default WriteToAuthor;
+export default withTranslation(WriteToAuthor);

@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import { withTranslation } from 'react-multi-lang';
 import ActiveLink from '../hoc/ActiveLink';
 import store from '../../store';
 import { updateActivePage } from '../../redux/actions/paginationActions';
 import { imageUrlRecources } from '../../resources/url';
-import { mainMenu } from '../../resources/menu';
 import { meta } from '../../resources/meta/hp';
+import { mainMenu } from '../../resources/menu';
 
 class Menu extends Component {
   closeMenu = () => {
-    const defaultPage = '1';
+    const { defaultPage } = this.props;
     // ToDO optimize it. Added for hiddung menu after click
     $('.collapse').collapse('hide');
     // ToDo need to implement abother solution for remove another number of page
@@ -17,18 +18,25 @@ class Menu extends Component {
   }
 
   render() {
-    const { logoUrl, title } = this.props;
+    const { logoUrl, title, t } = this.props;
     const menuLinks = mainMenu.map((item) => {
+      const menuLabel = `menu.${item.id}`;
+
       if (item.id === 'articles') {
         return (
           <li key={item.id} className="menu-item">
-            <a href={item.url}>{item.name}</a>
+            <a href={item.url}>
+              {t(menuLabel)}
+            </a>
           </li>
         );
       }
+
       return (
         <li key={item.id} className="menu-item">
-          <ActiveLink to={item.url} onClick={this.closeMenu}>{item.name}</ActiveLink>
+          <ActiveLink to={item.url} onClick={this.closeMenu}>
+            {t(menuLabel)}
+          </ActiveLink>
         </li>
       );
     });
@@ -62,8 +70,9 @@ class Menu extends Component {
 }
 
 Menu.defaultProps = {
+  defaultPage: '1',
   logoUrl: imageUrlRecources.logo,
   title: meta.title,
 };
 
-export default Menu;
+export default withTranslation(Menu);
