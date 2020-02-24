@@ -1,9 +1,9 @@
 import React, { Fragment, PureComponent } from 'react';
 import { Helmet } from 'react-helmet';
+import { withTranslation } from 'react-multi-lang';
 import AuthForm from './AuthForm';
 import RegisterForm from './RegisterForm';
 import Adventages from '../global/Adventages';
-import { globalRecources } from '../../resources/global';
 import { meta } from '../../resources/meta/register';
 
 class RegistrationPage extends PureComponent {
@@ -11,10 +11,10 @@ class RegistrationPage extends PureComponent {
 
   render() {
     const { isSuccessRegister } = this.state;
-    const { title, description, keywords, metalang, metaimage, successMsg } = this.props;
+    const { title, description, keywords, metalang, metaimage, t } = this.props;
     const registerForm = (isSuccessRegister ? (
       <div>
-        {successMsg}
+        {t('global.successRegisterMsg')}
         <br />
         <AuthForm />
       </div>) : (
@@ -53,7 +53,6 @@ RegistrationPage.defaultProps = {
   keywords: meta.keywords,
   metalang: meta.lang,
   metaimage: meta.image,
-  successMsg: globalRecources.successRegisterMsg,
 };
 
-export default RegistrationPage;
+export default withTranslation(RegistrationPage);

@@ -1,12 +1,10 @@
 import React from 'react';
-import { globalRecources } from '../resources/global';
+import { withTranslation } from 'react-multi-lang';
 
-const NoMatch404 = ({ msg404 }) => (
+const NoMatch404 = ({ t }) => (
   <div className="container">
-    {msg404}
+    {t('global.error404')}
   </div>
 );
 
-NoMatch404.defaultProps = { msg404: globalRecources.error404 };
-
-export default NoMatch404;
+export default withTranslation(NoMatch404);

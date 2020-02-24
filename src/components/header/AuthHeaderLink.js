@@ -1,7 +1,7 @@
 ﻿import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import { withTranslation } from 'react-multi-lang';
 import ActiveLink from '../hoc/ActiveLink';
-import { globalRecources } from '../../resources/global';
 import { userMenu } from '../../resources/menu';
 import { logout } from '../../helper';
 
@@ -11,9 +11,7 @@ class AuthHeaderLink extends PureComponent {
   render() {
     const {
       userAuth: { name },
-      exitButton,
-      enterButton,
-      registerButton,
+      t,
     } = this.props;
 
     if (name) {
@@ -23,7 +21,7 @@ class AuthHeaderLink extends PureComponent {
             {name}
           </ActiveLink>
           <button type="button" onClick={this.logoutUser}>
-            {exitButton}
+            {t('global.button.exit')}
           </button>
         </div>
       );
@@ -32,10 +30,10 @@ class AuthHeaderLink extends PureComponent {
     return (
       <div className="header__registration header-registration">
         <ActiveLink to={userMenu.register}>
-          {enterButton}
+          {t('global.enter')}
         </ActiveLink>
         <ActiveLink to={userMenu.register}>
-          {registerButton}
+          {t('global.registr')}
         </ActiveLink>
       </div>
     );
@@ -46,10 +44,4 @@ function mapStateToProps(store) {
   return { userAuth: store.user.data };
 }
 
-AuthHeaderLink.defaultProps = {
-  exitButton: globalRecources.exit,
-  enterButton: globalRecources.enter,
-  registerButton: globalRecources.registr,
-};
-
-export default connect(mapStateToProps)(AuthHeaderLink);
+export default withTranslation(connect(mapStateToProps)(AuthHeaderLink));

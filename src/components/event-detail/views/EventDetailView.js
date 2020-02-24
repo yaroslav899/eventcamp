@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
+import { withTranslation } from 'react-multi-lang';
 import EventImage from '../../event-global/EventImage';
 import EventPrice from '../../event-global/EventPrice';
 import EventTags from '../../event-global/EventTags';
 import EventLocation from '../../event-global/EventLocation';
-import { globalRecources } from '../../../resources/global';
 
 const EventDetailView = (props) => {
   const {
@@ -20,7 +20,7 @@ const EventDetailView = (props) => {
     eventLocation,
     isSubscribed,
     subscribeHandler,
-    interestedButton,
+    t,
   } = props;
 
   return (
@@ -39,7 +39,7 @@ const EventDetailView = (props) => {
           <EventLocation className="area-1_location" city={eventCity} address={eventLocation} />
           <p className="area-1_interesting">
             <span className={isSubscribed ? 'm-active' : ''} onClick={subscribeHandler}>
-              {interestedButton}
+              {t('global.button.follow')}
             </span>
           </p>
         </div>
@@ -48,6 +48,4 @@ const EventDetailView = (props) => {
   );
 };
 
-EventDetailView.defaultProps = { interestedButton: globalRecources.interestingCTA };
-
-export default EventDetailView;
+export default withTranslation(EventDetailView);

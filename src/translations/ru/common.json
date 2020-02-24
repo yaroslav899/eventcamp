@@ -1,10 +1,16 @@
 {
-    "profile" : {
-         "global" : {
-             "addEventButton" : "Добавить событие",
-             "successMsg" : "Ви успішно додали подію",
-             "successEditMsg" : "Ви успішно змінили подію",
-             "successRegisterMsg" : "Ви успішно зареєструвалися. Можете виконати вхід."
-           }
-     }
- }
+  "title" : {
+    "home" : "Event camp - События, конференции и встречи Украина",
+    "registration": "Регистрация",
+    "authorization": "Авторизация",
+    "callback": "Обратная связь"
+  },
+  "profile" : {
+    "global" : {
+      "addEventButton" : "Добавить событие",
+      "successMsg" : "Вы успешно добавили событие",
+      "successEditMsg" : "Вы успешно изменили событие",
+      "successRegisterMsg" : "Вы успешно зарегистрировались. Можете выполнить вход."
+    }
+  }
+}

@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { updateSearchPhrase } from '../../redux/actions/eventActions';
 import { fetchEventList } from '../../api';
-import { globalRecources } from '../../resources/global';
 
 class SearchPhrase extends PureComponent {
   componentDidMount() {
@@ -34,7 +33,7 @@ class SearchPhrase extends PureComponent {
   };
 
   render() {
-    const { searchPhrase = '', searchPhraseLabel } = this.props;
+    const { searchPhrase = '', t } = this.props;
 
     if (!searchPhrase.length) {
       return <Fragment />;
@@ -42,7 +41,7 @@ class SearchPhrase extends PureComponent {
 
     return (
       <div className="event-filter-searchphrase">
-        {searchPhraseLabel} - <span onClick={this.removeSearchPhrase}>{searchPhrase}</span>
+        {t('global.label.search')} - <span onClick={this.removeSearchPhrase}>{searchPhrase}</span>
       </div>
     );
   }
@@ -58,7 +57,5 @@ function mapDispatchToProps(dispatch) {
     fetchEventList: params => dispatch(fetchEventList(params)),
   };
 }
-
-SearchPhrase.defaultProps = { searchPhraseLabel: globalRecources.searchPhraseLabel };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SearchPhrase));

@@ -1,12 +1,12 @@
 import React, { PureComponent, Fragment } from 'react';
 import { Redirect } from 'react-router-dom';
+import { withTranslation } from 'react-multi-lang';
 import { request } from '../../api';
 import store from '../../store';
 import Loader from '../global/Loader';
 import { setCookie } from '../../_cookie';
 import { stringifyJSON } from '../../helper/json';
 import { fieldsRegisterForm, fieldsMsg } from '../../resources';
-import { globalRecources, titleList } from '../../resources/global';
 
 class AuthForm extends PureComponent {
   state = {
@@ -59,6 +59,7 @@ class AuthForm extends PureComponent {
 
   render() {
     const { login, password, isSuccessAuth, isValidForm, isSubmit } = this.state;
+    const { t } = this.props;
 
     if (isSuccessAuth) {
       return <Redirect to="/profile" />;
@@ -66,7 +67,7 @@ class AuthForm extends PureComponent {
 
     return (
       <Fragment>
-        <h3>{titleList.authorization}</h3>
+        <h3>{t('title.authorization')}</h3>
         <form onSubmit={this.handleSubmit} className="registration__form registration-form">
           <div className="form-row">
             <label htmlFor="login" className="registration-form__label col-sm-4">
@@ -84,7 +85,7 @@ class AuthForm extends PureComponent {
             {fieldsMsg.errorMsg}
           </div>
           <button type="submit" className="btn btn-secondary submit" disabled={isSubmit}>
-            {globalRecources.sendText}
+            {t('global.button.send')}
             {isSubmit && <Loader />}
           </button>
         </form>
@@ -93,4 +94,4 @@ class AuthForm extends PureComponent {
   }
 }
 
-export default AuthForm;
+export default withTranslation(AuthForm);

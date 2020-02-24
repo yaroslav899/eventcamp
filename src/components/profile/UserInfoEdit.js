@@ -1,12 +1,12 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
+import { withTranslation } from 'react-multi-lang';
 import { formValidator } from '../../validator';
 import Loader from '../global/Loader';
 import { getCookie } from '../../_cookie';
 import { stringifyJSON, parseJSON } from '../../helper/json';
 import { fetchProfileData } from '../../api';
 import { fieldsRegisterForm } from '../../resources';
-import { globalRecources } from '../../resources/global';
 import { addEventFields } from '../../resources/profile';
 
 class UserInfoEdit extends PureComponent {
@@ -99,7 +99,7 @@ class UserInfoEdit extends PureComponent {
       return <Fragment />;
     }
 
-    const { nameLabel, emailLabel, phoneLabel, cityLabel } = this.props;
+    const { nameLabel, emailLabel, phoneLabel, cityLabel, t } = this.props;
     const {
       name,
       email,
@@ -137,7 +137,7 @@ class UserInfoEdit extends PureComponent {
           </div>
           <div className="col-12">
             <button type="submit" className="btn btn-secondary submit" disabled={isSubmit}>
-              {globalRecources.change}
+              {t('global.button.change')}
               {isSubmit && <Loader />}
             </button>
           </div>
@@ -158,4 +158,4 @@ UserInfoEdit.defaultProps = {
   cityLabel: addEventFields.cityField,
 };
 
-export default connect(null, mapDispatchToProps)(UserInfoEdit);
+export default withTranslation(connect(null, mapDispatchToProps)(UserInfoEdit));

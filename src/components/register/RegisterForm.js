@@ -1,13 +1,12 @@
 import React, { Component, Fragment } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
+import { withTranslation } from 'react-multi-lang';
 import Loader from '../global/Loader';
 import { reCaptcha } from '../../credentials';
 import { formValidator } from '../../validator';
 import { request } from '../../api';
 import { createMarkupText } from '../../helper';
 import { fieldsRegisterForm, detailRecources } from '../../resources';
-import { titleList, globalRecources } from '../../resources/global';
-import { global } from '../../resources/profile';
 
 class RegisterForm extends Component {
   constructor(props) {
@@ -112,11 +111,12 @@ class RegisterForm extends Component {
 
   render() {
     const { isSuccessRegister, isSubmit } = this.state;
+    const { t } = this.props;
 
     if (isSuccessRegister) {
       return (
         <Fragment>
-          {global.successRegisterMsg}
+          {t('global.successRegisterMsg')}
         </Fragment>
       );
     }
@@ -145,12 +145,12 @@ class RegisterForm extends Component {
 
     return (
       <Fragment>
-        <h3>{titleList.registration}</h3>
+        <h3>{t('title.registration')}</h3>
         <form onSubmit={this.submitHandler} className="registration__form registration-form">
           {fields}
           <br />
           <input type="checkbox" onChange={this.privacyHandler} />
-          <span dangerouslySetInnerHTML={createMarkupText(globalRecources.privacy)} />
+          <span dangerouslySetInnerHTML={createMarkupText(t('global.privacy'))} />
           <ReCAPTCHA sitekey={reCaptcha.siteKey} onChange={this.reCaptchaHandler} />
           <span className="error-message" dangerouslySetInnerHTML={createMarkupText(errorMsg)} />
           <button type="submit" className="btn btn-secondary submit" disabled={isSubmit}>
@@ -163,4 +163,4 @@ class RegisterForm extends Component {
   }
 }
 
-export default RegisterForm;
+export default withTranslation(RegisterForm);

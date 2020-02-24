@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
+import { withTranslation } from 'react-multi-lang';
 import { fieldsRegisterForm, detailRecources } from '../../resources';
-import { globalRecources } from '../../resources/global';
 
 class CallBackForm extends PureComponent {
   state = {
@@ -15,7 +15,7 @@ class CallBackForm extends PureComponent {
 
   render() {
     const { firstname, email, textDescription } = this.state;
-    const { firstNameValue, emailValue, descriptionValue, sendText } = this.props;
+    const { firstNameValue, emailValue, descriptionValue, t } = this.props;
 
     return (
       <form id="contactForm" method="post">
@@ -38,7 +38,7 @@ class CallBackForm extends PureComponent {
           <textarea id="textDescription" className="form-control col-sm-7" cols="33" name="textDescription" rows="5" onChange={this.onChange} value={textDescription} />
         </div>
         <button className="btn btn-secondary submit" type="submit">
-          {sendText}
+          {t('global.button.send')}
         </button>
       </form>
     );
@@ -49,7 +49,6 @@ CallBackForm.defaultProps = {
   firstNameValue: fieldsRegisterForm.firstname,
   emailValue: fieldsRegisterForm.email,
   descriptionValue: detailRecources.description,
-  sendText: globalRecources.sendText,
 };
 
-export default CallBackForm;
+export default withTranslation(CallBackForm);

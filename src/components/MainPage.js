@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
+import { withTranslation } from 'react-multi-lang';
 import Adventages from './global/Adventages';
 import ServicePicture from './global/ServicePicture';
 import LastPosts from './global/LastPosts';
@@ -10,10 +11,6 @@ import Button from './global/Button';
 import MainText from './MainText';
 import { getHistoryUrl } from '../helper';
 import { meta } from '../resources/meta/hp';
-import { globalRecources } from '../resources/global';
-
-
-
 
 class MainPage extends PureComponent {
   render() {
@@ -25,11 +22,10 @@ class MainPage extends PureComponent {
       metaimg,
       metalang,
       h2,
-      actionCtaHPLabel,
       cities = '',
+      t,
     } = this.props;
-    const { t } = this.props;
-    var e = 12;
+
     return (
       <section>
         <Helmet>
@@ -46,7 +42,6 @@ class MainPage extends PureComponent {
           <link rel="canonical" href={metaurl} />
         </Helmet>
         <div className="container home-page">
-          {t('profile.global.addEventButton')}
           <Adventages />
           <div className="row">
             <div className="col-12 col-sm-9 category-main">
@@ -60,7 +55,7 @@ class MainPage extends PureComponent {
             <div className="col-12 col-md-3 events_filter-wrapper">
               <CityField changeHistory={false} />
               <DateRange />
-              <Button text={actionCtaHPLabel} className="events-item-action__button" to={getHistoryUrl('cities', { value: cities }, '')} />
+              <Button text={t('global.button.show')} className="events-item-action__button" to={getHistoryUrl('cities', { value: cities }, '')} />
               <LastPosts />
             </div>
           </div>
@@ -79,11 +74,10 @@ MainPage.defaultProps = {
   metaimg: meta.img,
   metalang: meta.lang,
   h2: meta.h2,
-  actionCtaHPLabel: globalRecources.actionCtaHPLabel,
 };
 
 function mapStateToProps(store) {
   return { cities: store.eventState.cities };
 }
 
-export default connect(mapStateToProps)(MainPage);
+export default withTranslation(connect(mapStateToProps)(MainPage));

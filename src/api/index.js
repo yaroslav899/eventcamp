@@ -5,15 +5,15 @@ import { getRequestUrl, getInterestingUrl, getLastPostsUrl, fetchData, authFetch
 import { adminAccess, googleApiService } from '../credentials';
 import { parseJSON, stringifyJSON } from '../helper/json';
 import { urlRecources } from '../resources/url';
-import { globalRecources } from '../resources/global';
 import { mainMenu } from '../resources/menu';
 import { updatePagination } from '../redux/actions/paginationActions';
 import { updateUserProfile } from '../redux/actions/userActions';
 import { updateEventList, updateDetailPost, updateLastPost, eventLoading, eventLoaded, eventFailed } from '../redux/actions/eventActions';
 
-export const fetchEventList = (param) => (dispatch) => {
+export const fetchEventList = param => (dispatch) => {
   const url = getRequestUrl(param);
   const myHeaders = { cache: 'no-cache' };
+  const EMPTY_RESULT_MSG = "Змініть ваш пошук, так як дані відсутні";
 
   dispatch(eventLoading());
 
@@ -25,13 +25,13 @@ export const fetchEventList = (param) => (dispatch) => {
     })
     .then((events) => {
       if (!events.length) {
-        events.push({ empty: globalRecources.noFilterResult });
+        events.push({ empty: EMPTY_RESULT_MSG });
       }
 
       return dispatch(updateEventList(events));
     })
     .then(() => dispatch(eventLoaded()))
-    .catch(() => dispatch(eventFailed(globalRecources.noFilterResult)));
+    .catch(() => dispatch(eventFailed(EMPTY_RESULT_MSG)));
 };
 
 export const fetchLastEvents = () => (dispatch) => {

@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react';
+import { withTranslation } from 'react-multi-lang';
 import { connect } from 'react-redux';
 import Modal from '../global/Modal';
 import GoogleCalendar from './GoogleCalendar';
 import EventDetailView from './views/EventDetailView';
 import { fetchProfileData } from '../../api';
 import { imageUrlRecources } from '../../resources/url';
-import { globalRecources } from '../../resources/global';
 
 class EventDetail extends PureComponent {
   state = {
@@ -72,8 +72,7 @@ class EventDetail extends PureComponent {
       date,
       dateDay,
       noPhotoUrl,
-      interestedTitle,
-      nonRegistredTitle,
+      t,
     } = this.props;
     const {
       title: { rendered: eventTitle },
@@ -112,7 +111,7 @@ class EventDetail extends PureComponent {
           && <Modal
             toggleModal={this.toggleModal}
             modalTitle={eventTitle}
-            modalBody={isAuthorized ? interestedTitle : nonRegistredTitle}
+            modalBody={isAuthorized ? t('global.eventAddedToAccount') : t('global.needToRegister')}
             modalFooter={isAuthorized ? <GoogleCalendar data={event} /> : false}
           />
         }
@@ -123,8 +122,6 @@ class EventDetail extends PureComponent {
 
 EventDetail.defaultProps = {
   noPhotoUrl: imageUrlRecources.noPhoto,
-  interestedTitle: globalRecources.interestedTitle,
-  nonRegistredTitle: globalRecources.nonRegistred,
 };
 
 function mapStateToProps(store) {
@@ -135,4 +132,4 @@ function mapDispatchToProps(dispatch) {
   return { fetchProfileData: (bodyParam, userID) => dispatch(fetchProfileData(bodyParam, userID)) };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EventDetail);
+export default withTranslation(connect(mapStateToProps, mapDispatchToProps)(EventDetail));

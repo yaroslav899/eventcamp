@@ -1,11 +1,11 @@
 ﻿import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { withTranslation } from 'react-multi-lang';
 import Menu from '../menu';
 import { imageUrlRecources } from '../../resources/url';
 import { meta } from '../../resources/meta/hp';
-import { globalRecources } from '../../resources/global';
 
-const Footer = ({ logoUrl, copyrightText, privacyText, title }) => (
+const Footer = ({ logoUrl, copyrightText, privacyText, title, t }) => (
   <footer className="footer">
     <div className="container">
       <div className="row">
@@ -19,10 +19,10 @@ const Footer = ({ logoUrl, copyrightText, privacyText, title }) => (
             <Menu />
           </div>
           <div className="copyright">
-            {copyrightText}
+            {t('global.copyright')}
             <br />
             <NavLink to="/policy" exact>
-              {privacyText}
+              {t('global.privacyText')}
             </NavLink>
           </div>
         </div>
@@ -33,9 +33,7 @@ const Footer = ({ logoUrl, copyrightText, privacyText, title }) => (
 
 Footer.defaultProps = {
   logoUrl: imageUrlRecources.logo,
-  copyrightText: globalRecources.copyright,
-  privacyText: globalRecources.privacyText,
   title: meta.title,
 };
 
-export default Footer;
+export default withTranslation(Footer);

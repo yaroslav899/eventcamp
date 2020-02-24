@@ -1,5 +1,6 @@
-import React, { Fragment }  from 'react';
+import React, { Fragment } from 'react';
 import { NavLink } from 'react-router-dom';
+import { withTranslation } from 'react-multi-lang';
 import EventImage from '../../event-global/EventImage';
 import EventLocation from '../../event-global/EventLocation';
 import EventDate from '../../event-global/EventDate';
@@ -7,7 +8,6 @@ import EventPrice from '../../event-global/EventPrice';
 import EventTags from '../../event-global/EventTags';
 import Button from '../../global/Button';
 import { createMarkupText } from '../../../helper';
-import { globalRecources } from '../../../resources/global';
 
 const EventView = (props) => {
   const {
@@ -26,8 +26,7 @@ const EventView = (props) => {
     eventDate,
     isSubscribed,
     subscribeHandler,
-    moreInfoButton,
-    interestedButton,
+    t,
   } = props;
 
   return (
@@ -47,9 +46,9 @@ const EventView = (props) => {
         <EventLocation className="events-item__location" city={eventCity} address={eventLocation} />
         <EventDate className="events-item__date" date={eventDate} />
         <div className="events-item__action events-item-action">
-          <Button text={moreInfoButton} to={eventUrl} className="events-item-action__button" />
+          <Button text={t('global.button.open')} to={eventUrl} className="events-item-action__button" />
           <span className={`events-item-action__button ${isSubscribed && 'action-button__active'}`} onClick={subscribeHandler}>
-            {interestedButton}
+            {t('global.button.follow')}
           </span>
         </div>
       </div>
@@ -57,9 +56,4 @@ const EventView = (props) => {
   );
 };
 
-EventView.defaultProps = {
-  moreInfoButton: globalRecources.moreInfo,
-  interestedButton: globalRecources.interestingCTA,
-};
-
-export default EventView;
+export default withTranslation(EventView);

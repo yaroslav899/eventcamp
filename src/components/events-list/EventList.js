@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import { withTranslation } from 'react-multi-lang';
 import EventView from './views/EventView';
 import Modal from '../global/Modal';
 import GoogleCalendar from '../event-detail/GoogleCalendar';
@@ -7,7 +8,6 @@ import { fetchProfileData } from '../../api';
 import { getValueFromParams } from '../../helper';
 import { categories } from '../../fixtures';
 import { imageUrlRecources } from '../../resources/url';
-import { globalRecources } from '../../resources/global';
 
 class EventList extends PureComponent {
   state = {
@@ -75,9 +75,8 @@ class EventList extends PureComponent {
       imgWrapClass,
       descrWrapClass,
       actionWrapClass,
-      interestedTitle,
-      nonRegistredTitle,
       noPhotoUrl,
+      t,
     } = this.props;
     const {
       id: eventID,
@@ -123,7 +122,7 @@ class EventList extends PureComponent {
           && <Modal
             toggleModal={this.toggleModal}
             modalTitle={eventTitle}
-            modalBody={isAuthorized ? interestedTitle : nonRegistredTitle}
+            modalBody={isAuthorized ? t('global.eventAddedToAccount') : t('global.needToRegister')}
             modalFooter={isAuthorized ? <GoogleCalendar data={event} /> : false}
           />
         }
@@ -132,11 +131,7 @@ class EventList extends PureComponent {
   }
 }
 
-EventList.defaultProps = {
-  interestedTitle: globalRecources.interestedTitle,
-  nonRegistredTitle: globalRecources.nonRegistred,
-  noPhotoUrl: imageUrlRecources.noPhoto,
-};
+EventList.defaultProps = { noPhotoUrl: imageUrlRecources.noPhoto };
 
 function mapStateToProps(store) {
   return { userProfile: store.user.data };
@@ -146,4 +141,4 @@ function mapDispatchToProps(dispatch) {
   return { fetchProfileData: (bodyParam, userID) => dispatch(fetchProfileData(bodyParam, userID)) };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EventList);
+export default withTranslation(connect(mapStateToProps, mapDispatchToProps)(EventList));
