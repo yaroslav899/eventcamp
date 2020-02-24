@@ -1,7 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
+import { withTranslation } from 'react-multi-lang';
 import UserInfoData from './UserInfoData';
 import UserInfoEdit from './UserInfoEdit';
-import { profileProperties } from '../../resources/profile';
 
 class UserInfo extends PureComponent {
   state = { isEditMode: false }
@@ -13,7 +13,7 @@ class UserInfo extends PureComponent {
   }
 
   render() {
-    const { user } = this.props;
+    const { user, t } = this.props;
 
     if (!user) {
       return <Fragment />;
@@ -25,11 +25,11 @@ class UserInfo extends PureComponent {
       <div className="col-12 col-sm-6">
         <div className="row">
           <div className="col-6">
-            <h3>{profileProperties.title}</h3>
+            <h3>{t('title.profile')}</h3>
           </div>
           <div className="col-6">
             <button type="button" className="profile__add-button" onClick={this.changeProfileInfo}>
-              {!isEditMode ? profileProperties.editProfileButton : profileProperties.cancelEditProfileButton}
+              {!isEditMode ? t('profile.button.editProfile') : t('global.button.cancel')}
             </button>
           </div>
         </div>
@@ -39,4 +39,4 @@ class UserInfo extends PureComponent {
   }
 }
 
-export default UserInfo;
+export default withTranslation(UserInfo);

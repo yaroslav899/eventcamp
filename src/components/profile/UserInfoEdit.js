@@ -7,7 +7,6 @@ import { getCookie } from '../../_cookie';
 import { stringifyJSON, parseJSON } from '../../helper/json';
 import { fetchProfileData } from '../../api';
 import { fieldsRegisterForm } from '../../resources';
-import { addEventFields } from '../../resources/profile';
 
 class UserInfoEdit extends PureComponent {
   state = {
@@ -99,7 +98,7 @@ class UserInfoEdit extends PureComponent {
       return <Fragment />;
     }
 
-    const { nameLabel, emailLabel, phoneLabel, cityLabel, t } = this.props;
+    const { nameLabel, emailLabel, t } = this.props;
     const {
       name,
       email,
@@ -124,11 +123,11 @@ class UserInfoEdit extends PureComponent {
           </div>
           <div className="col-6">
             <p>
-              <label htmlFor="phone">{phoneLabel}</label>
+              <label htmlFor="phone">{t('profile.field.label.phone')}</label>
               <input type="text" className="form-control" name="phone" value={phone} onChange={this.handleInputChange} />
             </p>
             <p>
-              <label htmlFor="city">{cityLabel}</label>
+              <label htmlFor="city">{t('profile.field.label.city')}</label>
               <input type="text" className="form-control" name="city" value={city} onChange={this.handleInputChange} />
             </p>
           </div>
@@ -154,8 +153,6 @@ function mapDispatchToProps(dispatch) {
 UserInfoEdit.defaultProps = {
   nameLabel: fieldsRegisterForm.firstname,
   emailLabel: fieldsRegisterForm.email,
-  phoneLabel: addEventFields.phoneField,
-  cityLabel: addEventFields.cityField,
 };
 
 export default withTranslation(connect(null, mapDispatchToProps)(UserInfoEdit));

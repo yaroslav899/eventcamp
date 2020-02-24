@@ -1,10 +1,10 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
+import { withTranslation } from 'react-multi-lang';
 import { updateUserProfile } from '../../redux/actions/userActions';
 import { request, fetchProfileData } from '../../api';
 import { setCookie } from '../../_cookie';
 import { stringifyJSON } from '../../helper/json';
-import { profileProperties } from '../../resources/profile';
 import { imageUrlRecources } from '../../resources/url';
 
 class UserImage extends PureComponent {
@@ -51,7 +51,7 @@ class UserImage extends PureComponent {
   };
 
   render() {
-    const { user } = this.props;
+    const { user, t } = this.props;
 
     if (!user) {
       return null;
@@ -62,16 +62,16 @@ class UserImage extends PureComponent {
     return (
       <Fragment>
         <div className="col-6 d-none d-sm-block">
-          <h1>{profileProperties.title}</h1>
+          <h1>{t('title.profile')}</h1>
         </div>
         <div className="col-6 d-none d-sm-block text-right" />
         <div className="col-3 d-none d-sm-block text-center">
-          <h3>{profileProperties.photoUser}</h3>
+          <h3>{t('profile.global.photoUser')}</h3>
           <img src={imageUrl || imageUrlRecources.noPhoto} alt="profile" className="img-fluid rounded-circle profile__photo" />
         </div>
         <div className="col-3 d-none d-sm-block profile__add-photo">
           <p>
-            {profileProperties.uploadFile}
+            {t('profile.global.uploadFile')}
             <br />
             <input type="file" ref={this.fileInput} onChange={this.handleUploadImage} />
           </p>
@@ -88,4 +88,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(null, mapDispatchToProps)(UserImage);
+export default withTranslation(connect(null, mapDispatchToProps)(UserImage));

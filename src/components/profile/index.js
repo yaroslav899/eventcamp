@@ -6,6 +6,7 @@ import {
   TabList,
   TabPanel,
 } from 'react-tabs';
+import { withTranslation } from 'react-multi-lang';
 import OwnEvents from './OwnEvents';
 import UserImage from './UserImage';
 import UserInfo from './UserInfo';
@@ -14,7 +15,6 @@ import { setCookie } from '../../_cookie';
 import { updateUserProfile } from '../../redux/actions/userActions';
 import { stringifyJSON } from '../../helper/json';
 import { request } from '../../api';
-import { profileProperties } from '../../resources/profile';
 
 class Profile extends PureComponent {
   componentDidMount() {
@@ -34,7 +34,7 @@ class Profile extends PureComponent {
   }
 
   render() {
-    const { userProfile } = this.props;
+    const { userProfile, t } = this.props;
 
     return (
       <div className="container profile">
@@ -46,8 +46,8 @@ class Profile extends PureComponent {
           <div className="col-12">
             <Tabs>
               <TabList>
-                <Tab>{profileProperties.organizer}</Tab>
-                <Tab>{profileProperties.participant}</Tab>
+                <Tab>{t('profile.global.organizer')}</Tab>
+                <Tab>{t('profile.global.participant')}</Tab>
               </TabList>
               <TabPanel>
                 <div className="row">
@@ -79,4 +79,4 @@ function mapDispatchToProps(dispatch) {
   return { updateUserProfile: data => dispatch(updateUserProfile(data)) };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default withTranslation(connect(mapStateToProps, mapDispatchToProps)(Profile));

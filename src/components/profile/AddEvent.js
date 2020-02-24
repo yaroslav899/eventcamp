@@ -2,12 +2,12 @@ import React, { PureComponent } from 'react';
 import { EditorState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import Select from 'react-select';
+import { withTranslation } from 'react-multi-lang';
 import { request } from '../../api';
 import Loader from '../global/Loader';
 import { formValidator } from '../../validator';
 import { categories, cities, defaultTopic } from '../../fixtures';
 import { currencies } from '../../resources/currencies';
-import { global, addEventFields, addEventPlaceholders, descrFields } from '../../resources/profile';
 
 class AddEvent extends PureComponent {
   state = {
@@ -106,31 +106,31 @@ class AddEvent extends PureComponent {
 
   validator = () => {
     const { title, category, currentTheme, date, city } = this.state;
-    const { titleField, categoryField, topicField, dateField, cityField } = addEventFields;
+    const { t } = this.props;
     const fields = {
       title: {
         value: title,
-        name: titleField,
+        name: t('profile.field.label.title'),
         rules: ['isMandatory'],
       },
       category: {
         value: category,
-        name: categoryField,
+        name: t('profile.field.label.category'),
         rules: ['isMandatory'],
       },
       currentTheme: {
         value: currentTheme,
-        name: topicField,
+        name: t('profile.field.label.topic'),
         rules: ['isMandatory'],
       },
       date: {
         value: date,
-        name: dateField,
+        name: t('profile.field.label.date'),
         rules: ['isMandatory'],
       },
       city: {
         value: city,
-        name: cityField,
+        name: t('profile.field.label.city'),
         rules: ['isMandatory'],
       },
     };
@@ -159,29 +159,36 @@ class AddEvent extends PureComponent {
       isAddingEvent,
       isSuccessRegister,
     } = this.state;
-    const { successMsg } = this.props;
+    const { t } = this.props;
 
     if (isSuccessRegister) {
       return (
         <div className="container">
-          {successMsg}
+          {t('profile.global.success')}
         </div>
       );
     }
 
     return (
       <div className="container">
-        <h1>{global.addEventButton}</h1>
+        <h1>{t('global.button.addEvent')}</h1>
         <form onSubmit={this.handleSubmit} className="event-editor">
           <div className="form-row">
             <div className="col-md-6">
               <div className="row">
                 <div className="form-group col-md-12">
-                  <label htmlFor="title">{addEventFields.titleField}</label>
-                  <input type="text" className="form-control" name="title" value={title} onChange={this.handleInputChange} placeholder={addEventPlaceholders.titleField} />
+                  <label htmlFor="title">{t('profile.field.label.title')}</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="title"
+                    value={title}
+                    onChange={this.handleInputChange}
+                    placeholder={t('profile.field.placeholder.title')}
+                  />
                 </div>
                 <div className="form-group col-md-6">
-                  <label htmlFor="category">{addEventFields.categoryField}</label>
+                  <label htmlFor="category">{t('profile.field.label.category')}</label>
                   <Select
                     name="form-field-category"
                     label="category"
@@ -195,7 +202,7 @@ class AddEvent extends PureComponent {
                   />
                 </div>
                 <div className="form-group col-md-6">
-                  <label htmlFor="topics">{addEventFields.topicField}</label>
+                  <label htmlFor="topics">{t('profile.field.label.topic')}</label>
                   <Select
                     name="form-field-topics"
                     label="topics"
@@ -211,85 +218,116 @@ class AddEvent extends PureComponent {
               </div>
             </div>
             <div className="form-group offset-md-2 col-md-4 event-editor_picture">
-              <p className="descr-label">{descrFields.pictureField}</p>
+              <p className="descr-label">{t('profile.field.descrLabel.picture')}</p>
               <p><input type="file" ref={this.fileInput} /></p>
             </div>
           </div>
           <div className="border-separate" />
           <div className="form-row">
             <div className="form-group col-md-2">
-              <label htmlFor="date">{addEventFields.dateField}</label>
-              <input type="date" className="form-control" name="date" value={date} onChange={this.handleInputChange} />
+              <label htmlFor="date">{t('profile.field.label.date')}</label>
+              <input
+                type="date"
+                className="form-control"
+                name="date"
+                value={date}
+                onChange={this.handleInputChange}
+              />
             </div>
             <div className="form-group col-md-2">
-              <label htmlFor="time">
-                {addEventFields.timeField}
-              </label>
-              <input type="time" className="form-control" name="time" value={time} onChange={this.handleInputChange} />
+              <label htmlFor="time">{t('profile.field.label.time')}</label>
+              <input
+                type="time"
+                className="form-control"
+                name="time"
+                value={time}
+                onChange={this.handleInputChange}
+              />
             </div>
           </div>
           <div className="border-separate" />
           <div className="form-row">
             <div className="form-group col-md-4">
-              <label htmlFor="register">{addEventFields.linkField}</label>
-              <input type="text" className="form-control" name="register" value={register} onChange={this.handleInputChange} placeholder={addEventPlaceholders.linkField} />
+              <label htmlFor="register">{t('profile.field.label.link')}</label>
+              <input
+                type="text"
+                className="form-control"
+                name="register"
+                value={register}
+                onChange={this.handleInputChange}
+                placeholder={t('profile.field.placeholder.link')}
+              />
             </div>
             <div className="form-group col-md-6 offset-md-2 descr-label">
-              {descrFields.linkField}
+              {t('profile.field.descrLabel.link')}
             </div>
           </div>
           <div className="border-separate" />
           <div className="form-row">
             <div className="form-group col-md-4">
-              <label htmlFor="phone">{addEventFields.phoneField}</label>
-              <input type="text" className="form-control" name="phone" value={phone} onChange={this.handleInputChange} placeholder={addEventPlaceholders.phoneField} />
+              <label htmlFor="phone">{t('profile.field.label.phone')}</label>
+              <input
+                type="text"
+                className="form-control"
+                name="phone"
+                value={phone}
+                onChange={this.handleInputChange}
+                placeholder={t('profile.field.placeholder.phone')}
+              />
             </div>
             <div className="form-group col-md-6 offset-md-2 descr-label">
-              {descrFields.phoneField}
+              {t('profile.field.descrLabel.phone')}
             </div>
           </div>
           <div className="border-separate" />
           <div className="form-row">
             <div className="form-group col-md-4">
-              <label htmlFor="email">{addEventFields.emailField}</label>
-              <input type="text" className="form-control" name="email" value={email} onChange={this.handleInputChange} placeholder={addEventPlaceholders.emailField} />
+              <label htmlFor="email">{t('profile.field.label.email')}</label>
+              <input
+                type="text"
+                className="form-control"
+                name="email"
+                value={email}
+                onChange={this.handleInputChange}
+                placeholder={t('profile.field.placeholder.email')}
+              />
             </div>
             <div className="form-group col-md-6 offset-md-2 descr-label">
-              {descrFields.emailField}
+              {t('profile.field.descrLabel.email')}
             </div>
           </div>
           <div className="border-separate" />
           <div className="form-row">
             <div className="form-group col-md-4">
-              <label htmlFor="tags">{addEventFields.tagsField}</label>
+              <label htmlFor="tags">{t('profile.field.label.tags')}</label>
               <input
                 type="text"
                 className="form-control"
                 name="tags"
                 value={tags}
                 onChange={this.handleInputChange}
-                placeholder={addEventPlaceholders.tagsField}
+                placeholder={t('profile.field.placeholder.tags')}
               />
             </div>
             <div className="form-group col-md-6 offset-md-2 descr-label">
-              {descrFields.tagsField}
+              {t('profile.field.descrLabel.tags')}
             </div>
           </div>
           <div className="border-separate" />
           <div className="form-row">
             <div className="form-group col-md-2">
-              <label htmlFor="price">{addEventFields.priceField}</label>
+              <label htmlFor="price">{t('profile.field.label.price')}</label>
               <input
                 type="number"
                 className="form-control"
                 name="price"
                 value={price}
                 onChange={this.handleInputChange}
-                placeholder={addEventPlaceholders.priceField}
+                placeholder={t('profile.field.label.price')}
               />
             </div>
             <div className="form-group col-md-2">
-              <label htmlFor="currency">{addEventFields.curriencesField}</label>
+              <label htmlFor="currency">{t('profile.field.label.curriency')}</label>
               <Select
                 name="form-field-currency"
                 label="currency"
@@ -306,7 +344,7 @@ class AddEvent extends PureComponent {
           <div className="border-separate" />
           <div className="form-row">
             <div className="form-group col-md-3">
-              <label htmlFor="city">{addEventFields.cityField}</label>
+              <label htmlFor="city">{t('profile.field.label.city')}</label>
               <Select
                 name="form-field-cities"
                 label="city"
@@ -320,17 +358,22 @@ class AddEvent extends PureComponent {
               />
             </div>
             <div className="form-group col-md-5">
-              <label htmlFor="address">{addEventFields.addressField}</label>
-              <input type="text" className="form-control" name="address" value={address} onChange={this.handleInputChange} placeholder={addEventPlaceholders.addressField} />
+              <label htmlFor="address">{t('profile.field.label.address')}</label>
+              <input
+                type="text"
+                className="form-control"
+                name="address"
+                value={address}
+                onChange={this.handleInputChange}
+                placeholder={t('profile.field.placeholder.address')}
+              />
             </div>
             <div className="form-group offset-md-1 col-md-3 descr-label">
-              {descrFields.cityField}
+              {t('profile.field.descrLabel.city')}
             </div>
           </div>
           <div className="border-separate" />
-          <span>
-            {addEventFields.descriptionField}
-          </span>
+          <span>{t('profile.field.label.description')}</span>
           <Editor
             editorState={editorState}
             toolbarClassName="toolbarClassName"
@@ -341,7 +384,7 @@ class AddEvent extends PureComponent {
           <div className="border-separate" />
           <span className="error-message">{errorMsg}</span>
           <button type="submit" className="btn btn-secondary submit" disabled={isAddingEvent}>
-            {global.addEventButton}
+            {t('global.button.addEvent')}
             {isAddingEvent && <Loader />}
           </button>
         </form>
@@ -350,6 +393,4 @@ class AddEvent extends PureComponent {
   }
 }
 
-AddEvent.defaultProps = { successMsg: global.successMsg };
-
-export default AddEvent;
+export default withTranslation(AddEvent);

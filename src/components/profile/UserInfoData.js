@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react';
+import { withTranslation } from 'react-multi-lang';
 import Field from '../global/Field';
 import { fieldsRegisterForm } from '../../resources';
-import { addEventFields } from '../../resources/profile';
 
 const UserInfoData = (props) => {
-  const { user } = props;
+  const { user, t } = props;
 
   if (!user) {
     return <Fragment />;
@@ -17,11 +17,11 @@ const UserInfoData = (props) => {
         <Field label={fieldsRegisterForm.email} text={user.email} className="profile-email" />
       </div>
       <div className="col-6">
-        <Field label={addEventFields.phoneField} text={user.phone} />
-        <Field label={addEventFields.cityField} text={user.city} />
+        <Field label={t('profile.field.label.phone')} text={user.phone} />
+        <Field label={t('profile.field.label.city')} text={user.city} />
       </div>
     </div>
   );
 };
 
-export default UserInfoData;
+export default withTranslation(UserInfoData);

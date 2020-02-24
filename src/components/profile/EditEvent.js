@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import { EditorState, ContentState, convertFromHTML } from 'draft-js';
+import { withTranslation } from 'react-multi-lang';
 import { request } from '../../api';
 import AddEvent from './AddEvent';
 import { categories, cities } from '../../fixtures';
-import { global } from '../../resources/profile';
 import { userMenu } from '../../resources/menu';
 
 class EditEvent extends AddEvent {
@@ -101,10 +101,8 @@ class EditEvent extends AddEvent {
   };
 }
 
-EditEvent.defaultProps = { successMsg: global.successEditMsg };
-
 function mapStateToProps(store) {
   return { listPosts: store.user.listPosts };
 }
 
-export default connect(mapStateToProps)(EditEvent);
+export default withTranslation(connect(mapStateToProps)(EditEvent));

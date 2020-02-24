@@ -5,14 +5,14 @@ import {
   TabList,
   TabPanel,
 } from 'react-tabs';
+import { withTranslation } from 'react-multi-lang';
 import OwnEvents from './OwnEvents';
-import { profileProperties } from '../../resources/profile';
 
-const TabProfileEvents = (userData, addEventUrl) => (
+const TabProfileEvents = (userData, addEventUrl, t) => (
   <Tabs>
     <TabList>
-      <Tab>{profileProperties.organizer}</Tab>
-      <Tab>{profileProperties.participant}</Tab>
+      <Tab>{t('profile.global.organizer')}</Tab>
+      <Tab>{t('profile.global.participant')}</Tab>
     </TabList>
     <TabPanel>
       <div className="row">
@@ -27,11 +27,11 @@ const TabProfileEvents = (userData, addEventUrl) => (
     <TabPanel>
       <div className="row">
         <div className="col-12">
-          {profileProperties.organizer}
+          {t('profile.global.organizer')}
         </div>
       </div>
     </TabPanel>
   </Tabs>
 );
 
-export default TabProfileEvents;
+export default withTranslation(TabProfileEvents);
