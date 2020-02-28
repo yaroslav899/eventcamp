@@ -12,7 +12,7 @@ const Header = ({ logoUrl, title }) => (
     <div className="authBlock">
       <div className="container">
         <div className="row">
-          <div className="col-sm-2 col-2">
+          <div className="col-sm-2 col-2 header__language-switcher">
             <LanguageSwitcher />
           </div>
           <div className="col-sm-10 col-10">

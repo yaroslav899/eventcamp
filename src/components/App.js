@@ -24,9 +24,10 @@ import PrivateRoute from './hoc/PrivateRoute';
 
 import uk from '../translations/uk/common.json';
 import ru from '../translations/ru/common.json';
+import en from '../translations/en/common.json';
 
-setTranslations({ uk, ru });
-setDefaultLanguage('uk');
+setTranslations({ uk, ru, en });
+setDefaultLanguage(window.location.host.split('.')[0].length == 2 ? window.location.host.split('.')[0] : 'uk');
 
 const history = createBrowserHistory();
 

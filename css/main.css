@@ -94,7 +94,38 @@ header .authBlock {
 .header-registration__login {
   color: #f2c609 !important;
 }
-
+/**
+* Header Language switcher
+*/
+.header__language-switcher .Select--single {
+  width: 75px;
+  height: 22px;
+  margin: 5px 0 0;
+}
+.header__language-switcher .Select.has-value.Select--single > .Select-control .Select-value .Select-value-label {
+  background-color: transparent !important;
+  color: #ffffff !important;
+}
+.header__language-switcher .Select-control, .header__language-switcher .Select-control .Select-input, .header__language-switcher .Select-control .Select-value {
+  height: 22px !important;
+  line-height: 22px !important;
+  background-color: transparent !important;
+  color: #ffffff !important;
+  border: 0 !important;
+}
+.header__language-switcher .Select-control .Select-value {
+  background-size: 25px !important;
+  padding-left: 30px !important;
+}
+.header__language-switcher .Select-control .Select-value.language-uk {
+  background: url(/img/flags.png) no-repeat 0px -43px;
+}
+.header__language-switcher .Select-control .Select-value.language-ru {
+  background: url(/img/flags.png) no-repeat 0px -19px;
+}
+.header__language-switcher .Select-control .Select-value.language-en {
+  background: url(/img/flags.png) no-repeat 0px 3px;
+}
 /**
 * Main menu navigation
 */
@@ -102,7 +133,7 @@ header .authBlock {
   margin-top: 24px;
   padding: 0;
   float: right;
-  z-index:999;
+  z-index: 999;
 }
 .header nav.navbar ul.navbar-nav li.menu-item a {
   font-weight: bold;

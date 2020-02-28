@@ -12,12 +12,22 @@ class LanguageSwitcher extends PureComponent {
     this.setState({ language });
   }
 
-  changeLanguage = () => {
-    console.log('1');
+  changeLanguage = (option) => {
+    const { value, url } = option;
+    const { language } = this.state;
+
+    if (value === language) {
+      return true;
+    }
+
+    this.setState({ language: value });
+
+    window.location = url;
   }
 
   render() {
     const { language } = this.state;
+
     return (
       <Select
         name="language-switcher"
@@ -27,7 +37,10 @@ class LanguageSwitcher extends PureComponent {
           label: lang.label,
           value: lang.code,
           type: 'language',
+          url: lang.url,
+          className: `language-${lang.code}`,
         }))}
+        clearable={false}
         value={language}
         onChange={this.changeLanguage}
       />
